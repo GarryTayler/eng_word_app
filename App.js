@@ -13,7 +13,10 @@
  import EStyleSheet from 'react-native-extended-stylesheet';
 
  import Home from './app/screens/init/Home';
- import MywordHome from './app/screens/myword/MywordHome';
+ import MyWordHome from './app/screens/myword/MyWordHome';
+ import MySentenceHome from './app/screens/mysentence/MySentenceHome';
+ import MyMakingWordsHome from './app/screens/mymakingwords/MyMakingWordsHome';
+ import StudyResultsHome from './app/screens/studyresults/StudyResultsHome';
  import Login from './app/screens/Login';
  import TabBarIcon from './app/components/TabBarIcon';
 
@@ -61,25 +64,25 @@ class App extends React.Component {
 
                         <Scene hideNavBar key="hidenav">
                             <Scene key="root" showLabel={false} initial>
-                                <Scene key="tabbar" tabs wrap={false} tabBarStyle={styles.tabBarStyle} hideNavBar={true} >
-                                    <Scene key="init" title="처음" reset="home" name="home" icon={TabBarIcon} initial>
+                                <Scene key="tabbar" tabs wrap={false} tabBarStyle={styles.tabBarStyle} hideNavBar >
+                                    <Scene key="init" title="처음" reset="home" name="home" icon={TabBarIcon} hideNavBar initial>
                                         <Scene key="home" component={Home} initial />
                                     </Scene>
 
-                                    <Scene key="myword" title="내단어장" reset="myword_home" name="myword_home" icon={TabBarIcon}>
-                                        <Scene key="myword_home" component={MywordHome} initial />
+                                    <Scene key="my_word" title="내단어장" reset="my_word_home" name="my_word_home" icon={TabBarIcon} hideNavBar>
+                                        <Scene key="my_word_home" component={MyWordHome} initial />
                                     </Scene>
 
-                                    <Scene key="mysentence" title="내문장" reset="mysentence_home" name="mysentence_home" icon={TabBarIcon}>
-                                        <Scene key="mysentence_home" component={MywordHome} initial />
+                                    <Scene key="my_sentence" title="내문장" reset="my_sentence_home" name="my_sentence_home" icon={TabBarIcon} hideNavBar>
+                                        <Scene key="my_sentence_home" component={MySentenceHome} initial />
                                     </Scene>
 
-                                    <Scene key="mymakingwords" title="내가만드는 단어장" reset="mymakingwords_home" name="mymakingwords_home" icon={TabBarIcon}>
-                                        <Scene key="mymakingwords_home" component={MywordHome} initial />
+                                    <Scene key="my_making_words" title="내가만드는 단어장" reset="my_making_words_home" name="my_making_words_home" icon={TabBarIcon} hideNavBar>
+                                        <Scene key="my_making_words_home" component={MyMakingWordsHome} initial />
                                     </Scene>
 
-                                    <Scene key="studyresults" title="학습결과" reset="studyresults_home" name="studyresults_home" icon={TabBarIcon}>
-                                        <Scene key="studyresults_home" component={MywordHome} initial />
+                                    <Scene key="study_results" title="학습결과" reset="study_results_home" name="study_results_home" icon={TabBarIcon} hideNavBar>
+                                        <Scene key="study_results_home" component={StudyResultsHome} initial />
                                     </Scene>
                                 </Scene>
                             </Scene>

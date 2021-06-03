@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text} from 'react-native';
-export default class MywordHome extends React.Component {
+export default class MyWordHome extends React.Component {
     constructor(props){
         super(props);
     }
