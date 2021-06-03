@@ -59,7 +59,7 @@ class App extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <StatusBar barStyle="dark-content" backgroundColor="#e9f1ff" />
+                <StatusBar barStyle="light-content" backgroundColor="black" />
                 <Root>
                     <Router>
 
