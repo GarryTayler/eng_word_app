@@ -34,7 +34,8 @@
     $mainColor2: '#E4E4E4',
     $skyBlue: '#1BA3E5',
     $darkGray: '#4E4E4E',
-    $lightGray: '#A49E9E'
+    $lightGray: '#A49E9E',
+    $mainFontFamily: 'Malgun Gothic',
  });
 
  const styles = StyleSheet.create({
