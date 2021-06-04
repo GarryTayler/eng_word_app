@@ -9,7 +9,7 @@ export default class Home extends React.Component {
         return (
             <View style={styles.container}>
                 <ImageBackground source={Images.backImg} style={styles.image} resizeMode='cover'>
-                    <Text>Hi Home dddd</Text>
+                    <Text>Hi Home ddddddd</Text>
                 </ImageBackground>
             </View>
         );
