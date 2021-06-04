@@ -41,11 +41,11 @@
  const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#e9f1ff'
+      backgroundColor: 'white'
     },
     tabBarStyle: {
       backgroundColor: 'white',
-      height: 60,
+      height: 95,
       paddingBottom: 0,
     }
 });

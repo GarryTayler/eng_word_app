@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet, View, Text} from 'react-native';
+import { StyleSheet, View, Text, ImageBackground} from 'react-native';
+import Images from './../../assets/Images';
 export default class Home extends React.Component {
     constructor(props){
         super(props);
@@ -7,7 +8,9 @@ export default class Home extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text>Hi Home dd</Text>
+                <ImageBackground source={Images.backImg} style={styles.image} resizeMode='cover'>
+                    <Text>Hi Home dddd</Text>
+                </ImageBackground>
             </View>
         );
     }
@@ -16,6 +19,10 @@ export default class Home extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#e9f1ff',
-    }
+        flexDirection: "column"
+    },
+    image: {
+        flex: 1,
+        //resizeMode: "contain"
+    },
 });
