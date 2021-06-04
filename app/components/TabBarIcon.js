@@ -2,11 +2,13 @@ import * as React from 'react';
 import { StyleSheet , View , ImageBackground, Text, Platform, TouchableOpacity } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Images from './../assets/Images';
-import { getTabWidth, fonts } from './../assets/styles/index';
+import { fonts } from './../assets/styles/index';
 
 export default function TabBarIcon(props) {
     return (
-        <TouchableOpacity style={styles.tabItem} onPress={() => Actions.reset(props.reset)}>
+        <TouchableOpacity style={styles.tabItem} 
+        onPress={() => Actions.reset(props.reset)}
+        activeOpacity={0.6}>
             <ImageBackground
               source={props.name == 'home' ? Images.homeTab : (
                 props.name == 'my_word_home' ? Images.myWordTab : (
@@ -32,7 +34,7 @@ export default function TabBarIcon(props) {
 const styles = StyleSheet.create({
   tabItem: {
     height: Platform.OS == 'ios' ? 95 : 95,
-    width: getTabWidth()
+    width: '100%'
   },
   tabImage: {
       flex: 1

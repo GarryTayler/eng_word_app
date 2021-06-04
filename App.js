@@ -46,7 +46,8 @@
     tabBarStyle: {
       backgroundColor: 'white',
       height: 95,
-      paddingBottom: 0,
+      paddingLeft: 0,
+      paddingRight: 0
     }
 });
 
