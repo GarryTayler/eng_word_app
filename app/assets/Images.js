@@ -9,11 +9,30 @@ const Images = {
     studyResults: require('./img/study_result_2x.png'),
     //button
     buttons: [
-        require('./img/_buttons/brown.png'),
-        require('./img/_buttons/blue.png'),
-        require('./img/_buttons/green.png'),
-        require('./img/_buttons/light_gray.png'),
-        require('./img/_buttons/deep_gray.png')
+        [   require('./img/_buttons/brown.png'),
+            require('./img/_buttons/blue.png'),
+            require('./img/_buttons/green.png'),
+            require('./img/_buttons/light_gray.png'),
+            require('./img/_buttons/deep_gray.png')
+        ],
+        [
+            require('./img/_buttons/brown_48.png'),
+            require('./img/_buttons/blue_48.png'),
+            require('./img/_buttons/green_48.png'),
+            require('./img/_buttons/light_gray_48.png')
+        ],
+        [
+            require('./img/_buttons/brown_205.png'),
+            require('./img/_buttons/blue_205.png'),
+            require('./img/_buttons/green_205.png'),
+            require('./img/_buttons/light_gray_205.png')
+        ],
+        [
+            require('./img/_buttons/brown_172.png'),
+            require('./img/_buttons/blue_172.png'),
+            require('./img/_buttons/green_172.png'),
+            require('./img/_buttons/light_gray_172.png')
+        ]
     ]
 }
 export default Images;

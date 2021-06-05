@@ -1,5 +1,7 @@
 import EStyleSheet from 'react-native-extended-stylesheet';
-import {Dimensions, Platform, PixelRatio} from 'react-native';
+import {Dimensions, Platform, PixelRatio, StatusBar} from 'react-native';
+import { getStatusBarHeight } from "react-native-status-bar-height";
+import { isIphoneX, getBottomSpace } from "react-native-iphone-x-helper";
 const {
     width: SCREEN_WIDTH,
     height: SCREEN_HEIGHT
@@ -18,6 +20,28 @@ export function normalize(size) {
         return Math.round(PixelRatio.roundToNearestPixel(size_scale * size))
     } */
     return size;
+}
+
+const tabHeight = 95, buttonSpacing = 32;
+let safeAreaViewHeight = 0;
+
+if(Platform.OS == 'ios') {
+    const statusBarHeight = getStatusBarHeight(true);
+    if (isIphoneX()) {
+        safeAreaViewHeight = SCREEN_HEIGHT - statusBarHeight - getBottomSpace();
+    } else {
+        safeAreaViewHeight = SCREEN_HEIGHT - statusBarHeight;
+    }
+}
+else {
+    safeAreaViewHeight = SCREEN_HEIGHT - tabHeight - StatusBar.currentHeight;
+}
+
+export function calcButtonListMarginTop(buttonCnt, buttonHeight) {
+    if(safeAreaViewHeight - (buttonCnt - 1) * (buttonSpacing + buttonHeight) - buttonHeight < 0)
+        return 32;
+    else
+        return (safeAreaViewHeight - (buttonCnt - 1) * (buttonSpacing + buttonHeight) - buttonHeight) / 2;
 }
 
 export const fonts = EStyleSheet.create({

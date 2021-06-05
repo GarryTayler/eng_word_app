@@ -13,6 +13,8 @@
  import EStyleSheet from 'react-native-extended-stylesheet';
 
  import Home from './app/screens/init/Home';
+ import Category from './app/screens/init/Category';
+
  import MyWordHome from './app/screens/myword/MyWordHome';
  import MySentenceHome from './app/screens/mysentence/MySentenceHome';
  import MyMakingWordsHome from './app/screens/mymakingwords/MyMakingWordsHome';
@@ -68,7 +70,8 @@ class App extends React.Component {
                             <Scene key="root" showLabel={false} initial>
                                 <Scene key="tabbar" tabs wrap={false} tabBarStyle={styles.tabBarStyle} hideNavBar >
                                     <Scene key="init" title="처음" reset="home" name="home" icon={TabBarIcon} hideNavBar initial>
-                                        <Scene key="home" component={Home} initial />
+                                        <Scene key="home" component={Home} />
+                                        <Scene key="category" component={Category} initial />
                                     </Scene>
 
                                     <Scene key="my_word" title="내단어장" reset="my_word_home" name="my_word_home" icon={TabBarIcon} hideNavBar>
