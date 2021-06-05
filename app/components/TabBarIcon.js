@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { StyleSheet , View , ImageBackground, Text, Platform, TouchableOpacity } from 'react-native';
+import { StyleSheet , View , ImageBackground, Text, Platform, TouchableHighlight } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Images from './../assets/Images';
 import { fonts } from './../assets/styles/index';
 
 export default function TabBarIcon(props) {
     return (
-        <TouchableOpacity style={styles.tabItem} 
+        <TouchableHighlight style={styles.tabItem} 
         onPress={() => Actions.reset(props.reset)}
         activeOpacity={0.6}>
             <ImageBackground
@@ -27,7 +27,7 @@ export default function TabBarIcon(props) {
                   </View>
               </View>
             </ImageBackground>
-        </TouchableOpacity>
+        </TouchableHighlight>
       );
 }
 

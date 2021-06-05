@@ -23,6 +23,7 @@ export function normalize(size) {
 export const fonts = EStyleSheet.create({
     basicFamily: { fontFamily: '$mainFontFamily' },
 
+    size10 : { fontSize: normalize(10), lineHeight: normalize(10) },
     size11 : { fontSize: normalize(11), lineHeight: normalize(11) },
     size14 : { fontSize: normalize(14), lineHeight: normalize(14) },
     size16 : { fontSize: normalize(16), lineHeight: normalize(16) },
