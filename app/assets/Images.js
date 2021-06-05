@@ -7,6 +7,10 @@ const Images = {
     mySentenceTab: require('./img/mysen_2x.png'),
     myMakingWordTab: require('./img/mymakingword_2x.png'),
     studyResults: require('./img/study_result_2x.png'),
+    //category detail
+    wordView: require('./img/word_view_2x.png'),
+    wordListView: require('./img/wordlistView_2x.png'),
+    wordStudy: require('./img/word_study_2x.png'),
     //button
     buttons: [
         [   require('./img/_buttons/brown.png'),

@@ -69,12 +69,12 @@ class App extends React.Component {
                         <Scene hideNavBar key="hidenav">
                             <Scene key="root" showLabel={false} initial>
                                 <Scene key="tabbar" tabs wrap={false} tabBarStyle={styles.tabBarStyle} hideNavBar >
-                                    <Scene key="init" title="처음" reset="home" name="home" icon={TabBarIcon} hideNavBar initial>
-                                        <Scene key="home" component={Home} />
-                                        <Scene key="category" component={Category} initial />
+                                    <Scene key="init" title="처음" reset="home" name="home" icon={TabBarIcon} hideNavBar>
+                                        <Scene key="home" component={Home} initial />
+                                        <Scene key="category" component={Category} />
                                     </Scene>
 
-                                    <Scene key="my_word" title="내단어장" reset="my_word_home" name="my_word_home" icon={TabBarIcon} hideNavBar>
+                                    <Scene key="my_word" title="내단어장" reset="my_word_home" name="my_word_home" icon={TabBarIcon} hideNavBar initial>
                                         <Scene key="my_word_home" component={MyWordHome} initial />
                                     </Scene>
 
