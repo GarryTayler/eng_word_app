@@ -14,6 +14,7 @@
 
  import Home from './app/screens/init/Home';
  import Category from './app/screens/init/Category';
+ import Detail from './app/screens/init/Detail';
 
  import MyWordHome from './app/screens/myword/MyWordHome';
  import MySentenceHome from './app/screens/mysentence/MySentenceHome';
@@ -69,17 +70,18 @@ class App extends React.Component {
                         <Scene hideNavBar key="hidenav">
                             <Scene key="root" showLabel={false} initial>
                                 <Scene key="tabbar" tabs wrap={false} tabBarStyle={styles.tabBarStyle} hideNavBar >
-                                    <Scene key="init" title="처음" reset="home" name="home" icon={TabBarIcon} hideNavBar>
-                                        <Scene key="home" component={Home} initial />
+                                    <Scene key="init" title="처음" reset="home" name="home" icon={TabBarIcon} hideNavBar initial>
+                                        <Scene key="home" component={Home} />
                                         <Scene key="category" component={Category} />
+                                        <Scene key="detail" component={Detail} initial />
                                     </Scene>
 
-                                    <Scene key="my_word" title="내단어장" reset="my_word_home" name="my_word_home" icon={TabBarIcon} hideNavBar initial>
+                                    <Scene key="my_word" title="내단어장" reset="my_word_home" name="my_word_home" icon={TabBarIcon} hideNavBar>
                                         <Scene key="my_word_home" component={MyWordHome} initial />
                                     </Scene>
 
                                     <Scene key="my_sentence" title="내문장" reset="my_sentence_home" name="my_sentence_home" icon={TabBarIcon} hideNavBar>
-                                        <Scene key="my_sentence_home" component={MySentenceHome} initial />
+                                        <Scene key="my_sentence_home" component={MySentenceHome} />
                                     </Scene>
 
                                     <Scene key="my_making_words" title="내가만드는 단어장" reset="my_making_words_home" name="my_making_words_home" icon={TabBarIcon} hideNavBar>

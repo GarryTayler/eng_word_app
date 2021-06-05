@@ -11,6 +11,9 @@ const Images = {
     wordView: require('./img/word_view_2x.png'),
     wordListView: require('./img/wordlistView_2x.png'),
     wordStudy: require('./img/word_study_2x.png'),
+
+    sen_view: require('./img/sen_view_2x.png'),
+    sen_study: require('./img/sen_study_2x.png'),
     //button
     buttons: [
         [   require('./img/_buttons/brown.png'),

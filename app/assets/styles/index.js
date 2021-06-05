@@ -50,7 +50,7 @@ export const fonts = EStyleSheet.create({
     size10 : { fontSize: normalize(10), lineHeight: normalize(10) },
     size11 : { fontSize: normalize(11), lineHeight: normalize(11) },
     size14 : { fontSize: normalize(14), lineHeight: normalize(14) },
-    size16 : { fontSize: normalize(16), lineHeight: normalize(16) },
+    size16 : { fontSize: normalize(16), lineHeight: normalize(20) },
     size18 : { fontSize: normalize(18), lineHeight: normalize(18) },
     size22 : { fontSize: normalize(22), lineHeight: normalize(22) },
     size24 : { fontSize: normalize(24), lineHeight: normalize(24) },
