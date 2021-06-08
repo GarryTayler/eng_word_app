@@ -4,6 +4,9 @@ import { Container, Content } from 'native-base';
 import Images from './../../assets/Images';
 import { fonts } from '../../assets/styles';
 import { Icon } from 'react-native-elements';
+import UserHeader from './../../components/shared/UserHeader';
+
+let pageTitle = '1과. Nice to Meet You';
 
 export default class Detail extends React.Component {
     constructor(props){
@@ -14,6 +17,7 @@ export default class Detail extends React.Component {
     render() {
         return (
             <Container>
+                <UserHeader title={pageTitle} />
                 <Content contentContainerStyle={styles.container}>
                     <ImageBackground source={Images.backImg} style={styles.backImg} resizeMode='cover'>
                         <ScrollView>

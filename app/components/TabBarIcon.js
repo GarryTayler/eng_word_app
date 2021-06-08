@@ -10,7 +10,7 @@ export default function TabBarIcon(props) {
         onPress={() => Actions.reset(props.reset)}
         activeOpacity={0.6}>
             <ImageBackground
-              source={props.name == 'home' ? Images.homeTab : (
+              source={props.name == 'detail' ? Images.homeTab : (
                 props.name == 'my_word_home' ? Images.myWordTab : (
                 props.name == 'my_sentence_home' ? Images.mySentenceTab : (
                 props.name == 'my_making_words_home' ? Images.myMakingWordTab : Images.studyResults
