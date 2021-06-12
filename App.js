@@ -98,8 +98,8 @@ class App extends React.Component {
                                 </Scene>
                             </Scene>
                             <Scene key="login" component={Login} />
-                            <Scene key="word_list_view" component={WordListView} initial />
-                            <Scene key="word_view" component={WordView} />
+                            <Scene key="word_list_view" component={WordListView} />
+                            <Scene key="word_view" component={WordView} initial />
                         </Scene>
 
                     </Router>

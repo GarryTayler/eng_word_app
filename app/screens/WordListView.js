@@ -17,7 +17,7 @@ export default class WordListView extends React.Component {
                 <UserHeader title={pageTitle} />
                 <Content style={styles.container}>
                     <View style={styles.subHeader}>
-                        <Text style={[fonts.size10, fonts.weightBold, {textAlign: 'right', backgroundColor: 'red'}]}>중1 비상 (홍민표) 1과 3월월우을중왈가왈</Text>
+                        <Text style={[fonts.size14, fonts.weightBold, {textAlign: 'right'}]}>중1 비상 (홍민표) 1과</Text>
                     </View>
                     <ScrollView style={{paddingBottom: normalize(120)}}>
                         <View style={styles.wordListItem}>
