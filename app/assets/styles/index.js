@@ -65,6 +65,7 @@ export const fonts = EStyleSheet.create({
     colorRed: { color: '#EB5757' },
     colorBlack: { color: 'black' },
     colorWhite: { color: 'white'},
+    colorBlue: { color: '#006DFF'},
     colorRedOpacity: { color: '#F5ABAB'},
     colorBlueOpacity: { color: '#80B6FF' },
     colorLightGray: { color: '#E6E6E6' },
