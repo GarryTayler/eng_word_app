@@ -40,6 +40,8 @@ const Images = {
             require('./img/_buttons/green_172.png'),
             require('./img/_buttons/light_gray_172.png')
         ]
-    ]
+    ],
+    correct: require('./img/Correct.png'),
+    wrong: require('./img/Wrong.png')
 }
 export default Images;
