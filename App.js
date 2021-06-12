@@ -20,7 +20,11 @@
  import MySentenceHome from './app/screens/mysentence/MySentenceHome';
  import MyMakingWordsHome from './app/screens/mymakingwords/MyMakingWordsHome';
  import StudyResultsHome from './app/screens/studyresults/StudyResultsHome';
+
  import Login from './app/screens/Login';
+ import WordListView from './app/screens/WordListView';
+ import WordView from './app/screens/WordView';
+ 
  import TabBarIcon from './app/components/TabBarIcon';
 
  EStyleSheet.build({
@@ -70,10 +74,10 @@ class App extends React.Component {
                         <Scene hideNavBar key="hidenav">
                             <Scene key="root" showLabel={false} initial>
                                 <Scene key="tabbar" tabs wrap={false} tabBarStyle={styles.tabBarStyle} hideNavBar >
-                                    <Scene key="init" title="처음" reset="detail" name="detail" icon={TabBarIcon} hideNavBar initial>
-                                        <Scene key="home" component={Home} />
+                                    <Scene key="init" title="처음" reset="home" name="home" icon={TabBarIcon} hideNavBar initial>
+                                        <Scene key="home" component={Home} initial />
                                         <Scene key="category" component={Category} />
-                                        <Scene key="detail" component={Detail} initial />
+                                        <Scene key="detail" component={Detail} />
                                     </Scene>
 
                                     <Scene key="my_word" title="내단어장" reset="my_word_home" name="my_word_home" icon={TabBarIcon} hideNavBar>
@@ -94,6 +98,8 @@ class App extends React.Component {
                                 </Scene>
                             </Scene>
                             <Scene key="login" component={Login} />
+                            <Scene key="word_list_view" component={WordListView} initial />
+                            <Scene key="word_view" component={WordView} />
                         </Scene>
 
                     </Router>

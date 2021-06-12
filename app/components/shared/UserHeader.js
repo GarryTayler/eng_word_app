@@ -15,7 +15,7 @@ export default class UserHeader extends React.Component {
 
     render() {
         return (
-            <Header style={[styles.header , {display:'flex' , flexDirection:'row' , alignItems:'center' , justifyContent: 'center', height: 50}]} androidStatusBarColor='green' iosBarStyle="light-content" >
+            <Header style={[styles.header , {backgroundColor: this.props.theme == 'dark' ? 'black' : '#C3A3E8', display:'flex' , flexDirection:'row' , alignItems:'center' , justifyContent: 'center', height: 50}]} androidStatusBarColor='black' iosBarStyle="light-content" >
                 <View style={{ position: 'absolute', left: 7}}>
                     <TouchableOpacity onPress={() => this.backButtonPressed()}>
                         <Icon name='chevron-left' type='evilicon' size={42} color='white' /> 
@@ -31,7 +31,6 @@ export default class UserHeader extends React.Component {
 
 const styles = StyleSheet.create({
     header: {
-        backgroundColor: 'black',
         shadowOffset: {height: 0, width: 0},
         shadowOpacity: 0,
         elevation: 0,
