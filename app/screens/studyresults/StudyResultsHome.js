@@ -110,13 +110,15 @@ export default class StudyResultsHome extends React.Component {
                     </View>
                 </View>
                 <Content style={styles.container}>
-                    <FlatList
-                        data={DATA}
-                        keyExtractor={(item) => item.id}
-                        renderItem={({ item, index }) => (
-                            <StudyResultHistoryDetail id={item.id} time={item.time} detail={item.detail} 
-                            solvedCount={item.solvedCount} totalCount={item.totalCount} mark={item.mark} />
-                    )}/>
+                        <View style={{height: 10}}></View>
+                        <FlatList
+                            data={DATA}
+                            keyExtractor={(item) => item.id}
+                            renderItem={({ item, index }) => (
+                                <StudyResultHistoryDetail id={item.id} time={item.time} detail={item.detail} 
+                                solvedCount={item.solvedCount} totalCount={item.totalCount} mark={item.mark} />
+                        )}/>
+                        <View style={{height: 40}}></View>
                 </Content>
             </Container>
         );
@@ -126,7 +128,7 @@ export default class StudyResultsHome extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white',
+        backgroundColor: 'white'
     },
     totalProblems: {
         backgroundColor: '#006DFF',
@@ -151,5 +153,11 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.34,
         shadowRadius: 6.27,
         elevation: 10,
+    },
+    historyScrollViewTopMargin: {
+        height: normalize(10)
+    },
+    historyScrollViewBottomMargin: {
+        height: normalize(40)
     }
 });
