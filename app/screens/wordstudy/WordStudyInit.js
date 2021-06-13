@@ -113,7 +113,7 @@ export default class WordStudyInit extends React.Component {
                         <View style={{marginTop: normalize(20), paddingBottom: normalize(10)}}>
                             <View style={styles.methodItem}>
                                 <View style={{flex: 2}}>
-                                    <Icon name="refresh" type='evilicon' /> 
+                                    <Icon name="retweet" type='evilicon' /> 
                                 </View>
                                 <View style={{flex: 10}}>
                                     <Text style={[fonts.size16, fonts.weightBold]}>단어 문제 번호</Text>
