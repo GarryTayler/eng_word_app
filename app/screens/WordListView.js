@@ -15,192 +15,191 @@ export default class WordListView extends React.Component {
         return (
             <Container>
                 <UserHeader title={pageTitle} />
-                <Content style={styles.container}>
-                    <View style={styles.subHeader}>
+                <View style={styles.subHeader}>
                         <Text style={[fonts.size14, fonts.weightBold, {textAlign: 'right'}]}>중1 비상 (홍민표) 1과</Text>
+                </View>
+                <Content style={styles.container}>    
+                    <View style={styles.wordListItem}>
+                        <View><Text style={[fonts.size12, fonts.weightBold]}>1 / 156</Text></View>
+                        <View style={{marginTop: normalize(8), display: 'flex', flexDirection: 'row', 
+                                        alignItems: 'center'}}>
+                            <View style={{flex: 1, alignItems: 'flex-start'}}>
+                                <Icon name='star' type='antdesign' color='rgba(0,0,0,0.2)' />
+                            </View>
+                            <View style={{flex: 4, paddingLeft: normalize(8), paddingRight: normalize(4)}}>
+                                <Text numberOfLines={1} style={[fonts.size18, fonts.weightBold]}>develop</Text>
+                            </View>
+                            <View style={{flex: 6, paddingRight: normalize(8), paddingLeft: normalize(4)}}>
+                                <Text numberOfLines={1} style={[fonts.size18, fonts.weightBold]}>앉아있는, 정지한, 정지한 </Text>
+                            </View>
+                            <View style={{flex: 1, alignItems: 'flex-end'}}>
+                                <View style={styles.wordPronunciationSound}>
+                                    <Icon name='volume-medium' type='ionicon' color='rgba(0,0,0,0.6)' />
+                                </View>
+                            </View>
+                        </View>
                     </View>
-                    <ScrollView style={{paddingBottom: normalize(120)}}>
-                        <View style={styles.wordListItem}>
-                            <View><Text style={[fonts.size12, fonts.weightBold]}>1 / 156</Text></View>
-                            <View style={{marginTop: normalize(8), display: 'flex', flexDirection: 'row', 
-                                          alignItems: 'center'}}>
-                                <View style={{flex: 1, alignItems: 'flex-start'}}>
-                                    <Icon name='star' type='antdesign' color='rgba(0,0,0,0.2)' />
-                                </View>
-                                <View style={{flex: 4, paddingLeft: normalize(8), paddingRight: normalize(4)}}>
-                                    <Text numberOfLines={1} style={[fonts.size18, fonts.weightBold]}>develop</Text>
-                                </View>
-                                <View style={{flex: 6, paddingRight: normalize(8), paddingLeft: normalize(4)}}>
-                                    <Text numberOfLines={1} style={[fonts.size18, fonts.weightBold]}>앉아있는, 정지한, 정지한 </Text>
-                                </View>
-                                <View style={{flex: 1, alignItems: 'flex-end'}}>
-                                    <View style={styles.wordPronunciationSound}>
-                                        <Icon name='volume-medium' type='ionicon' color='rgba(0,0,0,0.6)' />
-                                    </View>
+                    <View style={styles.wordListItem}>
+                        <View><Text style={[fonts.size12, fonts.weightBold]}>1 / 156</Text></View>
+                        <View style={{marginTop: normalize(8), display: 'flex', flexDirection: 'row', 
+                                        alignItems: 'center'}}>
+                            <View style={{flex: 1, alignItems: 'flex-start'}}>
+                                <Icon name='star' type='antdesign' color='rgba(0,0,0,0.2)' />
+                            </View>
+                            <View style={{flex: 4, paddingLeft: normalize(8), paddingRight: normalize(4)}}>
+                                <Text numberOfLines={1} style={[fonts.size18, fonts.weightBold]}>develop</Text>
+                            </View>
+                            <View style={{flex: 6, paddingRight: normalize(8), paddingLeft: normalize(4)}}>
+                                <Text numberOfLines={1} style={[fonts.size18, fonts.weightBold]}>앉아있는, 정지한, 정지한 </Text>
+                            </View>
+                            <View style={{flex: 1, alignItems: 'flex-end'}}>
+                                <View style={styles.wordPronunciationSound}>
+                                    <Icon name='volume-medium' type='ionicon' color='rgba(0,0,0,0.6)' />
                                 </View>
                             </View>
                         </View>
-                        <View style={styles.wordListItem}>
-                            <View><Text style={[fonts.size12, fonts.weightBold]}>1 / 156</Text></View>
-                            <View style={{marginTop: normalize(8), display: 'flex', flexDirection: 'row', 
-                                          alignItems: 'center'}}>
-                                <View style={{flex: 1, alignItems: 'flex-start'}}>
-                                    <Icon name='star' type='antdesign' color='rgba(0,0,0,0.2)' />
-                                </View>
-                                <View style={{flex: 4, paddingLeft: normalize(8), paddingRight: normalize(4)}}>
-                                    <Text numberOfLines={1} style={[fonts.size18, fonts.weightBold]}>develop</Text>
-                                </View>
-                                <View style={{flex: 6, paddingRight: normalize(8), paddingLeft: normalize(4)}}>
-                                    <Text numberOfLines={1} style={[fonts.size18, fonts.weightBold]}>앉아있는, 정지한, 정지한 </Text>
-                                </View>
-                                <View style={{flex: 1, alignItems: 'flex-end'}}>
-                                    <View style={styles.wordPronunciationSound}>
-                                        <Icon name='volume-medium' type='ionicon' color='rgba(0,0,0,0.6)' />
-                                    </View>
+                    </View>
+                    <View style={styles.wordListItem}>
+                        <View><Text style={[fonts.size12, fonts.weightBold]}>1 / 156</Text></View>
+                        <View style={{marginTop: normalize(8), display: 'flex', flexDirection: 'row', 
+                                        alignItems: 'center'}}>
+                            <View style={{flex: 1, alignItems: 'flex-start'}}>
+                                <Icon name='star' type='antdesign' color='rgba(0,0,0,0.2)' />
+                            </View>
+                            <View style={{flex: 4, paddingLeft: normalize(8), paddingRight: normalize(4)}}>
+                                <Text numberOfLines={1} style={[fonts.size18, fonts.weightBold]}>develop</Text>
+                            </View>
+                            <View style={{flex: 6, paddingRight: normalize(8), paddingLeft: normalize(4)}}>
+                                <Text numberOfLines={1} style={[fonts.size18, fonts.weightBold]}>앉아있는, 정지한, 정지한 </Text>
+                            </View>
+                            <View style={{flex: 1, alignItems: 'flex-end'}}>
+                                <View style={styles.wordPronunciationSound}>
+                                    <Icon name='volume-medium' type='ionicon' color='rgba(0,0,0,0.6)' />
                                 </View>
                             </View>
                         </View>
-                        <View style={styles.wordListItem}>
-                            <View><Text style={[fonts.size12, fonts.weightBold]}>1 / 156</Text></View>
-                            <View style={{marginTop: normalize(8), display: 'flex', flexDirection: 'row', 
-                                          alignItems: 'center'}}>
-                                <View style={{flex: 1, alignItems: 'flex-start'}}>
-                                    <Icon name='star' type='antdesign' color='rgba(0,0,0,0.2)' />
-                                </View>
-                                <View style={{flex: 4, paddingLeft: normalize(8), paddingRight: normalize(4)}}>
-                                    <Text numberOfLines={1} style={[fonts.size18, fonts.weightBold]}>develop</Text>
-                                </View>
-                                <View style={{flex: 6, paddingRight: normalize(8), paddingLeft: normalize(4)}}>
-                                    <Text numberOfLines={1} style={[fonts.size18, fonts.weightBold]}>앉아있는, 정지한, 정지한 </Text>
-                                </View>
-                                <View style={{flex: 1, alignItems: 'flex-end'}}>
-                                    <View style={styles.wordPronunciationSound}>
-                                        <Icon name='volume-medium' type='ionicon' color='rgba(0,0,0,0.6)' />
-                                    </View>
+                    </View>
+                    <View style={styles.wordListItem}>
+                        <View><Text style={[fonts.size12, fonts.weightBold]}>1 / 156</Text></View>
+                        <View style={{marginTop: normalize(8), display: 'flex', flexDirection: 'row', 
+                                        alignItems: 'center'}}>
+                            <View style={{flex: 1, alignItems: 'flex-start'}}>
+                                <Icon name='star' type='antdesign' color='rgba(0,0,0,0.2)' />
+                            </View>
+                            <View style={{flex: 4, paddingLeft: normalize(8), paddingRight: normalize(4)}}>
+                                <Text numberOfLines={1} style={[fonts.size18, fonts.weightBold]}>develop</Text>
+                            </View>
+                            <View style={{flex: 6, paddingRight: normalize(8), paddingLeft: normalize(4)}}>
+                                <Text numberOfLines={1} style={[fonts.size18, fonts.weightBold]}>앉아있는, 정지한, 정지한 </Text>
+                            </View>
+                            <View style={{flex: 1, alignItems: 'flex-end'}}>
+                                <View style={styles.wordPronunciationSound}>
+                                    <Icon name='volume-medium' type='ionicon' color='rgba(0,0,0,0.6)' />
                                 </View>
                             </View>
                         </View>
-                        <View style={styles.wordListItem}>
-                            <View><Text style={[fonts.size12, fonts.weightBold]}>1 / 156</Text></View>
-                            <View style={{marginTop: normalize(8), display: 'flex', flexDirection: 'row', 
-                                          alignItems: 'center'}}>
-                                <View style={{flex: 1, alignItems: 'flex-start'}}>
-                                    <Icon name='star' type='antdesign' color='rgba(0,0,0,0.2)' />
-                                </View>
-                                <View style={{flex: 4, paddingLeft: normalize(8), paddingRight: normalize(4)}}>
-                                    <Text numberOfLines={1} style={[fonts.size18, fonts.weightBold]}>develop</Text>
-                                </View>
-                                <View style={{flex: 6, paddingRight: normalize(8), paddingLeft: normalize(4)}}>
-                                    <Text numberOfLines={1} style={[fonts.size18, fonts.weightBold]}>앉아있는, 정지한, 정지한 </Text>
-                                </View>
-                                <View style={{flex: 1, alignItems: 'flex-end'}}>
-                                    <View style={styles.wordPronunciationSound}>
-                                        <Icon name='volume-medium' type='ionicon' color='rgba(0,0,0,0.6)' />
-                                    </View>
+                    </View>
+                    <View style={styles.wordListItem}>
+                        <View><Text style={[fonts.size12, fonts.weightBold]}>1 / 156</Text></View>
+                        <View style={{marginTop: normalize(8), display: 'flex', flexDirection: 'row', 
+                                        alignItems: 'center'}}>
+                            <View style={{flex: 1, alignItems: 'flex-start'}}>
+                                <Icon name='star' type='antdesign' color='rgba(0,0,0,0.2)' />
+                            </View>
+                            <View style={{flex: 4, paddingLeft: normalize(8), paddingRight: normalize(4)}}>
+                                <Text numberOfLines={1} style={[fonts.size18, fonts.weightBold]}>develop</Text>
+                            </View>
+                            <View style={{flex: 6, paddingRight: normalize(8), paddingLeft: normalize(4)}}>
+                                <Text numberOfLines={1} style={[fonts.size18, fonts.weightBold]}>앉아있는, 정지한, 정지한 </Text>
+                            </View>
+                            <View style={{flex: 1, alignItems: 'flex-end'}}>
+                                <View style={styles.wordPronunciationSound}>
+                                    <Icon name='volume-medium' type='ionicon' color='rgba(0,0,0,0.6)' />
                                 </View>
                             </View>
                         </View>
-                        <View style={styles.wordListItem}>
-                            <View><Text style={[fonts.size12, fonts.weightBold]}>1 / 156</Text></View>
-                            <View style={{marginTop: normalize(8), display: 'flex', flexDirection: 'row', 
-                                          alignItems: 'center'}}>
-                                <View style={{flex: 1, alignItems: 'flex-start'}}>
-                                    <Icon name='star' type='antdesign' color='rgba(0,0,0,0.2)' />
-                                </View>
-                                <View style={{flex: 4, paddingLeft: normalize(8), paddingRight: normalize(4)}}>
-                                    <Text numberOfLines={1} style={[fonts.size18, fonts.weightBold]}>develop</Text>
-                                </View>
-                                <View style={{flex: 6, paddingRight: normalize(8), paddingLeft: normalize(4)}}>
-                                    <Text numberOfLines={1} style={[fonts.size18, fonts.weightBold]}>앉아있는, 정지한, 정지한 </Text>
-                                </View>
-                                <View style={{flex: 1, alignItems: 'flex-end'}}>
-                                    <View style={styles.wordPronunciationSound}>
-                                        <Icon name='volume-medium' type='ionicon' color='rgba(0,0,0,0.6)' />
-                                    </View>
+                    </View>
+                    <View style={styles.wordListItem}>
+                        <View><Text style={[fonts.size12, fonts.weightBold]}>1 / 156</Text></View>
+                        <View style={{marginTop: normalize(8), display: 'flex', flexDirection: 'row', 
+                                        alignItems: 'center'}}>
+                            <View style={{flex: 1, alignItems: 'flex-start'}}>
+                                <Icon name='star' type='antdesign' color='rgba(0,0,0,0.2)' />
+                            </View>
+                            <View style={{flex: 4, paddingLeft: normalize(8), paddingRight: normalize(4)}}>
+                                <Text numberOfLines={1} style={[fonts.size18, fonts.weightBold]}>develop</Text>
+                            </View>
+                            <View style={{flex: 6, paddingRight: normalize(8), paddingLeft: normalize(4)}}>
+                                <Text numberOfLines={1} style={[fonts.size18, fonts.weightBold]}>앉아있는, 정지한, 정지한 </Text>
+                            </View>
+                            <View style={{flex: 1, alignItems: 'flex-end'}}>
+                                <View style={styles.wordPronunciationSound}>
+                                    <Icon name='volume-medium' type='ionicon' color='rgba(0,0,0,0.6)' />
                                 </View>
                             </View>
                         </View>
-                        <View style={styles.wordListItem}>
-                            <View><Text style={[fonts.size12, fonts.weightBold]}>1 / 156</Text></View>
-                            <View style={{marginTop: normalize(8), display: 'flex', flexDirection: 'row', 
-                                          alignItems: 'center'}}>
-                                <View style={{flex: 1, alignItems: 'flex-start'}}>
-                                    <Icon name='star' type='antdesign' color='rgba(0,0,0,0.2)' />
-                                </View>
-                                <View style={{flex: 4, paddingLeft: normalize(8), paddingRight: normalize(4)}}>
-                                    <Text numberOfLines={1} style={[fonts.size18, fonts.weightBold]}>develop</Text>
-                                </View>
-                                <View style={{flex: 6, paddingRight: normalize(8), paddingLeft: normalize(4)}}>
-                                    <Text numberOfLines={1} style={[fonts.size18, fonts.weightBold]}>앉아있는, 정지한, 정지한 </Text>
-                                </View>
-                                <View style={{flex: 1, alignItems: 'flex-end'}}>
-                                    <View style={styles.wordPronunciationSound}>
-                                        <Icon name='volume-medium' type='ionicon' color='rgba(0,0,0,0.6)' />
-                                    </View>
+                    </View>
+                    <View style={styles.wordListItem}>
+                        <View><Text style={[fonts.size12, fonts.weightBold]}>1 / 156</Text></View>
+                        <View style={{marginTop: normalize(8), display: 'flex', flexDirection: 'row', 
+                                        alignItems: 'center'}}>
+                            <View style={{flex: 1, alignItems: 'flex-start'}}>
+                                <Icon name='star' type='antdesign' color='rgba(0,0,0,0.2)' />
+                            </View>
+                            <View style={{flex: 4, paddingLeft: normalize(8), paddingRight: normalize(4)}}>
+                                <Text numberOfLines={1} style={[fonts.size18, fonts.weightBold]}>develop</Text>
+                            </View>
+                            <View style={{flex: 6, paddingRight: normalize(8), paddingLeft: normalize(4)}}>
+                                <Text numberOfLines={1} style={[fonts.size18, fonts.weightBold]}>앉아있는, 정지한, 정지한 </Text>
+                            </View>
+                            <View style={{flex: 1, alignItems: 'flex-end'}}>
+                                <View style={styles.wordPronunciationSound}>
+                                    <Icon name='volume-medium' type='ionicon' color='rgba(0,0,0,0.6)' />
                                 </View>
                             </View>
                         </View>
-                        <View style={styles.wordListItem}>
-                            <View><Text style={[fonts.size12, fonts.weightBold]}>1 / 156</Text></View>
-                            <View style={{marginTop: normalize(8), display: 'flex', flexDirection: 'row', 
-                                          alignItems: 'center'}}>
-                                <View style={{flex: 1, alignItems: 'flex-start'}}>
-                                    <Icon name='star' type='antdesign' color='rgba(0,0,0,0.2)' />
-                                </View>
-                                <View style={{flex: 4, paddingLeft: normalize(8), paddingRight: normalize(4)}}>
-                                    <Text numberOfLines={1} style={[fonts.size18, fonts.weightBold]}>develop</Text>
-                                </View>
-                                <View style={{flex: 6, paddingRight: normalize(8), paddingLeft: normalize(4)}}>
-                                    <Text numberOfLines={1} style={[fonts.size18, fonts.weightBold]}>앉아있는, 정지한, 정지한 </Text>
-                                </View>
-                                <View style={{flex: 1, alignItems: 'flex-end'}}>
-                                    <View style={styles.wordPronunciationSound}>
-                                        <Icon name='volume-medium' type='ionicon' color='rgba(0,0,0,0.6)' />
-                                    </View>
+                    </View>
+                    <View style={styles.wordListItem}>
+                        <View><Text style={[fonts.size12, fonts.weightBold]}>1 / 156</Text></View>
+                        <View style={{marginTop: normalize(8), display: 'flex', flexDirection: 'row', 
+                                        alignItems: 'center'}}>
+                            <View style={{flex: 1, alignItems: 'flex-start'}}>
+                                <Icon name='star' type='antdesign' color='rgba(0,0,0,0.2)' />
+                            </View>
+                            <View style={{flex: 4, paddingLeft: normalize(8), paddingRight: normalize(4)}}>
+                                <Text numberOfLines={1} style={[fonts.size18, fonts.weightBold]}>develop</Text>
+                            </View>
+                            <View style={{flex: 6, paddingRight: normalize(8), paddingLeft: normalize(4)}}>
+                                <Text numberOfLines={1} style={[fonts.size18, fonts.weightBold]}>앉아있는, 정지한, 정지한 </Text>
+                            </View>
+                            <View style={{flex: 1, alignItems: 'flex-end'}}>
+                                <View style={styles.wordPronunciationSound}>
+                                    <Icon name='volume-medium' type='ionicon' color='rgba(0,0,0,0.6)' />
                                 </View>
                             </View>
                         </View>
-                        <View style={styles.wordListItem}>
-                            <View><Text style={[fonts.size12, fonts.weightBold]}>1 / 156</Text></View>
-                            <View style={{marginTop: normalize(8), display: 'flex', flexDirection: 'row', 
-                                          alignItems: 'center'}}>
-                                <View style={{flex: 1, alignItems: 'flex-start'}}>
-                                    <Icon name='star' type='antdesign' color='rgba(0,0,0,0.2)' />
-                                </View>
-                                <View style={{flex: 4, paddingLeft: normalize(8), paddingRight: normalize(4)}}>
-                                    <Text numberOfLines={1} style={[fonts.size18, fonts.weightBold]}>develop</Text>
-                                </View>
-                                <View style={{flex: 6, paddingRight: normalize(8), paddingLeft: normalize(4)}}>
-                                    <Text numberOfLines={1} style={[fonts.size18, fonts.weightBold]}>앉아있는, 정지한, 정지한 </Text>
-                                </View>
-                                <View style={{flex: 1, alignItems: 'flex-end'}}>
-                                    <View style={styles.wordPronunciationSound}>
-                                        <Icon name='volume-medium' type='ionicon' color='rgba(0,0,0,0.6)' />
-                                    </View>
+                    </View>
+                    <View style={styles.wordListItem}>
+                        <View><Text style={[fonts.size12, fonts.weightBold]}>1 / 156</Text></View>
+                        <View style={{marginTop: normalize(8), display: 'flex', flexDirection: 'row', 
+                                        alignItems: 'center'}}>
+                            <View style={{flex: 1, alignItems: 'flex-start'}}>
+                                <Icon name='star' type='antdesign' color='rgba(0,0,0,0.2)' />
+                            </View>
+                            <View style={{flex: 4, paddingLeft: normalize(8), paddingRight: normalize(4)}}>
+                                <Text numberOfLines={1} style={[fonts.size18, fonts.weightBold]}>develop</Text>
+                            </View>
+                            <View style={{flex: 6, paddingRight: normalize(8), paddingLeft: normalize(4)}}>
+                                <Text numberOfLines={1} style={[fonts.size18, fonts.weightBold]}>앉아있는, 정지한, 정지한 </Text>
+                            </View>
+                            <View style={{flex: 1, alignItems: 'flex-end'}}>
+                                <View style={styles.wordPronunciationSound}>
+                                    <Icon name='volume-medium' type='ionicon' color='rgba(0,0,0,0.6)' />
                                 </View>
                             </View>
                         </View>
-                        <View style={styles.wordListItem}>
-                            <View><Text style={[fonts.size12, fonts.weightBold]}>1 / 156</Text></View>
-                            <View style={{marginTop: normalize(8), display: 'flex', flexDirection: 'row', 
-                                          alignItems: 'center'}}>
-                                <View style={{flex: 1, alignItems: 'flex-start'}}>
-                                    <Icon name='star' type='antdesign' color='rgba(0,0,0,0.2)' />
-                                </View>
-                                <View style={{flex: 4, paddingLeft: normalize(8), paddingRight: normalize(4)}}>
-                                    <Text numberOfLines={1} style={[fonts.size18, fonts.weightBold]}>develop</Text>
-                                </View>
-                                <View style={{flex: 6, paddingRight: normalize(8), paddingLeft: normalize(4)}}>
-                                    <Text numberOfLines={1} style={[fonts.size18, fonts.weightBold]}>앉아있는, 정지한, 정지한 </Text>
-                                </View>
-                                <View style={{flex: 1, alignItems: 'flex-end'}}>
-                                    <View style={styles.wordPronunciationSound}>
-                                        <Icon name='volume-medium' type='ionicon' color='rgba(0,0,0,0.6)' />
-                                    </View>
-                                </View>
-                            </View>
-                        </View>
-                    </ScrollView>
+                    </View>
+                    <View style={{height: normalize(120)}}></View>
                 </Content>
             </Container>
         );
@@ -210,7 +209,7 @@ export default class WordListView extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#fff'
     },
     subHeader: {
         paddingRight: normalize(8),

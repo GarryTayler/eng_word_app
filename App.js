@@ -78,9 +78,9 @@ class App extends React.Component {
                         <Scene hideNavBar key="hidenav">
                             <Scene key="root" showLabel={false} initial>
                                 <Scene key="tabbar" tabs wrap={false} tabBarStyle={styles.tabBarStyle} hideNavBar >
-                                    <Scene key="init" title="처음" reset="home" name="home" icon={TabBarIcon} hideNavBar>
-                                        <Scene key="home" component={Home} initial />
-                                        <Scene key="category" component={Category} />
+                                    <Scene key="init" title="처음" reset="category" name="category" icon={TabBarIcon} hideNavBar initial>
+                                        <Scene key="home" component={Home} />
+                                        <Scene key="category" component={Category} initial />
                                         <Scene key="detail" component={Detail} />
                                     </Scene>
 
@@ -96,7 +96,7 @@ class App extends React.Component {
                                         <Scene key="my_making_words_home" component={MyMakingWordsHome} initial />
                                     </Scene>
 
-                                    <Scene key="study_results" title="학습결과" reset="study_results_home" name="study_results_home" icon={TabBarIcon} hideNavBar initial>
+                                    <Scene key="study_results" title="학습결과" reset="study_results_home" name="study_results_home" icon={TabBarIcon} hideNavBar>
                                         <Scene key="study_results_home" component={StudyResultsHome} initial />
                                     </Scene>
                                 </Scene>
@@ -104,8 +104,8 @@ class App extends React.Component {
                             <Scene key="word_list_view" component={WordListView} />
                             <Scene key="word_view" component={WordView} />
                             <Scene key="study_results_detail" component={StudyResultsDetail} />
-                            <Scene key="word_study_init" component={WordStudyInit} />
-                            <Scene key="word_study_object" component={WordStudyObject} initial />
+                            <Scene key="word_study_init" component={WordStudyInit} initial />
+                            <Scene key="word_study_object" component={WordStudyObject}  />
                         </Scene>
 
                     </Router>
