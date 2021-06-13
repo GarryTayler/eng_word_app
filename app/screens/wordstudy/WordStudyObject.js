@@ -39,7 +39,7 @@ export default class WordStudyObject extends React.Component {
                         </View>
                 </View>
                 <Content style={styles.container}>
-                    <View style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: normalize(250), position: 'relative'}}>
+                    <View style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: normalize(262), position: 'relative'}}>
                         <View style={{position: 'absolute', top: normalize(28)}}>
                             <Text style={[fonts.size14, fonts.weightBold]}>
                                 다음 단어의 뜻을 보기에서 선택하세요.
@@ -49,6 +49,14 @@ export default class WordStudyObject extends React.Component {
                         <Text style={[fonts.size38, fonts.weightBold]}>
                             chicken
                         </Text>
+                        <View style={{position: 'absolute', bottom: normalize(40), display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+                            <View style={{backgroundColor: '#92BEF8', borderRadius: normalize(4), padding: normalize(4)}}>
+                                <Text style={[fonts.size14, fonts.colorWhite, fonts.weightBold]}>정답</Text>
+                            </View>
+                            <View style={{marginLeft: normalize(8)}}>
+                                <Text numberOfLines={1} style={[fonts.weightBold, fonts.size18, {color: '#92BEF8'}]}>닭, 닭고기</Text>
+                            </View>
+                        </View>
                     </View>
                     <View style={{paddingHorizontal: normalize(20)}}>
                         <ChoiceItem index="1" choice="닭, 닭고기" correct />
