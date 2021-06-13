@@ -104,8 +104,8 @@ class App extends React.Component {
                             <Scene key="word_list_view" component={WordListView} />
                             <Scene key="word_view" component={WordView} />
                             <Scene key="study_results_detail" component={StudyResultsDetail} />
-                            <Scene key="word_study_init" component={WordStudyInit} initial />
-                            <Scene key="word_study_object" component={WordStudyObject}  />
+                            <Scene key="word_study_init" component={WordStudyInit} />
+                            <Scene key="word_study_object" component={WordStudyObject} initial />
                         </Scene>
 
                     </Router>

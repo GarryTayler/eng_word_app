@@ -51,11 +51,11 @@ export default class WordStudyObject extends React.Component {
                         </Text>
                     </View>
                     <View style={{paddingHorizontal: normalize(20)}}>
-                        <ChoiceItem index="1" choice="닭, 닭고기" />
+                        <ChoiceItem index="1" choice="닭, 닭고기" correct />
                         <ChoiceItem index="2" choice="돌, 돌맹이, 바위" />
                         <ChoiceItem index="3" choice="부엌, 주방" />
                         <ChoiceItem index="4" choice="행복한, 기쁜, 즐거움에 겨운" />
-                        <ChoiceItem index="5" choice="별, 항성, 유명인" />
+                        <ChoiceItem index="5" choice="별, 항성, 유명인" wrong />
                     </View>
                 </Content>
             </Container>           
