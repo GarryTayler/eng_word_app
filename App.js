@@ -25,6 +25,8 @@
 
  import WordListView from './app/screens/WordListView';
  import WordView from './app/screens/WordView';
+
+ import WordStudyInit from './app/screens/wordstudy/WordStudyInit';
  
  import TabBarIcon from './app/components/TabBarIcon';
 
@@ -100,7 +102,8 @@ class App extends React.Component {
                             </Scene>
                             <Scene key="word_list_view" component={WordListView} />
                             <Scene key="word_view" component={WordView} />
-                            <Scene key="study_results_detail" component={StudyResultsDetail} initial />
+                            <Scene key="study_results_detail" component={StudyResultsDetail} />
+                            <Scene key="word_study_init" component={WordStudyInit} initial />
                         </Scene>
 
                     </Router>
