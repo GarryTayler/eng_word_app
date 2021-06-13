@@ -19,9 +19,10 @@
  import MyWordHome from './app/screens/myword/MyWordHome';
  import MySentenceHome from './app/screens/mysentence/MySentenceHome';
  import MyMakingWordsHome from './app/screens/mymakingwords/MyMakingWordsHome';
- import StudyResultsHome from './app/screens/studyresults/StudyResultsHome';
 
- import Login from './app/screens/Login';
+ import StudyResultsHome from './app/screens/studyresults/StudyResultsHome';
+ import StudyResultsDetail from './app/screens/studyresults/StudyResultsDetail';
+
  import WordListView from './app/screens/WordListView';
  import WordView from './app/screens/WordView';
  
@@ -97,9 +98,9 @@ class App extends React.Component {
                                     </Scene>
                                 </Scene>
                             </Scene>
-                            <Scene key="login" component={Login} />
                             <Scene key="word_list_view" component={WordListView} />
                             <Scene key="word_view" component={WordView} />
+                            <Scene key="study_results_detail" component={StudyResultsDetail} initial />
                         </Scene>
 
                     </Router>
