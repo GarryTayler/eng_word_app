@@ -30,6 +30,8 @@
  import WordStudyObject from './app/screens/wordstudy/WordStudyObject';
  import WordStudySubject from './app/screens/wordstudy/WordStudySubject';
 
+ import SentenceStudyInit from './app/screens/sentencestudy/SentenceStudyInit';
+
  import TabBarIcon from './app/components/TabBarIcon';
 
  EStyleSheet.build({
@@ -107,7 +109,8 @@ class App extends React.Component {
                             <Scene key="study_results_detail" component={StudyResultsDetail} />
                             <Scene key="word_study_init" component={WordStudyInit} />
                             <Scene key="word_study_object" component={WordStudyObject} />
-                            <Scene key="word_study_subject" component={WordStudySubject} initial />
+                            <Scene key="word_study_subject" component={WordStudySubject} />
+                            <Scene key="sentence_study_init" component={SentenceStudyInit} initial />
                         </Scene>
 
                     </Router>

@@ -1,7 +1,8 @@
 import React from 'react';
-import { StyleSheet, View, Text, ScrollView} from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import { Container, Content } from 'native-base';
 import UserHeader from './../components/shared/UserHeader';
+import SubHeader from './../components/shared/SubHeader';
 import { fonts, normalize } from './../assets/styles';
 import { Icon } from 'react-native-elements';
 
@@ -15,9 +16,7 @@ export default class WordListView extends React.Component {
         return (
             <Container>
                 <UserHeader title={pageTitle} />
-                <View style={styles.subHeader}>
-                        <Text style={[fonts.size14, fonts.weightBold, {textAlign: 'right'}]}>중1 비상 (홍민표) 1과</Text>
-                </View>
+                <SubHeader title="중1 비상 (홍민표) 12과" />
                 <Content style={styles.container}>    
                     <View style={styles.wordListItem}>
                         <View><Text style={[fonts.size12, fonts.weightBold]}>1 / 156</Text></View>
