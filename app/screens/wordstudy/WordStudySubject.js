@@ -1,31 +1,33 @@
 import React from 'react';
-import { Container, Content, Button } from 'native-base';
-import { StyleSheet, View, Text, Image } from 'react-native';
-import { fonts, normalize } from './../../assets/styles';
+import { Container, Content, Button, Input } from 'native-base';
+import { StyleSheet, View, Text, TextInput, Keyboard, Image } from 'react-native';
 import UserHeader from './../../components/shared/UserHeader';
-import ChoiceItem from './../../components/wordstudy/ChoiceItem';
 import WordStudyHeader from './../../components/wordstudy/WordStudyHeader';
+import { fonts, normalize } from './../../assets/styles';
 import Images from './../../assets/Images';
 
 let pageTitle = '단어 학습';
 
-export default class WordStudyObject extends React.Component {
+export default class WordStudySubject extends React.Component {
     constructor(props){
         super(props);
-    }
+        this.state = {
+            answer: ''
+        };
+    }    
     render() {
         return (
-            <Container>
+            <Container> 
                 <UserHeader title={pageTitle} />
                 <WordStudyHeader title="중1비상 (홍민표) 3과"
                                  totalProblems="20" currentNo="12" rightAnswer="5" wrongAnswer="5" />
                 <Content style={styles.container}>
-                    <View style={styles.problemContainer}>
+                    <View style={[styles.problemContainer]}>
                         <View style={{position: 'absolute', top: normalize(28)}}>
                             <Text style={[fonts.size14, fonts.weightBold]}>
-                                다음 단어의 뜻을 보기에서 선택하세요.
+                                다음 단어의 뜻을 입력해주세요.
                             </Text>
-                        </View>
+                        </View>    
                         <Image source={Images.correct2x} style={styles.correctIcon} resizeMode='cover' />
                         <Text style={[fonts.size38, fonts.weightBold]}>
                             chicken
@@ -39,21 +41,22 @@ export default class WordStudyObject extends React.Component {
                             </View>
                         </View>
                     </View>
-                    <View style={{paddingHorizontal: normalize(20)}}>
-                        <ChoiceItem index="1" choice="닭, 닭고기" correct />
-                        <ChoiceItem index="2" choice="돌, 돌맹이, 바위" />
-                        <ChoiceItem index="3" choice="부엌, 주방" />
-                        <ChoiceItem index="4" choice="행복한, 기쁜, 즐거움에 겨운" />
-                        <ChoiceItem index="5" choice="별, 항성, 유명인" wrong />
-                    </View>
-                    <View style={[styles.footerConfirm, styles.footerConfirm]}>
-                        <Button style={styles.confirmButton}>
-                            <Text style={[fonts.weightBold, fonts.size18, fonts.colorWhite]}>확인</Text>
-                        </Button> 
+                    <View style={{ alignItems: 'center'}}>
+                        <TextInput
+                            style={[styles.textInput, fonts.weightBold, fonts.colorBlack]}
+                            onChangeText={(text) => {
+                                this.setState({ answer: text });
+                            }}
+                            onSubmitEditing={Keyboard.dismiss}   
+                            value={this.state.answer}
+                            placeholder="정답을 입력하세요."
+                            placeholderTextColor = 'rgba(0, 0, 0, 0.5)'
+                        >
+                        </TextInput>
                     </View>
                 </Content>
-            </Container>           
-        );
+            </Container>
+        ); 
     }   
 }
 
@@ -69,31 +72,20 @@ const styles = StyleSheet.create({
         height: normalize(262), 
         position: 'relative'       
     },
+    textInput: {
+        fontSize: normalize(18),
+        height: normalize(32),
+        width: normalize(285),
+        paddingTop: normalize(6),
+        paddingBottom: normalize(6),
+        borderBottomWidth: 1,
+        borderColor: 'rgba(0,0,0,0.5)',
+        textAlign: 'center',
+    },
     correctIcon: {
         opacity: 0.5, 
         width: normalize(102), 
         height: normalize(102),
         position: 'absolute',
     },
-    footerConfirm: {
-        height: normalize(126),
-        paddingTop: normalize(18),
-        alignSelf: 'center'
-    },
-    confirmButton: {
-        backgroundColor: '#F0B5B5',
-        width: normalize(176),
-        height: normalize(48),
-        display: 'flex',
-        alignItems: 'center', justifyContent: 'center',
-        borderRadius: normalize(8),
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 3,
-        },
-        shadowOpacity: 0.27,
-        shadowRadius: 3.65,
-        elevation: 3,
-    }
 });

@@ -28,6 +28,7 @@
 
  import WordStudyInit from './app/screens/wordstudy/WordStudyInit';
  import WordStudyObject from './app/screens/wordstudy/WordStudyObject';
+ import WordStudySubject from './app/screens/wordstudy/WordStudySubject';
 
  import TabBarIcon from './app/components/TabBarIcon';
 
@@ -105,7 +106,8 @@ class App extends React.Component {
                             <Scene key="word_view" component={WordView} />
                             <Scene key="study_results_detail" component={StudyResultsDetail} />
                             <Scene key="word_study_init" component={WordStudyInit} />
-                            <Scene key="word_study_object" component={WordStudyObject} initial />
+                            <Scene key="word_study_object" component={WordStudyObject} />
+                            <Scene key="word_study_subject" component={WordStudySubject} initial />
                         </Scene>
 
                     </Router>

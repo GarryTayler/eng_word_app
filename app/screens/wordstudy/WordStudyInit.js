@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Content } from 'native-base';
-import { StyleSheet, View, Text, TextInput, Keyboard, ScrollView} from 'react-native';
+import { StyleSheet, View, Text, TextInput, Keyboard } from 'react-native';
 import { fonts, normalize } from './../../assets/styles';
 import { Icon } from 'react-native-elements';
 import { CheckBox } from 'react-native-elements'
