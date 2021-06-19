@@ -17,6 +17,8 @@
  import Detail from './app/screens/init/Detail';
 
  import MyWordHome from './app/screens/myword/MyWordHome';
+ import MyWordListView from './app/screens/myword/MyWordListView';
+
  import MySentenceHome from './app/screens/mysentence/MySentenceHome';
  import MyMakingWordsHome from './app/screens/mymakingwords/MyMakingWordsHome';
 
@@ -110,7 +112,8 @@ class App extends React.Component {
                             <Scene key="word_study_init" component={WordStudyInit} />
                             <Scene key="word_study_object" component={WordStudyObject} />
                             <Scene key="word_study_subject" component={WordStudySubject} />
-                            <Scene key="sentence_study_init" component={SentenceStudyInit} initial />
+                            <Scene key="sentence_study_init" component={SentenceStudyInit} />
+                            <Scene key="my_word_list_view" component={MyWordListView} initial />
                         </Scene>
 
                     </Router>

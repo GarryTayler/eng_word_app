@@ -1,15 +1,32 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { fonts, normalize } from './../../assets/styles';
+import CheckBox from 'react-native-check-box';
 export default class SubHeader extends React.Component {
     constructor(props){
         super(props);
+        this.state = {
+            allChecked: false
+        }
     }
 
     render() {
         return (
             <View style={styles.subHeader}>
-                <Text style={[fonts.size14, fonts.weightBold, {textAlign: 'right'}]}>{ this.props.title }</Text>    
+                <View style={{flex: 1, display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+                    <CheckBox
+                            onClick={()=>{
+                                this.setState({
+                                    allChecked:!this.state.allChecked
+                                })
+                            }}
+                            isChecked={this.state.allChecked}
+                    />
+                    <Text style={[fonts.size14, fonts.weightBold, {marginLeft: normalize(8)}]}>전체선택</Text>
+                </View>
+                <View style={{flex: 1}}>
+                    <Text style={[fonts.size14, fonts.weightBold, {textAlign: 'right'}]}>{ this.props.title }</Text>    
+                </View>
             </View>
         );
     }
@@ -17,10 +34,13 @@ export default class SubHeader extends React.Component {
 
 const styles = StyleSheet.create({
     subHeader: {
+        paddingLeft: normalize(8),
         paddingRight: normalize(8),
         paddingTop: normalize(8),
         paddingBottom: normalize(8),
         borderBottomWidth: 1,
-        borderColor: 'black'
+        borderColor: 'black',
+        display: 'flex', flexDirection: 'row',
+        alignItems: 'center'
     }    
 });
