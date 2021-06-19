@@ -11,6 +11,8 @@ export default class MyWordListItem extends React.Component {
             isChecked: false
         }
     }
+    doSwap() {
+    }
     render() {
         return (
             <View style={styles.container}>
@@ -45,7 +47,8 @@ export default class MyWordListItem extends React.Component {
                         </Text>
                     </View>
                     <View style={{ flex:2, alignItems: 'flex-end' }}>
-                        <TouchableHighlight style={styles.swapIconContainer}>
+                        <TouchableHighlight style={styles.swapIconContainer}
+                        onPress={ () => {this.doSwap()} } underlayColor="white" activeOpacity={0.8}>
                             <Icon name='arrow-swap' type='fontisto' color='rgba(0,0,0,0.5)'
                             style={styles.swapIcon} size={14} />
                         </TouchableHighlight>

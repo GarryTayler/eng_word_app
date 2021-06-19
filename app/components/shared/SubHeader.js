@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, TouchableHighlight } from 'react-native';
 import { fonts, normalize } from './../../assets/styles';
 import CheckBox from 'react-native-check-box';
 export default class SubHeader extends React.Component {
@@ -13,16 +13,23 @@ export default class SubHeader extends React.Component {
     render() {
         return (
             <View style={styles.subHeader}>
-                <View style={{flex: 1, display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                    <CheckBox
-                            onClick={()=>{
-                                this.setState({
-                                    allChecked:!this.state.allChecked
-                                })
-                            }}
-                            isChecked={this.state.allChecked}
-                    />
-                    <Text style={[fonts.size14, fonts.weightBold, {marginLeft: normalize(8)}]}>전체선택</Text>
+                <View style={{flex: 1}}>
+                    <TouchableHighlight activeOpacity={0.6} underlayColor='white'
+                    onPress={ () => { this.setState({
+                                        allChecked:!this.state.allChecked
+                                      }) } }>
+                        <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+                            <CheckBox
+                                    onClick={()=>{
+                                        this.setState({
+                                            allChecked:!this.state.allChecked
+                                        })
+                                    }}
+                                    isChecked={this.state.allChecked}
+                            />
+                            <Text style={[fonts.size14, fonts.weightBold, {marginLeft: normalize(8)}]}>전체선택</Text>
+                        </View>
+                    </TouchableHighlight>
                 </View>
                 <View style={{flex: 1}}>
                     <Text style={[fonts.size14, fonts.weightBold, {textAlign: 'right'}]}>{ this.props.title }</Text>    
