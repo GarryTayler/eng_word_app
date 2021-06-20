@@ -22,19 +22,23 @@ export function normalize(size) {
     return size;
 }
 
-const tabHeight = 95, buttonSpacing = 32;
+const tabHeight = 95, buttonSpacing = 32, userHeaderHeight = 50;
 let safeAreaViewHeight = 0;
 
 if(Platform.OS == 'ios') {
     const statusBarHeight = getStatusBarHeight(true);
     if (isIphoneX()) {
-        safeAreaViewHeight = SCREEN_HEIGHT - statusBarHeight - getBottomSpace();
+        safeAreaViewHeight = SCREEN_HEIGHT - statusBarHeight - getBottomSpace() - tabHeight;
     } else {
-        safeAreaViewHeight = SCREEN_HEIGHT - statusBarHeight;
+        safeAreaViewHeight = SCREEN_HEIGHT - statusBarHeight - tabHeight;
     }
 }
 else {
     safeAreaViewHeight = SCREEN_HEIGHT - tabHeight - StatusBar.currentHeight;
+}
+
+export function getSafeAreaViewHeight () {
+    return safeAreaViewHeight + tabHeight - userHeaderHeight;
 }
 
 export function calcButtonListMarginTop(buttonCnt, buttonHeight) {

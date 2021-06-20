@@ -1,7 +1,7 @@
 import React from 'react';
-import { StyleSheet, View, Text, TouchableHighlight } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { Container, Content } from 'native-base';
-import { fonts, normalize } from './../../assets/styles';
+import { normalize } from './../../assets/styles';
 import UserHeader from './../../components/shared/UserHeader';
 import SubHeader from './../../components/shared/SubHeader';
 import MyWordListItem from './../../components/myword/MyWordListItem';

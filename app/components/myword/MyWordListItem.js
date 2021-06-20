@@ -20,27 +20,27 @@ export default class MyWordListItem extends React.Component {
                     <Text style={[fonts.size11]}>1/156</Text>
                 </View>
                 <View style={[styles.flexRowAlign]}>
-                    <TouchableHighlight style={{flex: 5}}
-                    onPress={ () => { this.setState({
-                                        isChecked:!this.state.isChecked
-                                      }) } } activeOpacity={0.6} underlayColor='white'>
-                        <View style={[styles.flexRowAlign]}>
-                            <CheckBox
-                                onClick={()=>{
-                                    this.setState({
-                                        isChecked:!this.state.isChecked
-                                    })
-                                }}
-                                isChecked={this.state.isChecked}
-                                style={styles.checkBoxItem}
-                            />
-                            <View style={{flexShrink: 1}}>
+                    <View style={[styles.flexRowAlign, {flex: 5}]}>
+                        <CheckBox
+                            onClick={()=>{
+                                this.setState({
+                                    isChecked:!this.state.isChecked
+                                })
+                            }}
+                            isChecked={this.state.isChecked}
+                            style={styles.checkBoxItem}
+                        />
+                        <View style={{flexShrink: 1}}>
+                            <TouchableHighlight
+                        onPress={ () => { this.setState({
+                                            isChecked:!this.state.isChecked
+                                        }) } } activeOpacity={0.6} underlayColor='white'>
                                 <Text style={[fonts.size16, fonts.weightBold, {marginLeft: normalize(10)}]} numberOfLines={1}>
                                     {this.props.word}
                                 </Text>
-                            </View>
+                            </TouchableHighlight>
                         </View>
-                    </TouchableHighlight>
+                    </View>
                     <View style={{ flex:5, display: 'flex', flexDirection: 'row', paddingLeft: normalize(4) }}>
                         <Text numberOfLines={2} style={[fonts.size14, fonts.weightBold]}>
                             {this.props.meaning}

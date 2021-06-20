@@ -14,22 +14,22 @@ export default class SubHeader extends React.Component {
         return (
             <View style={styles.subHeader}>
                 <View style={{flex: 1}}>
-                    <TouchableHighlight activeOpacity={0.6} underlayColor='white'
+                    <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+                        <CheckBox
+                                onClick={()=>{
+                                    this.setState({
+                                        allChecked:!this.state.allChecked
+                                    })
+                                }}
+                                isChecked={this.state.allChecked}
+                        />
+                        <TouchableHighlight activeOpacity={0.6} underlayColor='white'
                     onPress={ () => { this.setState({
                                         allChecked:!this.state.allChecked
                                       }) } }>
-                        <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                            <CheckBox
-                                    onClick={()=>{
-                                        this.setState({
-                                            allChecked:!this.state.allChecked
-                                        })
-                                    }}
-                                    isChecked={this.state.allChecked}
-                            />
                             <Text style={[fonts.size14, fonts.weightBold, {marginLeft: normalize(8)}]}>전체선택</Text>
-                        </View>
-                    </TouchableHighlight>
+                        </TouchableHighlight>
+                    </View>
                 </View>
                 <View style={{flex: 1}}>
                     <Text style={[fonts.size14, fonts.weightBold, {textAlign: 'right'}]}>{ this.props.title }</Text>    
