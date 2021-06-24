@@ -1,9 +1,12 @@
 import React from 'react';
-import { StyleSheet, View, Text, ScrollView} from 'react-native';
+import { StyleSheet, View, Text, ScrollView, Image} from 'react-native';
 import { Container, Content, Button } from 'native-base';
 import UserHeader from './../../components/shared/UserHeader';
 import StudyHeader from './../../components/studyresults/StudyHeader';
+import ResultDetailItem  from './../../components/studyresults/ResultDetailItem';
 import { fonts, normalize } from './../../assets/styles';
+import Images from './../../assets/Images';
+import { Icon } from 'react-native-elements';
 
 let pageTitle = '학습 결과';
 
@@ -25,6 +28,14 @@ export default class StudyResultsDetail extends React.Component {
                         </View>
                     </View>
                     <StudyHeader />
+
+                    <ResultDetailItem currentNo={1} word="boy" meaning="소년, 남자, 사내아이, 보이" correct />
+                    <ResultDetailItem currentNo={2} word="create" meaning="재미있는, 유쾌한, 신나는"
+                    correctAnswer="~을 만들다, (몹시) 떠들어 대다" />
+                    <ResultDetailItem currentNo={2} word="girl" meaning="소녀, 여자, 계집아이" correct />
+                    <ResultDetailItem currentNo={2} word="dream" meaning="꿈, 꿈꾸다, 몽상하다" correct />
+
+
                     <View style={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-evenly',
                                 paddingTop: normalize(16)}}>
                         <Button style={[styles.footerButton]}>
@@ -60,5 +71,9 @@ const styles = StyleSheet.create({
         alignItems: 'center', 
         backgroundColor: '#2D9CDB',
         marginBottom: normalize(8)
+    },
+    resultIcon: {
+        width: 16,
+        height: 16
     }
 });
