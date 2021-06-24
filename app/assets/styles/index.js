@@ -77,3 +77,33 @@ export const fonts = EStyleSheet.create({
     colorLightGray: { color: '#E6E6E6' },
     colorDeepGray: { color: '#737373' }
 });
+
+export const tabs = EStyleSheet.create({
+    tab: {
+        backgroundColor: '#E4E4E4',
+        borderTopLeftRadius: normalize(16),
+        borderTopRightRadius: normalize(16),
+        height: normalize(32),
+        marginRight: normalize(8)
+    },
+    tabItem: {
+        backgroundColor: 'white',
+        borderTopLeftRadius: normalize(16),
+        borderTopRightRadius: normalize(16),
+        height: normalize(32),
+        marginRight: normalize(8)
+    },
+    text: {
+        fontSize: normalize(16), lineHeight: normalize(21),
+        fontWeight: 'bold', color: 'black'
+    },
+    activeText: {
+        fontSize: normalize(16), lineHeight: normalize(21),
+        fontWeight: 'bold', color: 'black'
+    },
+    tabBarUnderline: {
+        height: 0,
+        borderBottomWidth: 0,
+        borderColor: 'blue'
+    }
+});
