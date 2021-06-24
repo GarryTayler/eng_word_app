@@ -44,6 +44,8 @@ const Images = {
     correct: require('./img/Correct.png'),
     wrong: require('./img/Wrong.png'),
     correct2x: require('./img/Correct2x.png'),
-    wrong2x: require('./img/Wrong2x.png')
+    wrong2x: require('./img/Wrong2x.png'),
+    correct16: require('./img/16Correct.png'),
+    wrong16: require('./img/16Wrong.png')
 }
 export default Images;

@@ -110,13 +110,13 @@ class App extends React.Component {
                             </Scene>
                             <Scene key="word_list_view" component={WordListView} />
                             <Scene key="word_view" component={WordView} />
-                            <Scene key="study_results_detail" component={StudyResultsDetail} />
+                            <Scene key="study_results_detail" component={StudyResultsDetail} initial />
                             <Scene key="word_study_init" component={WordStudyInit} />
                             <Scene key="word_study_object" component={WordStudyObject} />
                             <Scene key="word_study_subject" component={WordStudySubject} />
                             <Scene key="sentence_study_init" component={SentenceStudyInit} />
                             <Scene key="my_word_list_view" component={MyWordListView} />
-                            <Scene key="create_word" component={CreateWord} initial />
+                            <Scene key="create_word" component={CreateWord} />
                         </Scene>
 
                     </Router>
