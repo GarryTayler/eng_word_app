@@ -30,6 +30,8 @@
  import WordListView from './app/screens/WordListView';
  import WordView from './app/screens/WordView';
 
+ import SentenceView from './app/screens/SentenceView';
+
  import WordStudyInit from './app/screens/wordstudy/WordStudyInit';
  import WordStudyObject from './app/screens/wordstudy/WordStudyObject';
  import WordStudySubject from './app/screens/wordstudy/WordStudySubject';
@@ -109,7 +111,8 @@ class App extends React.Component {
                                 </Scene>
                             </Scene>
                             <Scene key="word_list_view" component={WordListView} />
-                            <Scene key="word_view" component={WordView} initial />
+                            <Scene key="word_view" component={WordView} />
+                            <Scene key="sentence_view" component={SentenceView} initial />
                             <Scene key="study_results_detail" component={StudyResultsDetail} />
                             <Scene key="word_study_init" component={WordStudyInit} />
                             <Scene key="word_study_object" component={WordStudyObject} />

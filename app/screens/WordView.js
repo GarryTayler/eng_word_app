@@ -1,7 +1,8 @@
 import React from 'react';
-import { StyleSheet, View, Text, ScrollView} from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import { Container, Content, Button } from 'native-base';
 import UserHeader from './../components/shared/UserHeader';
+import ViewHeader from './../components/shared/ViewHeader';
 import WordSpeech from './../components/shared/WordSpeech';
 import { fonts, normalize } from './../assets/styles';
 import { Icon } from 'react-native-elements';
@@ -17,20 +18,8 @@ export default class WordView extends React.Component {
             <Container>
                 <UserHeader title={pageTitle} />
                 <Content style={styles.container}>
-                
                     <View style={styles.upWordContainer}>
-                        <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center', paddingHorizontal: normalize(8), paddingVertical: normalize(4)}}>
-                            <View style={{display: 'flex', flexDirection: 'row', flex: 1, alignItems: 'center'}}>
-                                <Icon name='star' type='antdesign' color='rgba(0,0,0,0.2)' />
-                                <Text style={[fonts.colorRed, fonts.size14, fonts.weightBold, {marginLeft: normalize(4)}]}>11</Text>
-                                <Text style={[fonts.size14, fonts.weightBold]}> / 156</Text>
-                            </View>
-                            <View style={{flex: 1}}>
-                                <Text numberOfLines={1} style={[fonts.size14, fonts.weightBold, {textAlign: 'right'}]}>
-                                    고1 모의고사 2018년 3월 4월 모의고사 진행중
-                                </Text>
-                            </View>
-                        </View>
+                        <ViewHeader currentNo={11} totalCount={156} title="고1 모의고사 2018년 3월 4월 모의고사 진행중" />
                         <View style={{display: 'flex', alignItems: 'center', justifyContent: 'center', flexGrow: 1}}>
                             <Text style={[fonts.size32, fonts.weightBold]}>develop</Text>
                             <Text style={[fonts.weightBold, fonts.size20, {color: 'rgba(0,0,0,0.5)'}]}>[dɪˈveləp]</Text>
