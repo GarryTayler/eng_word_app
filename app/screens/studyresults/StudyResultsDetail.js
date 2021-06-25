@@ -67,7 +67,8 @@ export default class StudyResultsDetail extends React.Component {
                     </View>
                     { this.renderTabs() }
                     <View style={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-evenly',
-                                paddingTop: normalize(16)}}>
+                                paddingTop: normalize(16),
+                                paddingBottom: normalize(8)}}>
                         <Button style={[styles.footerButton]}>
                             <Text style={[fonts.size15, fonts.colorWhite, fonts.weightBold, {textAlign: 'center'}]}>전체</Text>
                             <Text style={[fonts.size15, fonts.colorWhite, fonts.weightBold, {textAlign: 'center'}]}>다시 풀기</Text>
