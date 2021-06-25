@@ -103,7 +103,12 @@ export const tabs = EStyleSheet.create({
     },
     tabBarUnderline: {
         height: 0,
-        borderBottomWidth: 0,
-        borderColor: 'blue'
+        borderBottomWidth: 0
+    },
+    scrollTabContainerStyle: {
+        justifyContent: 'flex-start'    
+    },
+    scrollTabStyle: {
+        height: normalize(32), borderBottomWidth: 0   
     }
 });
