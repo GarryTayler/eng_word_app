@@ -1,10 +1,9 @@
 import React from 'react';
-import { Container, Content } from 'native-base';
+import { Container, Content, Button } from 'native-base';
 import { StyleSheet, View, Text, TextInput, Keyboard } from 'react-native';
 import { fonts, normalize } from './../../assets/styles';
 import { Icon } from 'react-native-elements';
 import { CheckBox } from 'react-native-elements'
-import { Button } from 'native-base';
 import UserHeader from './../../components/shared/UserHeader';
 
 let pageTitle = '단어 학습';
