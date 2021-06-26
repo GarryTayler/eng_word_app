@@ -16,41 +16,114 @@ export default class SentenceView extends React.Component {
         return (
             <Container>
                 <UserHeader title={pageTitle} />
+                <ViewHeader currentNo={5} totalCount={138} title="초등1교과서 비상 (홍민표1) 21과" sentence />
+
+                <View style={{paddingHorizontal: normalize(16), paddingTop: normalize(28), paddingBottom: normalize(12)}}>
+                    <View style={{display: 'flex', flexDirection: 'row', position: 'relative'}}>
+                        <View style={{position: 'absolute', paddingTop: normalize(3)}}>
+                            <Icon name='star' type='antdesign' color='#F2C94C' />
+                        </View>
+                        <Text style={styles.sentenceSection}>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;전체 별표
+                        </Text> 
+                    </View>
+                </View>
                 <Content style={styles.container}>
-                    <ViewHeader currentNo={5} totalCount={138} title="초등1교과서 비상 (홍민표1) 21과" sentence />
-                    <View>
-                        <View>
-                            <Text style={styles.sentenceSection}>
-                                1. You probaby like to post selfies on social media, but how much do you know about
-                                selfies?
-                            </Text>
-                            <Text style={styles.sentenceSection}>
-                                당신은 아마 소셜 미디어에 셀피를 게시하는 것을 좋아할지도 모르지만, 셀피에 대해 얼마나 알고 있는가?
-                            </Text>
+                    <View style={{paddingHorizontal: normalize(16)}}>
+                        <View style={{marginBottom: normalize(6)}}>
+                            <View style={{display: 'flex', flexDirection: 'row', position: 'relative'}}>
+                                <View style={{position: 'absolute', paddingTop: normalize(3)}}>
+                                    <Icon name='star' type='antdesign' color='rgba(0,0,0,0.2)' />
+                                </View>
+                                <Text style={styles.sentenceSection}>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. You probaby like to post selfies on social media, but how much do you know about
+                                    selfies?
+                                </Text> 
+                            </View>
+                            <View>
+                                <Text style={styles.sentenceSection}>
+                                    당신은 아마 소셜 미디어에 셀피를 게시하는 것을 좋아할지도 모르지만, 셀피에 대해 얼마나 알고 있는가?
+                                </Text>
+                            </View>
                         </View>
 
-                        <View>
-                            <Text style={styles.sentenceSection}>
-                                2. You probaby like to post selfies on social media, but how much do you know about selfies?
-                            </Text>
-                            <Text style={styles.sentenceSection}>
-                                당신은 아마 소셜 미디어에 셀피를 게시하는 것을 좋아할지도 모르지만, 셀피에 대해 얼마나 알고 있는가?
-                            </Text>
+                        <View style={{marginBottom: normalize(6)}}>
+                            <View style={{display: 'flex', flexDirection: 'row', position: 'relative'}}>
+                                <View style={{position: 'absolute', paddingTop: normalize(3)}}>
+                                    <Icon name='star' type='antdesign' color='rgba(0,0,0,0.2)' />
+                                </View>
+                                <Text style={styles.sentenceSection}>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. You probaby like to post selfies on social media, but how much do you know about
+                                    selfies?
+                                </Text> 
+                            </View>
+                            <View>
+                                <Text style={styles.sentenceSection}>
+                                    당신은 아마 소셜 미디어에 셀피를 게시하는 것을 좋아할지도 모르지만, 셀피에 대해 얼마나 알고 있는가?
+                                </Text>
+                            </View>
                         </View>
 
-                        <View>
-                            <Text style={styles.sentenceSection}>
-                                3. You probaby like to post selfies on social media, but how much do you know about
-                                selfies?
-                            </Text>
-                            <Text style={styles.sentenceSection}>
-                                당신은 아마 소셜 미디어에 셀피를 게시하는 것을 좋아할지도 모르지만, 셀피에 대해 얼마나 알고 있는가?
-                            </Text>
+                        <View style={{marginBottom: normalize(6)}}>
+                            <View style={{display: 'flex', flexDirection: 'row', position: 'relative'}}>
+                                <View style={{position: 'absolute', paddingTop: normalize(3)}}>
+                                    <Icon name='star' type='antdesign' color='rgba(0,0,0,0.2)' />
+                                </View>
+                                <Text style={styles.sentenceSection}>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3. You probaby like to post selfies on social media, but how much do you know about
+                                    selfies?
+                                </Text> 
+                            </View>
+                            <View>
+                                <Text style={styles.sentenceSection}>
+                                    당신은 아마 소셜 미디어에 셀피를 게시하는 것을 좋아할지도 모르지만, 셀피에 대해 얼마나 알고 있는가?
+                                </Text>
+                            </View>
+                        </View>
+
+                        <View style={{marginBottom: normalize(6)}}>
+                            <View style={{display: 'flex', flexDirection: 'row', position: 'relative'}}>
+                                <View style={{position: 'absolute', paddingTop: normalize(3)}}>
+                                    <Icon name='star' type='antdesign' color='rgba(0,0,0,0.2)' />
+                                </View>
+                                <Text style={styles.sentenceSection}>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4. You probaby like to post selfies on social media, but how much do you know about
+                                    selfies?
+                                </Text> 
+                            </View>
+                            <View>
+                                <Text style={styles.sentenceSection}>
+                                    당신은 아마 소셜 미디어에 셀피를 게시하는 것을 좋아할지도 모르지만, 셀피에 대해 얼마나 알고 있는가?
+                                </Text>
+                            </View>
+                        </View>
+
+                        <View style={{marginBottom: normalize(6)}}>
+                            <View style={{display: 'flex', flexDirection: 'row', position: 'relative'}}>
+                                <View style={{position: 'absolute', paddingTop: normalize(3)}}>
+                                    <Icon name='star' type='antdesign' color='rgba(0,0,0,0.2)' />
+                                </View>
+                                <Text style={styles.sentenceSection}>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5. You probaby like to post selfies on social media, but how much do you know about
+                                    selfies?
+                                </Text> 
+                            </View>
+                            <View>
+                                <Text style={styles.sentenceSection}>
+                                    당신은 아마 소셜 미디어에 셀피를 게시하는 것을 좋아할지도 모르지만, 셀피에 대해 얼마나 알고 있는가?
+                                </Text>
+                            </View>
+                        </View>
+
+                        <View style={{ height: normalize(40) }}>
                         </View>
                     </View>
+
+
                 </Content>
                 <View style={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap', 
-                            paddingHorizontal: normalize(20), justifyContent: 'center'}}>
+                            justifyContent: 'center',
+                            paddingTop: normalize(12), paddingBottom: normalize(4)}}>
                     <Button style={styles.footerButton}>
                         <Text style={[fonts.size14, fonts.colorWhite, fonts.weightBold]}>
                             단어가리기
@@ -93,10 +166,11 @@ const styles = StyleSheet.create({
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         backgroundColor: '#1BA3E5',
         borderRadius: normalize(27),
-        marginBottom: normalize(8)
+        marginBottom: normalize(8),
+        marginHorizontal: normalize(2)
     },
     sentenceSection: {
         fontSize: normalize(15),
-        lineHeight: normalize(22.5)
+        lineHeight: normalize(30)
     }
 })
