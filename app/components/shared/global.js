@@ -11,15 +11,15 @@ export function showToast(text = '', type = 'danger', position = 'bottom') {
     });
 }
 
-export function performNetwork(comp, homeComp, promise, isFromHome = false) {
+export function performNetwork(comp, promise) {
     comp.setState({loaded: false});
     return promise.then(response => {
         comp.setState({loaded: true});
-        if (response.status == 'fail') {
-            showToast(response.errMsg);
+        if (response.errorCode != 0) {
+            showToast(response.errorMsg);
             return;
         }
-        return response;
+        return response.data;
     }).catch(err => {
         comp.setState({loaded: true});
         showToast();

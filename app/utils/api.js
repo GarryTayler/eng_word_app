@@ -6,7 +6,7 @@ let _headers = {
     'Content-Type': 'application/json',
 };
 
-function createCall(path, data = null, token = null, headers = {}, method = 'POST') {
+function createCall(path, data = null, headers = {}, method = 'POST') {
     const merged = {
         ..._headers,
         ...headers,
@@ -19,10 +19,7 @@ function createCall(path, data = null, token = null, headers = {}, method = 'POS
             ...data,
         };
     }
-    if (token) {
-        body.api_token = token;
-    }
-    let strData = JSON.stringify({data: body});
+    let strData = JSON.stringify(body);
 
     return fetch(
         `${base_url}${path}`, {
@@ -31,4 +28,11 @@ function createCall(path, data = null, token = null, headers = {}, method = 'POS
             body: strData,
         },
     ).then((resp) => resp.json());
+}
+
+export function getCategoryList(parent_id) {
+    return createCall(
+        'category/get-category-list',
+        {parent_id},
+    );
 }

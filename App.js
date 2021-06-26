@@ -87,9 +87,9 @@ class App extends React.Component {
                         <Scene hideNavBar key="hidenav">
                             <Scene key="root" showLabel={false} initial>
                                 <Scene key="tabbar" tabs wrap={false} tabBarStyle={styles.tabBarStyle} hideNavBar >
-                                    <Scene key="init" title="처음" reset="category" name="category" icon={TabBarIcon} hideNavBar initial>
-                                        <Scene key="home" component={Home} />
-                                        <Scene key="category" component={Category} initial />
+                                    <Scene key="init" title="처음" reset="home" name="home" icon={TabBarIcon} hideNavBar initial>
+                                        <Scene key="home" component={Home} initial />
+                                        <Scene key="category" component={Category} />
                                         <Scene key="detail" component={Detail} />
                                     </Scene>
 
@@ -112,7 +112,7 @@ class App extends React.Component {
                             </Scene>
                             <Scene key="word_list_view" component={WordListView} />
                             <Scene key="word_view" component={WordView} />
-                            <Scene key="sentence_view" component={SentenceView} initial />
+                            <Scene key="sentence_view" component={SentenceView} />
                             <Scene key="study_results_detail" component={StudyResultsDetail} />
                             <Scene key="word_study_init" component={WordStudyInit} />
                             <Scene key="word_study_object" component={WordStudyObject} />
