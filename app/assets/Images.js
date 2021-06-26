@@ -16,19 +16,20 @@ const Images = {
     sen_study: require('./img/sen_study_2x.png'),
     //button
     buttons: [
-        [   require('./img/_buttons/brown.png'),
+        [   // depth 1 -> root
+            require('./img/_buttons/brown.png'),
             require('./img/_buttons/blue.png'),
             require('./img/_buttons/green.png'),
             require('./img/_buttons/light_gray.png'),
             require('./img/_buttons/deep_gray.png')
         ],
-        [
+        [   // depth more than 1
             require('./img/_buttons/brown_48.png'),
             require('./img/_buttons/blue_48.png'),
             require('./img/_buttons/green_48.png'),
             require('./img/_buttons/light_gray_48.png')
         ],
-        [
+        [   // 내가 만드는 단어장
             require('./img/_buttons/brown_205.png'),
             require('./img/_buttons/blue_205.png'),
             require('./img/_buttons/green_205.png'),

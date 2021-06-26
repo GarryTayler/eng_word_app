@@ -14,14 +14,14 @@ export function showToast(text = '', type = 'danger', position = 'bottom') {
 export function performNetwork(comp, promise) {
     comp.setState({loaded: false});
     return promise.then(response => {
-        comp.setState({loaded: true});
+        comp.setState({loaded: true, serverRespond: true});
         if (response.errorCode != 0) {
             showToast(response.errorMsg);
             return;
         }
         return response.data;
     }).catch(err => {
-        comp.setState({loaded: true});
+        comp.setState({loaded: true, serverRespond: true});
         showToast();
     });
 }
