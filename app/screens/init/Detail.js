@@ -1,23 +1,67 @@
 import React from 'react';
-import { StyleSheet, View, Text, ImageBackground, TouchableHighlight, ScrollView} from 'react-native';
+import { Dimensions, StyleSheet, View, Text, ImageBackground, TouchableHighlight, ScrollView} from 'react-native';
 import { Container, Content } from 'native-base';
 import Images from './../../assets/Images';
 import { fonts } from '../../assets/styles';
 import { Icon } from 'react-native-elements';
 import UserHeader from './../../components/shared/UserHeader';
-
-let pageTitle = '1과. Nice to Meet You';
+import { performNetwork } from './../../components/shared/global';
+import { getVideoList } from './../../utils/api';
+import Spinner_bar from 'react-native-loading-spinner-overlay';
 
 export default class Detail extends React.Component {
     constructor(props){
         super(props);
+        this.state = {
+            loaded: true,
+            serverRespond: false,
+            arrData: [],
+            viewWidth: 0
+        };
     }
     buttonClick() {
+    }
+    componentDidMount() {
+        this.setState({ viewWidth: Math.round(Dimensions.get('window').width) });
+        this.fetchVideoList();
+    }
+    fetchVideoList() {
+        performNetwork(this, getVideoList(this.props.params.category_id)).then((response) => {
+            if (response == null) { return; }
+            this.setState({arrData: response});
+        });
+    }
+    renderVideos() {
+        return (
+            <View>
+            {
+                this.state.arrData == null || this.state.arrData.length == 0 ? null :
+                    this.state.arrData.map((item, index) => (
+                        <View style={{marginHorizontal: 24, 
+                            height: 48, 
+                            backgroundColor: 'white', 
+                            borderRadius: 4, marginTop: (index == 0 ? 29 : 10),
+                            flexDirection: 'row', alignItems: 'center', display: 'flex', paddingRight: 12}}>
+                                <View style={{flex: 2}}>
+                                    <Icon color='#EB5757' name='sc-youtube' type='evilicon' size={36} iconStyle={{margin: 0}} />
+                                </View>
+                                <View style={{flex: 9, paddingRight: 9}}>
+                                    <Text numberOfLines={1} style={[fonts.size16, fonts.weightBold]}>{item.name}</Text>
+                                </View>
+                                <View style={[styles.editItem]}>        
+                                    <Icon color='black' name='pencil' type='evilicon' size={26} />
+                                </View>
+                        </View>
+                    ))
+            }
+            <Spinner_bar color={'#68ADED'} visible={!this.state.loaded} textContent={""}  overlayColor={"rgba(0, 0, 0, 0.5)"}  />
+            </View>
+        )
     }
     render() {
         return (
             <Container>
-                <UserHeader title={pageTitle} />
+                <UserHeader title={this.props.params.title} theme="dark" />
                 <Content contentContainerStyle={styles.container}>
                     <ImageBackground source={Images.backImg} style={styles.backImg} resizeMode='cover'>
                         <ScrollView>
@@ -79,51 +123,7 @@ export default class Detail extends React.Component {
                                         </ImageBackground>
                                     </TouchableHighlight>    
                                 </View>
-                                <View style={{marginHorizontal: 24, 
-                                            height: 48, 
-                                            backgroundColor: 'white', 
-                                            borderRadius: 4, marginTop: 29,
-                                            flexDirection: 'row', alignItems: 'center', display: 'flex', paddingRight: 12}}>
-                                        <View style={{flex: 2}}>
-                                            <Icon color='#EB5757' name='sc-youtube' type='evilicon' size={36} iconStyle={{margin: 0}} />
-                                        </View>
-                                        <View style={{flex: 9, paddingRight: 9}}>
-                                            <Text numberOfLines={1} style={[fonts.size16, fonts.weightBold]}>문법 - 동영상</Text>
-                                        </View>
-                                        <View style={[styles.editItem]}>        
-                                            <Icon color='black' name='pencil' type='evilicon' size={26} />
-                                        </View>
-                                </View>
-                                <View style={{marginHorizontal: 24, 
-                                            height: 48, 
-                                            backgroundColor: 'white', 
-                                            borderRadius: 4, marginTop: 10,
-                                            flexDirection: 'row', alignItems: 'center', display: 'flex', paddingRight: 12}}>
-                                        <View style={{flex: 2}}>
-                                            <Icon color='#EB5757' name='sc-youtube' type='evilicon' size={36} iconStyle={{margin: 0}} />
-                                        </View>
-                                        <View style={{flex: 9, paddingRight: 9}}>
-                                            <Text numberOfLines={1} style={[fonts.size16, fonts.weightBold]}>문법 - 부정사의 의미상 주어</Text>
-                                        </View>
-                                        <View style={[styles.editItem]}>        
-                                            <Icon color='black' name='pencil' type='evilicon' size={26} />
-                                        </View>
-                                </View>
-                                <View style={{marginHorizontal: 24, 
-                                            height: 48, 
-                                            backgroundColor: 'white', 
-                                            borderRadius: 4, marginTop: 10,
-                                            flexDirection: 'row', alignItems: 'center', display: 'flex', paddingRight: 12}}>
-                                        <View style={{flex: 2}}>
-                                            <Icon color='#EB5757' name='sc-youtube' type='evilicon' size={36} iconStyle={{margin: 0}} />
-                                        </View>
-                                        <View style={{flex: 9, paddingRight: 9}}>
-                                            <Text numberOfLines={1} style={[fonts.size16, fonts.weightBold]}>본문 강의</Text>
-                                        </View>
-                                        <View style={[styles.editItem]}>        
-                                            <Icon color='black' name='pencil' type='evilicon' size={26} />
-                                        </View>
-                                </View>
+                                {this.renderVideos()}
                             </View>
                         </ScrollView>
                     </ImageBackground>

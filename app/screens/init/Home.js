@@ -18,8 +18,11 @@ export default class Home extends React.Component {
         };
     }
 
-    buttonClick(id = null, parent_id = null) {
-        Actions.push('home', {parent_id: id});
+    buttonClick(id = null, has_child = 'Y', name = '') {
+        if(has_child == 'Y')
+            Actions.push('home', {parent_id: id});
+        else
+            Actions.push('detail', {params: {category_id: id, title: name}});
     }
 
     componentDidMount() {
@@ -40,7 +43,7 @@ export default class Home extends React.Component {
                 this.state.arrData == null || this.state.arrData.length == 0 ? null : 
                     this.state.arrData.map((item, index) => (
                         <View style={{display : 'flex', alignItems: 'center', marginTop: (index == 0 ? calcButtonListMarginTop((this.state.arrData.length), 48) : 0)}} key={index}>
-                            <TouchableHighlight style={styles.button48} activeOpacity={0.8} onPress={ () => { this.buttonClick(item.id, item.parent_id) } } underlayColor={BUTTON_UNDERLAY_COLOR[1][index % 4]}>
+                            <TouchableHighlight style={styles.button48} activeOpacity={0.8} onPress={ () => { this.buttonClick(item.id, item.has_child, item.name) } } underlayColor={BUTTON_UNDERLAY_COLOR[1][index % 4]}>
                                 <ImageBackground source={ Images.buttons[1][index % 4] } style={styles.buttonImage48} resizeMode='cover'>
                                     <Text numberOfLines={1} style={[fonts.size16, fonts.weightBold, fonts.colorWhite, styles.buttonLabel48]}>{item.name}</Text>
                                 </ImageBackground>
@@ -61,7 +64,7 @@ export default class Home extends React.Component {
                 this.state.arrData == null || this.state.arrData.length == 0 ? null : 
                     this.state.arrData.map((item, index) => (
                         <View style={{display : 'flex', alignItems: 'center', marginTop: (index == 0 ? calcButtonListMarginTop((this.state.arrData.length + 2), 54) : 0)}} key={index}>
-                            <TouchableHighlight style={styles.button} activeOpacity={0.8} onPress={ () => { this.buttonClick(item.id, item.parent_id) } } underlayColor={BUTTON_UNDERLAY_COLOR[0][index % 5]}>
+                            <TouchableHighlight style={styles.button} activeOpacity={0.8} onPress={ () => { this.buttonClick(item.id, item.has_child, item.name) } } underlayColor={BUTTON_UNDERLAY_COLOR[0][index % 5]}>
                                 <ImageBackground source={ Images.buttons[0][index % 5] } style={styles.buttonImage} resizeMode='cover'>
                                     <Text style={[fonts.size22, fonts.weightBold, fonts.colorWhite, styles.buttonLabel]}>{item.name}</Text>
                                 </ImageBackground>
@@ -99,7 +102,7 @@ export default class Home extends React.Component {
                         this.props.parent_id ? this.renderOtherStep() : this.renderFirstStep()
                     }
                     </ImageBackground>
-                    <Spinner_bar color={'#27cccd'} visible={!this.state.loaded} textContent={""}  overlayColor={"rgba(0, 0, 0, 0.5)"}  />
+                    <Spinner_bar color={'#68ADED'} visible={!this.state.loaded} textContent={""}  overlayColor={"rgba(0, 0, 0, 0.5)"}  />
                 </Content>
             </Container>
         );

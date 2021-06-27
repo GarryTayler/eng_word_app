@@ -36,3 +36,10 @@ export function getCategoryList(parent_id) {
         {parent_id},
     );
 }
+
+export function getVideoList (category_id) {
+    return createCall(
+        'category/get-video-list',
+        {category_id}
+    );
+}
