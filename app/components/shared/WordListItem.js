@@ -9,8 +9,12 @@ export default class WordListItem extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            marqueeDisable: true
+            marqueeDisable: true,
+            isFavorite: false
         }
+    }
+    addToFavorite() {
+        this.setState({isFavorite: !this.state.isFavorite});
     }
     render() {
         return (
@@ -18,9 +22,10 @@ export default class WordListItem extends React.Component {
                 <View><Text style={[fonts.size12, fonts.weightBold]}>{this.props.currentNo} / {this.props.totalCount}</Text></View>
                 <View style={{marginTop: normalize(8), display: 'flex', flexDirection: 'row', 
                                         alignItems: 'center'}}>
-                    <View style={{flex: 1, alignItems: 'flex-start'}}>
-                        <Icon name='star' type='antdesign' color='rgba(0,0,0,0.2)' />
-                    </View>
+                    <TouchableOpacity activeOpacity={0.6} style={{flex: 1, alignItems: 'flex-start'}}
+                    onPress={ () => { this.addToFavorite() } }>
+                        <Icon name='star' type='antdesign' color={this.state.isFavorite ? '#F2C94C' : 'rgba(0,0,0,0.2)'} />
+                    </TouchableOpacity>
                     {
                         this.props.wordShow ? 
                             <TouchableOpacity activeOpacity={0.6} style={{flex: 4, paddingLeft: normalize(8), paddingRight: normalize(4) }}
