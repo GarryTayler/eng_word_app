@@ -8,6 +8,8 @@ import UserHeader from './../../components/shared/UserHeader';
 import { performNetwork } from './../../components/shared/global';
 import { getVideoList } from './../../utils/api';
 import Spinner_bar from 'react-native-loading-spinner-overlay';
+import {YouTubeStandaloneAndroid} from 'react-native-youtube';
+
 
 export default class Detail extends React.Component {
     constructor(props){
@@ -20,6 +22,17 @@ export default class Detail extends React.Component {
         };
     }
     buttonClick() {
+    }
+    videoPlay(video_id) {
+        // alert(video_link);
+        YouTubeStandaloneAndroid.playVideo({
+            apiKey: 'AIzaSyDkhRxknAjR8E5Z6ap8meduQCj1Tgzcgus', // Your YouTube Developer API Key
+            videoId: video_id, // YouTube video ID
+            autoplay: true, // Autoplay the video
+            startTime: 0, // Starting point of video (in seconds)
+          })
+        .then(() => console.log('Standalone Player Exited'))
+        .catch(errorMessage => console.error(errorMessage));
     }
     componentDidMount() {
         this.setState({ viewWidth: Math.round(Dimensions.get('window').width) });
@@ -37,21 +50,27 @@ export default class Detail extends React.Component {
             {
                 this.state.arrData == null || this.state.arrData.length == 0 ? null :
                     this.state.arrData.map((item, index) => (
-                        <View style={{marginHorizontal: 24, 
-                            height: 48, 
-                            backgroundColor: 'white', 
-                            borderRadius: 4, marginTop: (index == 0 ? 29 : 10),
-                            flexDirection: 'row', alignItems: 'center', display: 'flex', paddingRight: 12}}>
-                                <View style={{flex: 2}}>
-                                    <Icon color='#EB5757' name='sc-youtube' type='evilicon' size={36} iconStyle={{margin: 0}} />
-                                </View>
-                                <View style={{flex: 9, paddingRight: 9}}>
-                                    <Text numberOfLines={1} style={[fonts.size16, fonts.weightBold]}>{item.name}</Text>
-                                </View>
-                                <View style={[styles.editItem]}>        
-                                    <Icon color='black' name='pencil' type='evilicon' size={26} />
-                                </View>
-                        </View>
+                        <TouchableHighlight
+                        onPress={ () => { this.videoPlay(item.video_id) } }
+                        key={index}
+                        style={{marginHorizontal: 24, height: 48, 
+                            marginTop: (index == 0 ? 29 : 10), borderRadius: 4, }}>
+                            <View style={{
+                                borderRadius: 4,
+                                height: 48, 
+                                backgroundColor: 'white', 
+                                flexDirection: 'row', alignItems: 'center', display: 'flex', paddingRight: 12}}>
+                                    <View style={{flex: 2}}>
+                                        <Icon color='#EB5757' name='sc-youtube' type='evilicon' size={36} iconStyle={{margin: 0}} />
+                                    </View>
+                                    <View style={{flex: 9, paddingRight: 9}}>
+                                        <Text numberOfLines={1} style={[fonts.size16, fonts.weightBold]}>{item.name}</Text>
+                                    </View>
+                                    <View style={[styles.editItem]}>        
+                                        <Icon color='black' name='pencil' type='evilicon' size={26} />
+                                    </View>
+                            </View>
+                        </TouchableHighlight>
                     ))
             }
             <Spinner_bar color={'#68ADED'} visible={!this.state.loaded} textContent={""}  overlayColor={"rgba(0, 0, 0, 0.5)"}  />
