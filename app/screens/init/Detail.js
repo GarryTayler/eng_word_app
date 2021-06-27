@@ -9,6 +9,7 @@ import { performNetwork } from './../../components/shared/global';
 import { getVideoList } from './../../utils/api';
 import Spinner_bar from 'react-native-loading-spinner-overlay';
 import {YouTubeStandaloneAndroid} from 'react-native-youtube';
+import {Actions} from 'react-native-router-flux';
 
 
 export default class Detail extends React.Component {
@@ -43,6 +44,9 @@ export default class Detail extends React.Component {
             if (response == null) { return; }
             this.setState({arrData: response});
         });
+    }
+    viewWordList() {
+        Actions.push('word_list_view', {params: {category_id: this.props.params.category_id, before: 'detail'}});
     }
     renderVideos() {
         return (
@@ -97,7 +101,7 @@ export default class Detail extends React.Component {
                                         </ImageBackground>
                                     </TouchableHighlight>
 
-                                    <TouchableHighlight style={[styles.item, {marginRight: 11}]} onPress={ () => { this.buttonClick() } } activeOpacity={0.6}>
+                                    <TouchableHighlight style={[styles.item, {marginRight: 11}]} onPress={ () => { this.viewWordList() } } activeOpacity={0.6}>
                                         <ImageBackground source={Images.wordListView} resizeMode='cover' style={{flex: 1}}
                                             imageStyle={styles.itemImg}>
                                             <View style={{flex: 1, position: 'relative'}}>

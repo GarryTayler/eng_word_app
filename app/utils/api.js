@@ -43,3 +43,10 @@ export function getVideoList (category_id) {
         {category_id}
     );
 }
+
+export function getWordList (category_id) {
+    return createCall(
+        'word/get-word-list',
+        {category_id}
+    );
+}
