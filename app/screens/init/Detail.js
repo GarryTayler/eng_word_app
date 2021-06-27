@@ -45,6 +45,7 @@ export default class Detail extends React.Component {
             this.setState({arrData: response});
         });
     }
+
     viewWordList() { // 단어목록보기
         Actions.push('word_list_view', 
             { params: {   category_id: this.props.params.category_id, 
@@ -55,6 +56,12 @@ export default class Detail extends React.Component {
             { params: {   category_id: this.props.params.category_id, 
                             before: 'detail'}});
     }
+    viewSentenceList() { // 문장 보기 기능
+        Actions.push('sentence_view',
+            { params: {   category_id: this.props.params.category_id, 
+                            before: 'detail'}});
+    }
+
     renderVideos() {
         return (
             <View>
@@ -131,7 +138,7 @@ export default class Detail extends React.Component {
                                     </TouchableHighlight>
                                 </View>
                                 <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', flexWrap: "wrap", marginTop: 23}}>
-                                    <TouchableHighlight style={[styles.item, {marginRight: 16}]} onPress={ () => { this.buttonClick() } } activeOpacity={0.6}>
+                                    <TouchableHighlight style={[styles.item, {marginRight: 16}]} onPress={ () => { this.viewSentenceList() } } activeOpacity={0.6}>
                                         <ImageBackground source={Images.sen_view} resizeMode='cover' style={{flex: 1}}
                                             imageStyle={styles.itemImg}>
                                             <View style={{flex: 1, position: 'relative'}}>

@@ -24,7 +24,7 @@ export default class WordListView extends React.Component {
     }
 
     fetchWordList() {
-        performNetwork(this, getWordList(15)).then((response) => {
+        performNetwork(this, getWordList(this.props.params.category_id)).then((response) => {
             if(response == null) { return; }
             this.setState({arrData: response});
         });
