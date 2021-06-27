@@ -1,23 +1,43 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
-import { Container, Content, Button } from 'native-base';
+import { StyleSheet, View, Text, FlatList } from 'react-native';
+import { Container, Button, Content } from 'native-base';
 import UserHeader from './../components/shared/UserHeader';
 import ViewHeader from './../components/shared/ViewHeader';
 import SentenceViewItem from './../components/shared/SentenceViewItem';
 import { fonts, normalize } from './../assets/styles';
 import { Icon } from 'react-native-elements';
+import { performNetwork } from './../components/shared/global';
+import { getSentenceList } from './../utils/api';
+import Spinner_bar from 'react-native-loading-spinner-overlay';
 
 let pageTitle = '문장 보기';
 
 export default class SentenceView extends React.Component {
     constructor(props){
         super(props);
+        this.state = {
+            loaded: true,
+            serverRespond: false,
+            arrData: []
+        };
     }
+
+    componentDidMount() {
+        this.fetchSentenceList();
+    }
+
+    fetchSentenceList() {
+        performNetwork(this, getSentenceList(this.props.params.category_id)).then((response) => {
+            if(response == null) { return; }
+            this.setState({arrData: response});
+        });
+    }
+
     render() {
         return (
             <Container>
                 <UserHeader title={pageTitle} />
-                <ViewHeader currentNo={5} totalCount={138} title="초등1교과서 비상 (홍민표1) 21과" sentence />
+                <ViewHeader currentNo={5} totalCount={this.state.arrData.length} title="초등1교과서 비상 (홍민표1) 21과" sentence />
 
                 <View style={{paddingHorizontal: normalize(16), paddingTop: normalize(28), paddingBottom: normalize(12)}}>
                     <View style={{display: 'flex', flexDirection: 'row', position: 'relative'}}>
@@ -29,38 +49,25 @@ export default class SentenceView extends React.Component {
                         </Text> 
                     </View>
                 </View>
-                <Content style={styles.container}>
-                    <View style={{paddingHorizontal: normalize(16)}}>
-                        <SentenceViewItem currentNo={1} 
-                        english="You probaby like to post selfies on social media, but how much do you know about
-                        selfies?"
-                        korean="당신은 아마 소셜 미디어에 셀피를 게시하는 것을 좋아할지도 모르지만, 셀피에 대해 얼마나 알고 있는가?" />
-                        <SentenceViewItem currentNo={2}
-                        english="You probaby like to post selfies on social media, but how much do you know about
-                        selfies?"
-                        korean="당신은 아마 소셜 미디어에 셀피를 게시하는 것을 좋아할지도 모르지만, 셀피에 대해 얼마나 알고 있는가?" />
-                        <SentenceViewItem currentNo={3}
-                        english="You probaby like to post selfies on social media, but how much do you know about
-                        selfies?"
-                        korean="당신은 아마 소셜 미디어에 셀피를 게시하는 것을 좋아할지도 모르지만, 셀피에 대해 얼마나 알고 있는가?" />
-                        <SentenceViewItem currentNo={4}
-                        english="You probaby like to post selfies on social media, but how much do you know about
-                        selfies?"
-                        korean="당신은 아마 소셜 미디어에 셀피를 게시하는 것을 좋아할지도 모르지만, 셀피에 대해 얼마나 알고 있는가?" />
-                        <SentenceViewItem currentNo={5}
-                        english="You probaby like to post selfies on social media, but how much do you know about
-                        selfies?"
-                        korean="당신은 아마 소셜 미디어에 셀피를 게시하는 것을 좋아할지도 모르지만, 셀피에 대해 얼마나 알고 있는가?" />
-                        <SentenceViewItem currentNo={6}
-                        english="You probaby like to post selfies on social media, but how much do you know about
-                        selfies?"
-                        korean="당신은 아마 소셜 미디어에 셀피를 게시하는 것을 좋아할지도 모르지만, 셀피에 대해 얼마나 알고 있는가?" />
-                        <View style={{ height: normalize(40) }}>
-                        </View>
-                    </View>
+                {
+                    <FlatList
+                        style={[styles.container, {paddingHorizontal: normalize(16)}]}
+                        data={this.state.arrData}
+                        keyExtractor={(item) => item.id}
+                        renderItem={ ({item, index}) => (
+                            <SentenceViewItem currentNo={index + 1} 
+                            english={item.sentence}
+                            korean={item.meaning} />
+                        )}
+                        ListFooterComponent={
+                            <>
+                            <View style={{ height: normalize(40) }}></View>
+                            <Spinner_bar color={'#68ADED'} visible={!this.state.loaded} textContent={""}  overlayColor={"rgba(0, 0, 0, 0.5)"}  />
+                            </>    
+                        }
+                    />
+                }
 
-
-                </Content>
                 <View style={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap', 
                             justifyContent: 'center',
                             paddingTop: normalize(12), paddingBottom: normalize(4)}}>

@@ -47,6 +47,10 @@ const Images = {
     correct2x: require('./img/Correct2x.png'),
     wrong2x: require('./img/Wrong2x.png'),
     correct16: require('./img/16Correct.png'),
-    wrong16: require('./img/16Wrong.png')
+    wrong16: require('./img/16Wrong.png'),
+
+    headerMeaningButton: require('./img/_buttons/ButtonWithStroke.png'),
+    headerWordButton: require('./img/_buttons/ButtonWithStroke_1.png'),
+    headerRemoveButton: require('./img/_buttons/ButtonWithStroke_2.png')
 }
 export default Images;

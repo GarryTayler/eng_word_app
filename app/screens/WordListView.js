@@ -32,7 +32,7 @@ export default class WordListView extends React.Component {
     render() {
         return (
             <Container>
-                <UserHeader title={pageTitle} />
+                <UserHeader title={pageTitle} wordList />
                 <SubHeader title="중1 비상 (홍민표) 12과" />
                 <FlatList
                     style={styles.container}

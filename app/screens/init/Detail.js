@@ -45,11 +45,13 @@ export default class Detail extends React.Component {
             this.setState({arrData: response});
         });
     }
-
     viewWordList() { // 단어목록보기
         Actions.push('word_list_view', 
             { params: {   category_id: this.props.params.category_id, 
                             before: 'detail'}});
+    }
+    viewWord() { // 단어보기
+        Actions.push('word_view');
     } 
     viewSentenceStudy() { // 문장학습 init 이행
         Actions.push('sentence_study_init', 
@@ -104,7 +106,7 @@ export default class Detail extends React.Component {
                         <ScrollView>
                             <View style={{paddingVertical: 34}}>
                                 <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', flexWrap: "wrap"}}>
-                                    <TouchableHighlight style={[styles.item, {marginRight: 11}]} onPress={ () => { this.buttonClick() } } activeOpacity={0.6}>
+                                    <TouchableHighlight style={[styles.item, {marginRight: 11}]} onPress={ () => { this.viewWord() } } activeOpacity={0.6}>
                                         <ImageBackground source={Images.wordView} resizeMode='cover' style={{flex: 1}}
                                             imageStyle={styles.itemImg}>
                                             <View style={{flex: 1, position: 'relative'}}>

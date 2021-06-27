@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Content } from 'native-base';
+import { Container } from 'native-base';
 import { StyleSheet, View, Text, FlatList } from 'react-native';
 import { fonts, normalize } from './../../assets/styles';
 import { Button } from 'native-base';

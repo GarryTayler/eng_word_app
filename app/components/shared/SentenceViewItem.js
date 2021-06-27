@@ -18,7 +18,7 @@ export default class SentenceViewItem extends React.Component {
                     </Text> 
                 </View>
                 <View>
-                    <Text style={styles.sentenceSection}>
+                    <Text style={[styles.sentenceSection]}>
                         {this.props.korean}
                     </Text>
                 </View>
