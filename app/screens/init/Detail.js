@@ -45,8 +45,15 @@ export default class Detail extends React.Component {
             this.setState({arrData: response});
         });
     }
-    viewWordList() {
-        Actions.push('word_list_view', {params: {category_id: this.props.params.category_id, before: 'detail'}});
+    viewWordList() { // 단어목록보기
+        Actions.push('word_list_view', 
+            { params: {   category_id: this.props.params.category_id, 
+                            before: 'detail'}});
+    } 
+    viewSentenceStudy() { // 문장학습 init 이행
+        Actions.push('sentence_study_init', 
+            { params: {   category_id: this.props.params.category_id, 
+                            before: 'detail'}});
     }
     renderVideos() {
         return (
@@ -135,7 +142,7 @@ export default class Detail extends React.Component {
                                         </ImageBackground>
                                     </TouchableHighlight>
 
-                                    <TouchableHighlight style={[styles.item]} onPress={ () => { this.buttonClick() } } activeOpacity={0.6}>
+                                    <TouchableHighlight style={[styles.item]} onPress={ () => { this.viewSentenceStudy() } } activeOpacity={0.6}>
                                         <ImageBackground source={Images.sen_study} resizeMode='cover' style={{flex: 1}}
                                             imageStyle={styles.itemImg}>
                                             <View style={{flex: 1, position: 'relative'}}>

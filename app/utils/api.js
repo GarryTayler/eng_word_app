@@ -46,7 +46,14 @@ export function getVideoList (category_id) {
 
 export function getWordList (category_id) {
     return createCall(
-        'word/get-word-list',
+        'problem/get-word-list',
+        {category_id}
+    );
+}
+
+export function getSentenceList (category_id) {
+    return createCall(
+        'problem/get-sentence-list',
         {category_id}
     );
 }

@@ -19,7 +19,7 @@ export default class MyWordListView extends React.Component {
         return (
             <Container>
                 <UserHeader title={pageTitle} />
-                <SubHeader title="중1비상 (홍민표) 1과" />
+                <SubHeader title="중1비상 (홍민표) 1과" favorite />
                 <Content>
                     <MyWordListItem numberOfWords={156} currentNo={1} word="developvelopvelopvelop" meaning="개발하다, 발전하다 (사진을) 현상하다.진을) 현상하다." />
                     <MyWordListItem numberOfWords={156} currentNo={2} word="descent" meaning="하강하다, 강하하다" />

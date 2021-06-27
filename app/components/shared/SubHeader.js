@@ -14,22 +14,26 @@ export default class SubHeader extends React.Component {
         return (
             <View style={styles.subHeader}>
                 <View style={{flex: 1}}>
-                    <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                        <CheckBox
-                                onClick={()=>{
-                                    this.setState({
-                                        allChecked:!this.state.allChecked
-                                    })
-                                }}
-                                isChecked={this.state.allChecked}
-                        />
-                        <TouchableHighlight activeOpacity={0.6} underlayColor='white'
-                    onPress={ () => { this.setState({
-                                        allChecked:!this.state.allChecked
-                                      }) } }>
-                            <Text style={[fonts.size14, fonts.weightBold, {marginLeft: normalize(8)}]}>전체선택</Text>
-                        </TouchableHighlight>
-                    </View>
+                    {
+                        this.props.favorite ? 
+                        <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+                            <CheckBox
+                                    onClick={()=>{
+                                        this.setState({
+                                            allChecked:!this.state.allChecked
+                                        })
+                                    }}
+                                    isChecked={this.state.allChecked}
+                            />
+                            <TouchableHighlight activeOpacity={0.6} underlayColor='white'
+                        onPress={ () => { this.setState({
+                                            allChecked:!this.state.allChecked
+                                        }) } }>
+                                <Text style={[fonts.size14, fonts.weightBold, {marginLeft: normalize(8)}]}>전체선택</Text>
+                            </TouchableHighlight>
+                        </View>
+                        : null
+                    }
                 </View>
                 <View style={{flex: 1}}>
                     <Text style={[fonts.size14, fonts.weightBold, {textAlign: 'right'}]}>{ this.props.title }</Text>    
