@@ -9,6 +9,10 @@ import Images from './../../assets/Images';
 export default class UserHeader extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            showMeaning: true,
+            showWord: true
+        }
     }
 
     backButtonPressed() {
@@ -16,9 +20,13 @@ export default class UserHeader extends React.Component {
     }
 
     triggerMeaning() {
+        this.props.triggerMeaning(!this.state.showMeaning);
+        this.setState({showMeaning: !this.state.showMeaning});
     }
 
     triggerWord() {
+        this.props.triggerWord(!this.state.showWord);
+        this.setState({showWord: !this.state.showWord});
     }
 
     render() {

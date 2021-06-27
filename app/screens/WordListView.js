@@ -16,7 +16,9 @@ export default class WordListView extends React.Component {
         this.state = {
             loaded: true,
             serverRespond: false,
-            arrData: []
+            arrData: [],
+            wordShow: true,
+            meaningShow: true
         };        
     }
     componentDidMount() {
@@ -29,10 +31,21 @@ export default class WordListView extends React.Component {
             this.setState({arrData: response});
         });
     }
+
+    onChangeMeaning(e)  {
+        this.setState({meaningShow: e});
+    }
+
+    onChangeWord(e) {
+        this.setState({wordShow: e});
+    }
+
     render() {
         return (
             <Container>
-                <UserHeader title={pageTitle} wordList />
+                <UserHeader title={pageTitle} wordList
+                triggerMeaning={(e) => { this.onChangeMeaning(e) }}
+                triggerWord={(e) => { this.onChangeWord(e) }} />
                 <SubHeader title="중1 비상 (홍민표) 12과" />
                 <FlatList
                     style={styles.container}
@@ -43,7 +56,9 @@ export default class WordListView extends React.Component {
                         currentNo={index + 1} 
                         totalCount={this.state.arrData.length}
                         word={item.word}
-                        meaning={item.meaning} />            
+                        meaning={item.meaning}
+                        wordShow={this.state.wordShow}
+                        meaningShow={this.state.meaningShow} />            
                 )}
                     ListFooterComponent={
                         <>
