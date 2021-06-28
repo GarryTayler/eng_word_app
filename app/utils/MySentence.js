@@ -27,6 +27,7 @@ export const removeFromMySentence = async(param) => {
             return true;
         mysentence_id_list.splice(_i, 1);
         await removeData('mysentence_' + param.id);
+        await storeData('mysentence_list', mysentence_id_list);
         return true;
     }
     catch(e) {
@@ -52,7 +53,20 @@ export const getSentenceListFromMySentence = async() => {
                 i ++;
             }
         }
+        await storeData('mysentence_list', mysentence_id_list);
         return mysentence_list;
+    }
+    catch(e) {
+        return [];
+    }
+}
+
+export const getSentenceIdListFromMySentence = async() => {
+    try {
+        let mysentence_id_list = await getData('mysentence_list');
+        if(mysentence_id_list == null)
+            mysentence_id_list = [];
+        return mysentence_id_list;
     }
     catch(e) {
         return [];

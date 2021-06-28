@@ -13,7 +13,7 @@ export default class WordListItem extends React.Component {
         this.state = {
             marqueeWordDisable: true,
             marqueeMeaningDisable: true,
-            isFavorite: false
+            isFavorite: this.props.star
         }
     }
     async addToFavorite() {

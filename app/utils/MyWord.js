@@ -27,6 +27,7 @@ export const removeFromMyWord = async(param) => {
             return true;
         myword_id_list.splice(_i, 1);
         await removeData('myword_' + param.id);
+        await storeData('myword_list', myword_id_list);
         return true;
     }
     catch(e) {
@@ -51,7 +52,20 @@ export const getWordListFromMyWord = async() => {
                 i ++;
             }
         }
+        await storeData('myword_list', myword_id_list);
         return myword_list;
+    }
+    catch(e) {
+        return [];
+    }
+}
+
+export const getWordIdListFromMyWord = async() => {
+    try {
+        let myword_id_list = await getData('myword_list');
+        if(myword_id_list == null)
+            myword_id_list = [];
+        return myword_id_list;
     }
     catch(e) {
         return [];

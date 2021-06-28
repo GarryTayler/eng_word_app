@@ -8,7 +8,7 @@ export default class SentenceViewItem extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            isFavorite: false
+            isFavorite: this.props.star
         }
     }
     async addToFavorite() {

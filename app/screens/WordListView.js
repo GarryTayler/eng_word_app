@@ -7,6 +7,7 @@ import WordListItem from './../components/shared/WordListItem';
 import { normalize } from './../assets/styles';
 import { getWordList } from './../utils/api';
 import { performNetwork } from './../components/shared/global';
+import {getWordIdListFromMyWord} from './../utils/MyWord';
 import Spinner_bar from 'react-native-loading-spinner-overlay';
 let pageTitle = '단어목록보기';
 
@@ -18,18 +19,21 @@ export default class WordListView extends React.Component {
             serverRespond: false,
             arrData: [],
             wordShow: true,
-            meaningShow: true
+            meaningShow: true,
+            mywordidList: []
         };        
     }
     componentDidMount() {
         this.fetchWordList();
     }
 
-    fetchWordList() {
+    async fetchWordList() {
         performNetwork(this, getWordList(this.props.params.category_id)).then((response) => {
             if(response == null) { return; }
             this.setState({arrData: response});
         });
+        let _word_id_list = await getWordIdListFromMyWord();
+        this.setState({mywordidList: _word_id_list});
     }
 
     onChangeMeaning(e)  {
@@ -59,7 +63,8 @@ export default class WordListView extends React.Component {
                         meaning={item.meaning}
                         wordShow={this.state.wordShow}
                         meaningShow={this.state.meaningShow}
-                        param={item} />            
+                        param={item}
+                        star={this.state.mywordidList.indexOf(item.id) >= 0 ? true : false} />            
                 )}
                     ListFooterComponent={
                         <>

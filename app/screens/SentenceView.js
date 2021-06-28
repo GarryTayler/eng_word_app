@@ -8,7 +8,7 @@ import { fonts, normalize } from './../assets/styles';
 import { Icon } from 'react-native-elements';
 import { performNetwork } from './../components/shared/global';
 import { getSentenceList } from './../utils/api';
-import { getSentenceListFromMySentence } from './../utils/MySentence';
+import { getSentenceListFromMySentence, getSentenceIdListFromMySentence } from './../utils/MySentence';
 import Spinner_bar from 'react-native-loading-spinner-overlay';
 
 let pageTitle = '문장 보기';
@@ -19,7 +19,8 @@ export default class SentenceView extends React.Component {
         this.state = {
             loaded: true,
             serverRespond: false,
-            arrData: []
+            arrData: [],
+            mysentenceidList: []
         };
     }
 
@@ -39,6 +40,8 @@ export default class SentenceView extends React.Component {
             let _sen_list = await getSentenceListFromMySentence();
             this.setState({arrData: _sen_list, loaded: true});
         }
+        let _id_list = await getSentenceIdListFromMySentence();
+        this.setState({mysentenceidList: _id_list});
     }
 
     render() {
@@ -66,7 +69,8 @@ export default class SentenceView extends React.Component {
                             <SentenceViewItem currentNo={index + 1} 
                             english={item.sentence}
                             korean={item.meaning}
-                            param={item} />
+                            param={item}
+                            star={this.state.mysentenceidList.indexOf(item.id) >= 0 ? true : false} />
                         )}
                         ListFooterComponent={
                             <>
