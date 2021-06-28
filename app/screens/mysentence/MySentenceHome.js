@@ -3,11 +3,17 @@ import { StyleSheet, View, Text, ImageBackground, TouchableHighlight} from 'reac
 import { Container, Content } from 'native-base';
 import Images from './../../assets/Images';
 import { fonts } from '../../assets/styles';
+import {Actions} from 'react-native-router-flux';
 export default class MySentenceHome extends React.Component {
     constructor(props){
         super(props);
     }
     buttonClick() {
+    }
+    sentenceView() {
+        Actions.push('sentence_view',
+            { params: {   category_id: 0, 
+                            before: 'mysentence'}});
     }
     render() {
         return (
@@ -15,7 +21,7 @@ export default class MySentenceHome extends React.Component {
                 <Content contentContainerStyle={styles.container}>
                     <ImageBackground source={Images.backImg} style={styles.backImg} resizeMode='cover'>
                         <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', flexWrap: "wrap"}}>
-                            <TouchableHighlight style={[styles.item, {marginRight: 16}]} onPress={ () => { this.buttonClick() } } activeOpacity={0.6}>
+                            <TouchableHighlight style={[styles.item, {marginRight: 16}]} onPress={ () => { this.sentenceView() } } activeOpacity={0.6}>
                                 <ImageBackground source={Images.sen_view} resizeMode='cover' style={{flex: 1}}
                                     imageStyle={styles.itemImg}>
                                     <View style={{flex: 1, position: 'relative'}}>

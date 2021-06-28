@@ -8,6 +8,7 @@ import { fonts, normalize } from './../assets/styles';
 import { Icon } from 'react-native-elements';
 import { performNetwork } from './../components/shared/global';
 import { getSentenceList } from './../utils/api';
+import { getSentenceListFromMySentence } from './../utils/MySentence';
 import Spinner_bar from 'react-native-loading-spinner-overlay';
 
 let pageTitle = '문장 보기';
@@ -26,11 +27,18 @@ export default class SentenceView extends React.Component {
         this.fetchSentenceList();
     }
 
-    fetchSentenceList() {
-        performNetwork(this, getSentenceList(this.props.params.category_id)).then((response) => {
-            if(response == null) { return; }
-            this.setState({arrData: response});
-        });
+    async fetchSentenceList() {
+        if(this.props.params.before != 'mysentence') {
+            performNetwork(this, getSentenceList(this.props.params.category_id)).then((response) => {
+                if(response == null) { return; }
+                this.setState({arrData: response});
+            });
+        }
+        else {
+            this.setState({loaded: false});
+            let _sen_list = await getSentenceListFromMySentence();
+            this.setState({arrData: _sen_list, loaded: true});
+        }
     }
 
     render() {
@@ -57,7 +65,8 @@ export default class SentenceView extends React.Component {
                         renderItem={ ({item, index}) => (
                             <SentenceViewItem currentNo={index + 1} 
                             english={item.sentence}
-                            korean={item.meaning} />
+                            korean={item.meaning}
+                            param={item} />
                         )}
                         ListFooterComponent={
                             <>

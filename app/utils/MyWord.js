@@ -40,9 +40,16 @@ export const getWordListFromMyWord = async() => {
         if(myword_id_list == null)
             myword_id_list = [];
         let myword_list = [];
-        for(let i = 0; i < myword_id_list.length; i ++)  {
+        for(let i = 0; i < myword_id_list.length;)  {
             let _word_detail = await getData('myword_' + myword_id_list[i]);
-            myword_list.push(_word_detail);
+            
+            if(_word_detail == null) {
+                myword_id_list.splice(i, 1);
+            }
+            else {
+                myword_list.push(_word_detail);
+                i ++;
+            }
         }
         return myword_list;
     }
