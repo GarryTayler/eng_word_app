@@ -34,7 +34,7 @@ export default class WordListItem extends React.Component {
     render() {
         return (
             <View style={styles.wordListItem}>
-                <View><Text style={[fonts.size12, fonts.weightBold]}>{this.props.currentNo} / {this.props.totalCount}</Text></View>
+                <View><Text style={[fonts.size12, fonts.familyBold]}>{this.props.currentNo} / {this.props.totalCount}</Text></View>
                 <View style={{marginTop: normalize(8), display: 'flex', flexDirection: 'row', 
                                         alignItems: 'center'}}>
                     <TouchableOpacity activeOpacity={0.6} style={{flex: 1, alignItems: 'flex-start'}}
@@ -47,7 +47,7 @@ export default class WordListItem extends React.Component {
                         onPress={ () => { this.setState({marqueeWordDisable: !this.state.marqueeWordDisable}) }}>
                                 <TextTicker disabled={this.state.marqueeWordDisable}
                                 isInteraction={false} duration={3000} loop
-                                repeatSpacer={50} marqueeDelay={1000} style={[fonts.size18, fonts.weightBold]}>{this.props.word}</TextTicker>
+                                repeatSpacer={50} marqueeDelay={1000} style={[fonts.size16, fonts.familyBold]}>{this.props.word}</TextTicker>
                             </TouchableOpacity>
                         :
                         <View style={{flex: 4, paddingLeft: normalize(8), paddingRight: normalize(4) }}>
@@ -59,7 +59,7 @@ export default class WordListItem extends React.Component {
                     onPress={ () => { this.setState({marqueeMeaningDisable: !this.state.marqueeMeaningDisable}) }}>
                             <TextTicker disabled={this.state.marqueeMeaningDisable}
                             isInteraction={false} duration={3000} loop
-                            repeatSpacer={50} marqueeDelay={1000} style={[fonts.size18, fonts.weightBold]}>{this.props.meaning}</TextTicker>
+                            repeatSpacer={50} marqueeDelay={1000} style={[fonts.size16, fonts.familyBold]}>{this.props.meaning}</TextTicker>
                         </TouchableOpacity>
                         :
                         <View style={{flex: 6, paddingRight: normalize(8), paddingLeft: normalize(4)}}></View>
