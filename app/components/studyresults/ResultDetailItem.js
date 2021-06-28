@@ -12,7 +12,7 @@ export default class ResultDetailItem extends React.Component {
         if(!this.props.correct) {
             return (
                 <View style={{marginTop: normalize(4)}}>
-                    <Text numberOfLines={1} style={[fonts.size14, fonts.colorRed]}>
+                    <Text numberOfLines={1} style={[fonts.size14, fonts.familyRegular, fonts.colorRed]}>
                         정답 : { this.props.correctAnswer }
                     </Text>
                 </View>
@@ -32,15 +32,15 @@ export default class ResultDetailItem extends React.Component {
                                     flexShrink: 1}}>
                     <View style={{flex: 22}}>
                         <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                            <Text style={[fonts.size14, fonts.weightBold]}>
+                            <Text style={[fonts.size14, fonts.familyBold]}>
                                 {this.props.currentNo}.
                             </Text>
-                            <Text numberOfLines={1} style={[fonts.size20, fonts.weightBold, {marginLeft: normalize(6)}]}>
+                            <Text numberOfLines={1} style={[fonts.size20, fonts.familyBold, {marginLeft: normalize(6)}]}>
                                 {this.props.word}
                             </Text>
                         </View>
                         <View style={{marginTop: normalize(4)}}>
-                            <Text numberOfLines={1} style={[fonts.size14, {textDecorationLine: (this.props.correct ? 'none' : 'line-through')}]}>
+                            <Text numberOfLines={1} style={[fonts.size14, fonts.familyRegular, {textDecorationLine: (this.props.correct ? 'none' : 'line-through')}]}>
                                 {this.props.meaning}
                             </Text>
                         </View>
