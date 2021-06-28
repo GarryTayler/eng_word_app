@@ -6,6 +6,7 @@ import UserHeader from './../../components/shared/UserHeader';
 import SubHeader from './../../components/shared/SubHeader';
 import MyWordListItem from './../../components/myword/MyWordListItem';
 import { getWordListFromMyWord } from './../../utils/MyWord';
+import Spinner_bar from 'react-native-loading-spinner-overlay';
 
 let pageTitle = '단어 목록 보기';
 
@@ -16,12 +17,14 @@ export default class MyWordListView extends React.Component {
             isChecked: false,
             arrData: [],
             wordShow: true,
-            meaningShow: true
+            meaningShow: true,
+            loaded: true
         }
     }
     async componentDidMount() {
+        this.setState({loaded: false});
         let _word_list = await getWordListFromMyWord();
-        this.setState({arrData: _word_list});
+        this.setState({arrData: _word_list, loaded: true});
     }
     onChangeMeaning(e)  {
         this.setState({meaningShow: e});
@@ -50,6 +53,7 @@ export default class MyWordListView extends React.Component {
                         />
                     )}
                 />
+                <Spinner_bar color={'#68ADED'} visible={!this.state.loaded} textContent={""}  overlayColor={"rgba(0, 0, 0, 0.5)"}  />
             </Container>
         );
     }

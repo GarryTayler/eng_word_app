@@ -63,7 +63,9 @@ export default class Detail extends React.Component {
             { params: {   category_id: this.props.params.category_id, 
                             before: 'detail'}});
     }
-
+    wordStudyView() {
+        Actions.push('word_study_init');
+    }
     renderVideos() {
         return (
             <View>
@@ -128,7 +130,8 @@ export default class Detail extends React.Component {
                                         </ImageBackground>
                                     </TouchableHighlight>
 
-                                    <TouchableHighlight style={styles.item} onPress={ () => { this.buttonClick() } } activeOpacity={0.6}>
+                                    <TouchableHighlight style={styles.item} onPress={ () => { this.buttonClick() } } activeOpacity={0.6}
+                                                                                                onPress={ () => { this.wordStudyView() } }>
                                         <ImageBackground source={Images.wordStudy} resizeMode='cover' style={{flex: 1}}
                                             imageStyle={styles.itemImg}>
                                             <View style={{flex: 1, position: 'relative'}}>

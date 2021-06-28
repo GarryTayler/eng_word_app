@@ -1,16 +1,22 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { Button } from 'native-base';
 import { fonts, normalize } from './../../assets/styles';
+import {Actions} from 'react-native-router-flux';
 export default class StudyResultHistoryDetail extends React.Component {
     constructor(props) {
         super(props);
     }
 
+    detailPage() {
+        Actions.push('study_results_detail');
+    }
+
     render() {
         return (
-            <View style={styles.container}>
-                <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center', flex: 8}}>
+            <TouchableOpacity activeOpacity={0.6} style={styles.container}
+            onPress={ () => { this.detailPage() } }>
+                 <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center', flex: 8}}>
                     <View>
                         <Text style={[fonts.size14]}>{this.props.id}.</Text>    
                     </View>
@@ -30,7 +36,7 @@ export default class StudyResultHistoryDetail extends React.Component {
                         </Button>
                     </View>
                 </View>
-            </View>        
+            </TouchableOpacity>
         )
     }
 }

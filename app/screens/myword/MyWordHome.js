@@ -15,6 +15,9 @@ export default class MyWordHome extends React.Component {
     wordListView() { // 단어목록보기
         Actions.push('my_word_list_view');
     }
+    viewWordStudy() {
+        Actions.push('word_study_init');
+    }
     render() {
         return (
             <Container>
@@ -44,7 +47,8 @@ export default class MyWordHome extends React.Component {
                                 </ImageBackground>
                             </TouchableHighlight>
 
-                            <TouchableHighlight style={styles.item} onPress={ () => { this.buttonClick() } } activeOpacity={0.6}>
+                            <TouchableHighlight style={styles.item} onPress={ () => { this.buttonClick() } } 
+                            onPress={ () => { this.viewWordStudy() } } activeOpacity={0.6}>
                                 <ImageBackground source={Images.wordStudy} resizeMode='cover' style={{flex: 1}}
                                     imageStyle={styles.itemImg}>
                                     <View style={{flex: 1, position: 'relative'}}>

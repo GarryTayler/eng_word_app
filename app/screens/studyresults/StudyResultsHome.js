@@ -2,8 +2,6 @@ import React from 'react';
 import { StyleSheet, View, Text, Image, FlatList} from 'react-native';
 import { Container, Content } from 'native-base';
 import { fonts, normalize } from './../../assets/styles';
-import { Icon } from 'react-native-elements';
-import Images from './../../assets/Images';
 import StudyResultHistoryDetail from './../../components/studyresults/StudyResultHistoryDetail';
 import StudyHeader from './../../components/studyresults/StudyHeader';
 const DATA = [
@@ -53,17 +51,21 @@ export default class StudyResultsHome extends React.Component {
         return (
             <Container>
                 <StudyHeader />
-                <Content style={styles.container}>
-                        <View style={{height: 10}}></View>
-                        <FlatList
-                            data={DATA}
-                            keyExtractor={(item) => item.id}
-                            renderItem={({ item, index }) => (
-                                <StudyResultHistoryDetail id={item.id} time={item.time} detail={item.detail} 
-                                solvedCount={item.solvedCount} totalCount={item.totalCount} mark={item.mark} />
-                        )}/>
+                <FlatList
+                    style={[styles.container]}
+                    data={DATA}
+                    keyExtractor={(item) => item.id}
+                    renderItem={({ item, index }) => (
+                        <StudyResultHistoryDetail id={item.id} time={item.time} detail={item.detail} 
+                        solvedCount={item.solvedCount} totalCount={item.totalCount} mark={item.mark} />
+                    )}
+                    ListHeaderComponent={
+                        <View style={{height: 10}}></View>    
+                    }
+                    ListFooterComponent={
                         <View style={{height: 40}}></View>
-                </Content>
+                    }
+                />           
             </Container>
         );
     }

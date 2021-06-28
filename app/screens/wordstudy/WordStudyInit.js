@@ -5,7 +5,7 @@ import { fonts, normalize } from './../../assets/styles';
 import { Icon } from 'react-native-elements';
 import { CheckBox } from 'react-native-elements'
 import UserHeader from './../../components/shared/UserHeader';
-
+import {Actions} from 'react-native-router-flux';
 let pageTitle = '단어 학습';
 
 export default class WordStudyInit extends React.Component {
@@ -18,6 +18,9 @@ export default class WordStudyInit extends React.Component {
             startNumber: '',
             endNumber: ''
         }
+    }
+    startStudy() {
+        Actions.push('word_study_object');
     }
     render()     {
         return (
@@ -153,7 +156,8 @@ export default class WordStudyInit extends React.Component {
                 </Content>     
                 <View style={{backgroundColor: '#F4F4F4', paddingVertical: normalize(20)}}>
                     <View style={{ alignSelf: 'center' }}>
-                        <Button style={styles.startButton}>
+                        <Button style={styles.startButton}
+                        onPress={ () => { this.startStudy() } }>
                             <Text style={[fonts.size22, fonts.weightBold]}>학습 시작 </Text>
                         </Button>                     
                     </View>          
