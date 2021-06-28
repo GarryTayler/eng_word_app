@@ -65,7 +65,7 @@ export default class Detail extends React.Component {
             { params: {   category_id: this.props.params.category_id, 
                             before: 'detail'}});
     }
-    wordStudyView() {
+    wordStudyView() { // 단어학습
         Actions.push('word_study_init');
     }
     renderVideos() {

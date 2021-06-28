@@ -15,6 +15,11 @@ export default class MySentenceHome extends React.Component {
             { params: {   category_id: 0, 
                             before: 'mysentence'}});
     }
+    viewSentenceStudy() {
+        Actions.push('sentence_study_init', 
+            { params: {   category_id: 0, 
+                            before: 'mysentence'}});
+    }
     render() {
         return (
             <Container>
@@ -32,7 +37,7 @@ export default class MySentenceHome extends React.Component {
                                 </ImageBackground>
                             </TouchableHighlight>
 
-                            <TouchableHighlight style={[styles.item]} onPress={ () => { this.buttonClick() } } activeOpacity={0.6}>
+                            <TouchableHighlight style={[styles.item]} onPress={ () => { this.viewSentenceStudy() } } activeOpacity={0.6}>
                                 <ImageBackground source={Images.sen_study} resizeMode='cover' style={{flex: 1}}
                                     imageStyle={styles.itemImg}>
                                     <View style={{flex: 1, position: 'relative'}}>

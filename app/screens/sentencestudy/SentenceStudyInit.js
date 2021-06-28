@@ -9,6 +9,7 @@ import SentenceStudyItem from './../../components/sentencestudy/SentenceStudyIte
 import {performNetwork} from './../../components/shared/global';
 import {getSentenceList} from './../../utils/api';
 import Spinner_bar from 'react-native-loading-spinner-overlay';
+import {getSentenceListFromMySentence} from './../../utils/MySentence';
 
 let pageTitle = '문장 학습';
 
@@ -26,11 +27,18 @@ export default class SentenceStudyInit extends React.Component {
         this.fetchSentenceList();
     }
 
-    fetchSentenceList() {
-        performNetwork(this, getSentenceList(this.props.params.category_id)).then((response) => {
-            if(response == null) { return; }
-            this.setState({arrData: response});
-        });
+    async fetchSentenceList() {
+        if(this.props.params.before != 'mysentence') {
+            performNetwork(this, getSentenceList(this.props.params.category_id)).then((response) => {
+                if(response == null) { return; }
+                this.setState({arrData: response});
+            });
+        }
+        else  {
+            this.setState({loaded: false});
+            let _sen_list = await getSentenceListFromMySentence();
+            this.setState({arrData: _sen_list, loaded: true});
+        }
     }
 
     render()  {
