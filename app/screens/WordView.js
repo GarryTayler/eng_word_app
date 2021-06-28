@@ -47,7 +47,7 @@ export default class WordView extends React.Component {
         return (
             <Container>
                 <UserHeader title={pageTitle} />
-                <ViewHeader sentence={this.props.params.before != 'myword' ? false : true} currentNo={this.state.curPage + 1} totalCount={this.state.arrData.length} title="고1 모의고사 2018년 3월 4월 모의고사 진행중" />
+                <ViewHeader sentence={this.props.params.before != 'myword' ? false : true} currentNo={this.state.curPage + 1} totalCount={this.state.arrData.length} title="고1 모의고사 2018년 3월 4월 모의고사" />
                 <View style={styles.container}>
                     <SwiperFlatList
                         onChangeIndex={(e)=>{
@@ -59,10 +59,10 @@ export default class WordView extends React.Component {
                                 <View style={styles.upWordContainer}>
                                     <View style={{display: 'flex', alignItems: 'center', justifyContent: 'center', flexGrow: 1}}>
                                         <View style={{marginHorizontal: normalize(10)}}>
-                                            <Text numberOfLines={1} style={[fonts.size32, fonts.weightBold]}>{item.word}</Text>
+                                            <Text numberOfLines={1} style={[fonts.size32, fonts.familyBold]}>{item.word}</Text>
                                         </View>
                                         <View style={{marginHorizontal: normalize(10), position: 'relative', flexDirection: 'row', alignItems: 'center'}}>
-                                            <Text style={[fonts.weightBold, fonts.size20, {color: 'rgba(0,0,0,0.5)'}]}>[dɪˈveləp]</Text>
+                                            <Text style={[fonts.familyBold, fonts.size20, {color: 'rgba(0,0,0,0.5)'}]}>[dɪˈveləp]</Text>
                                             {
                                                 /* <WordSpeech wordView /> */
                                             }
@@ -73,14 +73,14 @@ export default class WordView extends React.Component {
                                 <View style={styles.downMeaningContainer}>
                                     <View style={{paddingHorizontal: normalize(16)}}>
                                         <View style={{paddingTop: normalize(16), paddingBottom: normalize(8)}}>
-                                            <Text style={[fonts.size18, fonts.weightBold, {textAlign: 'center'}]}>{item.meaning}</Text>
+                                            <Text style={[fonts.size18, fonts.familyBold, {textAlign: 'center'}]}>{item.meaning}</Text>
                                         </View>
                                         <View>
-                                            <Text style={styles.exampleSection}>
-                                                An American airline was intent on <Text style={[fonts.colorRed, fonts.weightBold]}>develop</Text> the lake as a tourist destination for fishermen.
+                                            <Text style={[styles.exampleSection, fonts.familyRegular]}>
+                                                An American airline was intent on <Text style={[fonts.colorRed, fonts.familyMedium]}>develop</Text> the lake as a tourist destination for fishermen.
                                             </Text>
-                                            <Text style={styles.exampleSection}>
-                                                한 미국 항공사가 그 호수를 낚시꾼들을 위한 관광지로 <Text style={[fonts.colorRed, fonts.weightBold]}>개발하는</Text> 것에 매우 관심을 보였다.
+                                            <Text style={[styles.exampleSection, fonts.familyRegular]}>
+                                                한 미국 항공사가 그 호수를 낚시꾼들을 위한 관광지로 <Text style={[fonts.colorRed, fonts.familyMedium]}>개발하는</Text> 것에 매우 관심을 보였다.
                                             </Text>
                                         </View>
                                     </View>
@@ -100,11 +100,11 @@ export default class WordView extends React.Component {
                     />
                     <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly', backgroundColor: '#E4E4E4', paddingVertical: normalize(12)}}>
                         <Button style={styles.footerButton}>
-                            <Text style={[fonts.size16]}>단어 뜻 가리기 </Text>
+                            <Text style={[fonts.size16, fonts.familyMedium]}>단어 뜻 가리기 </Text>
                         </Button>
 
                         <Button style={styles.footerButton}>
-                            <Text style={[fonts.size16]}>예문 해석 가리기 </Text>
+                            <Text style={[fonts.size16, fonts.familyMedium]}>예문 해석 가리기 </Text>
                         </Button>
                     </View>
                 </View>           

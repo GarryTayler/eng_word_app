@@ -16,11 +16,11 @@ export default class ViewHeader extends React.Component {
                         <Icon name='star' type='antdesign' color='rgba(0,0,0,0.2)' />
                         : null
                     }           
-                    <Text style={[fonts.colorRed, fonts.size14, fonts.weightBold, {marginLeft: normalize(4)}]}>{this.props.currentNo}</Text>
-                    <Text style={[fonts.size14, fonts.weightBold]}> / {this.props.totalCount}</Text>
+                    <Text style={[fonts.colorRed, fonts.size14, fonts.familyBold, {marginLeft: normalize(4)}]}>{this.props.currentNo}</Text>
+                    <Text style={[fonts.size14, fonts.familyBold]}> / {this.props.totalCount}</Text>
                 </View>           
                 <View style={{flex: 1}}>
-                    <Text numberOfLines={1} style={[fonts.size14, fonts.weightBold, {textAlign: 'right'}]}>
+                    <Text numberOfLines={1} style={[fonts.size14, fonts.familyBold, {textAlign: 'right', backgroundColor: 'green'}]}>
                         {this.props.title}
                     </Text>
                 </View>
