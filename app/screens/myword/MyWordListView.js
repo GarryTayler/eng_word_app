@@ -1,10 +1,11 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, FlatList } from 'react-native';
 import { Container, Content } from 'native-base';
 import { normalize } from './../../assets/styles';
 import UserHeader from './../../components/shared/UserHeader';
 import SubHeader from './../../components/shared/SubHeader';
 import MyWordListItem from './../../components/myword/MyWordListItem';
+import { getWordListFromMyWord } from './../../utils/MyWord';
 
 let pageTitle = '단어 목록 보기';
 
@@ -12,20 +13,43 @@ export default class MyWordListView extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            isChecked: false
+            isChecked: false,
+            arrData: [],
+            wordShow: true,
+            meaningShow: true
         }
+    }
+    async componentDidMount() {
+        let _word_list = await getWordListFromMyWord();
+        this.setState({arrData: _word_list});
+    }
+    onChangeMeaning(e)  {
+        this.setState({meaningShow: e});
+    }
+    onChangeWord(e) {
+        this.setState({wordShow: e});
     }
     render()  {
         return (
             <Container>
-                <UserHeader title={pageTitle} />
+                <UserHeader title={pageTitle} wordList favorite
+                triggerMeaning={(e) => { this.onChangeMeaning(e) }}
+                triggerWord={(e) => { this.onChangeWord(e) }} />
                 <SubHeader title="중1비상 (홍민표) 1과" favorite />
-                <Content>
-                    <MyWordListItem numberOfWords={156} currentNo={1} word="developvelopvelopvelop" meaning="개발하다, 발전하다 (사진을) 현상하다.진을) 현상하다." />
-                    <MyWordListItem numberOfWords={156} currentNo={2} word="descent" meaning="하강하다, 강하하다" />
-                    <MyWordListItem numberOfWords={156} currentNo={3} word="mean" meaning="의미하다. 평균" />
-                    <MyWordListItem numberOfWords={156} currentNo={4} word="develop" meaning="개발하다, 발전하다" />
-                </Content>
+                <FlatList
+                    data={this.state.arrData}
+                    keyExtractor={(item) => item.id}
+                    renderItem={ ({ item, index }) => (
+                        <MyWordListItem
+                            numberOfWords={this.state.arrData.length}
+                            currentNo={index + 1}
+                            word={item.word}
+                            meaning={item.meaning}
+                            wordShow={this.state.wordShow}
+                            meaningShow={this.state.meaningShow}
+                        />
+                    )}
+                />
             </Container>
         );
     }

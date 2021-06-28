@@ -15,8 +15,22 @@ export const getData = async(storageName) => {
 export const storeData = async(storageName, item) => {
     try {
         await AsyncStorage.setItem(storageName, JSON.stringify(item));
+        return true;
     }
     catch(e) {
         console.log("Async Storage Error:", e);
+        return false;
     }
 };
+
+// remove 
+export const removeData = async(storageName) => {
+    try {
+        await AsyncStorage.removeItem(storageName);
+        return true;
+    }
+    catch(exception) {
+        console.log("Async RemoveData Error:", exception);
+        return false;
+    }
+}

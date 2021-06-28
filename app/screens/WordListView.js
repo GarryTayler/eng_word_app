@@ -58,7 +58,8 @@ export default class WordListView extends React.Component {
                         word={item.word}
                         meaning={item.meaning}
                         wordShow={this.state.wordShow}
-                        meaningShow={this.state.meaningShow} />            
+                        meaningShow={this.state.meaningShow}
+                        param={item} />            
                 )}
                     ListFooterComponent={
                         <>

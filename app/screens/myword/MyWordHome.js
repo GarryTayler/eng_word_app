@@ -3,11 +3,17 @@ import { StyleSheet, View, Text, ImageBackground, TouchableHighlight} from 'reac
 import { Container, Content } from 'native-base';
 import Images from './../../assets/Images';
 import { fonts } from '../../assets/styles';
+import {Actions} from 'react-native-router-flux';
 export default class MyWordHome extends React.Component {
     constructor(props){
         super(props);
     }
     buttonClick() {
+    }
+    componentDidMount() {
+    }
+    wordListView() { // 단어목록보기
+        Actions.push('my_word_list_view');
     }
     render() {
         return (
@@ -26,7 +32,8 @@ export default class MyWordHome extends React.Component {
                                 </ImageBackground>
                             </TouchableHighlight>
 
-                            <TouchableHighlight style={[styles.item, {marginRight: 11}]} onPress={ () => { this.buttonClick() } } activeOpacity={0.6}>
+                            <TouchableHighlight style={[styles.item, {marginRight: 11}]} 
+                            onPress={ () => { this.wordListView() } } activeOpacity={0.6}>
                                 <ImageBackground source={Images.wordListView} resizeMode='cover' style={{flex: 1}}
                                     imageStyle={styles.itemImg}>
                                     <View style={{flex: 1, position: 'relative'}}>

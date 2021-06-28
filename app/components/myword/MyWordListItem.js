@@ -1,14 +1,17 @@
 import React from 'react';
-import { StyleSheet, View, Text, TouchableHighlight } from 'react-native';
+import { StyleSheet, View, Text, TouchableHighlight, TouchableOpacity } from 'react-native';
 import { fonts, normalize } from './../../assets/styles';
 import CheckBox from 'react-native-check-box';
 import { Icon } from 'react-native-elements';
+import TextTicker from 'react-native-text-ticker';
 
 export default class MyWordListItem extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            isChecked: false
+            isChecked: false,
+            marqueeWordDisable: true,
+            marqueeMeaningDisable: true,
         }
     }
     doSwap() {
@@ -17,7 +20,7 @@ export default class MyWordListItem extends React.Component {
         return (
             <View style={styles.container}>
                 <View style={{position: 'absolute', top: normalize(4), left: normalize(12)}}>
-                    <Text style={[fonts.size11]}>1/156</Text>
+                    <Text style={[fonts.size11]}>{this.props.currentNo}/{this.props.numberOfWords}</Text>
                 </View>
                 <View style={[styles.flexRowAlign]}>
                     <View style={[styles.flexRowAlign, {flex: 5}]}>
@@ -31,21 +34,32 @@ export default class MyWordListItem extends React.Component {
                             style={styles.checkBoxItem}
                         />
                         <View style={{flexShrink: 1}}>
-                            <TouchableHighlight
-                        onPress={ () => { this.setState({
-                                            isChecked:!this.state.isChecked
-                                        }) } } activeOpacity={0.6} underlayColor='white'>
-                                <Text style={[fonts.size16, fonts.weightBold, {marginLeft: normalize(10)}]} numberOfLines={1}>
-                                    {this.props.word}
-                                </Text>
-                            </TouchableHighlight>
+                        {
+                            this.props.wordShow ?
+                                <TouchableOpacity
+                            onPress={ () => { this.setState({marqueeWordDisable: !this.state.marqueeWordDisable}) } } activeOpacity={0.6}>
+                                    <TextTicker disabled={this.state.marqueeWordDisable}
+                                    isInteraction={false} duration={3000} loop
+                                    repeatSpacer={50} marqueeDelay={1000} style={[fonts.size16, fonts.weightBold, {marginLeft: normalize(10)}]}>
+                                        {this.props.word}
+                                    </TextTicker>
+                                </TouchableOpacity>
+                            : <></>
+                        }
                         </View>
                     </View>
-                    <View style={{ flex:5, display: 'flex', flexDirection: 'row', paddingLeft: normalize(4) }}>
-                        <Text numberOfLines={2} style={[fonts.size14, fonts.weightBold]}>
-                            {this.props.meaning}
-                        </Text>
-                    </View>
+                    {
+                        this.props.meaningShow ? 
+                        <TouchableOpacity style={{ flex:5, display: 'flex', flexDirection: 'row', paddingLeft: normalize(4) }}
+                        activeOpacity={0.6}
+                        onPress={ () => { this.setState({marqueeMeaningDisable: !this.state.marqueeMeaningDisable}) } } >
+                            <TextTicker disabled={this.state.marqueeMeaningDisable}
+                                isInteraction={false} duration={3000} loop
+                                repeatSpacer={50} marqueeDelay={1000} style={[fonts.size14, fonts.weightBold]}>{this.props.meaning}</TextTicker>
+                        </TouchableOpacity>
+                        :
+                        <View style={{ flex:5, display: 'flex', flexDirection: 'row', paddingLeft: normalize(4) }}></View>
+                    }
                     <View style={{ flex:2, alignItems: 'flex-end' }}>
                         <TouchableHighlight style={styles.swapIconContainer}
                         onPress={ () => {this.doSwap()} } underlayColor="white" activeOpacity={0.8}>

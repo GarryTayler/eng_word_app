@@ -2,19 +2,34 @@ import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { fonts, normalize } from './../../assets/styles';
 import { Icon } from 'react-native-elements';
+import { addToMyWord, removeFromMyWord } from './../../utils/MyWord';
 import WordSpeech from './../../components/shared/WordSpeech';
 import TextTicker from 'react-native-text-ticker'
+import { showToast } from './../shared/global';
 
 export default class WordListItem extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            marqueeDisable: true,
+            marqueeWordDisable: true,
+            marqueeMeaningDisable: true,
             isFavorite: false
         }
     }
-    addToFavorite() {
+    async addToFavorite() {
+        let _isFavorite = this.state.isFavorite;
         this.setState({isFavorite: !this.state.isFavorite});
+        if(!_isFavorite) {
+            
+            if( await addToMyWord(this.props.param) ) {
+                showToast("내 단어장에 저장되었습니다.", "success");
+            }
+        }
+        else {
+            if( await removeFromMyWord(this.props.param) ) {
+                showToast("내 단어장에서 삭제되었습니다.", "success");
+            }
+        }
     }
     render() {
         return (
@@ -29,8 +44,8 @@ export default class WordListItem extends React.Component {
                     {
                         this.props.wordShow ? 
                             <TouchableOpacity activeOpacity={0.6} style={{flex: 4, paddingLeft: normalize(8), paddingRight: normalize(4) }}
-                        onPress={ () => { this.setState({marqueeDisable: !this.state.marqueeDisable}) }}>
-                                <TextTicker disabled={this.state.marqueeDisable}
+                        onPress={ () => { this.setState({marqueeWordDisable: !this.state.marqueeWordDisable}) }}>
+                                <TextTicker disabled={this.state.marqueeWordDisable}
                                 isInteraction={false} duration={3000} loop
                                 repeatSpacer={50} marqueeDelay={1000} style={[fonts.size18, fonts.weightBold]}>{this.props.word}</TextTicker>
                             </TouchableOpacity>
@@ -41,8 +56,8 @@ export default class WordListItem extends React.Component {
                     {
                         this.props.meaningShow ? 
                         <TouchableOpacity activeOpacity={0.6} style={{flex: 6, paddingRight: normalize(8), paddingLeft: normalize(4)}}
-                    onPress={ () => { this.setState({marqueeDisable: !this.state.marqueeDisable}) }}>
-                            <TextTicker disabled={this.state.marqueeDisable}
+                    onPress={ () => { this.setState({marqueeMeaningDisable: !this.state.marqueeMeaningDisable}) }}>
+                            <TextTicker disabled={this.state.marqueeMeaningDisable}
                             isInteraction={false} duration={3000} loop
                             repeatSpacer={50} marqueeDelay={1000} style={[fonts.size18, fonts.weightBold]}>{this.props.meaning}</TextTicker>
                         </TouchableOpacity>
