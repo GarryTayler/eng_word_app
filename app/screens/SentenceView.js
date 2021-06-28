@@ -85,27 +85,27 @@ export default class SentenceView extends React.Component {
                             justifyContent: 'center',
                             paddingTop: normalize(12), paddingBottom: normalize(4)}}>
                     <Button style={styles.footerButton}>
-                        <Text style={[fonts.size14, fonts.colorWhite, fonts.weightBold]}>
+                        <Text style={[fonts.size14, fonts.colorWhite, fonts.familyBold]}>
                             단어가리기
                         </Text>
                     </Button>
                     <Button style={styles.footerButton}>
-                        <Text style={[fonts.size14, fonts.colorWhite, fonts.weightBold]}>
+                        <Text style={[fonts.size14, fonts.colorWhite, fonts.familyBold]}>
                             문장가리기
                         </Text>
                     </Button>
                     <Button style={styles.footerButton}>
-                        <Text style={[fonts.size14, fonts.colorWhite, fonts.weightBold]}>
+                        <Text style={[fonts.size14, fonts.colorWhite, fonts.familyBold]}>
                             해석가리기
                         </Text>
                     </Button>
                     <Button style={styles.footerButton}>
-                        <Text style={[fonts.size14, fonts.colorWhite, fonts.weightBold]}>
+                        <Text style={[fonts.size14, fonts.colorWhite, fonts.familyBold]}>
                             현재문장학습
                         </Text>
                     </Button>
                     <Button style={styles.footerButton}>
-                        <Text style={[fonts.size14, fonts.colorWhite, fonts.weightBold]}>
+                        <Text style={[fonts.size14, fonts.colorWhite, fonts.familyBold]}>
                             전체문장학습
                         </Text>
                     </Button>
