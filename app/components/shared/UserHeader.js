@@ -92,9 +92,8 @@ const styles = StyleSheet.create({
     userHeaderText: {
         color: 'white',
         fontSize: normalize(18),
-        lineHeight: normalize(18),
-        fontWeight: 'bold',
-        paddingTop: normalize(3)
+        lineHeight: normalize(24),
+        fontFamily: 'NotoSansCJKkr-Bold'
     },
     buttonImage: {
         flex: 1,
