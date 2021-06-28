@@ -10,7 +10,7 @@ import {performNetwork} from './../../components/shared/global';
 import {getSentenceList} from './../../utils/api';
 import Spinner_bar from 'react-native-loading-spinner-overlay';
 import {getSentenceListFromMySentence} from './../../utils/MySentence';
-
+import {Actions} from 'react-native-router-flux';
 let pageTitle = '문장 학습';
 
 export default class SentenceStudyInit extends React.Component {
@@ -70,7 +70,7 @@ export default class SentenceStudyInit extends React.Component {
                     <Button style={styles.footerButton}>
                         <Text style={[fonts.size16, fonts.colorWhite]}>임의대로</Text>
                     </Button>
-                    <Button style={styles.footerButton}>
+                    <Button style={styles.footerButton} onPress={() => Actions.push("sentence_study")}>
                         <Text style={[fonts.size16, fonts.colorWhite]}>학습시작</Text>
                     </Button>
                 </View>
