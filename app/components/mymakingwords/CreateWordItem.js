@@ -35,7 +35,7 @@ export default class CreateWordItem extends React.Component {
                                     <Text style={styles.itemLineText}>단어·문법</Text>
                                 </View>
                                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                                    <Text style={[fonts.weightBold, fonts.size14, fonts.colorRed]}>{this.props.currentNo}.</Text>
+                                    <Text style={[fonts.familyBold, fonts.size14, fonts.colorRed]}>{this.props.currentNo}.</Text>
                                     <TextInput
                                         style={[styles.wordInput, fonts.weightBold, fonts.colorBlack, 
                                         { width: '90%' }]}
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
         fontSize: normalize(14),
         lineHeight: normalize(19),
         color: 'rgba(0, 0, 0, 0.55)',
-        fontWeight: 'bold'
+        fontFamily: 'NotoSansCJKkr-Bold'
     },
     swapIconContainer: {
         width: normalize(24), height: normalize(24),

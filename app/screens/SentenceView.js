@@ -55,7 +55,7 @@ export default class SentenceView extends React.Component {
                         <View style={{position: 'absolute', paddingTop: normalize(3)}}>
                             <Icon name='star' type='antdesign' color='rgba(0,0,0,0.2)' />
                         </View>
-                        <Text style={styles.sentenceSection}>
+                        <Text style={[styles.sentenceSection, fonts.familyRegular]}>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;전체 별표
                         </Text> 
                     </View>
@@ -85,27 +85,27 @@ export default class SentenceView extends React.Component {
                             justifyContent: 'center',
                             paddingTop: normalize(12), paddingBottom: normalize(4)}}>
                     <Button style={styles.footerButton}>
-                        <Text style={[fonts.size14, fonts.colorWhite, fonts.weightBold]}>
+                        <Text style={[fonts.size14, fonts.colorWhite, fonts.familyBold]}>
                             단어가리기
                         </Text>
                     </Button>
                     <Button style={styles.footerButton}>
-                        <Text style={[fonts.size14, fonts.colorWhite, fonts.weightBold]}>
+                        <Text style={[fonts.size14, fonts.colorWhite, fonts.familyBold]}>
                             문장가리기
                         </Text>
                     </Button>
                     <Button style={styles.footerButton}>
-                        <Text style={[fonts.size14, fonts.colorWhite, fonts.weightBold]}>
+                        <Text style={[fonts.size14, fonts.colorWhite, fonts.familyBold]}>
                             해석가리기
                         </Text>
                     </Button>
                     <Button style={styles.footerButton}>
-                        <Text style={[fonts.size14, fonts.colorWhite, fonts.weightBold]}>
+                        <Text style={[fonts.size14, fonts.colorWhite, fonts.familyBold]}>
                             현재문장학습
                         </Text>
                     </Button>
                     <Button style={styles.footerButton}>
-                        <Text style={[fonts.size14, fonts.colorWhite, fonts.weightBold]}>
+                        <Text style={[fonts.size14, fonts.colorWhite, fonts.familyBold]}>
                             전체문장학습
                         </Text>
                     </Button>

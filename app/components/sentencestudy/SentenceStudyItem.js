@@ -19,7 +19,7 @@ export default class SentenceStudyItem extends React.Component {
                     </View>
                     <View style={{flex: 11, display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                         <Icon name='star' type='antdesign' size={18} color={this.state.favorite ? '#F2C94C' : 'rgba(0,0,0,0.2)'} />
-                        <Text style={[fonts.size11, {marginLeft: normalize(4)}]}>{this.props.currentNo} / {this.props.totalProblems}</Text>
+                        <Text style={[fonts.size11, fonts.familyRegular, {marginLeft: normalize(4)}]}>{this.props.currentNo} / {this.props.totalProblems}</Text>
                     </View>
                 </View>
                 <View style={{display: 'flex', flexDirection: 'row', marginTop: normalize(4)}}>
@@ -35,8 +35,8 @@ export default class SentenceStudyItem extends React.Component {
                         />
                     </View>
                     <View style={{flexShrink: 1}}>
-                        <Text numberOfLines={1} style={styles.engStudySen}>{this.props.engSentence}</Text>
-                        <Text numberOfLines={1} style={styles.korStudySen}>{this.props.korSentence}</Text>
+                        <Text numberOfLines={1} style={[styles.engStudySen, fonts.familyRegular]}>{this.props.engSentence}</Text>
+                        <Text numberOfLines={1} style={[styles.korStudySen, fonts.familyRegular]}>{this.props.korSentence}</Text>
                     </View>
                 </View>
             </View>

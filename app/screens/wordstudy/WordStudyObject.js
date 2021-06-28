@@ -17,25 +17,25 @@ export default class WordStudyObject extends React.Component {
         return (
             <Container>
                 <UserHeader title={pageTitle} />
-                <WordStudyHeader title="중1비상 (홍민표) 3과"
+                <WordStudyHeader title="중1비상 (홍민표) 31과"
                                  totalProblems="20" currentNo="12" rightAnswer="5" wrongAnswer="5" />
                 <Content style={styles.container}>
                     <View style={styles.problemContainer}>
                         <View style={{position: 'absolute', top: normalize(28)}}>
-                            <Text style={[fonts.size14, fonts.weightBold]}>
+                            <Text style={[fonts.size14, fonts.familyBold]}>
                                 다음 단어의 뜻을 보기에서 선택하세요.
                             </Text>
                         </View>
                         <Image source={Images.correct2x} style={styles.correctIcon} resizeMode='cover' />
-                        <Text style={[fonts.size38, fonts.weightBold]}>
+                        <Text style={[fonts.size38, fonts.familyBold]}>
                             chicken
                         </Text>
                         <View style={{position: 'absolute', bottom: normalize(40), display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                             <View style={{backgroundColor: '#92BEF8', borderRadius: normalize(4), padding: normalize(4)}}>
-                                <Text style={[fonts.size14, fonts.colorWhite, fonts.weightBold]}>정답</Text>
+                                <Text style={[fonts.size14, fonts.colorWhite, fonts.familyBold]}>정답</Text>
                             </View>
                             <View style={{marginLeft: normalize(8)}}>
-                                <Text numberOfLines={1} style={[fonts.weightBold, fonts.size18, {color: '#92BEF8'}]}>닭, 닭고기</Text>
+                                <Text numberOfLines={1} style={[fonts.familyBold, fonts.size18, {color: '#92BEF8'}]}>닭, 닭고기</Text>
                             </View>
                         </View>
                     </View>
@@ -48,7 +48,7 @@ export default class WordStudyObject extends React.Component {
                     </View>
                     <View style={[styles.footerConfirm, styles.footerConfirm]}>
                         <Button style={styles.confirmButton}>
-                            <Text style={[fonts.weightBold, fonts.size18, fonts.colorWhite]}>확인</Text>
+                            <Text style={[fonts.familyBold, fonts.size18, fonts.colorWhite]}>확인</Text>
                         </Button> 
                     </View>
                 </Content>

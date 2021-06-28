@@ -65,13 +65,13 @@ export default class SentenceStudyInit extends React.Component {
                 />
                 <View style={{display: 'flex', flexDirection: 'row', paddingVertical: normalize(26), justifyContent: 'space-evenly'}}>
                     <Button style={styles.footerButton}>
-                        <Text style={[fonts.size16, fonts.colorWhite]}>전체선택</Text>
+                        <Text style={[fonts.size16, fonts.colorWhite, fonts.familyMedium]}>전체선택</Text>
                     </Button>
                     <Button style={styles.footerButton}>
-                        <Text style={[fonts.size16, fonts.colorWhite]}>임의대로</Text>
+                        <Text style={[fonts.size16, fonts.colorWhite, fonts.familyMedium]}>임의대로</Text>
                     </Button>
                     <Button style={styles.footerButton}>
-                        <Text style={[fonts.size16, fonts.colorWhite]}>학습시작</Text>
+                        <Text style={[fonts.size16, fonts.colorWhite, fonts.familyMedium]}>학습시작</Text>
                     </Button>
                 </View>
             </Container>

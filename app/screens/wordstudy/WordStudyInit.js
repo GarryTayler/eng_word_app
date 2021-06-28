@@ -20,7 +20,7 @@ export default class WordStudyInit extends React.Component {
         }
     }
     startStudy() {
-        Actions.push('word_study_object');
+        Actions.push('word_study_subject');
     }
     render()     {
         return (
@@ -28,7 +28,7 @@ export default class WordStudyInit extends React.Component {
                 <UserHeader title={pageTitle} />
                 <Content style={styles.container}>
                     <View style={{marginTop: normalize(25)}}>
-                        <Text style={[fonts.size16, {textAlign: 'center'}]}>단어 학습 모드를 설정해주세요.</Text>
+                        <Text style={[fonts.size16, fonts.familyRegular, {textAlign: 'center'}]}>단어 학습 모드를 설정해주세요.</Text>
                     </View>
                     <View style={{marginTop: normalize(30)}}>
                         <View style={styles.methodItem}>
@@ -36,7 +36,7 @@ export default class WordStudyInit extends React.Component {
                                 <Icon name="pencil" type='evilicon' />
                             </View>
                             <View style={{flex: 10}}>
-                                <Text style={[fonts.size16, fonts.weightBold]}>단어 문제 방식</Text>
+                                <Text style={[fonts.size16, fonts.familyBold]}>단어 문제 방식</Text>
                             </View>
                         </View>
                         <View  style={[{ display:'flex', flexDirection:'row', paddingTop: normalize(6)}]}>
@@ -44,14 +44,14 @@ export default class WordStudyInit extends React.Component {
                                 title='객관식'
                                 checked={this.state.problemMethod == 'obj'}
                                 containerStyle={{backgroundColor: '#F4F4F4', borderColor: '#F4F4F4', flex: 1, paddingVertical: 0}}
-                                textStyle={[fonts.size16, fonts.weightNormal, fonts.colorBlack]}
+                                textStyle={[fonts.size16, fonts.familyRegular, fonts.weightNormal, fonts.colorBlack]}
                                 checkedColor='#6FCF97'
                                 />
                             <CheckBox
                                 title='주관식'
                                 checked={this.state.problemMethod == 'sub'}
                                 containerStyle={{backgroundColor: '#F4F4F4', borderColor: '#F4F4F4', flex: 1, paddingVertical: 0}}
-                                textStyle={[fonts.size16, fonts.weightNormal, fonts.colorBlack]}
+                                textStyle={[fonts.size16, fonts.familyRegular, fonts.weightNormal, fonts.colorBlack]}
                                 checkedColor='#6FCF97'
                                 />
                         </View>
@@ -62,7 +62,7 @@ export default class WordStudyInit extends React.Component {
                                 <Icon name="eye" type='evilicon' />
                             </View>
                             <View style={{flex: 10}}>
-                                <Text style={[fonts.size16, fonts.weightBold]}>단어 학습 방식</Text>
+                                <Text style={[fonts.size16, fonts.familyBold]}>단어 학습 방식</Text>
                             </View>
                         </View>
                         <View  style={[{ display:'flex', paddingTop: normalize(6)}]}>
@@ -70,14 +70,14 @@ export default class WordStudyInit extends React.Component {
                                 title='영어 문제를 한글로 풀기'
                                 checked={this.state.studyMethod == 'entoko'}
                                 containerStyle={{backgroundColor: '#F4F4F4', borderColor: '#F4F4F4', paddingVertical: 0}}
-                                textStyle={[fonts.size16, fonts.weightNormal, fonts.colorBlack]}
+                                textStyle={[fonts.size16, fonts.weightNormal, fonts.familyRegular, fonts.colorBlack]}
                                 checkedColor='#6FCF97'
                                 />
                             <CheckBox
                                 title='한글 문제를 영어로 풀기'
                                 checked={this.state.studyMethod == 'kotoen'}
                                 containerStyle={{backgroundColor: '#F4F4F4', borderColor: '#F4F4F4', paddingVertical: 0}}
-                                textStyle={[fonts.size16, fonts.weightNormal, fonts.colorBlack]}
+                                textStyle={[fonts.size16, fonts.weightNormal, fonts.familyRegular, fonts.colorBlack]}
                                 checkedColor='#6FCF97'
                                 />
                         </View>
@@ -89,7 +89,7 @@ export default class WordStudyInit extends React.Component {
                                 <Icon name="refresh" type='evilicon' />
                             </View>
                             <View style={{flex: 10}}>
-                                <Text style={[fonts.size16, fonts.weightBold]}>단어 진행 순서</Text>
+                                <Text style={[fonts.size16, fonts.familyBold]}>단어 진행 순서</Text>
                             </View>
                         </View>
                         <View  style={[{ display:'flex' , flexDirection:'row' , alignItems: 'center', paddingTop: normalize(6)}]}>
@@ -97,14 +97,14 @@ export default class WordStudyInit extends React.Component {
                                 title='순서대로'
                                 checked={this.state.progressOrder == 'sequence'}
                                 containerStyle={{backgroundColor: '#F4F4F4', borderColor: '#F4F4F4', flex: 1, paddingVertical: 0}}
-                                textStyle={[fonts.size16, fonts.weightNormal, fonts.colorBlack]}
+                                textStyle={[fonts.size16, fonts.weightNormal, fonts.familyRegular, fonts.colorBlack]}
                                 checkedColor='#6FCF97'
                                 />
                             <CheckBox
                                 title='임의대로'
                                 checked={this.state.progressOrder == 'random'}
                                 containerStyle={{backgroundColor: '#F4F4F4', borderColor: '#F4F4F4', flex: 1, paddingVertical: 0}}
-                                textStyle={[fonts.size16, fonts.weightNormal, fonts.colorBlack]}
+                                textStyle={[fonts.size16, fonts.weightNormal, fonts.familyRegular, fonts.colorBlack]}
                                 checkedColor='#6FCF97'
                                 />
                         </View>
@@ -117,13 +117,13 @@ export default class WordStudyInit extends React.Component {
                                 <Icon name="retweet" type='evilicon' /> 
                             </View>
                             <View style={{flex: 10}}>
-                                <Text style={[fonts.size16, fonts.weightBold]}>단어 문제 번호</Text>
+                                <Text style={[fonts.size16, fonts.familyBold]}>단어 문제 번호</Text>
                             </View>
                         </View>
                         <View style={{display: 'flex', flexDirection: 'row', paddingTop: normalize(12)}}>
                             <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center', flex: 1,
                             justifyContent: 'center'}}>
-                                <Text style={[fonts.size16, fonts.weightNormal]}>
+                                <Text style={[fonts.size16, fonts.familyRegular]}>
                                     시작번호
                                 </Text>
                                 <TextInput
@@ -138,7 +138,7 @@ export default class WordStudyInit extends React.Component {
                             </View>
                             <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center', flex: 1,
                             justifyContent: 'center'}}>
-                                <Text style={[fonts.size16, fonts.weightNormal]}>
+                                <Text style={[fonts.size16, fonts.familyRegular]}>
                                     끝번호
                                 </Text>
                                 <TextInput
@@ -158,7 +158,7 @@ export default class WordStudyInit extends React.Component {
                     <View style={{ alignSelf: 'center' }}>
                         <Button style={styles.startButton}
                         onPress={ () => { this.startStudy() } }>
-                            <Text style={[fonts.size22, fonts.weightBold]}>학습 시작 </Text>
+                            <Text style={[fonts.size22, fonts.familyBold]}>학습 시작 </Text>
                         </Button>                     
                     </View>          
                 </View>

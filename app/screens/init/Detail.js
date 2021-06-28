@@ -88,7 +88,7 @@ export default class Detail extends React.Component {
                                         <Icon color='#EB5757' name='sc-youtube' type='evilicon' size={36} iconStyle={{margin: 0}} />
                                     </View>
                                     <View style={{flex: 9, paddingRight: 9}}>
-                                        <Text numberOfLines={1} style={[fonts.size16, fonts.weightBold]}>{item.name}</Text>
+                                        <Text numberOfLines={1} style={[fonts.size16, fonts.familyBold]}>{item.name}</Text>
                                     </View>
                                     <View style={[styles.editItem]}>        
                                         <Icon color='black' name='pencil' type='evilicon' size={26} />
@@ -115,7 +115,7 @@ export default class Detail extends React.Component {
                                             imageStyle={styles.itemImg}>
                                             <View style={{flex: 1, position: 'relative'}}>
                                                 <View style={styles.labelContainer}>
-                                                    <Text style={[fonts.size16, fonts.weightBold, fonts.colorWhite]}>단어보기</Text>
+                                                    <Text style={[fonts.size16, fonts.familyBold, fonts.colorWhite]}>단어보기</Text>
                                                 </View>
                                             </View>
                                         </ImageBackground>
@@ -126,7 +126,7 @@ export default class Detail extends React.Component {
                                             imageStyle={styles.itemImg}>
                                             <View style={{flex: 1, position: 'relative'}}>
                                                 <View style={styles.labelContainer}>
-                                                    <Text style={[fonts.size16, fonts.weightBold, fonts.colorWhite]}>단어목록보기</Text>
+                                                    <Text style={[fonts.size16, fonts.familyBold, fonts.colorWhite]}>단어목록보기</Text>
                                                 </View>
                                             </View>
                                         </ImageBackground>
@@ -138,7 +138,7 @@ export default class Detail extends React.Component {
                                             imageStyle={styles.itemImg}>
                                             <View style={{flex: 1, position: 'relative'}}>
                                                 <View style={styles.labelContainer}>
-                                                    <Text style={[fonts.size16, fonts.weightBold, fonts.colorWhite]}>단어학습</Text>
+                                                    <Text style={[fonts.size16, fonts.familyBold, fonts.colorWhite]}>단어학습</Text>
                                                 </View>
                                             </View>
                                         </ImageBackground>
@@ -150,7 +150,7 @@ export default class Detail extends React.Component {
                                             imageStyle={styles.itemImg}>
                                             <View style={{flex: 1, position: 'relative'}}>
                                                 <View style={styles.labelContainer}>
-                                                    <Text style={[fonts.size16, fonts.weightBold, fonts.colorWhite]}>문장보기</Text>
+                                                    <Text style={[fonts.size16, fonts.familyBold, fonts.colorWhite]}>문장보기</Text>
                                                 </View>
                                             </View>
                                         </ImageBackground>
@@ -161,7 +161,7 @@ export default class Detail extends React.Component {
                                             imageStyle={styles.itemImg}>
                                             <View style={{flex: 1, position: 'relative'}}>
                                                 <View style={styles.labelContainer}>
-                                                    <Text style={[fonts.size16, fonts.weightBold, fonts.colorWhite]}>문장학습</Text>
+                                                    <Text style={[fonts.size16, fonts.familyBold, fonts.colorWhite]}>문장학습</Text>
                                                 </View>
                                             </View>
                                         </ImageBackground>

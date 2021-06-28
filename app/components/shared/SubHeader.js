@@ -29,14 +29,14 @@ export default class SubHeader extends React.Component {
                         onPress={ () => { this.setState({
                                             allChecked:!this.state.allChecked
                                         }) } }>
-                                <Text style={[fonts.size14, fonts.weightBold, {marginLeft: normalize(8)}]}>전체선택</Text>
+                                <Text style={[fonts.size14, fonts.familyBold, {marginLeft: normalize(8)}]}>전체선택</Text>
                             </TouchableHighlight>
                         </View>
                         : null
                     }
                 </View>
                 <View style={{flex: 1}}>
-                    <Text style={[fonts.size14, fonts.weightBold, {textAlign: 'right'}]}>{ this.props.title }</Text>    
+                    <Text style={[fonts.size14, fonts.familyBold, {textAlign: 'right'}]}>{ this.props.title }</Text>    
                 </View>
             </View>
         );

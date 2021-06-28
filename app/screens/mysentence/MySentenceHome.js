@@ -31,7 +31,7 @@ export default class MySentenceHome extends React.Component {
                                     imageStyle={styles.itemImg}>
                                     <View style={{flex: 1, position: 'relative'}}>
                                         <View style={styles.labelContainer}>
-                                            <Text style={[fonts.size16, fonts.weightBold, fonts.colorWhite]}>문장보기</Text>
+                                            <Text style={[fonts.size16, fonts.familyBold, fonts.colorWhite]}>문장보기</Text>
                                         </View>
                                     </View>
                                 </ImageBackground>
@@ -42,7 +42,7 @@ export default class MySentenceHome extends React.Component {
                                     imageStyle={styles.itemImg}>
                                     <View style={{flex: 1, position: 'relative'}}>
                                         <View style={styles.labelContainer}>
-                                            <Text style={[fonts.size16, fonts.weightBold, fonts.colorWhite]}>문장학습</Text>
+                                            <Text style={[fonts.size16, fonts.familyBold, fonts.colorWhite]}>문장학습</Text>
                                         </View>
                                     </View>
                                 </ImageBackground>
