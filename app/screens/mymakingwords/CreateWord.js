@@ -45,10 +45,10 @@ export default class CreateWord extends React.Component {
                                 </TextInput>    
                             </View>
                             <View style={{ alignItems: 'center', marginTop: normalize(12) }}>
-                                <Text style={styles.commentText}>
+                                <Text style={[styles.commentText, fonts.familyRegular]}>
                                     단어장 이름을 입력해주세요.
                                 </Text>
-                                <Text style={styles.commentText}>
+                                <Text style={[styles.commentText, fonts.familyRegular]}>
                                     미입력시 오늘 날짜로 저장됩니다.
                                 </Text>
                             </View>
@@ -66,7 +66,7 @@ export default class CreateWord extends React.Component {
                                         allChecked:!this.state.allChecked
                                             }) 
                                 } }>
-                                    <Text style={[fonts.size14, {marginLeft: normalize(8)}]}>전체선택</Text>
+                                    <Text style={[fonts.size14, fonts.familyRegular, {marginLeft: normalize(8)}]}>전체선택</Text>
                                 </TouchableHighlight>
                             </View>
                         </View>
@@ -85,10 +85,10 @@ export default class CreateWord extends React.Component {
                     <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly',
                 paddingVertical: normalize(24)}}>
                         <Button style={styles.footerButton}>
-                            <Text style={[fonts.size16, fonts.colorWhite]}>저장하기</Text>
+                            <Text style={[fonts.size16, fonts.colorWhite, fonts.familyMedium]}>저장하기</Text>
                         </Button>
                         <Button style={styles.footerButton}>
-                            <Text style={[fonts.size16, fonts.colorWhite]}>닫기</Text>
+                            <Text style={[fonts.size16, fonts.colorWhite, fonts.familyMedium]}>닫기</Text>
                         </Button>
                     </View>
                 </Content>
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
     },
     commentText: {
         fontSize: normalize(14),
-        lineHeight: normalize(17),
+        lineHeight: normalize(18),
         color: '#1BA3E5'
     },
     footerButton: {

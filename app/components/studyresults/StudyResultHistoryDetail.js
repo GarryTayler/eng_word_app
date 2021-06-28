@@ -18,21 +18,21 @@ export default class StudyResultHistoryDetail extends React.Component {
             onPress={ () => { this.detailPage() } }>
                  <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center', flex: 8}}>
                     <View>
-                        <Text style={[fonts.size14]}>{this.props.id}.</Text>    
+                        <Text style={[fonts.size14, fonts.familyRegular]}>{this.props.id}.</Text>    
                     </View>
                     <View style={{marginLeft: normalize(18)}}>
-                        <Text style={[fonts.size14]}>{this.props.time}</Text>
-                        <Text style={[fonts.size14, {marginTop: normalize(4)}]}>{this.props.detail}</Text>
+                        <Text style={[fonts.size14, fonts.familyRegular]}>{this.props.time}</Text>
+                        <Text style={[fonts.size14, fonts.familyRegular, {marginTop: normalize(4)}]}>{this.props.detail}</Text>
                     </View>
                 </View>
                 <View style={styles.detailView}>
                     <View style={{alignItems: 'flex-end'}}>
-                        <Text style={[fonts.size14, fonts.weightBold]}>{this.props.solvedCount}/{this.props.totalCount}</Text>
-                        <Text style={[fonts.size16, fonts.weightBold, fonts.colorRed]}>{this.props.mark}점</Text>
+                        <Text style={[fonts.size14, fonts.familyBold]}>{this.props.solvedCount}/{this.props.totalCount}</Text>
+                        <Text style={[fonts.size16, fonts.familyBold, fonts.colorRed]}>{this.props.mark}점</Text>
                     </View>
                     <View style={{marginLeft: normalize(18)}}>
                         <Button style={styles.removeButton}>
-                            <Text style={styles.removeButtonText}>삭제</Text>
+                            <Text style={[fonts.size14, fonts.familyBold, fonts.colorWhite]}>삭제</Text>
                         </Button>
                     </View>
                 </View>

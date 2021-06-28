@@ -15,19 +15,19 @@ export default class StudyHeader extends React.Component {
                 <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center', paddingRight: normalize(12)}}>
                     <View style={{flex: 1, display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                         <View style={styles.totalProblems}>
-                            <Text style={[fonts.size16, fonts.weightBold, fonts.colorWhite]}>총문제</Text>
+                            <Text style={[fonts.size16, fonts.familyBold, fonts.colorWhite]}>총문제</Text>
                         </View>
                         <View>
-                            <Text style={[fonts.size16, fonts.weightBold, fonts.colorBlue, {marginLeft: normalize(12)}]}>5 문제</Text>
+                            <Text style={[fonts.size16, fonts.familyBold, fonts.colorBlue, {marginLeft: normalize(12)}]}>5 문제</Text>
                         </View>
                     </View>
                     <View style={{flex:1, display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center'}}>
                         <Icon type='evilicon' name='clock' color="#006DFF" size={30} />
                         <View>
-                            <Text style={[fonts.size16, fonts.weightBold, fonts.colorBlue, {marginLeft: normalize(12)}]}>시간</Text>
+                            <Text style={[fonts.size16, fonts.familyBold, fonts.colorBlue, {marginLeft: normalize(12)}]}>시간</Text>
                         </View>
                         <View>
-                            <Text style={[fonts.size16, fonts.weightBold, fonts.colorBlue, {marginLeft: normalize(16)}]}>00:18</Text>
+                            <Text style={[fonts.size16, fonts.familyBold, fonts.colorBlue, {marginLeft: normalize(16)}]}>00:18</Text>
                         </View>
                     </View>
                 </View>
@@ -40,22 +40,22 @@ export default class StudyHeader extends React.Component {
                                         paddingHorizontal: normalize(12)}]}>
                             <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                                 <Image source={Images.correct} style={styles.resultIcon} resizeMode='cover' />
-                                <Text style={[fonts.size14, fonts.weightBold, styles.studyTextColor, {marginLeft: normalize(6)}]}>정답</Text>
+                                <Text style={[fonts.size14, fonts.familyBold, styles.studyTextColor, {marginLeft: normalize(6)}]}>정답</Text>
                             </View>
                             <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                                <Text style={[fonts.size24, fonts.weightBold, styles.studyTextColor]}>4</Text>
-                                <Text style={[fonts.size14, fonts.weightBold, styles.studyTextColor, {marginLeft: normalize(6)}]}>개</Text>
+                                <Text style={[fonts.size24, fonts.familyBold, styles.studyTextColor]}>4</Text>
+                                <Text style={[fonts.size14, fonts.familyBold, styles.studyTextColor, {marginLeft: normalize(6)}]}>개</Text>
                             </View>
                         </View>
                         <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', 
                                         paddingHorizontal: normalize(12)}}>
                             <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                                 <Image source={Images.wrong} style={styles.resultIcon} resizeMode='cover' />
-                                <Text style={[fonts.size14, fonts.weightBold, styles.studyTextColor, {marginLeft: normalize(6)}]}>오답</Text>
+                                <Text style={[fonts.size14, fonts.familyBold, styles.studyTextColor, {marginLeft: normalize(6)}]}>오답</Text>
                             </View>
                             <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                                <Text style={[fonts.size24, fonts.weightBold, styles.studyTextColor]}>1</Text>
-                                <Text style={[fonts.size14, fonts.weightBold, styles.studyTextColor, {marginLeft: normalize(6)}]}>개</Text>
+                                <Text style={[fonts.size24, fonts.familyBold, styles.studyTextColor]}>1</Text>
+                                <Text style={[fonts.size14, fonts.familyBold, styles.studyTextColor, {marginLeft: normalize(6)}]}>개</Text>
                             </View>
                         </View>
                     </View>
@@ -66,11 +66,11 @@ export default class StudyHeader extends React.Component {
                                     borderRadius: normalize(8), position: 'relative'}]}>
 
                         <View style={styles.boxBadge}>
-                                <Text style={[fonts.size14, fonts.weightBold, fonts.colorWhite]}>평균점수</Text>
+                                <Text style={[fonts.size14, fonts.familyBold, fonts.colorWhite]}>평균점수</Text>
                         </View>
 
-                        <Text style={[fonts.size40, fonts.weightBold]}>40</Text>
-                        <Text style={[fonts.size24, fonts.weightBold, {color: 'rgba(0,0,0,0.5)', marginLeft: normalize(8)}]}>점</Text>
+                        <Text style={[fonts.size40, fonts.familyBold]}>40</Text>
+                        <Text style={[fonts.size24, fonts.familyBold, {color: 'rgba(0,0,0,0.5)', marginLeft: normalize(8)}]}>점</Text>
                     </View>
                 </View>
             </View>
