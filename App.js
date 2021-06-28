@@ -37,6 +37,7 @@
  import WordStudySubject from './app/screens/wordstudy/WordStudySubject';
 
  import SentenceStudyInit from './app/screens/sentencestudy/SentenceStudyInit';
+ import SentenceStudy from './app/screens/sentencestudy/SentenceStudy';
 
  import TabBarIcon from './app/components/TabBarIcon';
 
@@ -120,6 +121,7 @@ class App extends React.Component {
                             <Scene key="word_study_subject" component={WordStudySubject} />
                             <Scene key="sentence_study_init" component={SentenceStudyInit} />
                             <Scene key="my_word_list_view" component={MyWordListView} />
+                            <Scene key="sentence_study" component={SentenceStudy} />
                         </Scene>
 
                     </Router>
