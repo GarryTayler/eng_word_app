@@ -96,12 +96,12 @@ export const tabs = EStyleSheet.create({
         marginRight: normalize(8)
     },
     text: {
-        fontSize: normalize(16), lineHeight: normalize(21),
-        fontWeight: 'bold', color: 'black'
+        fontSize: normalize(16), lineHeight: normalize(20),
+        color: 'black', fontFamily: 'NotoSansCJKkr-Bold'
     },
     activeText: {
-        fontSize: normalize(16), lineHeight: normalize(21),
-        fontWeight: 'bold', color: 'black'
+        fontSize: normalize(16), lineHeight: normalize(20),
+        color: 'black', fontFamily: 'NotoSansCJKkr-Bold'
     },
     tabBarUnderline: {
         height: 0,

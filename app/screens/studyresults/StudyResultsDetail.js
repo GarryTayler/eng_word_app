@@ -70,19 +70,19 @@ export default class StudyResultsDetail extends React.Component {
                                 paddingTop: normalize(16),
                                 paddingBottom: normalize(8)}}>
                         <Button style={[styles.footerButton]}>
-                            <Text style={[fonts.size15, fonts.colorWhite, fonts.weightBold, {textAlign: 'center'}]}>전체</Text>
-                            <Text style={[fonts.size15, fonts.colorWhite, fonts.weightBold, {textAlign: 'center'}]}>다시 풀기</Text>
+                            <Text style={[fonts.size15, fonts.colorWhite, fonts.familyBold, {textAlign: 'center'}]}>전체</Text>
+                            <Text style={[fonts.size15, fonts.colorWhite, fonts.familyBold, {textAlign: 'center'}]}>다시 풀기</Text>
                         </Button>
                         <Button style={[styles.footerButton]}>
-                            <Text style={[fonts.size15, fonts.colorWhite, fonts.weightBold, {textAlign: 'center'}]}>틀린 문제</Text>
-                            <Text style={[fonts.size15, fonts.colorWhite, fonts.weightBold, {textAlign: 'center'}]}>다시 풀기</Text>
+                            <Text style={[fonts.size15, fonts.colorWhite, fonts.familyBold, {textAlign: 'center'}]}>틀린 문제</Text>
+                            <Text style={[fonts.size15, fonts.colorWhite, fonts.familyBold, {textAlign: 'center'}]}>다시 풀기</Text>
                         </Button>
                         <Button style={styles.footerButton}>
-                            <Text style={[fonts.size15, fonts.colorWhite, fonts.weightBold, {textAlign: 'center'}]}>별표 저장</Text>
+                            <Text style={[fonts.size15, fonts.colorWhite, fonts.familyBold, {textAlign: 'center'}]}>별표 저장</Text>
                         </Button>
                         <Button style={[styles.footerButton]}>
-                            <Text style={[fonts.size15, fonts.colorWhite, fonts.weightBold, {textAlign: 'center'}]}>학습 내용</Text>
-                            <Text style={[fonts.size15, fonts.colorWhite, fonts.weightBold, {textAlign: 'center'}]}>저장후 끝내기</Text>
+                            <Text style={[fonts.size15, fonts.colorWhite, fonts.familyBold, {textAlign: 'center'}]}>학습 내용</Text>
+                            <Text style={[fonts.size15, fonts.colorWhite, fonts.familyBold, {textAlign: 'center'}]}>저장후 끝내기</Text>
                         </Button>
                     </View>
                 </Content>
