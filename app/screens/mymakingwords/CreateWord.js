@@ -24,7 +24,9 @@ export default class CreateWord extends React.Component {
     render() {
         return (
             <Container>
-                <UserHeader title={pageTitle} />
+            {
+               /* <UserHeader title={pageTitle} /> */
+            }
                 <Content style={styles.container}>
                     <ScrollView style={styles.scrollView}>
                         <View style={{ paddingBottom: normalize(10), borderBottomWidth: 1, borderColor: 'rgba(0,0,0,0.5)',
