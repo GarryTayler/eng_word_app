@@ -4,7 +4,7 @@ import { Container, Content, Button } from 'native-base';
 import UserHeader from './../components/shared/UserHeader';
 import ViewHeader from './../components/shared/ViewHeader';
 import WordSpeech from './../components/shared/WordSpeech';
-import { fonts, normalize } from './../assets/styles';
+import { getSafeAreaViewHeight, fonts, normalize } from './../assets/styles';
 import { Icon } from 'react-native-elements';
 import { SwiperFlatList } from 'react-native-swiper-flatlist';
 import { performNetwork } from './../components/shared/global';
@@ -47,7 +47,7 @@ export default class WordView extends React.Component {
         return (
             <Container>
                 <UserHeader title={pageTitle} />
-                <ViewHeader sentence={this.props.params.before != 'myword' ? false : true} currentNo={this.state.curPage + 1} totalCount={this.state.arrData.length} title="고1 모의고사 2018년 3월 4월 모의고사" />
+                <ViewHeader sentence={this.props.params.before != 'myword' ? false : true} currentNo={this.state.curPage + 1} totalCount={this.state.arrData.length} title="고1 모의고사 2018년 3월" />
                 <View style={styles.container}>
                     <SwiperFlatList
                         onChangeIndex={(e)=>{
@@ -77,10 +77,12 @@ export default class WordView extends React.Component {
                                         </View>
                                         <View>
                                             <Text style={[styles.exampleSection, fonts.familyRegular]}>
-                                                An American airline was intent on <Text style={[fonts.colorRed, fonts.familyMedium]}>develop</Text> the lake as a tourist destination for fishermen.
+                                                { /* An American airline was intent on <Text style={[fonts.colorRed, fonts.familyMedium]}>develop</Text> the lake as a tourist destination for fishermen. */ }
+                                                { item.ex_word }
                                             </Text>
                                             <Text style={[styles.exampleSection, fonts.familyRegular]}>
-                                                한 미국 항공사가 그 호수를 낚시꾼들을 위한 관광지로 <Text style={[fonts.colorRed, fonts.familyMedium]}>개발하는</Text> 것에 매우 관심을 보였다.
+                                                { /* 한 미국 항공사가 그 호수를 낚시꾼들을 위한 관광지로 <Text style={[fonts.colorRed, fonts.familyMedium]}>개발하는</Text> 것에 매우 관심을 보였다. */ }
+                                                { item.ex_meaning }
                                             </Text>
                                         </View>
                                     </View>
@@ -122,13 +124,13 @@ const styles = StyleSheet.create({
     },
     upWordContainer: {
         backgroundColor: '#F4F4F4',
-        height: normalize(250)
+        height: Math.floor((getSafeAreaViewHeight() - 32)/7 * 3)
     },
     downMeaningContainer: {
         backgroundColor: '#E4E4E4'
     },
     exampleSection: {
-        fontSize: normalize(16),
+        fontSize: normalize(14),
         lineHeight: normalize(24)
     },
     footerButton: {

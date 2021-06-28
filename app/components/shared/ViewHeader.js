@@ -20,7 +20,7 @@ export default class ViewHeader extends React.Component {
                     <Text style={[fonts.size14, fonts.familyBold]}> / {this.props.totalCount}</Text>
                 </View>           
                 <View style={{flex: 1}}>
-                    <Text numberOfLines={1} style={[fonts.size14, fonts.familyBold, {textAlign: 'right', backgroundColor: 'green'}]}>
+                    <Text numberOfLines={1} style={[fonts.size14, fonts.familyBold, {textAlign: 'right'}]}>
                         {this.props.title}
                     </Text>
                 </View>
