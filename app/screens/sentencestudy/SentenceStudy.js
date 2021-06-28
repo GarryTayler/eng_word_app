@@ -40,6 +40,10 @@ export default class SentenceStudy extends React.Component {
         Orientation.lockToLandscape();
     }
 
+    componentWillUnmount() {
+        Orientation.unlockAllOrientations();
+    }
+
     confirm() {
         this.setState({confirmAnswer: true})
         if(this.state.inputAnswer == this.state.correctAnswer) {

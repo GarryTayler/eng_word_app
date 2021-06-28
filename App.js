@@ -102,9 +102,9 @@ class App extends React.Component {
                                         <Scene key="my_sentence_home" component={MySentenceHome} />
                                     </Scene>
 
-                                    <Scene key="my_making_words" title="내가만드는 단어장" reset="create_word" name="create_word" icon={TabBarIcon} hideNavBar>
-                                        <Scene key="create_word" component={CreateWord} initial />
-                                        <Scene key="my_making_words_home" component={MyMakingWordsHome} />
+                                    <Scene key="my_making_words" title="내가만드는 단어장" reset="my_making_words_home" name="my_making_words_home" icon={TabBarIcon} hideNavBar>
+                                        <Scene key="create_word" component={CreateWord}  />
+                                        <Scene key="my_making_words_home" component={MyMakingWordsHome} initial/>
                                     </Scene>
 
                                     <Scene key="study_results" title="학습결과" reset="study_results_home" name="study_results_home" icon={TabBarIcon} hideNavBar>
