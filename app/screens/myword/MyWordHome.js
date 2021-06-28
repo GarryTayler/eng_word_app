@@ -18,13 +18,19 @@ export default class MyWordHome extends React.Component {
     viewWordStudy() {
         Actions.push('word_study_init');
     }
+    wordView() {
+        Actions.push('word_view',
+            { params: {   category_id: 0, 
+                            before: 'myword'}});
+    }
     render() {
         return (
             <Container>
                 <Content contentContainerStyle={styles.container}>
                     <ImageBackground source={Images.backImg} style={styles.backImg} resizeMode='cover'>
                         <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', flexWrap: "wrap"}}>
-                            <TouchableHighlight style={[styles.item, {marginRight: 11}]} onPress={ () => { this.buttonClick() } } activeOpacity={0.6}>
+                            <TouchableHighlight style={[styles.item, {marginRight: 11}]} onPress={ () => { this.buttonClick() } } activeOpacity={0.6}
+                            onPress={ () => { this.wordView() } }>
                                 <ImageBackground source={Images.wordView} resizeMode='cover' style={{flex: 1}}
                                     imageStyle={styles.itemImg}>
                                     <View style={{flex: 1, position: 'relative'}}>

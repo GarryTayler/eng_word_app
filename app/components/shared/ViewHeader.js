@@ -8,7 +8,8 @@ export default class ViewHeader extends React.Component {
     }
     render()    {
         return (
-            <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center', paddingHorizontal: normalize(8), paddingVertical: normalize(4)}}>
+            <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center', paddingHorizontal: normalize(8), 
+            paddingVertical: normalize(4), height: normalize(32)}}>
                 <View style={{display: 'flex', flexDirection: 'row', flex: 1, alignItems: 'center'}}>
                     {
                         !this.props.sentence ?

@@ -51,7 +51,9 @@ export default class Detail extends React.Component {
                             before: 'detail'}});
     }
     viewWord() { // 단어보기
-        Actions.push('word_view');
+        Actions.push('word_view',
+            { params: {   category_id: this.props.params.category_id, 
+                            before: 'detail'}});
     } 
     viewSentenceStudy() { // 문장학습 init 이행
         Actions.push('sentence_study_init', 

@@ -42,7 +42,7 @@ export default class SentenceView extends React.Component {
                 <View style={{paddingHorizontal: normalize(16), paddingTop: normalize(28), paddingBottom: normalize(12)}}>
                     <View style={{display: 'flex', flexDirection: 'row', position: 'relative'}}>
                         <View style={{position: 'absolute', paddingTop: normalize(3)}}>
-                            <Icon name='star' type='antdesign' color='#F2C94C' />
+                            <Icon name='star' type='antdesign' color='rgba(0,0,0,0.2)' />
                         </View>
                         <Text style={styles.sentenceSection}>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;전체 별표
