@@ -12,7 +12,6 @@ import { getData, storeData, removeData } from './storageHelper';
     }
 ]
 */
-
 export const getVocabularyList = async() => {
     try {
         let v_id_list = await getData('vocabulary_list');
@@ -47,4 +46,42 @@ export const saveVocabulary = async(prev_data, data) => {
     }
 }
 
-export const 
+export const getVocabularyData = async(id) => {
+    try {
+        let v_data = await getData('vocabulary_data_' + id);
+        if(v_data == null)
+            return [];
+        return v_data;
+    }
+    catch(e) {
+        return [];
+    }
+}
+
+export const saveVocabularyData = async(id, _name, data) => {
+    try {
+        let vocabulary_count = await getData('vocabulary_count');
+        let v_id_list = await getData('vocabulary_list');
+        v_id_list = v_id_list == null ? [] : v_id_list;
+        if(id == 0) // 새로 추가  
+        {
+            v_id_list.push({id: (vocabulary_count+ 1) , name: _name});
+            await storeData('vocabulary_list', v_id_list);
+            await storeData('vocabulary_count', vocabulary_count + 1);
+        }
+        else if(_name != ''){
+            for(let i = 0; i < v_id_list.length; i ++) {
+                if(v_id_list[i]['id'] == id) {
+                    v_id_list[i]['name'] = name;
+                    break;
+                }
+            }
+            await storeData('vocabulary_list', v_id_list);
+        }
+        await storeData('vocabulary_data_' + id, data);
+        return true;
+    }
+    catch(e) {
+        return false;
+    }
+}
