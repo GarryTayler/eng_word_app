@@ -20,7 +20,7 @@ export default class WordStudyInit extends React.Component {
         }
     }
     startStudy() {
-        Actions.push('word_study_object');
+        Actions.push('word_study_subject');
     }
     render()     {
         return (

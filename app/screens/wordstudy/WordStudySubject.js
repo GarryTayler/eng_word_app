@@ -24,26 +24,26 @@ export default class WordStudySubject extends React.Component {
                 <Content style={styles.container}>
                     <View style={[styles.problemContainer]}>
                         <View style={{position: 'absolute', top: normalize(28)}}>
-                            <Text style={[fonts.size14, fonts.weightBold]}>
+                            <Text style={[fonts.size14, fonts.familyBold]}>
                                 다음 단어의 뜻을 입력해주세요.
                             </Text>
                         </View>    
                         <Image source={Images.correct2x} style={styles.correctIcon} resizeMode='cover' />
-                        <Text style={[fonts.size38, fonts.weightBold]}>
+                        <Text style={[fonts.size38, fonts.familyBold]}>
                             chicken
                         </Text>
                         <View style={{position: 'absolute', bottom: normalize(40), display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                             <View style={{backgroundColor: '#92BEF8', borderRadius: normalize(4), padding: normalize(4)}}>
-                                <Text style={[fonts.size14, fonts.colorWhite, fonts.weightBold]}>정답</Text>
+                                <Text style={[fonts.size14, fonts.colorWhite, fonts.familyBold]}>정답</Text>
                             </View>
                             <View style={{marginLeft: normalize(8)}}>
-                                <Text numberOfLines={1} style={[fonts.weightBold, fonts.size18, {color: '#92BEF8'}]}>닭, 닭고기</Text>
+                                <Text numberOfLines={1} style={[fonts.familyBold, fonts.size18, {color: '#92BEF8'}]}>닭, 닭고기</Text>
                             </View>
                         </View>
                     </View>
                     <View style={{ alignItems: 'center'}}>
                         <TextInput
-                            style={[styles.textInput, fonts.weightBold, fonts.colorBlack]}
+                            style={[styles.textInput, fonts.colorBlack]}
                             onChangeText={(text) => {
                                 this.setState({ answer: text });
                             }}
@@ -61,6 +61,18 @@ export default class WordStudySubject extends React.Component {
 }
 
 const styles = StyleSheet.create({
+    textInput: {
+        fontSize: normalize(18),
+        lineHeight: normalize(18),
+        //height: normalize(32),
+        height: normalize(32),
+        width: normalize(285),
+        paddingTop: normalize(6),
+        paddingBottom: normalize(6),
+        borderBottomWidth: 1,
+        borderColor: 'rgba(0,0,0,0.5)',
+        textAlign: 'center'
+    },
     container: {
         flex: 1,
         backgroundColor: '#F4F4F4'
@@ -71,16 +83,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center', 
         height: normalize(262), 
         position: 'relative'       
-    },
-    textInput: {
-        fontSize: normalize(18),
-        height: normalize(32),
-        width: normalize(285),
-        paddingTop: normalize(6),
-        paddingBottom: normalize(6),
-        borderBottomWidth: 1,
-        borderColor: 'rgba(0,0,0,0.5)',
-        textAlign: 'center',
     },
     correctIcon: {
         opacity: 0.5, 

@@ -55,7 +55,7 @@ export default class SentenceView extends React.Component {
                         <View style={{position: 'absolute', paddingTop: normalize(3)}}>
                             <Icon name='star' type='antdesign' color='rgba(0,0,0,0.2)' />
                         </View>
-                        <Text style={styles.sentenceSection}>
+                        <Text style={[styles.sentenceSection, fonts.familyRegular]}>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;전체 별표
                         </Text> 
                     </View>

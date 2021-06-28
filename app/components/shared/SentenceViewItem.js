@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
-import { normalize } from './../../assets/styles';
+import { normalize, fonts } from './../../assets/styles';
 import { Icon } from 'react-native-elements';
 import { addToMySentence, removeFromMySentence } from './../../utils/MySentence'
 import { showToast } from './../shared/global';
@@ -36,7 +36,7 @@ export default class SentenceViewItem extends React.Component {
                         <Icon name='star' type='antdesign' color={this.state.isFavorite ? '#F2C94C' : 'rgba(0,0,0,0.2)'} />
                     </TouchableOpacity>
 
-                    <Text style={styles.sentenceSection}>
+                    <Text style={[styles.sentenceSection, fonts.familyRegular]}>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{this.props.currentNo}. {this.props.english}
                     </Text> 
                 </View>
