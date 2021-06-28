@@ -12,11 +12,11 @@ export default class ChoiceItem extends React.Component {
                     <View style={{width: 24, height: 24, borderWidth: 1, borderRadius: 12, 
                                  borderColor: ((this.props.correct || this.props.wrong) ? 'white' : 'black'),
                                  alignItems: 'center', justifyContent: 'center'}}>
-                        <Text style={[fonts.size14, (this.props.correct || this.props.wrong) ? fonts.colorWhite : fonts.colorBlack ]}>{this.props.index}</Text>
+                        <Text style={[fonts.size14, fonts.familyMedium, (this.props.correct || this.props.wrong) ? fonts.colorWhite : fonts.colorBlack ]}>{this.props.index}</Text>
                     </View>
                 </View>
                 <View style={{flex: 10}}>
-                    <Text style={[fonts.size16, fonts.weightBold, (this.props.correct || this.props.wrong) ? fonts.colorWhite : fonts.colorBlack]} numberOfLines={1}>
+                    <Text style={[fonts.size16, fonts.familyBold, (this.props.correct || this.props.wrong) ? fonts.colorWhite : fonts.colorBlack]} numberOfLines={1}>
                         {this.props.choice}
                     </Text>
                 </View>
