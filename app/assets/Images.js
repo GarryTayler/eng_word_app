@@ -40,6 +40,10 @@ const Images = {
             require('./img/_buttons/blue_172.png'),
             require('./img/_buttons/green_172.png'),
             require('./img/_buttons/light_gray_172.png')
+        ],
+        [
+            require('./img/_buttons/brown_74.png'),
+            require('./img/_buttons/blue_74.png')
         ]
     ],
     correct: require('./img/Correct.png'),
