@@ -1,18 +1,17 @@
 import React from 'react';
-import { StyleSheet, View, Text , Dimensions} from 'react-native';
-import { Container, Content, Button } from 'native-base';
+import { StyleSheet, View, Text } from 'react-native';
+import { Container, Button } from 'native-base';
 import UserHeader from './../components/shared/UserHeader';
 import ViewHeader from './../components/shared/ViewHeader';
 import WordSpeech from './../components/shared/WordSpeech';
-import { getSafeAreaViewHeight, fonts, normalize } from './../assets/styles';
-import { Icon } from 'react-native-elements';
+import WordPanel from './../components/shared/WordPanel';
+import { fonts, normalize } from './../assets/styles';
 import { SwiperFlatList } from 'react-native-swiper-flatlist';
 import { performNetwork } from './../components/shared/global';
 import { getWordList } from './../utils/api';
-import { getWordListFromMyWord } from './../utils/MyWord';
+import { getWordListFromMyWord, getWordIdListFromMyWord } from './../utils/MyWord';
 
 let pageTitle = '단어 보기';
-const colors = ['tomato', 'thistle', 'skyblue', 'teal'];
 
 export default class WordView extends React.Component {
     constructor(props){
@@ -21,6 +20,7 @@ export default class WordView extends React.Component {
             loaded: true,
             serverRespond: false,
             arrData: [],
+            mywordidList: [],
             curPage: 0
         }; 
     }
@@ -33,6 +33,8 @@ export default class WordView extends React.Component {
                 if(response == null) { return; }
                 this.setState({arrData: response});
             });
+            let _word_id_list = await getWordIdListFromMyWord();
+            this.setState({mywordidList: _word_id_list});
         }
         else {
             this.setState({loaded: false});
@@ -47,66 +49,36 @@ export default class WordView extends React.Component {
         return (
             <Container>
                 <UserHeader title={pageTitle} />
-                <ViewHeader sentence={this.props.params.before != 'myword' ? false : true} currentNo={this.state.curPage + 1} totalCount={this.state.arrData.length} title="고1 모의고사 2018년 3월" />
+                <ViewHeader 
+                    sentence={this.props.params.before != 'myword' ? false : true} 
+                    currentNo={this.state.curPage + 1} 
+                    totalCount={this.state.arrData.length} title="고1 모의고사 2018년 3월"
+                    currentItem={this.state.arrData.length > 0 ? this.state.arrData[this.state.curPage] : null}
+                    star={
+                        this.state.arrData.length == 0 ? false
+                        :
+                        (this.state.mywordidList.indexOf(this.state.arrData[this.state.curPage].id) >= 0 ? true : false)
+                    } />
                 <View style={styles.container}>
                     <SwiperFlatList
+                        disableVirtualization={false}
                         onChangeIndex={(e)=>{
                                 this.changeScreen(e)
                         }}
                         data={this.state.arrData}
                         renderItem={({ item }) => (
-                            <View style={[styles.child, { backgroundColor: '#E4E4E4' }]}>
-                                <View style={styles.upWordContainer}>
-                                    <View style={{display: 'flex', alignItems: 'center', justifyContent: 'center', flexGrow: 1}}>
-                                        <View style={{marginHorizontal: normalize(10)}}>
-                                            <Text numberOfLines={1} style={[fonts.size32, fonts.familyBold]}>{item.word}</Text>
-                                        </View>
-                                        <View style={{marginHorizontal: normalize(10), position: 'relative', flexDirection: 'row', alignItems: 'center'}}>
-                                            <Text style={[fonts.familyBold, fonts.size20, {color: 'rgba(0,0,0,0.5)'}]}>[dɪˈveləp]</Text>
-                                            {
-                                                /* <WordSpeech wordView /> */
-                                            }
-                                        </View>
-                                    </View>
-                                </View>
-                                
-                                <View style={styles.downMeaningContainer}>
-                                    <View style={{paddingHorizontal: normalize(16)}}>
-                                        <View style={{paddingTop: normalize(16), paddingBottom: normalize(8)}}>
-                                            <Text style={[fonts.size18, fonts.familyBold, {textAlign: 'center'}]}>{item.meaning}</Text>
-                                        </View>
-                                        <View>
-                                            <Text style={[styles.exampleSection, fonts.familyRegular]}>
-                                                { /* An American airline was intent on <Text style={[fonts.colorRed, fonts.familyMedium]}>develop</Text> the lake as a tourist destination for fishermen. */ }
-                                                { item.ex_word }
-                                            </Text>
-                                            <Text style={[styles.exampleSection, fonts.familyRegular]}>
-                                                { /* 한 미국 항공사가 그 호수를 낚시꾼들을 위한 관광지로 <Text style={[fonts.colorRed, fonts.familyMedium]}>개발하는</Text> 것에 매우 관심을 보였다. */ }
-                                                { item.ex_meaning }
-                                            </Text>
-                                        </View>
-                                    </View>
-                                    {
-                                        /*
-                                        <View style={{marginBottom: normalize(20)}}>
-                                            <Button style={styles.altButton}>
-                                                <Text style={[fonts.size16]}>터치하여 단어 뜻 보기</Text>
-                                            </Button>
-                                        </View>
-                                        */
-                                    }
-                                </View>
-
-                            </View>
+                            <WordPanel
+                            params = {item}
+                             />
                         )}
                     />
                     <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly', backgroundColor: '#E4E4E4', paddingVertical: normalize(12)}}>
                         <Button style={styles.footerButton}>
-                            <Text style={[fonts.size16, fonts.familyBold]}>단어 뜻 가리기 </Text>
+                            <Text style={[fonts.size15, fonts.familyBold]}>단어 뜻 가리기 </Text>
                         </Button>
 
                         <Button style={styles.footerButton}>
-                            <Text style={[fonts.size16, fonts.familyBold]}>예문 해석 가리기 </Text>
+                            <Text style={[fonts.size15, fonts.familyBold]}>예문 해석 가리기 </Text>
                         </Button>
                     </View>
                 </View>           
@@ -114,24 +86,11 @@ export default class WordView extends React.Component {
         )
     }   
 }
-const { width } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
-    child: { width },
     container: {
         flex: 1,
         backgroundColor: '#E4E4E4',
-    },
-    upWordContainer: {
-        backgroundColor: '#F4F4F4',
-        height: Math.floor((getSafeAreaViewHeight() - 32)/7 * 3)
-    },
-    downMeaningContainer: {
-        backgroundColor: '#E4E4E4'
-    },
-    exampleSection: {
-        fontSize: normalize(14),
-        lineHeight: normalize(24)
     },
     footerButton: {
         width: normalize(144),

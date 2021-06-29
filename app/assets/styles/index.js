@@ -13,13 +13,11 @@ if (scale > 2) {
 }
 
 export function normalize(size) {
-    /*
     if (Platform.OS === 'ios') {
         return Math.round(PixelRatio.roundToNearestPixel(size_scale * size)) + 2;
     } else {
         return Math.round(PixelRatio.roundToNearestPixel(size_scale * size))
-    } */
-    return size;
+    }
 }
 
 const tabHeight = 95, buttonSpacing = 32, userHeaderHeight = 50;

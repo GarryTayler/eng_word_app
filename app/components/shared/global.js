@@ -3,9 +3,9 @@ import { _e } from './../../utils/lang';
 
 export function showToast(text = '', type = 'danger', position = 'bottom') {
     Toast.show({
-        text: (text == '') ? _e.connectionError : text,
+        text: (text == '') ? _e.connectionError : _e[text],
         type: type,
-        textStyle: {fontFamily: 'Malgun Gothic', textAlign: 'center'},
+        textStyle: {fontFamily: 'Malgun-Gothic-Bold', textAlign: 'center'},
         position: position,
         duration: 4000,
     });

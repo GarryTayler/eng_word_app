@@ -22,12 +22,12 @@ export default class WordListItem extends React.Component {
         if(!_isFavorite) {
             
             if( await addToMyWord(this.props.param) ) {
-                showToast("내 단어장에 저장되었습니다.", "success");
+                showToast("add_to_myword", "success");
             }
         }
         else {
             if( await removeFromMyWord(this.props.param) ) {
-                showToast("내 단어장에서 삭제되었습니다.", "success");
+                showToast("remove_from_myword", "success");
             }
         }
     }
