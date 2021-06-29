@@ -41,6 +41,7 @@ export default class CreateWordItem extends React.Component {
                                         { width: '90%' }]}
                                         onChangeText={(text) => {
                                             this.setState({ word: text });
+                                            this.props.changeWord(text)
                                         }}
                                         onSubmitEditing={Keyboard.dismiss}   
                                         value={this.state.word}
@@ -71,6 +72,7 @@ export default class CreateWordItem extends React.Component {
                                         { width: '100%' }]}
                                         onChangeText={(text) => {
                                             this.setState({ meaning: text });
+                                            this.props.changeMeaning(text)
                                         }}
                                         onSubmitEditing={Keyboard.dismiss}   
                                         value={this.state.meaning}

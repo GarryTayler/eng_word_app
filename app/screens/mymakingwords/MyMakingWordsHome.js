@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image, ImageBackground, TouchableHighlight, FlatList} from 'react-native';
+import { StyleSheet, View, Text, Image, ImageBackground, TouchableHighlight, FlatList, Alert} from 'react-native';
 import { Container, Content } from 'native-base';
 import Images from './../../assets/Images';
 import { BUTTON_UNDERLAY_COLOR } from './../../utils/constants';
@@ -9,7 +9,7 @@ import { getCategoryList } from './../../utils/api';
 import Spinner_bar from 'react-native-loading-spinner-overlay';
 import {Actions} from 'react-native-router-flux';
 import { Icon, CheckBox  } from 'react-native-elements';
-import { getVocabularyList } from '../../utils/MyMakingWords';
+import { getVocabularyList, saveVocabulary } from '../../utils/MyMakingWords';
 
 export default class MyMakingWordsHome extends React.Component {
     constructor(props){
@@ -27,20 +27,50 @@ export default class MyMakingWordsHome extends React.Component {
         
     }
 
-    async componentDidMount() {
+    componentDidMount() {
+        this.refresh();
+    }
+
+    async refresh() {
         let list = await getVocabularyList();
-        console.log('here', list);
+        if(list && list.length > 0) {
+            list.map((item, index) => {
+                list[index]['checked'] = false;
+            })
+            this.setState({arrData: list})
+        } else {
+            this.setState({arrData: []})
+            this.setState({edit: false})
+        }
+    }
+
+    UNSAFE_componentWillReceiveProps() {
+        this.refresh();
     }
 
     new_trash() {
         if(this.state.edit) {
-
+            let temp = this.state.arrData;
+            if(temp && temp.length > 0) {
+                let selected = false
+                temp.map((item, index) => {
+                    if(item.checked) {
+                        selected = true
+                    }
+                })
+                if(selected) {
+                    this.removeAll();
+                } else {
+                    Alert.alert("선택해주세요.")
+                }
+            }
         } else {
-            Actions.push("create_word")
+            Actions.push("create_word", {editable: false, id: 0})
+            this.setState({edit: false})
         }
     }
 
-    edit() {
+    editWord() {
         this.setState({edit: !this.state.edit})
     }
 
@@ -64,6 +94,38 @@ export default class MyMakingWordsHome extends React.Component {
         }
         
         this.setState({checkAll: !this.state.checkAll})
+    }
+
+    editMyWord(word, index) {
+        Actions.push("create_word", {id: word.id, editable: true, wordName: word.name})
+        this.setState({edit: false})
+    }
+
+    async removeMyWord(id, index) {
+        let temp = this.state.arrData;
+        temp.splice(index, 1);
+        await saveVocabulary(this.state.arrData, temp);
+        this.refresh();
+    }
+
+    async removeAll() {
+        await saveVocabulary(this.state.arrData, []);
+        this.refresh();
+    }
+
+    async changeSortMyWord(id, index) {
+        let temp = this.state.arrData;
+        if(index < this.state.arrData.length - 1) {
+            var swap = temp[index];
+            temp[index] = temp[index + 1];
+            temp[index + 1] = swap;
+        } else {
+            var swap = temp[index];
+            temp[index] = temp[index - 1];
+            temp[index - 1] = swap;
+        }
+        await saveVocabulary(this.state.arrData, temp);
+        this.refresh();
     }
 
     render() {
@@ -90,7 +152,7 @@ export default class MyMakingWordsHome extends React.Component {
                                 </ImageBackground>
                             </TouchableHighlight>
 
-                            <TouchableHighlight style={[styles.button, {width: 59, height: 74, marginLeft: 10}]} activeOpacity={0.8} onPress={ () => { this.edit() } } underlayColor='#4E4E4E'>
+                            <TouchableHighlight style={[styles.button, {width: 59, height: 74, marginLeft: 10}]} activeOpacity={0.8} onPress={ () => { this.editWord() } } underlayColor='#4E4E4E'>
                                 <ImageBackground source={ Images.buttons[4][1] } imageStyle={{borderRadius: 8}} style={styles.buttonImage} resizeMode="cover">
                                     {
                                         this.state.edit ?
@@ -151,14 +213,14 @@ export default class MyMakingWordsHome extends React.Component {
                                     {
                                         this.state.edit ?
                                         <View style={{flexDirection: 'row'}}>
-                                            <TouchableHighlight style={styles.editProp}>
+                                            <TouchableHighlight style={styles.editProp} onPress={() => this.editMyWord(item, index)}>
                                                 <Icon name='pencil' type='octicon' color={'black'} size={20} />
                                             </TouchableHighlight>
-                                            <TouchableHighlight style={styles.editProp}>
+                                            <TouchableHighlight style={styles.editProp} onPress={() => this.removeMyWord(item.id, index)}>
                                                 <Icon name='trash-outline' type='ionicon' color={'black'} size={20} />
                                             </TouchableHighlight>
-                                            <TouchableHighlight style={styles.editProp}>
-                                                <Icon name='arrow-up-down' type='material-community' color={'black'} size={20} />
+                                            <TouchableHighlight style={styles.editProp} onPress={() => this.changeSortMyWord(item.id, index)}>
+                                                <Icon name='arrow-swap' type='fontisto' color='black' size={20} style={styles.swapIcon} />
                                             </TouchableHighlight>
                                         </View>
                                         :
@@ -259,5 +321,8 @@ const styles = StyleSheet.create({
         elevation: 8,
         marginBottom: 19,
         marginLeft: 8
-    }
+    },
+    swapIcon: {
+        transform: [{ rotate: '90deg'}]
+    }, 
 });
