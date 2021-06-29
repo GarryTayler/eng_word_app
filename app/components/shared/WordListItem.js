@@ -65,7 +65,7 @@ export default class WordListItem extends React.Component {
                         <View style={{flex: 6, paddingRight: normalize(8), paddingLeft: normalize(4)}}></View>
                     }
                     <View style={{flex: 1, alignItems: 'flex-end'}}>
-                        <WordSpeech />
+                        <WordSpeech word={this.props.word} />
                     </View>
                 </View>                           
             </View>

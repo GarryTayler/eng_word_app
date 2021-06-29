@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { StyleSheet, View, Text , Dimensions} from 'react-native';
 import { normalize, fonts,getSafeAreaViewHeight } from './../../assets/styles/index';
+import { Button } from 'native-base';
 export default class WordPanel extends PureComponent {
     constructor(props){
         super(props);
@@ -24,18 +25,35 @@ export default class WordPanel extends PureComponent {
 
                 <View style={styles.downMeaningContainer}>
                     <View style={{paddingHorizontal: normalize(16)}}>
-                        <View style={{paddingTop: normalize(16), paddingBottom: normalize(8)}}>
-                            <Text style={[fonts.size18, fonts.familyBold, {textAlign: 'center'}]}>{this.props.params.meaning}</Text>
+                        <View style={{paddingTop: normalize(0), paddingBottom: normalize(0), 
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        height: normalize(56)}}>
+                            {
+                                this.props.hideMeaning ? 
+                                <Button style={styles.altButton}
+                                onPress={() => this.props.changeHideMeaning(!this.props.hideMeaning)}>
+                                    <Text style={[fonts.size15, fonts.familyRegular]}>터치하여 단어 뜻 보기</Text>
+                                </Button>
+                                :
+                                <Text style={[fonts.size18, fonts.familyBold]}>{this.props.params.meaning}</Text>
+                            }
                         </View>
                         <View>
                             <Text style={[styles.exampleSection, fonts.familyRegular]}>
-                                { /* An American airline was intent on <Text style={[fonts.colorRed, fonts.familyMedium]}>develop</Text> the lake as a tourist destination for fishermen. */ }
                                 { this.props.params.ex_word }
                             </Text>
-                            <Text style={[styles.exampleSection, fonts.familyRegular]}>
-                                { /* 한 미국 항공사가 그 호수를 낚시꾼들을 위한 관광지로 <Text style={[fonts.colorRed, fonts.familyMedium]}>개발하는</Text> 것에 매우 관심을 보였다. */ }
-                                { this.props.params.ex_meaning }
-                            </Text>
+
+                            {
+                                this.props.hideExample ? 
+                                <Button style={[styles.altButton, {marginTop: normalize(8)}]}
+                                onPress={() => this.props.changeHideExample(!this.props.hideExample)}>
+                                    <Text style={[fonts.size15, fonts.familyRegular]}>터치하여 예문 해석 보기</Text>
+                                </Button>
+                                :
+                                <Text style={[styles.exampleSection, fonts.familyRegular]}>
+                                    { this.props.params.ex_meaning }
+                                </Text>
+                            }
                         </View>
                     </View>
                     {
@@ -67,4 +85,12 @@ const styles = StyleSheet.create({
         fontSize: normalize(14),
         lineHeight: normalize(24)
     },
+    altButton: {
+        width: normalize(209),
+        height: normalize(35),
+        borderRadius: normalize(4),
+        backgroundColor: 'white',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        alignSelf: 'center'
+    }
 });
