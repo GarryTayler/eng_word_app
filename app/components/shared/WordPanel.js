@@ -61,15 +61,6 @@ export default class WordPanel extends PureComponent {
                             }
                         </View>
                     </View>
-                    {
-                        /*
-                        <View style={{marginBottom: normalize(20)}}>
-                            <Button style={styles.altButton}>
-                                <Text style={[fonts.size16]}>터치하여 단어 뜻 보기</Text>
-                            </Button>
-                        </View>
-                        */
-                    }
                 </View>         
             </View>
         )
