@@ -21,7 +21,7 @@ export default function TabBarIcon(props) {
               <View style={styles.tabItemContainer}>
                   <View style={styles.labelContainer}>
                     <Text style={[props.focused ? fonts.colorRed : fonts.colorWhite,
-                                  fonts.size14,
+                                  fonts.size12,
                                   fonts.familyBold]}>{props.title}</Text>
                   </View>
               </View>

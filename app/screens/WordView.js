@@ -72,7 +72,6 @@ export default class WordView extends React.Component {
                     } />
                 <View style={styles.container}>
                     {
-                        
                         <SwipeRender
                             data={this.props.arrData}
                             renderItem={({ item, index }) => {

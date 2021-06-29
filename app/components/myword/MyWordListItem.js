@@ -40,7 +40,7 @@ export default class MyWordListItem extends React.Component {
                             onPress={ () => { this.setState({marqueeWordDisable: !this.state.marqueeWordDisable}) } } activeOpacity={0.6}>
                                     <TextTicker disabled={this.state.marqueeWordDisable}
                                     isInteraction={false} duration={3000} loop
-                                    repeatSpacer={50} marqueeDelay={1000} style={[fonts.size16, fonts.weightBold, {marginLeft: normalize(10)}]}>
+                                    repeatSpacer={50} marqueeDelay={1000} style={[fonts.size16, fonts.familyBold, {marginLeft: normalize(10)}]}>
                                         {this.props.word}
                                     </TextTicker>
                                 </TouchableOpacity>
@@ -55,7 +55,7 @@ export default class MyWordListItem extends React.Component {
                         onPress={ () => { this.setState({marqueeMeaningDisable: !this.state.marqueeMeaningDisable}) } } >
                             <TextTicker disabled={this.state.marqueeMeaningDisable}
                                 isInteraction={false} duration={3000} loop
-                                repeatSpacer={50} marqueeDelay={1000} style={[fonts.size14, fonts.weightBold]}>{this.props.meaning}</TextTicker>
+                                repeatSpacer={50} marqueeDelay={1000} style={[fonts.size14, fonts.familyBold]}>{this.props.meaning}</TextTicker>
                         </TouchableOpacity>
                         :
                         <View style={{ flex:5, display: 'flex', flexDirection: 'row', paddingLeft: normalize(4) }}></View>

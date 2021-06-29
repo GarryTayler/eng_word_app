@@ -2,6 +2,8 @@ import React, { PureComponent } from 'react';
 import { StyleSheet, View, Text , Dimensions} from 'react-native';
 import { normalize, fonts,getSafeAreaViewHeight } from './../../assets/styles/index';
 import { Button } from 'native-base';
+import TextTicker from 'react-native-text-ticker';
+import WordSpeech from './../shared/WordSpeech';
 export default class WordPanel extends PureComponent {
     constructor(props){
         super(props);
@@ -12,13 +14,16 @@ export default class WordPanel extends PureComponent {
                 <View style={styles.upWordContainer}>
                     <View style={{display: 'flex', alignItems: 'center', justifyContent: 'center', flexGrow: 1}}>
                         <View style={{marginHorizontal: normalize(10)}}>
-                            <Text numberOfLines={1} style={[fonts.size32, fonts.familyBold]}>{this.props.params.word}</Text>
+                            <TextTicker
+                                duration={6000} loop
+                                repeatSpacer={50} marqueeDelay={1000} style={[fonts.size32, fonts.familyBold]}>{this.props.params.word}</TextTicker>
+
                         </View>
-                        <View style={{marginHorizontal: normalize(10), position: 'relative', flexDirection: 'row', alignItems: 'center'}}>
+                        <View style={{marginTop: normalize(6), marginHorizontal: normalize(10), position: 'relative', flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
                             <Text style={[fonts.familyBold, fonts.size20, {color: 'rgba(0,0,0,0.5)'}]}>[dɪˈveləp]</Text>
-                            {
-                                /* <WordSpeech wordView /> */
-                            }
+                            <View style={{position: 'absolute', top: normalize(24), zIndex: 1001}}>
+                                <WordSpeech wordView word={this.props.params.word} />
+                            </View>
                         </View>
                     </View>
                 </View>

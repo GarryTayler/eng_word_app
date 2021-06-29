@@ -17,12 +17,12 @@ export default class SentenceViewItem extends React.Component {
 
         if(!_isFavorite) {   
             if( await addToMySentence(this.props.param) ) {
-                showToast("내 문장에 저장되었습니다.", "success");
+                showToast("add_to_mysentence", "success");
             }
         }
         else {
             if( await removeFromMySentence(this.props.param) ) {
-                showToast("내 문장에서 삭제되었습니다.", "success");
+                showToast("remove_from_mysentence", "success");
             }
         }
     }

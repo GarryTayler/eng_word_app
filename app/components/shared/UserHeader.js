@@ -20,11 +20,15 @@ export default class UserHeader extends React.Component {
     }
 
     triggerMeaning() {
+        if(!this.state.showWord && this.state.showMeaning)
+            return;
         this.props.triggerMeaning(!this.state.showMeaning);
         this.setState({showMeaning: !this.state.showMeaning});
     }
 
     triggerWord() {
+        if(!this.state.showMeaning && this.state.showWord)
+            return;
         this.props.triggerWord(!this.state.showWord);
         this.setState({showWord: !this.state.showWord});
     }
