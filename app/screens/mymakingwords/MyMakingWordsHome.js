@@ -203,8 +203,8 @@ export default class MyMakingWordsHome extends React.Component {
                                         :
                                         null
                                     }
-                                    <TouchableHighlight style={styles.button} activeOpacity={0.8} onPress={ () => { this.buttonClick() } } underlayColor='#4E4E4E'>
-                                        <ImageBackground source={ Images.buttons[3][index % 4] } style={styles.buttonImage} resizeMode='cover'>
+                                    <TouchableHighlight style={this.state.edit ? styles.button : [styles.button, {width: 206, height: 48}]} activeOpacity={0.8} onPress={ () => { this.editMyWord(item, index) } } underlayColor='#4E4E4E'>
+                                        <ImageBackground source={ this.state.edit ? Images.buttons[3][index % 4] : Images.buttons[2][index % 4] } style={styles.buttonImage} resizeMode='cover'>
                                             <View>
                                                 <Text style={[fonts.size20, fonts.familyMedium, fonts.familyBold, fonts.colorWhite, styles.buttonLabel]}>{item.name}</Text>
                                             </View>
