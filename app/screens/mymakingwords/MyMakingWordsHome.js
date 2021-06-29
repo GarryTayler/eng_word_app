@@ -9,6 +9,7 @@ import { getCategoryList } from './../../utils/api';
 import Spinner_bar from 'react-native-loading-spinner-overlay';
 import {Actions} from 'react-native-router-flux';
 import { Icon, CheckBox  } from 'react-native-elements';
+import { getVocabularyList } from '../../utils/MyMakingWords';
 
 export default class MyMakingWordsHome extends React.Component {
     constructor(props){
@@ -16,9 +17,7 @@ export default class MyMakingWordsHome extends React.Component {
         this.state = {
             loaded: true,
             serverRespond: false,
-            arrData: [{id: 0, name: '스펠링 주의 단어', checked: false},
-                      {id: 1, name: '스펠링 주의 단어', checked: false},
-                      {id: 2, name: '스펠링 주의 단어', checked: false}],
+            arrData: [],
             edit: false,
             checkAll: false
         };
@@ -28,7 +27,9 @@ export default class MyMakingWordsHome extends React.Component {
         
     }
 
-    componentDidMount() {
+    async componentDidMount() {
+        let list = await getVocabularyList();
+        console.log('here', list);
     }
 
     new_trash() {

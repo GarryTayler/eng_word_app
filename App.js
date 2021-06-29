@@ -103,7 +103,7 @@ class App extends React.Component {
                                     </Scene>
 
                                     <Scene key="my_making_words" title="내가만드는 단어장" reset="my_making_words_home" name="my_making_words_home" icon={TabBarIcon} hideNavBar>
-                                        <Scene key="create_word" component={CreateWord}  />
+                                        
                                         <Scene key="my_making_words_home" component={MyMakingWordsHome} initial/>
                                     </Scene>
 
@@ -122,6 +122,7 @@ class App extends React.Component {
                             <Scene key="sentence_study_init" component={SentenceStudyInit} />
                             <Scene key="my_word_list_view" component={MyWordListView} />
                             <Scene key="sentence_study" component={SentenceStudy} />
+                            <Scene key="create_word" component={CreateWord}  />
                         </Scene>
 
                     </Router>

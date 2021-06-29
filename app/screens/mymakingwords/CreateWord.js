@@ -6,6 +6,7 @@ import { Button } from 'native-base';
 import UserHeader from './../../components/shared/UserHeader';
 import CreateWordItem from './../../components/mymakingwords/CreateWordItem';
 import { fonts, normalize, getSafeAreaViewHeight } from './../../assets/styles';
+import { Actions } from 'react-native-router-flux';
 
 let pageTitle = '새 단어장 만들기';
 
@@ -19,16 +20,26 @@ export default class CreateWord extends React.Component {
             isChecked: false
         }
     }
+    componentDidMount() {
+
+    }
     doSwap() {
+    }
+    renderItem() {
+        let temp = [];
+        for(var i = 1; i<=30;i++) {
+            temp.push(i);
+        }
+        return temp.map((item, index) => {
+            return <CreateWordItem currentNo={item} word="" meaning="" />
+        })
     }
     render() {
         return (
             <Container>
-            {
-               /* <UserHeader title={pageTitle} /> */
-            }
+                <UserHeader title={pageTitle} />
                 <Content style={styles.container}>
-                    <ScrollView style={styles.scrollView}>
+                    
                         <View style={{ paddingBottom: normalize(10), borderBottomWidth: 1, borderColor: 'rgba(0,0,0,0.5)',
                                     paddingHorizontal: normalize(16), paddingTop: normalize(16) }}>
                             <View style={{ alignItems: 'center'}}>  
@@ -70,24 +81,16 @@ export default class CreateWord extends React.Component {
                                 </TouchableHighlight>
                             </View>
                         </View>
-                        <CreateWordItem currentNo={1} word="boys" meaning="소년들" />
-                        <CreateWordItem currentNo={2} word="" meaning="" />
-                        <CreateWordItem currentNo={3} word="" meaning="" />
-                        <CreateWordItem currentNo={4} word="" meaning="" />
-                        <CreateWordItem currentNo={5} word="" meaning="" />
-                        <CreateWordItem currentNo={6} word="" meaning="" />
-                        <CreateWordItem currentNo={7} word="" meaning="" />
-                        <CreateWordItem currentNo={8} word="" meaning="" />
-                        <CreateWordItem currentNo={9} word="" meaning="" />
-                        <CreateWordItem currentNo={10} word="" meaning="" />
-                        <CreateWordItem currentNo={11} word="" meaning="" />
+                    <ScrollView style={styles.scrollView}>
+                        {
+                            this.renderItem()
+                        }
                     </ScrollView>
-                    <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly',
-                paddingVertical: normalize(24)}}>
+                    <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly', paddingVertical: normalize(24)}}>
                         <Button style={styles.footerButton}>
                             <Text style={[fonts.size16, fonts.colorWhite, fonts.familyMedium]}>저장하기</Text>
                         </Button>
-                        <Button style={styles.footerButton}>
+                        <Button style={styles.footerButton} onPress={() => Actions.pop()}>
                             <Text style={[fonts.size16, fonts.colorWhite, fonts.familyMedium]}>닫기</Text>
                         </Button>
                     </View>
@@ -135,6 +138,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     scrollView: {
-        height: getSafeAreaViewHeight() - 92
+        height: getSafeAreaViewHeight() - 220
     }
 });
