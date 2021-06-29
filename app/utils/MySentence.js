@@ -38,7 +38,6 @@ export const removeFromMySentence = async(param) => {
 export const getSentenceListFromMySentence = async() => {
     try {
         let mysentence_id_list = await getData('mysentence_list');
-        console.log("mysentence id list==>", mysentence_id_list);
         if(mysentence_id_list == null)
             mysentence_id_list = [];
         let mysentence_list = [];
