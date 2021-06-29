@@ -140,12 +140,12 @@ export default class MyMakingWordsHome extends React.Component {
                                         this.state.edit ?
                                         <View>
                                             <Icon name='trash-outline' type='ionicon' color={'white'} size={30} />
-                                            <Text style={[fonts.size12, fonts.colorWhite, {marginTop: 7}]}>삭제</Text>
+                                            <Text style={[fonts.size12, fonts.familyMedium, fonts.colorWhite, {marginTop: 7}]}>삭제</Text>
                                         </View>
                                         :
                                         <View>
                                             <Icon name='pluscircle' type='antdesign' color={'white'} size={30} />
-                                            <Text style={[fonts.size12, fonts.colorWhite, {marginTop: 7}]}>새단어장</Text>
+                                            <Text style={[fonts.size12, fonts.familyMedium, fonts.colorWhite, {marginTop: 7}]}>새단어장</Text>
                                         </View>
                                     }
                                     
@@ -158,12 +158,12 @@ export default class MyMakingWordsHome extends React.Component {
                                         this.state.edit ?
                                         <View>
                                             <Icon name='exit-outline' type='ionicon' color={'white'} size={30} />
-                                            <Text style={[fonts.size12, fonts.colorWhite, {marginTop: 10}]}>편집종료</Text>
+                                            <Text style={[fonts.size12, fonts.familyMedium, fonts.colorWhite, {marginTop: 10}]}>편집종료</Text>
                                         </View>
                                         :
                                         <View>
                                             <Icon name='pencil' type='octicon' color={'white'} size={30} />
-                                            <Text style={[fonts.size12, fonts.colorWhite, {marginTop: 10}]}>편집하기</Text>
+                                            <Text style={[fonts.size12, fonts.familyMedium, fonts.colorWhite, {marginTop: 10}]}>편집하기</Text>
                                         </View>
                                     }
                                 </ImageBackground>
@@ -176,7 +176,7 @@ export default class MyMakingWordsHome extends React.Component {
                                 title='전체 선택'
                                 checked={this.state.checkAll}
                                 containerStyle={{backgroundColor: 'transparent', borderWidth: 0, paddingLeft: 15}}
-                                textStyle={{color: 'white'}}
+                                textStyle={[{color: 'white'}, fonts.familyMedium]}
                                 uncheckedIcon={<Image source={require('../../assets/img/Unchekced.png')} style={{width: 25, height: 25}} />}
                                 checkedIcon={<Image source={require('../../assets/img/CheckBox.png')} style={{width: 25, height: 25}} />}
                                 onPress={() => this.setCheckAll()}
@@ -206,7 +206,7 @@ export default class MyMakingWordsHome extends React.Component {
                                     <TouchableHighlight style={styles.button} activeOpacity={0.8} onPress={ () => { this.buttonClick() } } underlayColor='#4E4E4E'>
                                         <ImageBackground source={ Images.buttons[3][index % 4] } style={styles.buttonImage} resizeMode='cover'>
                                             <View>
-                                                <Text style={[fonts.size20, fonts.familyBold, fonts.colorWhite, styles.buttonLabel]}>{item.name}</Text>
+                                                <Text style={[fonts.size20, fonts.familyMedium, fonts.familyBold, fonts.colorWhite, styles.buttonLabel]}>{item.name}</Text>
                                             </View>
                                         </ImageBackground>
                                     </TouchableHighlight>
