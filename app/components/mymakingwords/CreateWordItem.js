@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
         fontSize: normalize(14),
         lineHeight: normalize(19),
         color: 'rgba(0, 0, 0, 0.55)',
-        fontFamily: 'NotoSansCJKkr-Bold'
+        fontFamily: 'Malgun-Gothic-Bold'
     },
     swapIconContainer: {
         width: normalize(24), height: normalize(24),

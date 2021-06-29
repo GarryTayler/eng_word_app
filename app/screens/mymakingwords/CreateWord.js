@@ -85,10 +85,10 @@ export default class CreateWord extends React.Component {
                     <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly',
                 paddingVertical: normalize(24)}}>
                         <Button style={styles.footerButton}>
-                            <Text style={[fonts.size16, fonts.colorWhite, fonts.familyMedium]}>저장하기</Text>
+                            <Text style={[fonts.size16, fonts.colorWhite, fonts.familyBold]}>저장하기</Text>
                         </Button>
                         <Button style={styles.footerButton}>
-                            <Text style={[fonts.size16, fonts.colorWhite, fonts.familyMedium]}>닫기</Text>
+                            <Text style={[fonts.size16, fonts.colorWhite, fonts.familyBold]}>닫기</Text>
                         </Button>
                     </View>
                 </Content>

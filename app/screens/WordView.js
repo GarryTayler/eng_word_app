@@ -102,11 +102,11 @@ export default class WordView extends React.Component {
                     />
                     <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly', backgroundColor: '#E4E4E4', paddingVertical: normalize(12)}}>
                         <Button style={styles.footerButton}>
-                            <Text style={[fonts.size16, fonts.familyMedium]}>단어 뜻 가리기 </Text>
+                            <Text style={[fonts.size16, fonts.familyBold]}>단어 뜻 가리기 </Text>
                         </Button>
 
                         <Button style={styles.footerButton}>
-                            <Text style={[fonts.size16, fonts.familyMedium]}>예문 해석 가리기 </Text>
+                            <Text style={[fonts.size16, fonts.familyBold]}>예문 해석 가리기 </Text>
                         </Button>
                     </View>
                 </View>           

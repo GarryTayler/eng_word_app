@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: normalize(18),
         lineHeight: normalize(26),
-        fontFamily: 'NotoSansCJKkr-Bold'
+        fontFamily: 'Malgun-Gothic-Bold'
     },
     buttonImage: {
         flex: 1,

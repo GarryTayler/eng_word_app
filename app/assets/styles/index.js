@@ -49,11 +49,14 @@ export function calcButtonListMarginTop(buttonCnt, buttonHeight) {
 }
 
 export const fonts = EStyleSheet.create({
-    familyRegular: { fontFamily: 'NotoSansCJKkr-Regular' },
+    // familyRegular: { fontFamily: 'NotoSansCJKkr-Regular' },
     familyMedium: { fontFamily: 'NotoSansCJKkr-Medium' },
-    familyBold: { fontFamily: 'NotoSansCJKkr-Bold' },
+    // familyBold: { fontFamily: 'NotoSansCJKkr-Bold' },
 
-    size10 : { fontSize: normalize(10), lineHeight: normalize(13) },
+    familyBold: { fontFamily: 'Malgun-Gothic-Bold' },
+    familyRegular: { fontFamily: 'Malgun-Gothic-Regular' },
+
+    /*size10 : { fontSize: normalize(10), lineHeight: normalize(13) },
     size11 : { fontSize: normalize(11), lineHeight: normalize(15) },
     size12 : { fontSize: normalize(12), lineHeight: normalize(16) },
     size14 : { fontSize: normalize(14), lineHeight: normalize(18) },
@@ -65,7 +68,21 @@ export const fonts = EStyleSheet.create({
     size24 : { fontSize: normalize(24), lineHeight: normalize(32) },
     size32 : { fontSize: normalize(32), lineHeight: normalize(42) },
     size38 : { fontSize: normalize(38), lineHeight: normalize(52) },
-    size40 : { fontSize: normalize(40), lineHeight: normalize(54) },
+    size40 : { fontSize: normalize(40), lineHeight: normalize(54) },*/
+
+    size10 : { fontSize: normalize(10), lineHeight: normalize(11) },
+    size11 : { fontSize: normalize(11), lineHeight: normalize(12) },
+    size12 : { fontSize: normalize(12), lineHeight: normalize(13) },
+    size14 : { fontSize: normalize(14), lineHeight: normalize(15) },
+    size15 : { fontSize: normalize(15), lineHeight: normalize(16) },
+    size16 : { fontSize: normalize(16), lineHeight: normalize(17) },
+    size18 : { fontSize: normalize(18), lineHeight: normalize(19) },
+    size20 : { fontSize: normalize(20), lineHeight: normalize(21) },
+    size22 : { fontSize: normalize(22), lineHeight: normalize(23) },
+    size24 : { fontSize: normalize(24), lineHeight: normalize(25) },
+    size32 : { fontSize: normalize(32), lineHeight: normalize(33) },
+    size38 : { fontSize: normalize(38), lineHeight: normalize(39) },
+    size40 : { fontSize: normalize(40), lineHeight: normalize(41) },
 
     weightNormal: { fontWeight: 'normal' },
     weightBold: { fontWeight: 'bold' },
@@ -97,11 +114,11 @@ export const tabs = EStyleSheet.create({
     },
     text: {
         fontSize: normalize(16), lineHeight: normalize(20),
-        color: 'black', fontFamily: 'NotoSansCJKkr-Bold'
+        color: 'black', fontFamily: 'Malgun-Gothic-Bold'
     },
     activeText: {
         fontSize: normalize(16), lineHeight: normalize(20),
-        color: 'black', fontFamily: 'NotoSansCJKkr-Bold'
+        color: 'black', fontFamily: 'Malgun-Gothic-Bold'
     },
     tabBarUnderline: {
         height: 0,

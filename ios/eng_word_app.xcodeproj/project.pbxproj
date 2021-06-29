@@ -50,6 +50,8 @@
 		717CBC02F3E347018FD71468 /* rubicon-icon-font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1A52A814410648CD9A742F27 /* rubicon-icon-font.ttf */; };
 		AA0362E8A06F41FABB1C5B69 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 39295539A59F4D22824D4DCC /* SimpleLineIcons.ttf */; };
 		9F585ADB95414B7DADEF9317 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E84B112DCF3045A69940DAB4 /* Zocial.ttf */; };
+		84EF843A685B4491BCCFE678 /* Malgun-Gothic-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA70433EC76F4FBB966A8F09 /* Malgun-Gothic-Bold.ttf */; };
+		64007A9C96384DBB9621126C /* Malgun-Gothic-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 88315C6046FD447389D794E6 /* Malgun-Gothic-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -112,6 +114,8 @@
 		1A52A814410648CD9A742F27 /* rubicon-icon-font.ttf */ = {isa = PBXFileReference; name = "rubicon-icon-font.ttf"; path = "../node_modules/native-base/Fonts/rubicon-icon-font.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		39295539A59F4D22824D4DCC /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; name = "SimpleLineIcons.ttf"; path = "../node_modules/native-base/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		E84B112DCF3045A69940DAB4 /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/native-base/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		BA70433EC76F4FBB966A8F09 /* Malgun-Gothic-Bold.ttf */ = {isa = PBXFileReference; name = "Malgun-Gothic-Bold.ttf"; path = "../app/assets/fonts/Malgun-Gothic/Malgun-Gothic-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		88315C6046FD447389D794E6 /* Malgun-Gothic-Regular.ttf */ = {isa = PBXFileReference; name = "Malgun-Gothic-Regular.ttf"; path = "../app/assets/fonts/Malgun-Gothic/Malgun-Gothic-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -242,6 +246,8 @@
 				1A52A814410648CD9A742F27 /* rubicon-icon-font.ttf */,
 				39295539A59F4D22824D4DCC /* SimpleLineIcons.ttf */,
 				E84B112DCF3045A69940DAB4 /* Zocial.ttf */,
+				BA70433EC76F4FBB966A8F09 /* Malgun-Gothic-Bold.ttf */,
+				88315C6046FD447389D794E6 /* Malgun-Gothic-Regular.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -375,6 +381,8 @@
 				717CBC02F3E347018FD71468 /* rubicon-icon-font.ttf in Resources */,
 				AA0362E8A06F41FABB1C5B69 /* SimpleLineIcons.ttf in Resources */,
 				9F585ADB95414B7DADEF9317 /* Zocial.ttf in Resources */,
+				84EF843A685B4491BCCFE678 /* Malgun-Gothic-Bold.ttf in Resources */,
+				64007A9C96384DBB9621126C /* Malgun-Gothic-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

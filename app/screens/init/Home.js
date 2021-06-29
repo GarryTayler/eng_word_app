@@ -76,7 +76,7 @@ export default class Home extends React.Component {
                 <View style={{display : 'flex', alignItems: 'center', marginTop: (this.state.arrData.length == 0 ? calcButtonListMarginTop(2, 54) : 0)}}>
                     <TouchableHighlight style={styles.button} activeOpacity={0.8} onPress={ () => { this.buttonClick() } } underlayColor='#A49E9E'>
                         <ImageBackground source={ Images.buttons[0][this.state.arrData.length % 5] } style={styles.buttonImage} resizeMode='cover'>
-                            <Text style={[fonts.size20, fonts.familyBold, fonts.colorWhite, styles.buttonLabel]}>
+                            <Text style={[fonts.size20, fonts.familyBold, fonts.colorWhite, styles.buttonLabel ]}>
                                 사랑영단어
                             </Text>
                         </ImageBackground>
