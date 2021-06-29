@@ -8,6 +8,7 @@ import CreateWordItem from './../../components/mymakingwords/CreateWordItem';
 import { fonts, normalize, getSafeAreaViewHeight } from './../../assets/styles';
 import { Actions } from 'react-native-router-flux';
 import { saveVocabularyData, getVocabularyData } from '../../utils/MyMakingWords';
+import {OptimizedFlatList} from 'react-native-optimized-flatlist'
 
 let pageTitle = '새 단어장 만들기';
 
@@ -30,8 +31,6 @@ export default class CreateWord extends React.Component {
         for(var i = 1; i<=100;i++) {
             temp.push({id: i, word: '', meaning: '', order: 1});
         }
-        
-        console.log(this.props.id, this.props.editable)
         if(this.state.editable) {
             let wordTemp = await getVocabularyData(this.props.id);
             if(wordTemp && wordTemp.length > 0) {
@@ -39,7 +38,6 @@ export default class CreateWord extends React.Component {
                     temp[index] = {id: index + 1, word: item.word, meaning: item.meaning, order: item.order};
                 })
             }
-            console.log(wordTemp);
         }
         this.setState({arrData: temp});
     }
@@ -99,14 +97,20 @@ export default class CreateWord extends React.Component {
         return year+month+day;
     }
     changeWord(text, index) {
-        let temp = this.state.arrData;
+        /*let temp = this.state.arrData;
         temp[index]['word'] = text;
-        this.setState({arrData: temp})
+        this.setState({arrData: temp})*/
+        this.state.arrData[index]['word'] = text;
     }
     changeMeaning(text, index) {
-        let temp = this.state.arrData;
+        /*let temp = this.state.arrData;
         temp[index]['meaning'] = text;
-        this.setState({arrData: temp})
+        this.setState({arrData: temp})*/
+
+        this.state.arrData[index]['meaning'] = text;
+    }
+    renderCreateWord(item, index) {
+        return <CreateWordItem key={index} currentNo={index} word={item.word} changeWord={(text) => this.changeWord(text, index)} meaning={item.meaning} changeMeaning={(text) => this.changeMeaning(text, index)} doSwap={() => this.doSwap(index)} order={item.order} changeSort={() => this.changeSort(index)} />
     }
     render() {
         return (
@@ -120,8 +124,9 @@ export default class CreateWord extends React.Component {
                             data={this.state.arrData}
                             keyExtractor={(item) => item.id}
                             renderItem={ ({item, index}) => (
-                                <CreateWordItem currentNo={index} word={item.word} changeWord={(text) => this.changeWord(text, index)} meaning={item.meaning} changeMeaning={(text) => this.changeMeaning(text, index)} doSwap={() => this.doSwap(index)} order={item.order} changeSort={() => this.changeSort(index)} />
+                                this.renderCreateWord(item, index)
                             )}
+                            initialNumToRender={20}
                             ListHeaderComponent={
                                 <>
                                 <View style={{ paddingBottom: normalize(10), borderBottomWidth: 1, borderColor: 'rgba(0,0,0,0.5)',

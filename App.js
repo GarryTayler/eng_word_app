@@ -11,6 +11,7 @@
  import { Router, Scene} from 'react-native-router-flux';
  import { Root } from "native-base";
  import EStyleSheet from 'react-native-extended-stylesheet';
+ import SplashScreen from 'react-native-splash-screen'
 
  import Home from './app/screens/init/Home';
  import Category from './app/screens/init/Category';
@@ -77,6 +78,9 @@ class App extends React.Component {
         super();
     }
     componentDidMount() {
+        setTimeout(() => {
+            SplashScreen.hide();
+        }, 500);
     }
     render() {
         return (
