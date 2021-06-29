@@ -6,7 +6,7 @@ import { fonts } from '../../assets/styles';
 import { Icon } from 'react-native-elements';
 import UserHeader from './../../components/shared/UserHeader';
 import { performNetwork } from './../../components/shared/global';
-import { getVideoList, getWordList } from './../../utils/api';
+import { getVideoList } from './../../utils/api';
 import Spinner_bar from 'react-native-loading-spinner-overlay';
 import {YouTubeStandaloneAndroid} from 'react-native-youtube';
 import {Actions} from 'react-native-router-flux';
@@ -52,14 +52,9 @@ export default class Detail extends React.Component {
     }
 
     viewWord() { // 단어보기
-        performNetwork(this, getWordList(this.props.params.category_id)).then((response) => {
-            if(response == null) 
-                response = [];
-            Actions.push('word_view',
-            { params: {   category_id: this.props.params.category_id, 
-                            before: 'detail'},
-            arrData: response});
-        });
+        Actions.push('word_view',
+        { params: {   category_id: this.props.params.category_id, 
+                        before: 'detail'}});
     } 
     
     viewSentenceStudy() { // 문장학습 init 이행

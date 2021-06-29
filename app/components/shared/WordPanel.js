@@ -16,7 +16,7 @@ export default class WordPanel extends PureComponent {
                         <View style={{marginHorizontal: normalize(10)}}>
                             <TextTicker
                                 duration={6000} loop
-                                repeatSpacer={50} marqueeDelay={1000} style={[fonts.size32, fonts.familyBold]}>{this.props.params.word}</TextTicker>
+                                repeatSpacer={50} marqueeDelay={1000} style={[fonts.size24, fonts.familyBold]}>{this.props.params.word}</TextTicker>
 
                         </View>
                         <View style={{marginTop: normalize(6), marginHorizontal: normalize(10), position: 'relative', flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
@@ -43,7 +43,7 @@ export default class WordPanel extends PureComponent {
                                 <Text style={[fonts.size18, fonts.familyBold]}>{this.props.params.meaning}</Text>
                             }
                         </View>
-                        <View>
+                        <View style={{paddingBottom: normalize(8)}}>
                             <Text style={[styles.exampleSection, fonts.familyRegular]}>
                                 { this.props.params.ex_word }
                             </Text>
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     child: { width },
     upWordContainer: {
         backgroundColor: '#F4F4F4',
-        height: Math.floor((getSafeAreaViewHeight() - 32)/7 * 3)
+        height: Math.floor((getSafeAreaViewHeight() - 32)/21 * 8)
     },
     downMeaningContainer: {
         backgroundColor: '#E4E4E4'
