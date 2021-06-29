@@ -13,7 +13,7 @@ export default function TabBarIcon(props) {
               source={props.name == 'home' ? Images.homeTab : (
                 props.name == 'my_word_home' ? Images.myWordTab : (
                 props.name == 'my_sentence_home' ? Images.mySentenceTab : (
-                props.name == 'create_word' ? Images.myMakingWordTab : Images.studyResults
+                props.name == 'my_making_words_home' ? Images.myMakingWordTab : Images.studyResults
               )))}
               style={styles.tabImage}
               resizeMode='cover'
@@ -21,7 +21,7 @@ export default function TabBarIcon(props) {
               <View style={styles.tabItemContainer}>
                   <View style={styles.labelContainer}>
                     <Text style={[props.focused ? fonts.colorRed : fonts.colorWhite,
-                                  fonts.size14,
+                                  fonts.size12,
                                   fonts.familyBold]}>{props.title}</Text>
                   </View>
               </View>

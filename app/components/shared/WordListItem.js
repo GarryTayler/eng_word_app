@@ -22,12 +22,12 @@ export default class WordListItem extends React.Component {
         if(!_isFavorite) {
             
             if( await addToMyWord(this.props.param) ) {
-                showToast("내 단어장에 저장되었습니다.", "success");
+                showToast("add_to_myword", "success");
             }
         }
         else {
             if( await removeFromMyWord(this.props.param) ) {
-                showToast("내 단어장에서 삭제되었습니다.", "success");
+                showToast("remove_from_myword", "success");
             }
         }
     }
@@ -65,7 +65,7 @@ export default class WordListItem extends React.Component {
                         <View style={{flex: 6, paddingRight: normalize(8), paddingLeft: normalize(4)}}></View>
                     }
                     <View style={{flex: 1, alignItems: 'flex-end'}}>
-                        <WordSpeech />
+                        <WordSpeech word={this.props.word} />
                     </View>
                 </View>                           
             </View>

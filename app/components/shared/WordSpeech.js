@@ -1,16 +1,26 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { normalize } from './../../assets/styles';
 import { Icon } from 'react-native-elements';
+/* import Tts from 'react-native-tts';
+Tts.setDefaultLanguage('en-IE');
+Tts.addEventListener('tts-start', event => console.log('start', event));
+Tts.addEventListener('tts-finish', event => console.log('finish', event));
+Tts.addEventListener('tts-cancel', event => console.log('cancel', event)); */
+import { speakWord } from './../../utils/tts';
 export default class WordSpeech extends React.Component {
     constructor(props){
         super(props);
     }
+    triggerSound() {  
+        speakWord(this.props.word);
+    }
     render() {
         return (
-            <View style={[styles.wordPronunciationSound, { backgroundColor: this.props.wordView?'white':'#F4F4F4' }]}>
+            <TouchableOpacity activeOpacity={0.6} style={[styles.wordPronunciationSound, { backgroundColor: this.props.wordView?'white':'#F4F4F4' }]}
+            onPress={()=> {this.triggerSound()}}>
                 <Icon name='volume-medium' type='ionicon' color='rgba(0,0,0,0.6)' />
-            </View>           
+            </TouchableOpacity>           
         );
     }
 }

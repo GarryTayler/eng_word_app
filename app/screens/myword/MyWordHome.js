@@ -4,9 +4,14 @@ import { Container, Content } from 'native-base';
 import Images from './../../assets/Images';
 import { fonts } from '../../assets/styles';
 import {Actions} from 'react-native-router-flux';
+import {getWordListFromMyWord} from './../../utils/MyWord'
+import Spinner_bar from 'react-native-loading-spinner-overlay';
 export default class MyWordHome extends React.Component {
     constructor(props){
         super(props);
+        this.state = {
+            loaded: true,       
+        }
     }
     buttonClick() {
     }
@@ -18,10 +23,14 @@ export default class MyWordHome extends React.Component {
     viewWordStudy() {
         Actions.push('word_study_init');
     }
-    wordView() {
+    async wordView() {
+        this.setState({loaded: false});
+        let _word_list = await getWordListFromMyWord();
+        this.setState({loaded: true});
         Actions.push('word_view',
             { params: {   category_id: 0, 
-                            before: 'myword'}});
+                            before: 'myword'},
+              arrData: _word_list});
     }
     render() {
         return (
@@ -65,6 +74,7 @@ export default class MyWordHome extends React.Component {
                                 </ImageBackground>
                             </TouchableHighlight>
                         </View>
+                        <Spinner_bar color={'#68ADED'} visible={!this.state.loaded} textContent={""}  overlayColor={"rgba(0, 0, 0, 0.5)"}  />
                     </ImageBackground>
                 </Content>
             </Container>

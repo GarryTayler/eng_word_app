@@ -8,7 +8,7 @@ import MyWordListItem from './../../components/myword/MyWordListItem';
 import { getWordListFromMyWord } from './../../utils/MyWord';
 import Spinner_bar from 'react-native-loading-spinner-overlay';
 
-let pageTitle = '단어 목록 보기';
+let pageTitle = '단어목록보기';
 
 export default class MyWordListView extends React.Component {
     constructor(props){

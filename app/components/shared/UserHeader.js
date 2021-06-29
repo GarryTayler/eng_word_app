@@ -20,11 +20,15 @@ export default class UserHeader extends React.Component {
     }
 
     triggerMeaning() {
+        if(!this.state.showWord && this.state.showMeaning)
+            return;
         this.props.triggerMeaning(!this.state.showMeaning);
         this.setState({showMeaning: !this.state.showMeaning});
     }
 
     triggerWord() {
+        if(!this.state.showMeaning && this.state.showWord)
+            return;
         this.props.triggerWord(!this.state.showWord);
         this.setState({showWord: !this.state.showWord});
     }
@@ -93,7 +97,7 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: normalize(18),
         lineHeight: normalize(26),
-        fontFamily: 'NotoSansCJKkr-Bold'
+        fontFamily: 'Malgun-Gothic-Bold'
     },
     buttonImage: {
         flex: 1,
