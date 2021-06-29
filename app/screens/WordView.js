@@ -72,6 +72,7 @@ export default class WordView extends React.Component {
                     } />
                 <View style={styles.container}>
                     {
+                        /*
                         <SwipeRender
                             data={this.props.arrData}
                             renderItem={({ item, index }) => {
@@ -93,14 +94,13 @@ export default class WordView extends React.Component {
                                 this.changeScreen(e)   
                             }}
                         />
-                        
+                        */
                     }
                     {
-                        /*
                         <SwiperFlatList
                         disableVirtualization={false}
                         onChangeIndex={(e)=>{
-                                this.changeScreen(e)
+                                this.changeScreen(e.index)
                         }}
                         data={this.props.arrData}
                         renderItem={({ item }) => (
@@ -110,10 +110,10 @@ export default class WordView extends React.Component {
                             hideExample = {this.state.hideExample}
                             changeHideMeaning={(e) => { this.setState({hideMeaning: e}) }}
                             changeHideExample={(e) => { this.setState({hideExample: e}) }}
+                            disableGesture={true}
                              />
                         )}
                         />
-                        */
                     }
 
                     <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly', backgroundColor: '#E4E4E4', paddingVertical: normalize(12)}}>
