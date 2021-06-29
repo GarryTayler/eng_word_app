@@ -65,6 +65,7 @@ export const saveVocabularyData = async(id, _name, data) => {
         v_id_list = v_id_list == null ? [] : v_id_list;
         if(id == 0) // 새로 추가  
         {
+            id = vocabulary_count+ 1;
             v_id_list.push({id: (vocabulary_count+ 1) , name: _name});
             await storeData('vocabulary_list', v_id_list);
             await storeData('vocabulary_count', vocabulary_count + 1);
@@ -72,7 +73,7 @@ export const saveVocabularyData = async(id, _name, data) => {
         else if(_name != ''){
             for(let i = 0; i < v_id_list.length; i ++) {
                 if(v_id_list[i]['id'] == id) {
-                    v_id_list[i]['name'] = name;
+                    v_id_list[i]['name'] = _name;
                     break;
                 }
             }
