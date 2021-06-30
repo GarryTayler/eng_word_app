@@ -17,7 +17,7 @@ export default class MySentenceHome extends React.Component {
     }
     viewSentenceStudy() {
         Actions.push('sentence_study_init', 
-            { params: {   category_id: 0, 
+            { params: {   category_id: 15, 
                             before: 'mysentence'}});
     }
     render() {
