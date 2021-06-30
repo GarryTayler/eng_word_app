@@ -116,7 +116,48 @@ export default class CreateWord extends React.Component {
         return (
             <Container>
                 <UserHeader title={pageTitle} />
-                <Content style={styles.container}>
+                <View style={{ paddingBottom: normalize(10), borderBottomWidth: 1, borderColor: 'rgba(0,0,0,0.5)',
+                                            paddingHorizontal: normalize(16), paddingTop: normalize(16) }}>
+                        <View style={{ alignItems: 'center'}}>  
+                            <TextInput
+                                style={[styles.textInput, fonts.weightBold, fonts.colorBlack]}
+                                onChangeText={(text) => {
+                                    this.setState({ newWordTitle: text });
+                                }}
+                                onSubmitEditing={Keyboard.dismiss}   
+                                value={this.state.newWordTitle}
+                                placeholder="단어장 이름"
+                                placeholderTextColor = 'rgba(0, 0, 0, 0.3)'
+                            >
+                            </TextInput>    
+                        </View>
+                        <View style={{ alignItems: 'center', marginTop: normalize(12) }}>
+                            <Text style={[styles.commentText, fonts.familyRegular]}>
+                                단어장 이름을 입력해주세요.
+                            </Text>
+                            <Text style={[styles.commentText, fonts.familyRegular]}>
+                                미입력시 오늘 날짜로 저장됩니다.
+                            </Text>
+                        </View>
+                        <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center', marginTop: normalize(16)}}>
+                            <CheckBox
+                                onClick={()=>{
+                                    this.setState({
+                                        allChecked:!this.state.allChecked
+                                    })
+                                }}
+                                isChecked={this.state.allChecked}
+                            />
+                            <TouchableHighlight activeOpacity={0.6} underlayColor='white'
+                            onPress={ () => { this.setState({
+                                    allChecked:!this.state.allChecked
+                                        }) 
+                            } }>
+                                <Text style={[fonts.size14, fonts.familyRegular, {marginLeft: normalize(8)}]}>전체선택</Text>
+                            </TouchableHighlight>
+                        </View>
+                </View>
+                
                     {
                         this.state.arrData.length > 0 ?
                         <FlatList
@@ -127,69 +168,18 @@ export default class CreateWord extends React.Component {
                                 this.renderCreateWord(item, index)
                             )}
                             initialNumToRender={20}
-                            ListHeaderComponent={
-                                <>
-                                <View style={{ paddingBottom: normalize(10), borderBottomWidth: 1, borderColor: 'rgba(0,0,0,0.5)',
-                                            paddingHorizontal: normalize(16), paddingTop: normalize(16) }}>
-                                    <View style={{ alignItems: 'center'}}>  
-                                        <TextInput
-                                            style={[styles.textInput, fonts.weightBold, fonts.colorBlack]}
-                                            onChangeText={(text) => {
-                                                this.setState({ newWordTitle: text });
-                                            }}
-                                            onSubmitEditing={Keyboard.dismiss}   
-                                            value={this.state.newWordTitle}
-                                            placeholder="단어장 이름"
-                                            placeholderTextColor = 'rgba(0, 0, 0, 0.3)'
-                                        >
-                                        </TextInput>    
-                                    </View>
-                                    <View style={{ alignItems: 'center', marginTop: normalize(12) }}>
-                                        <Text style={[styles.commentText, fonts.familyRegular]}>
-                                            단어장 이름을 입력해주세요.
-                                        </Text>
-                                        <Text style={[styles.commentText, fonts.familyRegular]}>
-                                            미입력시 오늘 날짜로 저장됩니다.
-                                        </Text>
-                                    </View>
-                                    <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center', marginTop: normalize(16)}}>
-                                        <CheckBox
-                                            onClick={()=>{
-                                                this.setState({
-                                                    allChecked:!this.state.allChecked
-                                                })
-                                            }}
-                                            isChecked={this.state.allChecked}
-                                        />
-                                        <TouchableHighlight activeOpacity={0.6} underlayColor='white'
-                                        onPress={ () => { this.setState({
-                                                allChecked:!this.state.allChecked
-                                                    }) 
-                                        } }>
-                                            <Text style={[fonts.size14, fonts.familyRegular, {marginLeft: normalize(8)}]}>전체선택</Text>
-                                        </TouchableHighlight>
-                                    </View>
-                                </View>
-                                </>
-                            }
-                            ListFooterComponent={
-                                <>
-                                <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly', paddingVertical: normalize(24)}}>
-                                    <Button style={styles.footerButton} onPress={() => this.saveMyWord()}>
-                                        <Text style={[fonts.size16, fonts.colorWhite, fonts.familyMedium]}>저장하기</Text>
-                                    </Button>
-                                    <Button style={styles.footerButton} onPress={() => Actions.pop()}>
-                                        <Text style={[fonts.size16, fonts.colorWhite, fonts.familyMedium]}>닫기</Text>
-                                    </Button>
-                                </View>    
-                                </>
-                            }
                         />
                         :
                         null
                     }
-                    
-                </Content>
+                    <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly', paddingVertical: normalize(24)}}>
+                        <Button style={styles.footerButton} onPress={() => this.saveMyWord()}>
+                            <Text style={[fonts.size16, fonts.colorWhite, fonts.familyMedium]}>저장하기</Text>
+                        </Button>
+                        <Button style={styles.footerButton} onPress={() => Actions.pop()}>
+                            <Text style={[fonts.size16, fonts.colorWhite, fonts.familyMedium]}>닫기</Text>
+                        </Button>
+                    </View>    
             </Container>           
         );
     }
