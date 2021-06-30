@@ -33,6 +33,10 @@ export default class UserHeader extends React.Component {
         this.setState({showWord: !this.state.showWord});
     }
 
+    triggerRemove() {
+        this.props.triggerRemove();
+    }
+
     render() {
         return (
             <Header style={[styles.header, 
@@ -69,7 +73,8 @@ export default class UserHeader extends React.Component {
                         {
                             this.props.favorite ? 
                             <TouchableHighlight activeOpacity={0.8}
-                        style={[styles.headerRemoveButton, {marginLeft: normalize(3)}]}>
+                        style={[styles.headerRemoveButton, {marginLeft: normalize(3)}]}
+                        onPress={() => {this.triggerRemove()}}>
                                     <ImageBackground source={Images.headerRemoveButton} style={styles.buttonImage} resizeMode='cover'>
                                         <Icon name='trash' type='fontisto' size={18} color='white' /> 
                                     </ImageBackground>

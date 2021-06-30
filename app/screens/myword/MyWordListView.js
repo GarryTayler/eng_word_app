@@ -5,7 +5,7 @@ import { normalize } from './../../assets/styles';
 import UserHeader from './../../components/shared/UserHeader';
 import SubHeader from './../../components/shared/SubHeader';
 import MyWordListItem from './../../components/myword/MyWordListItem';
-import { getWordListFromMyWord } from './../../utils/MyWord';
+import { getWordListFromMyWord, removeIdListFromMyWord } from './../../utils/MyWord';
 import Spinner_bar from 'react-native-loading-spinner-overlay';
 
 let pageTitle = '단어목록보기';
@@ -33,6 +33,14 @@ export default class MyWordListView extends React.Component {
     onChangeWord(e) {
         this.setState({wordShow: e});
     }
+    async removeMethod() {
+        if(this.state.checkedIdList.length == 0)
+            return;
+        this.setState({loaded: false});
+        await removeIdListFromMyWord(this.state.checkedIdList);
+        let _word_list = await getWordListFromMyWord();
+        this.setState({arrData: _word_list, loaded: true});
+    }
     clickAllChecked(e) {
         if(e == true)
         {
@@ -45,12 +53,31 @@ export default class MyWordListView extends React.Component {
             this.setState({checkedIdList: [], allChecked: false});
         }
     }
+    changeCheckList(status, id) {
+        if(status) {
+            if(this.state.checkedIdList.indexOf(id) < 0)
+            {
+                let checkedIdList = [...this.state.checkedIdList];
+                checkedIdList.push(id);
+                this.setState({checkedIdList});
+            }    
+        }
+        else {
+            let _index = this.state.checkedIdList.indexOf(id);
+            if(_index >= 0) {
+                let checkedIdList = [...this.state.checkedIdList];
+                checkedIdList.splice(_index, 1);
+                this.setState({checkedIdList});
+            }
+        }
+    }
     render()  {
         return (
             <Container>
                 <UserHeader title={pageTitle} wordList favorite
                 triggerMeaning={(e) => { this.onChangeMeaning(e) }}
-                triggerWord={(e) => { this.onChangeWord(e) }} />
+                triggerWord={(e) => { this.onChangeWord(e) }}
+                triggerRemove={() => { this.removeMethod() }} />
                 <SubHeader title="중1비상 (홍민표) 1과" favorite
                 onPress={(e) => { this.clickAllChecked(e) }} />
                 <FlatList
@@ -65,6 +92,7 @@ export default class MyWordListView extends React.Component {
                             wordShow={this.state.wordShow}
                             meaningShow={this.state.meaningShow}
                             allChecked={this.state.allChecked}
+                            onClick={(e) => { this.changeCheckList(e, item.id) }}
                         />
                     )}
                 />

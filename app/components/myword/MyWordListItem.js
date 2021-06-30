@@ -27,6 +27,15 @@ export default class MyWordListItem extends React.Component {
             isChecked
         }
     }
+
+    triggerClicked() {
+        let isChecked = this.state.isChecked; 
+        this.setState({
+            isChecked:!this.state.isChecked
+        });
+        this.props.onClick(!isChecked);
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -37,9 +46,7 @@ export default class MyWordListItem extends React.Component {
                     <View style={[styles.flexRowAlign, {flex: 5}]}>
                         <CheckBox
                             onClick={()=>{
-                                this.setState({
-                                    isChecked:!this.state.isChecked
-                                })
+                                this.triggerClicked();
                             }}
                             isChecked={this.state.isChecked}
                             style={styles.checkBoxItem}

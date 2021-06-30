@@ -35,6 +35,29 @@ export const removeFromMyWord = async(param) => {
     }
 }
 
+export const removeIdListFromMyWord = async(_array) => {
+    try {
+        if(_array.length == 0)
+            return true;
+        let myword_id_list = await getData('myword_list');
+        if(myword_id_list == null)
+            myword_id_list = [];
+        for(let i = 0; i < _array.length; i ++)
+        {
+            let _index = myword_id_list.indexOf(_array[i]);
+            if(_index >= 0) {
+                myword_id_list.splice(_index, 1);
+                await removeData('myword_' + _array[i]);        
+            }
+        }
+        await storeData('myword_list', myword_id_list);
+        return true;
+    }
+    catch(e) {
+        return false;
+    }
+}
+
 export const getWordListFromMyWord = async() => {
     try {
         let myword_id_list = await getData('myword_list');
