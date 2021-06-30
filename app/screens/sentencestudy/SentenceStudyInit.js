@@ -33,7 +33,7 @@ export default class SentenceStudyInit extends React.Component {
     }
 
     async fetchSentenceList() {
-        if(this.props.params.before == 'mysentence') {
+        if(this.props.params.before != 'mysentence') {
             performNetwork(this, getSentenceList(this.props.params.category_id)).then(async (response) => {
                 if(response == null) { return; }
                 if(response && response.length > 0) {
