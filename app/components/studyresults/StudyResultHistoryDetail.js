@@ -14,8 +14,7 @@ export default class StudyResultHistoryDetail extends React.Component {
 
     render() {
         return (
-            <View style={styles.container}
-            onPress={ () => { this.detailPage() } }>
+            <View style={styles.container}>
                  <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center', flex: 8}}>
                     <View>
                         <Text style={[fonts.size14, fonts.familyRegular]}>{this.props.id}.</Text>    
