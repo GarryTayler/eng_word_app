@@ -7,6 +7,7 @@ import ResultDetailItem  from './../../components/studyresults/ResultDetailItem'
 import StudyResultsDetailTab from './StudyResultsDetailTab';
 import { fonts, normalize, tabs } from './../../assets/styles';
 import { Icon } from 'react-native-elements';
+import {Actions} from 'react-native-router-flux';
 
 let pageTitle = '학습 결과';
 let arrTypes = [
@@ -18,6 +19,8 @@ let arrTypes = [
 export default class StudyResultsDetail extends React.Component {
     constructor(props){
         super(props);
+    }
+    saveAndFinish() {
     }
     renderTabs() {
         let arrTab = arrTypes.map((item, index) => (
@@ -80,7 +83,8 @@ export default class StudyResultsDetail extends React.Component {
                         <Button style={styles.footerButton}>
                             <Text style={[fonts.size15, fonts.colorWhite, fonts.familyBold, {textAlign: 'center'}]}>별표 저장</Text>
                         </Button>
-                        <Button style={[styles.footerButton]}>
+                        <Button style={[styles.footerButton]}
+                        onPress={() => {this.saveAndFinish()}}>
                             <Text style={[fonts.size15, fonts.colorWhite, fonts.familyBold, {textAlign: 'center'}]}>학습 내용</Text>
                             <Text style={[fonts.size15, fonts.colorWhite, fonts.familyBold, {textAlign: 'center'}]}>저장후 끝내기</Text>
                         </Button>

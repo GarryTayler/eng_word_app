@@ -16,7 +16,10 @@ export default class MyWordHome extends React.Component {
         Actions.push('my_word_list_view');
     }
     viewWordStudy() {
-        Actions.push('word_study_init');
+        Actions.push('word_study_init', {
+            params: {   category_id: 0, 
+                before: 'myword'} 
+        });
     }
     async wordView() {
         Actions.push('word_view',

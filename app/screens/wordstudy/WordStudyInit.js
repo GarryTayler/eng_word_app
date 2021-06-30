@@ -41,7 +41,9 @@ export default class WordStudyInit extends React.Component {
         else {
             this.setState({loaded: false});
             let _word_list = await getWordListFromMyWord();
-            this.setState({arrData: _word_list, loaded: true});          
+            this.setState({arrData: _word_list, loaded: true,
+                            startNumber: '1',
+                            endNumber: _word_list.length.toString()});          
         }
     }
     //
@@ -60,6 +62,11 @@ export default class WordStudyInit extends React.Component {
     shuffle() {
         let _start = parseInt(this.state.startNumber);
         let _end = parseInt(this.state.endNumber);
+
+        if(_start > _end) {
+            return;
+        }
+
         let _array = [];
         for (let i = _start; i <= _end; i ++) 
             _array.push(i);
