@@ -14,11 +14,12 @@ export default class MyWordListView extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            isChecked: false,
+            allChecked: false,
             arrData: [],
             wordShow: true,
             meaningShow: true,
-            loaded: true
+            loaded: true,
+            checkedIdList: []
         }
     }
     async componentDidMount() {
@@ -32,13 +33,26 @@ export default class MyWordListView extends React.Component {
     onChangeWord(e) {
         this.setState({wordShow: e});
     }
+    clickAllChecked(e) {
+        if(e == true)
+        {
+            let _word_id_list = [];
+            for(let i = 0; i < this.state.arrData.length; i ++)
+                _word_id_list.push(this.state.arrData[i]['id']);
+            this.setState({checkedIdList: _word_id_list, allChecked: true});
+        }
+        else {
+            this.setState({checkedIdList: [], allChecked: false});
+        }
+    }
     render()  {
         return (
             <Container>
                 <UserHeader title={pageTitle} wordList favorite
                 triggerMeaning={(e) => { this.onChangeMeaning(e) }}
                 triggerWord={(e) => { this.onChangeWord(e) }} />
-                <SubHeader title="중1비상 (홍민표) 1과" favorite />
+                <SubHeader title="중1비상 (홍민표) 1과" favorite
+                onPress={(e) => { this.clickAllChecked(e) }} />
                 <FlatList
                     data={this.state.arrData}
                     keyExtractor={(item) => item.id}
@@ -50,6 +64,7 @@ export default class MyWordListView extends React.Component {
                             meaning={item.meaning}
                             wordShow={this.state.wordShow}
                             meaningShow={this.state.meaningShow}
+                            allChecked={this.state.allChecked}
                         />
                     )}
                 />

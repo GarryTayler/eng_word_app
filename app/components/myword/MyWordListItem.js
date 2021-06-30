@@ -9,12 +9,23 @@ export default class MyWordListItem extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            isChecked: false,
+            isChecked: this.props.isChecked,
             marqueeWordDisable: true,
             marqueeMeaningDisable: true,
+            prevProps: {}
         }
     }
     doSwap() {
+    }
+    static getDerivedStateFromProps(props, state) {
+        const prevProps = state.prevProps || {};
+        const isChecked = prevProps.allChecked !== props.allChecked
+        ? props.allChecked
+        : state.isChecked;
+        return {
+            prevProps: props,
+            isChecked
+        }
     }
     render() {
         return (

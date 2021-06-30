@@ -9,7 +9,11 @@ export default class SubHeader extends React.Component {
             allChecked: false
         }
     }
-
+    clickAllChecked() {
+        let allChecked = this.state.allChecked;
+        this.setState({allChecked: !this.state.allChecked});
+        this.props.onPress(!allChecked);
+    }
     render() {
         return (
             <View style={styles.subHeader}>
@@ -19,16 +23,12 @@ export default class SubHeader extends React.Component {
                         <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                             <CheckBox
                                     onClick={()=>{
-                                        this.setState({
-                                            allChecked:!this.state.allChecked
-                                        })
+                                        this.clickAllChecked();
                                     }}
                                     isChecked={this.state.allChecked}
                             />
                             <TouchableHighlight activeOpacity={0.6} underlayColor='white'
-                        onPress={ () => { this.setState({
-                                            allChecked:!this.state.allChecked
-                                        }) } }>
+                        onPress={ () => { this.clickAllChecked(); } }>
                                 <Text style={[fonts.size14, fonts.familyBold, {marginLeft: normalize(8)}]}>전체선택</Text>
                             </TouchableHighlight>
                         </View>
