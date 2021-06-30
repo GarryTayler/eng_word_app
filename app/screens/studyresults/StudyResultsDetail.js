@@ -54,10 +54,10 @@ export default class StudyResultsDetail extends React.Component {
                 <Content>
                     <View style={{display: 'flex', flexDirection: 'row', backgroundColor: '#68ADED', padding: normalize(12)}}>
                         <View style={{flex: 1}}>
-                            <Text style={[fonts.size14, fonts.weightBold, fonts.colorWhite]}>8월 4일 (일) 오후 5:13</Text>
+                            <Text style={[fonts.size14, fonts.familyBold, fonts.colorWhite]}>8월 4일 (일) 오후 5:13</Text>
                         </View>
                         <View style={{flex: 1}}>
-                            <Text style={[fonts.size14, fonts.weightBold, {textAlign: 'right'}, fonts.colorWhite]}>중1 비상 (홍민표) 3과</Text>
+                            <Text style={[fonts.size14, fonts.familyBold, {textAlign: 'right'}, fonts.colorWhite]}>중1 비상 (홍민표) 3과</Text>
                         </View>
                     </View>
                     <StudyHeader />

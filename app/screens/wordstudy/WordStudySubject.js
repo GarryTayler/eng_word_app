@@ -1,10 +1,12 @@
 import React from 'react';
 import { Container, Content, Button, Input } from 'native-base';
-import { StyleSheet, View, Text, TextInput, Keyboard, Image } from 'react-native';
+import { StyleSheet, View, Text, TextInput, Keyboard, Image, TouchableHighlightBase } from 'react-native';
 import UserHeader from './../../components/shared/UserHeader';
 import WordStudyHeader from './../../components/wordstudy/WordStudyHeader';
 import { fonts, normalize } from './../../assets/styles';
 import Images from './../../assets/Images';
+import TextTicker from 'react-native-text-ticker'
+import {Actions} from 'react-native-router-flux';
 
 let pageTitle = '단어 학습';
 
@@ -19,31 +21,127 @@ export default class WordStudySubject extends React.Component {
             answer: ''
         };
     }    
+    makeResult() {
+        // 유저가 입력한 정답 처리
+        let _answer = this.state.answer;
+        _answer = _answer.replace(/\s/g,''); //공백 제거
+        _answer = _answer.replace(/~/g, ""); //~ 제거
+
+        if(this.props.studyMethod == 'kotoen') {
+            _answer = _answer.toLowerCase();
+        }
+        // remove [] , ()
+        _answer = _answer.replace(/ *\([^)]*\) */g, "");
+        _answer = _answer.replace(/ *\[[^)]*\] */g, "");
+        // DB에 저장된 단어 뜻 처리
+        let _compare = this.props.params[this.state.cur_problem_no - 1]['answer'];
+        // let _compare = "[열심히] 일하기, (가지마)((가라고))";
+        _compare = _compare.replace(/\s/g,''); //공백 제거
+        _compare = _compare.replace(/~/g, ""); //~ 제거
+        if(this.props.studyMethod == 'kotoen') {
+            _compare = _compare.toLowerCase();
+        }
+
+        let _compare_temp = _compare;
+
+        // remove [] , ()
+        _compare = _compare.replace(/ *\([^)]*\) */g, "");
+        _compare = _compare.replace(/ *\[[^)]*\] */g, "");
+
+        let _answer_list = _answer.split(',');
+        let _compare_list = _compare.split(',');
+
+      for(let i = 0; i < _answer_list.length; i ++) {
+            if(_compare_list.indexOf(_answer_list[i]) >= 0)
+                return true;
+      }
+        _compare_temp = _compare_temp.replace(/[\[\]']+/g,'');
+        _compare_temp = _compare_temp.replace(/[\(\)']+/g,'');
+        _compare_list = _compare_temp.split(',');
+      for(let i = 0; i < _answer_list.length; i ++) {
+            if(_compare_list.indexOf(_answer_list[i]) >= 0)
+                return true;
+      }
+        return false;
+    }
+    checkAnswer() {
+        Keyboard.dismiss();
+        if(this.state.answer == '')
+            return;
+        if(this.makeResult()) { // correct
+            this.setState({cur_problem_status: 'correct',
+                           correctProblems: this.state.correctProblems + 1 });
+            setTimeout(function() {
+                this.nextProblem();
+            }.bind(this), 1000);
+        }
+        else {
+            this.setState({cur_problem_status: 'wrong',
+                            wrongProblems: this.state.wrongProblems + 1});
+        }
+    }
+    nextProblem()     {
+        if(this.state.cur_problem_no == this.props.params.length) { // 학습 완료
+            Actions.push("study_results_detail");    
+        }
+        else {
+            this.setState({
+                cur_problem_no: this.state.cur_problem_no + 1,
+                cur_problem_status: 'ready',
+                answer: ''
+            });    
+            this.answerInput.focus();
+        }
+    }
     render() {
         return (
             <Container> 
                 <UserHeader title={pageTitle} />
                 <WordStudyHeader title="중1비상 (홍민표) 3과"
-                                 totalProblems={this.props.params.length} currentNo={this.state.cur_problem_no} rightAnswer="5" wrongAnswer="5" />
+                                 totalProblems={this.props.params.length} currentNo={this.state.cur_problem_no} 
+                                 rightAnswer={this.state.correctProblems} wrongAnswer={this.state.wrongProblems} />
                 <Content style={styles.container}>
                     <View style={[styles.problemContainer]}>
                         <View style={{position: 'absolute', top: normalize(28)}}>
                             <Text style={[fonts.size14, fonts.familyBold]}>
                                 다음 단어의 뜻을 입력해주세요.
                             </Text>
-                        </View>    
-                        <Image source={Images.correct2x} style={styles.correctIcon} resizeMode='cover' />
-                        <Text style={[fonts.size38, fonts.familyBold]}>
-                            chicken
-                        </Text>
-                        <View style={{position: 'absolute', bottom: normalize(40), display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                            <View style={{backgroundColor: '#92BEF8', borderRadius: normalize(4), padding: normalize(4)}}>
-                                <Text style={[fonts.size14, fonts.colorWhite, fonts.familyBold]}>정답</Text>
-                            </View>
-                            <View style={{marginLeft: normalize(8)}}>
-                                <Text numberOfLines={1} style={[fonts.familyBold, fonts.size18, {color: '#92BEF8'}]}>닭, 닭고기</Text>
-                            </View>
                         </View>
+                        {
+                            this.state.cur_problem_status == 'correct' ? 
+                            <Image source={Images.correct2x} style={styles.correctIcon} resizeMode='cover' /> :
+                            ( this.state.cur_problem_status == 'wrong' ? 
+                            <Image source={Images.wrong2x} style={styles.correctIcon} resizeMode='cover' /> :
+                                null
+                            )
+                        }
+
+                        {
+                            /*
+                            <Text style={[fonts.size38, fonts.familyBold]}>
+                            { this.props.params[this.state.cur_problem_no - 1]['problem'] }
+                            </Text> */
+                        }
+                        
+                        <TextTicker disabled={this.state.marqueeWordDisable}
+                                isInteraction={false} duration={5000} loop
+                                repeatSpacer={50} marqueeDelay={1000} style={[fonts.size38, fonts.familyBold]}>
+                            { this.props.params[this.state.cur_problem_no - 1]['problem'] }
+                        </TextTicker>
+
+                        {
+                            this.state.cur_problem_status == 'ready' ? null
+                            :
+                            <View style={{position: 'absolute', bottom: normalize(40), display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+                                <View style={{backgroundColor: (this.state.cur_problem_status == 'correct' ? '#92BEF8' : '#F0B5B5'), borderRadius: normalize(4), padding: normalize(4)}}>
+                                    <Text style={[fonts.size14, fonts.colorWhite, fonts.familyBold]}>정답</Text>
+                                </View>
+                                <View style={{marginLeft: normalize(8)}}>
+                                    <Text numberOfLines={1} style={[fonts.familyBold, fonts.size18, {color: (this.state.cur_problem_status == 'correct' ? '#92BEF8' : '#F0B5B5')}]}>{ this.props.params[this.state.cur_problem_no - 1]['answer'] }</Text>
+                                </View>
+                            </View>
+                        }
+
                     </View>
                     <View style={{ alignItems: 'center'}}>
                         <TextInput
@@ -51,13 +149,28 @@ export default class WordStudySubject extends React.Component {
                             onChangeText={(text) => {
                                 this.setState({ answer: text });
                             }}
-                            onSubmitEditing={Keyboard.dismiss}   
+                            onSubmitEditing={() => {this.checkAnswer()}}   
                             value={this.state.answer}
                             placeholder="정답을 입력하세요."
                             placeholderTextColor = 'rgba(0, 0, 0, 0.5)'
+                            editable={this.state.cur_problem_status == 'ready' ? true : false}
+                            selectTextOnFocus={this.state.cur_problem_status == 'ready' ? true : false}
+                            autoFocus={true}
+                            ref={ (input) => { this.answerInput = input } }
                         >
                         </TextInput>
                     </View>
+
+                    {
+                        this.state.cur_problem_status == 'wrong' ?
+                        <View style={[styles.footerConfirm]}>
+                            <Button style={styles.confirmButton}
+                            onPress={() => {this.nextProblem()}}>
+                                <Text style={[fonts.familyBold, fonts.size18, fonts.colorWhite]}>확인</Text>
+                            </Button> 
+                        </View>
+                        : null
+                    }
                 </Content>
             </Container>
         ); 
@@ -86,7 +199,8 @@ const styles = StyleSheet.create({
         alignItems: 'center', 
         justifyContent: 'center', 
         height: normalize(262), 
-        position: 'relative'       
+        position: 'relative',
+        paddingHorizontal: normalize(8)
     },
     correctIcon: {
         opacity: 0.5, 
@@ -94,4 +208,25 @@ const styles = StyleSheet.create({
         height: normalize(102),
         position: 'absolute',
     },
+    footerConfirm: {
+        height: normalize(126),
+        paddingTop: normalize(18),
+        alignSelf: 'center'
+    },
+    confirmButton: {
+        backgroundColor: '#F0B5B5',
+        width: normalize(176),
+        height: normalize(48),
+        display: 'flex',
+        alignItems: 'center', justifyContent: 'center',
+        borderRadius: normalize(8),
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 3,
+        },
+        shadowOpacity: 0.27,
+        shadowRadius: 3.65,
+        elevation: 3,
+    }
 });

@@ -107,7 +107,8 @@ export default class WordStudyInit extends React.Component {
         let _problems = this.shuffle();
         if(this.state.problemMethod == 'sub') {
             Actions.push('word_study_subject', {
-                params: _problems
+                params: _problems,
+                studyMethod: this.state.studyMethod
             });
         }
         else {

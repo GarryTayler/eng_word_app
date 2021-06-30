@@ -7,6 +7,7 @@ import ChoiceItem from './../../components/wordstudy/ChoiceItem';
 import WordStudyHeader from './../../components/wordstudy/WordStudyHeader';
 import Images from './../../assets/Images';
 import {Actions} from 'react-native-router-flux';
+import TextTicker from 'react-native-text-ticker'
 
 let pageTitle = '단어 학습';
 
@@ -15,7 +16,7 @@ export default class WordStudyObject extends React.Component {
         super(props);
         this.state = {
             cur_problem_no: 1,
-            cur_problem_status: 'ready',
+            cur_problem_status: 'ready',                
             correctProblems: 0, //정답
             wrongProblems: 0, //오답
         }
@@ -66,9 +67,20 @@ export default class WordStudyObject extends React.Component {
                                 null
                             )
                         }
-                        <Text style={[fonts.size38, fonts.familyBold]}>
+
+                        {
+                            /*
+                            <Text style={[fonts.size38, fonts.familyBold]}>
+                                { this.props.params[this.state.cur_problem_no - 1]['problem'] }
+                            </Text> */
+                        }
+                        
+                        <TextTicker disabled={this.state.marqueeWordDisable}
+                                isInteraction={false} duration={5000} loop
+                                repeatSpacer={50} marqueeDelay={1000} style={[fonts.size38, fonts.familyBold]}>
                             { this.props.params[this.state.cur_problem_no - 1]['problem'] }
-                        </Text>
+                        </TextTicker>
+
                         {
                             this.state.cur_problem_status == 'ready' ? null
                             :
@@ -111,7 +123,7 @@ export default class WordStudyObject extends React.Component {
                     </View>
                     {
                         this.state.cur_problem_status == 'wrong' ?
-                        <View style={[styles.footerConfirm, styles.footerConfirm]}>
+                        <View style={[styles.footerConfirm]}>
                             <Button style={styles.confirmButton}
                             onPress={() => {this.nextProblem()}}>
                                 <Text style={[fonts.familyBold, fonts.size18, fonts.colorWhite]}>확인</Text>
