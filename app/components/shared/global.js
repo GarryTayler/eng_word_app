@@ -25,3 +25,37 @@ export function performNetwork(comp, promise) {
         showToast();
     });
 }
+
+function getWeekDay(_wkday) {
+    let _day = '일';
+    switch(_wkday) {
+        case 0:
+            _day = '일';
+            break;
+        case 1:
+            _day = '월';
+            break;
+        case 2:
+            _day = '화';
+            break;
+        case 3:
+            _day = '수';
+            break;
+        case 4:
+            _day = '목';
+            break;
+        case 5:
+            _day = '금';
+            break;
+        case 6:
+            _day = '토';
+            break;
+    }
+    return _day;
+}
+
+export function getCurrentDate() {
+    var d = new Date();
+    let hour = d.getHours();
+    return (d.getMonth() + 1) + '월 ' + d.getDate() + '일 (' + getWeekDay(d.getDay()) + ') ' + (hour >= 12 ? '오후' : '오전') + (hour <= 12 ? hour : hour - 12) + ':' + d.getMinutes();
+}

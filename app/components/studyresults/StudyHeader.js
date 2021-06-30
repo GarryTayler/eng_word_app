@@ -27,7 +27,7 @@ export default class StudyHeader extends React.Component {
                             <Text style={[fonts.size16, fonts.familyBold, fonts.colorBlue, {marginLeft: normalize(12)}]}>시간</Text>
                         </View>
                         <View>
-                            <Text style={[fonts.size16, fonts.familyBold, fonts.colorBlue, {marginLeft: normalize(16)}]}>00:18</Text>
+                            <Text style={[fonts.size16, fonts.familyBold, fonts.colorBlue, {marginLeft: normalize(16)}]}>{this.props.time}</Text>
                         </View>
                     </View>
                 </View>

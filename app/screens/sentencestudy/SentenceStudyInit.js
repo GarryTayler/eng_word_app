@@ -13,6 +13,8 @@ import {getSentenceListFromMySentence, getSentenceIdListFromMySentence} from './
 import {Actions} from 'react-native-router-flux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Orientation from 'react-native-orientation';
+import { showToast } from './../../components/shared/global';
+
 let pageTitle = '문장 학습';
 let originalData = [];
 export default class SentenceStudyInit extends React.Component {
@@ -97,8 +99,8 @@ export default class SentenceStudyInit extends React.Component {
             })
             if(sentenceList.length > 0) 
                 Actions.push("sentence_study", {sentenceList: sentenceList})
-            else
-                Alert.alert("문장을 선택해주세요");
+            else 
+                showToast("setence_selection_error", "error");
         }
         
     }

@@ -12,6 +12,7 @@ export default class WordStudyHeader extends React.Component {
     }
     componentDidMount() {
         interval = setInterval(function() {
+            this.props.changeTime(this.state.timer + 1);
             this.setState({ timer: (this.state.timer + 1) });
         }.bind(this), 1000);
     }

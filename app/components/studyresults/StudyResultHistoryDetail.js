@@ -14,7 +14,7 @@ export default class StudyResultHistoryDetail extends React.Component {
 
     render() {
         return (
-            <TouchableOpacity activeOpacity={0.6} style={styles.container}
+            <View style={styles.container}
             onPress={ () => { this.detailPage() } }>
                  <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center', flex: 8}}>
                     <View>
@@ -36,7 +36,7 @@ export default class StudyResultHistoryDetail extends React.Component {
                         </Button>
                     </View>
                 </View>
-            </TouchableOpacity>
+            </View>
         )
     }
 }

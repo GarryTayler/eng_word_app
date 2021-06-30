@@ -10,5 +10,6 @@ export const _e = {
     first_page_error: "맨처음입니다.",
     last_page_error: "맨끝입니다.",
 
-    start_end_number_error: "시작번호, 끝번호 확인해주세요."
+    start_end_number_error: "시작번호, 끝번호 확인해주세요.",
+    setence_selection_error: "문장을 선택해주세요."
 }

@@ -21,9 +21,16 @@ export default class StudyResultsDetail extends React.Component {
         super(props);
     }
     componentDidMount() {
-        console.log("params====>",    this.props.params);
     }
     saveAndFinish() {
+        Actions.popTo('word_study_init');
+    }
+    timeFormat() {
+        let ss = this.props.params.time % 60;
+        if(ss <= 9) ss = '0' + ss;
+        let mm = Math.floor(this.props.params.time / 60);
+        if(mm <= 9) mm = '0' + mm;
+        return mm + ':' + ss;
     }
     renderTabs() {
         let arrTab = arrTypes.map((item, index) => (
@@ -61,7 +68,7 @@ export default class StudyResultsDetail extends React.Component {
                     <View>
                         <View style={{display: 'flex', flexDirection: 'row', backgroundColor: '#68ADED', padding: normalize(12)}}>
                             <View style={{flex: 1}}>
-                                <Text style={[fonts.size14, fonts.familyBold, fonts.colorWhite]}>8월 4일 (일) 오후 5:13</Text>
+                                <Text style={[fonts.size14, fonts.familyBold, fonts.colorWhite]}>{this.props.params.end_time}</Text>
                             </View>
                             <View style={{flex: 1}}>
                                 <Text style={[fonts.size14, fonts.familyBold, {textAlign: 'right'}, fonts.colorWhite]}>중1 비상 (홍민표) 3과</Text>
@@ -71,7 +78,9 @@ export default class StudyResultsDetail extends React.Component {
                             totalProblems={this.props.params.totalProblems}
                             correctProblems={this.props.params.correctProblems}
                             wrongProblems={this.props.params.wrongProblems}
-                            mark={this.props.params.mark} />
+                            mark={this.props.params.mark}
+                            time={this.timeFormat()}
+                        />
                         <View style={{height: normalize(20), backgroundColor: '#F4F4F4'}}>
                         </View>
                     </View>

@@ -8,6 +8,7 @@ import WordStudyHeader from './../../components/wordstudy/WordStudyHeader';
 import Images from './../../assets/Images';
 import {Actions} from 'react-native-router-flux';
 import TextTicker from 'react-native-text-ticker'
+import { getCurrentDate } from './../../components/shared/global';
 
 let pageTitle = '단어 학습';
 let problemList = [];
@@ -20,6 +21,7 @@ export default class WordStudyObject extends React.Component {
             cur_problem_status: 'ready',                
             correctProblems: 0, //정답
             wrongProblems: 0, //오답
+            timer: 0
         }
     }
     componentDidMount() {
@@ -58,11 +60,12 @@ export default class WordStudyObject extends React.Component {
             Actions.push("study_results_detail", {
                 params: {
                     "totalProblems": this.props.params.length, //총문제
-                    "time": 0, //시간
+                    "time": this.state.timer, //시간
                     "correctProblems": this.state.correctProblems,  // 정답 
                     "wrongProblems": this.state.wrongProblems,  // 오답
                     "mark": Math.floor(( this.state.correctProblems / this.props.params.length ) * 100),
-                    "problemList": problemList
+                    "problemList": problemList,
+                    'end_time': getCurrentDate()
                 }
             });
         }
@@ -79,7 +82,8 @@ export default class WordStudyObject extends React.Component {
                 <UserHeader title={pageTitle} />
                 <WordStudyHeader title="중1비상 (홍민표) 31과"
                                  totalProblems={this.props.params.length} currentNo={this.state.cur_problem_no} 
-                                 rightAnswer={this.state.correctProblems} wrongAnswer={this.state.wrongProblems} />
+                                 rightAnswer={this.state.correctProblems} wrongAnswer={this.state.wrongProblems}
+                                 changeTime={(e) => {this.setState({timer: e})}} />
                 <Content style={styles.container}>
                     <View style={styles.problemContainer}>
                         <View style={{position: 'absolute', top: normalize(28)}}>
