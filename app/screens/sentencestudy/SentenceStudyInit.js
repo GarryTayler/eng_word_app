@@ -12,7 +12,7 @@ import Spinner_bar from 'react-native-loading-spinner-overlay';
 import {getSentenceListFromMySentence, getSentenceIdListFromMySentence} from './../../utils/MySentence';
 import {Actions} from 'react-native-router-flux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import Orientation from 'react-native-orientation';
 let pageTitle = '문장 학습';
 let originalData = [];
 export default class SentenceStudyInit extends React.Component {
@@ -29,7 +29,14 @@ export default class SentenceStudyInit extends React.Component {
     }    
 
     componentDidMount() {
+        Orientation.lockToPortrait();
+        Orientation.unlockAllOrientations();
         this.fetchSentenceList();
+    }
+
+    UNSAFE_componentWillReceiveProps() {
+        Orientation.lockToPortrait();
+        Orientation.unlockAllOrientations();
     }
 
     async fetchSentenceList() {
@@ -52,7 +59,6 @@ export default class SentenceStudyInit extends React.Component {
                         }
                         temp.push(item);
                     })
-                    console.log(temp);
                     this.setState({arrData: temp});
                     await AsyncStorage.setItem("sentence_study", JSON.stringify(temp));
                 }
