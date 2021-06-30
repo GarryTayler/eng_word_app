@@ -6,7 +6,7 @@ export default class ChoiceItem extends React.Component {
         super(props);
     }
     clickChoice() {
-        this.props.triggerChoice(this.props.problemNo);
+        this.props.triggerChoice(this.props.problemNo, this.props.choice);
     }
     render() {
         return (

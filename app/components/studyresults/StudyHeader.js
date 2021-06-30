@@ -18,7 +18,7 @@ export default class StudyHeader extends React.Component {
                             <Text style={[fonts.size16, fonts.familyBold, fonts.colorWhite]}>총문제</Text>
                         </View>
                         <View>
-                            <Text style={[fonts.size16, fonts.familyBold, fonts.colorBlue, {marginLeft: normalize(12)}]}>5 문제</Text>
+                            <Text style={[fonts.size16, fonts.familyBold, fonts.colorBlue, {marginLeft: normalize(12)}]}>{this.props.totalProblems} 문제</Text>
                         </View>
                     </View>
                     <View style={{flex:1, display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center'}}>
@@ -43,7 +43,7 @@ export default class StudyHeader extends React.Component {
                                 <Text style={[fonts.size14, fonts.familyBold, styles.studyTextColor, {marginLeft: normalize(6)}]}>정답</Text>
                             </View>
                             <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                                <Text style={[fonts.size24, fonts.familyBold, styles.studyTextColor]}>4</Text>
+                                <Text style={[fonts.size24, fonts.familyBold, styles.studyTextColor]}>{this.props.correctProblems}</Text>
                                 <Text style={[fonts.size14, fonts.familyBold, styles.studyTextColor, {marginLeft: normalize(6)}]}>개</Text>
                             </View>
                         </View>
@@ -54,7 +54,7 @@ export default class StudyHeader extends React.Component {
                                 <Text style={[fonts.size14, fonts.familyBold, styles.studyTextColor, {marginLeft: normalize(6)}]}>오답</Text>
                             </View>
                             <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                                <Text style={[fonts.size24, fonts.familyBold, styles.studyTextColor]}>1</Text>
+                                <Text style={[fonts.size24, fonts.familyBold, styles.studyTextColor]}>{this.props.wrongProblems}</Text>
                                 <Text style={[fonts.size14, fonts.familyBold, styles.studyTextColor, {marginLeft: normalize(6)}]}>개</Text>
                             </View>
                         </View>
@@ -69,7 +69,7 @@ export default class StudyHeader extends React.Component {
                                 <Text style={[fonts.size14, fonts.familyBold, fonts.colorWhite]}>평균점수</Text>
                         </View>
 
-                        <Text style={[fonts.size40, fonts.familyBold]}>40</Text>
+                        <Text style={[fonts.size40, fonts.familyBold]}>{this.props.mark}</Text>
                         <Text style={[fonts.size24, fonts.familyBold, {color: 'rgba(0,0,0,0.5)', marginLeft: normalize(8)}]}>점</Text>
                     </View>
                 </View>

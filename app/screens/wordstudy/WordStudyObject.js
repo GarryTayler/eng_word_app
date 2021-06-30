@@ -10,6 +10,7 @@ import {Actions} from 'react-native-router-flux';
 import TextTicker from 'react-native-text-ticker'
 
 let pageTitle = '단어 학습';
+let problemList = [];
 
 export default class WordStudyObject extends React.Component {
     constructor(props){
@@ -21,8 +22,19 @@ export default class WordStudyObject extends React.Component {
             wrongProblems: 0, //오답
         }
     }
-    makeResult(problemNo) {
+    componentDidMount() {
+        problemList = [];
+    }
+    makeResult(problemNo, _choice) {
         if(problemNo == this.props.params[this.state.cur_problem_no - 1]['correct_index']) {
+            problemList.push({
+                id: this.props.params[this.state.cur_problem_no - 1]['correct_index'],
+                problem: this.props.params[this.state.cur_problem_no - 1]['problem'],
+                answer: this.props.params[this.state.cur_problem_no - 1]['correct_answer'],
+                user_answer: _choice,
+                result: 'correct'
+            });
+
             this.setState({cur_problem_status: 'correct',
                            correctProblems: this.state.correctProblems + 1 });
             setTimeout(function() {
@@ -30,13 +42,29 @@ export default class WordStudyObject extends React.Component {
             }.bind(this), 1000);
         }
         else {
+            problemList.push({
+                id: this.props.params[this.state.cur_problem_no - 1]['correct_index'],
+                problem: this.props.params[this.state.cur_problem_no - 1]['problem'],
+                answer: this.props.params[this.state.cur_problem_no - 1]['correct_answer'],
+                user_answer: _choice,
+                result: 'wrong'
+            });
             this.setState({cur_problem_status: 'wrong',
                             wrongProblems: this.state.wrongProblems + 1});
         }
     }
     nextProblem() {
         if(this.state.cur_problem_no == this.props.params.length) { // 학습 완료
-            Actions.push("study_results_detail");
+            Actions.push("study_results_detail", {
+                params: {
+                    "totalProblems": this.props.params.length, //총문제
+                    "time": 0, //시간
+                    "correctProblems": this.state.correctProblems,  // 정답 
+                    "wrongProblems": this.state.wrongProblems,  // 오답
+                    "mark": Math.floor(( this.state.correctProblems / this.props.params.length ) * 100),
+                    "problemList": problemList
+                }
+            });
         }
         else {
             this.setState({
@@ -111,7 +139,8 @@ export default class WordStudyObject extends React.Component {
                         :
                         this.props.params[this.state.cur_problem_no - 1]['choice'].map((item, index) => (
                             <ChoiceItem 
-                            triggerChoice={(e) => { this.makeResult(e) }}
+                            key={index+1}
+                            triggerChoice={(e, _choice) => { this.makeResult(e, _choice) }}
                             index={index + 1} choice={item['problem']}
                             problemNo={item['no']}
                             correct={this.props.params[this.state.cur_problem_no - 1]['correct_index'] == item['no'] && this.state.cur_problem_status == 'correct'

@@ -11,14 +11,17 @@ import {Actions} from 'react-native-router-flux';
 
 let pageTitle = '학습 결과';
 let arrTypes = [
-    { id: 0, title: '전체' }, 
-    { id: 1, title: '정답' }, 
-    { id: 2, title: '오답' }
+    { id: 0, title: '전체', result: '' }, 
+    { id: 1, title: '정답', result: 'correct' }, 
+    { id: 2, title: '오답', result: 'wrong' }
 ];
 
 export default class StudyResultsDetail extends React.Component {
     constructor(props){
         super(props);
+    }
+    componentDidMount() {
+        console.log("params====>",    this.props.params);
     }
     saveAndFinish() {
     }
@@ -33,6 +36,7 @@ export default class StudyResultsDetail extends React.Component {
                 <StudyResultsDetailTab
                     parent={ this }
                     typeData={ item }
+                    problemList={ this.props.params.problemList.filter(item1 => item1.result==item.result || item.result == '') }
                 />
             </Tab>
         ));
@@ -54,19 +58,22 @@ export default class StudyResultsDetail extends React.Component {
         return (
             <Container>
                 <UserHeader title={pageTitle} />
-                <Content>
-                    <View style={{display: 'flex', flexDirection: 'row', backgroundColor: '#68ADED', padding: normalize(12)}}>
-                        <View style={{flex: 1}}>
-                            <Text style={[fonts.size14, fonts.familyBold, fonts.colorWhite]}>8월 4일 (일) 오후 5:13</Text>
+                    <View>
+                        <View style={{display: 'flex', flexDirection: 'row', backgroundColor: '#68ADED', padding: normalize(12)}}>
+                            <View style={{flex: 1}}>
+                                <Text style={[fonts.size14, fonts.familyBold, fonts.colorWhite]}>8월 4일 (일) 오후 5:13</Text>
+                            </View>
+                            <View style={{flex: 1}}>
+                                <Text style={[fonts.size14, fonts.familyBold, {textAlign: 'right'}, fonts.colorWhite]}>중1 비상 (홍민표) 3과</Text>
+                            </View>
                         </View>
-                        <View style={{flex: 1}}>
-                            <Text style={[fonts.size14, fonts.familyBold, {textAlign: 'right'}, fonts.colorWhite]}>중1 비상 (홍민표) 3과</Text>
+                        <StudyHeader
+                            totalProblems={this.props.params.totalProblems}
+                            correctProblems={this.props.params.correctProblems}
+                            wrongProblems={this.props.params.wrongProblems}
+                            mark={this.props.params.mark} />
+                        <View style={{height: normalize(20), backgroundColor: '#F4F4F4'}}>
                         </View>
-                    </View>
-                    <StudyHeader />
-
-
-                    <View style={{height: normalize(20), backgroundColor: '#F4F4F4'}}>
                     </View>
                     { this.renderTabs() }
                     <View style={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-evenly',
@@ -89,7 +96,6 @@ export default class StudyResultsDetail extends React.Component {
                             <Text style={[fonts.size15, fonts.colorWhite, fonts.familyBold, {textAlign: 'center'}]}>저장후 끝내기</Text>
                         </Button>
                     </View>
-                </Content>
             </Container>    
         );
     }
