@@ -30,13 +30,12 @@ export default class SentenceStudyInit extends React.Component {
 
     componentDidMount() {
         Orientation.lockToPortrait();
-        Orientation.unlockAllOrientations();
+        
         this.fetchSentenceList();
     }
 
     UNSAFE_componentWillReceiveProps() {
         Orientation.lockToPortrait();
-        Orientation.unlockAllOrientations();
     }
 
     async fetchSentenceList() {
@@ -100,7 +99,6 @@ export default class SentenceStudyInit extends React.Component {
             else
                 Alert.alert("문장을 선택해주세요");
         }
-        
     }
 
     checkClick(checked, index) {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container } from 'native-base';
-import { StyleSheet, View, Text, FlatList, TouchableOpacity,Keyboard, TextInput, Image } from 'react-native';
+import { StyleSheet, View, Text, FlatList, TouchableOpacity,Keyboard, TextInput, Image, BackHandler } from 'react-native';
 import { fonts, normalize } from './../../assets/styles';
 import { Button } from 'native-base';
 import StudyHeader from './../../components/shared/StudyHeader';
@@ -72,11 +72,16 @@ export default class SentenceStudy extends React.Component {
             }
             this.setState({wordList})
         }
+        BackHandler.addEventListener("hardwareBackPress", this.backAction);
     }
 
     componentWillUnmount() {
-        Orientation.unlockAllOrientations();
+        BackHandler.removeEventListener("hardwareBackPress", this.backAction);
     }
+
+    backAction = () => {
+        Orientation.lockToPortrait();
+    };
 
     confirm() {
         this.setState({confirmAnswer: true})
