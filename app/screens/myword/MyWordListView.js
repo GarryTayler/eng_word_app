@@ -5,7 +5,7 @@ import { normalize } from './../../assets/styles';
 import UserHeader from './../../components/shared/UserHeader';
 import SubHeader from './../../components/shared/SubHeader';
 import MyWordListItem from './../../components/myword/MyWordListItem';
-import { getWordListFromMyWord, removeIdListFromMyWord } from './../../utils/MyWord';
+import { getWordListFromMyWord, removeIdListFromMyWord, exchange } from './../../utils/MyWord';
 import Spinner_bar from 'react-native-loading-spinner-overlay';
 
 let pageTitle = '단어목록보기';
@@ -71,6 +71,25 @@ export default class MyWordListView extends React.Component {
             }
         }
     }
+    async doSwap(index) {
+        this.setState({loaded: false});
+        if(index < this.state.arrData.length - 1) {
+            let _arrData = this.state.arrData;
+            let _temp = _arrData[index + 1];
+            _arrData[index + 1] = _arrData[index];
+            _arrData[index] = _temp;
+            this.setState({arrData: _arrData});
+        }
+        else {
+            let _arrData = this.state.arrData;
+            let _temp = _arrData[index - 1];
+            _arrData[index - 1] = _arrData[index];
+            _arrData[index] = _temp;
+            this.setState({arrData: _arrData});
+        }
+        await exchange(index);
+        this.setState({loaded: true});
+    }
     render()  {
         return (
             <Container>
@@ -93,6 +112,7 @@ export default class MyWordListView extends React.Component {
                             meaningShow={this.state.meaningShow}
                             allChecked={this.state.allChecked}
                             onClick={(e) => { this.changeCheckList(e, item.id) }}
+                            doSwap={() => {this.doSwap(index)}}
                         />
                     )}
                 />

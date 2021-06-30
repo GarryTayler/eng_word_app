@@ -16,6 +16,7 @@ export default class MyWordListItem extends React.Component {
         }
     }
     doSwap() {
+        this.props.doSwap();
     }
     static getDerivedStateFromProps(props, state) {
         const prevProps = state.prevProps || {};

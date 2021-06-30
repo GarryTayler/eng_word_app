@@ -94,3 +94,26 @@ export const getWordIdListFromMyWord = async() => {
         return [];
     }
 }
+
+export const exchange = async(index) => {
+    try {
+        let myword_id_list = await getData('myword_list');
+        if(myword_id_list == null)
+            myword_id_list = [];
+        if(index < myword_id_list.length - 1) {
+            let temp = myword_id_list[index + 1];
+            myword_id_list[index + 1] = myword_id_list[index];
+            myword_id_list[index] = temp;
+        }
+        else {
+            let temp = myword_id_list[index - 1];
+            myword_id_list[index - 1] = myword_id_list[index];
+            myword_id_list[index] = temp;
+        }
+        await storeData('myword_list', myword_id_list);
+        return true;
+    }
+    catch(e) {
+        return false;
+    }
+}
