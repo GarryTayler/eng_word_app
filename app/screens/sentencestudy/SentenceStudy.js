@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container } from 'native-base';
-import { StyleSheet, View, Text, FlatList, TouchableOpacity,Keyboard, TextInput } from 'react-native';
+import { StyleSheet, View, Text, FlatList, TouchableOpacity,Keyboard, TextInput, Image } from 'react-native';
 import { fonts, normalize } from './../../assets/styles';
 import { Button } from 'native-base';
 import StudyHeader from './../../components/shared/StudyHeader';
@@ -12,6 +12,9 @@ import {getSentenceListFromMySentence} from './../../utils/MySentence';
 import {Actions} from 'react-native-router-flux';
 import Orientation from 'react-native-orientation';
 import { Icon } from 'react-native-elements';
+import Images from './../../assets/Images';
+import { showToast } from '../../components/shared/global';
+import { addToMySentence, removeFromMySentence, getSentenceIdListFromMySentence } from './../../utils/MySentence'
 let pageTitle = '문장 학습';
 
 export default class SentenceStudy extends React.Component {
@@ -21,23 +24,52 @@ export default class SentenceStudy extends React.Component {
             loaded: true,
             serverRespond: false,
             arrData: [],
-            wordList: [{id: 0, word: 'his magic show', clicked: false}, 
-                        {id: 1, word: 'invited', clicked: false}, 
-                        {id: 2, word: 'Jinho', clicked: false},
-                        {id: 3, word: 'me', clicked: false}, 
-                        {id: 4, word: 'the another day', clicked: false}, 
-                        {id: 5, word: 'the other day', clicked: false},
-                        {id: 6, word: 'to', clicked: false},
-                        {id: 7, word: '', clicked: false}],
+            wordList: [],
             correct: false,
             confirmAnswer: false,
             inputAnswer: '',
-            correctAnswer: 'Correct Answer'
+            correctAnswer: null,
+            curIndex: 0,
+            curQuestion: null,
+            sentenceList: this.props.sentenceList,
+            mySetenceIdList: []
         };
     }    
 
-    componentDidMount() {
+    async componentDidMount() {
         Orientation.lockToLandscape();
+        this.setState({correctAnswer: this.state.sentenceList[this.state.curIndex].sentence})
+        let curSetence = this.state.sentenceList[this.state.curIndex];
+        let idList = await getSentenceIdListFromMySentence();
+        
+        if(idList && idList.length > 0) {
+            idList.map((item, index) => {
+                if(idList.id == item)
+                    curSetence['isFavorite'] = true
+            })
+        } else {
+            curSetence['isFavorite'] = false
+        }
+        this.setState({curQuestion: curSetence})
+
+        let temp = this.state.sentenceList[this.state.curIndex].parts;
+        if(temp && temp.length > 0) {
+            let wordList = []
+            temp.map((item, index) => {
+                wordList.push({id: index, word: item, clicked: false})
+            })
+            if(wordList.length % 4 == 1) {
+                wordList.push({id: wordList.length, word: '', clicked: false})
+                wordList.push({id: wordList.length + 1, word: '', clicked: false})
+                wordList.push({id: wordList.length + 2, word: '', clicked: false})
+            } else if(wordList.length % 4 == 2) {
+                wordList.push({id: wordList.length, word: '', clicked: false})
+                wordList.push({id: wordList.length+1, word: '', clicked: false})
+            } else if(wordList.length % 4 == 3) {
+                wordList.push({id: wordList.length, word: '', clicked: false})
+            }
+            this.setState({wordList})
+        }
     }
 
     componentWillUnmount() {
@@ -46,7 +78,9 @@ export default class SentenceStudy extends React.Component {
 
     confirm() {
         this.setState({confirmAnswer: true})
-        if(this.state.inputAnswer == this.state.correctAnswer) {
+        let correctAnswer = this.state.correctAnswer.replace(/[^a-zA-Z ]/g, "")
+        
+        if(this.state.inputAnswer == correctAnswer) {
             this.setState({correct: true})
         } else {
             this.setState({correct: false})
@@ -96,17 +130,93 @@ export default class SentenceStudy extends React.Component {
         console.log('here');
     }
 
+    async isFav() {
+        let curSetence = this.state.curQuestion
+        curSetence['isFavorite'] = !curSetence['isFavorite']
+        this.setState({curQuestion: curSetence})
+
+        if(curSetence['isFavorite']) {
+            if( await addToMySentence(this.state.sentenceList[this.state.curIndex]) ) {
+                showToast("add_to_mysentence", "success");
+            }
+        }
+        else {
+            if( await removeFromMySentence(this.state.sentenceList[this.state.curIndex]) ) {
+                showToast("remove_from_mysentence", "success");
+            }
+        }
+
+    }
+
+    async chooseSetence(prev_next) {
+        let curIndex = this.state.curIndex
+        if(prev_next == -1)
+            curIndex = curIndex - 1;
+        else
+            curIndex = curIndex + 1;
+        this.setState({correct: false})
+        this.setState({confirmAnswer: false})
+        this.setState({inputAnswer: ''})
+        this.setState({correctAnswer: this.state.sentenceList[curIndex].sentence})
+        
+        let curSetence = this.state.sentenceList[curIndex];
+        let idList = await getSentenceIdListFromMySentence();
+        
+        if(idList && idList.length > 0) {
+            idList.map((item, index) => {
+                if(idList.id == item)
+                    curSetence['isFavorite'] = true
+            })
+        } else {
+            curSetence['isFavorite'] = false
+        }
+        
+        this.setState({curQuestion: curSetence})
+
+        let temp = this.state.sentenceList[curIndex].parts;
+        if(temp && temp.length > 0) {
+            let wordList = []
+            temp.map((item, index) => {
+                wordList.push({id: index, word: item, clicked: false})
+            })
+            if(wordList.length % 4 == 1) {
+                wordList.push({id: wordList.length, word: '', clicked: false})
+                wordList.push({id: wordList.length + 1, word: '', clicked: false})
+                wordList.push({id: wordList.length + 2, word: '', clicked: false})
+            } else if(wordList.length % 4 == 2) {
+                wordList.push({id: wordList.length, word: '', clicked: false})
+                wordList.push({id: wordList.length+1, word: '', clicked: false})
+            } else if(wordList.length % 4 == 3) {
+                wordList.push({id: wordList.length, word: '', clicked: false})
+            }
+            this.setState({wordList})
+        }
+        this.setState({curIndex: curIndex})
+    }
+
+    endStudy() {
+        Actions.pop();
+        setTimeout(function() {
+            Actions.refresh()
+        }, 300)
+    }
+
     render()  {
         return (
             <Container>
                 <StudyHeader title={pageTitle} />
                 <View style={{paddingHorizontal: 12, paddingTop: 13}}>
-                    <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                        <TouchableOpacity onPress={() => this.backButtonPressed()}>
-                            <Icon name='star' type='antdesign' size={20} color='grey' /> 
-                        </TouchableOpacity>
-                        <Text style={[{paddingLeft: 6, fontSize: 14, lineHeight: 20}]}>1. 진호가 며칠전에 그의 마술쇼에 나를 초대했다.</Text>
-                    </View>
+                    {
+                        this.state.curQuestion ?
+                        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                            <TouchableOpacity onPress={() => this.isFav()}>
+                                <Icon name='star' type='antdesign' size={20} color={this.state.curQuestion.isFavorite ? '#F2C94C' : 'rgba(0,0,0,0.2)'} /> 
+                            </TouchableOpacity>
+                            <Text style={[{paddingLeft: 6, fontSize: 14, lineHeight: 20}]}>{this.state.curIndex + 1}.  {this.state.curQuestion.meaning}</Text>
+                        </View>
+                        :
+                        null
+                    }
                 </View>
                 <View>
                     <TouchableOpacity style={{position: 'absolute', right: 10}} onPress={() => this.again()}>
@@ -134,13 +244,13 @@ export default class SentenceStudy extends React.Component {
                 </TextInput>
                 {
                     this.state.confirmAnswer && !this.state.correct ?
-                    <View style={[styles.container, styles.scrollView, {justifyContent: 'center'}]}>
-                        <Icon name='close' type='antdesign' size={60} color='#EB5757' /> 
+                    <View style={[styles.container, styles.scrollView, {justifyContent: 'center', alignItems: 'center'}]}>
+                        <Image source={Images.wrong2x} style={styles.resultIcon} resizeMode='cover' />
                     </View>
                     :
                     this.state.confirmAnswer && this.state.correct ?
-                    <View style={[styles.container, styles.scrollView, {justifyContent: 'center'}]}>
-                        <Icon name='circle' type='entypo' size={60} color='#006DFF' /> 
+                    <View style={[styles.container, styles.scrollView, {justifyContent: 'center', alignItems: 'center'}]}>
+                        <Image source={Images.correct2x} style={styles.resultIcon} resizeMode='cover' />
                     </View>
                     :
                     <FlatList
@@ -165,15 +275,28 @@ export default class SentenceStudy extends React.Component {
                     {
                         this.state.confirmAnswer ?
                         <>
-                            <Button style={styles.footerButton}>
-                                <Text style={[fonts.size16, fonts.colorWhite]}>이전문제</Text>
+                        {
+                            this.state.curIndex > 0 ?
+                            <Button style={styles.footerButton} onPress={() => this.chooseSetence(-1)}>
+                                <Text style={[fonts.size16, fonts.familyRegular, fonts.colorWhite]}>이전문제</Text>
                             </Button>
+                            :
+                            <View style={[styles.footerButton, {backgroundColor: 'white'}]}>
+                            </View>
+                        }
                             <Button style={styles.footerButton} onPress={() => this.again()}>
-                                <Text style={[fonts.size16, fonts.colorWhite]}>다시 풀기</Text>
+                                <Text style={[fonts.size16, fonts.familyRegular, fonts.colorWhite]}>다시 풀기</Text>
                             </Button>
-                            <Button style={styles.footerButton}>
-                                <Text style={[fonts.size16, fonts.colorWhite]}>다음문제</Text>
+                        {
+                            this.state.curIndex == this.state.sentenceList.length - 1 ?
+                            <Button style={styles.footerButton} onPress={() => this.endStudy()}>
+                                <Text style={[fonts.size16, fonts.familyRegular, fonts.colorWhite]}>학습 끝</Text>
                             </Button>
+                            :
+                            <Button style={styles.footerButton} onPress={() => this.chooseSetence(1)}>
+                                <Text style={[fonts.size16, fonts.familyRegular, fonts.colorWhite]}>다음문제</Text>
+                            </Button>
+                        }
                         </>
                         :
                         <Button style={styles.footerButton} onPress={() => this.confirm()}>
@@ -231,5 +354,9 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         marginTop: 8,
         borderColor: 'rgba(0,0,0,0.5)',
+    },
+    resultIcon: {
+        width: 60,
+        height: 60
     },
 });

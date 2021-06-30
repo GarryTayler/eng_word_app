@@ -34,11 +34,13 @@ export default class SentenceView extends React.Component {
                 if(response == null) { return; }
                 this.setState({arrData: response});
             });
+            console.log('here11')
         }
         else {
             this.setState({loaded: false});
             let _sen_list = await getSentenceListFromMySentence();
             this.setState({arrData: _sen_list, loaded: true});
+            console.log('here')
         }
         let _id_list = await getSentenceIdListFromMySentence();
         this.setState({mysentenceidList: _id_list});

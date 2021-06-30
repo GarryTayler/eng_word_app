@@ -7,9 +7,14 @@ export default class SentenceStudyItem extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isChecked: false,
-            favorite: true
+            isChecked: this.props.checked,
+            favorite: this.props.isFavorite
         }
+    }
+    componentDidMount() {
+    }
+    UNSAFE_componentWillReceiveProps(props) {
+        this.setState({isChecked: props.checked})
     }
     render() {
         return (
@@ -29,6 +34,7 @@ export default class SentenceStudyItem extends React.Component {
                                 this.setState({
                                     isChecked:!this.state.isChecked
                                 })
+                                this.props.checkClick(!this.state.isChecked)
                             }}
                             isChecked={this.state.isChecked}
                             style={styles.checkBoxItem}

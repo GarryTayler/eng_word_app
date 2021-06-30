@@ -59,7 +59,17 @@ export default class MyMakingWordsHome extends React.Component {
                     }
                 })
                 if(selected) {
-                    this.removeAll();
+                    Alert.alert("전체를 삭제 하시겠습니까?", "", 
+                        [
+                            {
+                                text: "취소",
+                                style: "cancel"
+                            },
+                            { text: "삭제", onPress: () => this.removeAll() }
+                        ],
+                        { cancelable: false }
+                    )
+                    
                 } else {
                     Alert.alert("선택해주세요.")
                 }

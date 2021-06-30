@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container } from 'native-base';
-import { StyleSheet, View, Text, FlatList } from 'react-native';
+import { StyleSheet, View, Text, FlatList, TextComponent, Alert } from 'react-native';
 import { fonts, normalize } from './../../assets/styles';
 import { Button } from 'native-base';
 import UserHeader from './../../components/shared/UserHeader';
@@ -9,18 +9,22 @@ import SentenceStudyItem from './../../components/sentencestudy/SentenceStudyIte
 import {performNetwork} from './../../components/shared/global';
 import {getSentenceList} from './../../utils/api';
 import Spinner_bar from 'react-native-loading-spinner-overlay';
-import {getSentenceListFromMySentence} from './../../utils/MySentence';
+import {getSentenceListFromMySentence, getSentenceIdListFromMySentence} from './../../utils/MySentence';
 import {Actions} from 'react-native-router-flux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 let pageTitle = '문장 학습';
-
+let originalData = [];
 export default class SentenceStudyInit extends React.Component {
     constructor(props){
         super(props);
         this.state = {
             loaded: true,
             serverRespond: false,
-            arrData: []
+            arrData: [],
+            order: true,
+            checkAll: false,
+            org_data: null,
         };
     }    
 
@@ -29,10 +33,30 @@ export default class SentenceStudyInit extends React.Component {
     }
 
     async fetchSentenceList() {
-        if(this.props.params.before != 'mysentence') {
-            performNetwork(this, getSentenceList(this.props.params.category_id)).then((response) => {
+        if(this.props.params.before == 'mysentence') {
+            performNetwork(this, getSentenceList(this.props.params.category_id)).then(async (response) => {
                 if(response == null) { return; }
-                this.setState({arrData: response});
+                if(response && response.length > 0) {
+                    let temp = [];
+                    let idList = await getSentenceIdListFromMySentence();
+
+                    response.map((item, index) => {
+                        item['checked'] = false
+                        item['isFavorite'] = false
+                        if(idList && idList.length > 0) {
+                            idList.map((_item) => {
+                                if(item.id == _item) {
+                                    item['isFavorite'] = true
+                                }
+                            })
+                        }
+                        temp.push(item);
+                    })
+                    console.log(temp);
+                    this.setState({arrData: temp});
+                    await AsyncStorage.setItem("sentence_study", JSON.stringify(temp));
+                }
+                
             });
         }
         else  {
@@ -42,7 +66,93 @@ export default class SentenceStudyInit extends React.Component {
         }
     }
 
-    render()  {
+    selectAll() {
+        let temp = this.state.arrData;
+        if(temp && temp.length > 0) {
+            temp.map((item, index) => {
+                if(this.state.checkAll)
+                    temp[index]['checked'] = false;
+                else
+                    temp[index]['checked'] = true;
+            })
+            this.setState({arrData: temp});
+            this.setState({checkAll: !this.state.checkAll})
+        }
+    }
+
+    startStudy() {
+        let temp = this.state.arrData;
+        if(temp && temp.length > 0) {
+            let sentenceList = [];
+            temp.map((item, index) => {
+                if(item.checked) {
+                    sentenceList.push(item);
+                }
+            })
+            if(sentenceList.length > 0) 
+                Actions.push("sentence_study", {sentenceList: sentenceList})
+            else
+                Alert.alert("문장을 선택해주세요");
+        }
+        
+    }
+
+    checkClick(checked, index) {
+        let temp = this.state.arrData
+        temp[index]['checked'] = checked;
+        this.setState({arrData: temp})
+        let allChecked = true;
+        temp.map((item, index) => {
+            if(!item.checked)
+                allChecked = false
+        })
+        this.setState({checkAll: allChecked})
+    }
+
+    renderSentence(item ,index) {
+        return <SentenceStudyItem
+        key={item.id}
+        engSentence={item.sentence}
+        isFavorite={item.isFavorite}
+        korSentence={item.meaning} checked={item.checked} totalProblems={this.state.arrData.length} currentNo={index + 1} 
+        checkClick={(checked) => this.checkClick(checked, index)}
+        />
+    }
+
+    async changeOrder() {
+        if(this.state.order) {
+            let temp = this.state.arrData
+            this.setState({arrData: this.shuffle(temp)})
+        } else {
+            this.setState({loaded: false})
+            let temp = await AsyncStorage.getItem("sentence_study");
+            if(temp)
+                this.setState({arrData: JSON.parse(temp)})
+            this.setState({loaded: true})
+        }
+        this.setState({order: !this.state.order})
+    }
+
+    shuffle(array) {
+        var currentIndex = array.length,  randomIndex;
+      
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+      
+          // Pick a remaining element...
+          randomIndex = Math.floor(Math.random() * currentIndex);
+          currentIndex--;
+      
+          // And swap it with the current element.
+          [array[currentIndex], array[randomIndex]] = [
+            array[randomIndex], array[currentIndex]];
+        }
+      
+        return array;
+    }
+
+    render() {
+        
         return (
             <Container>
                 <UserHeader title={pageTitle} /> 
@@ -52,9 +162,7 @@ export default class SentenceStudyInit extends React.Component {
                     data={this.state.arrData}
                     keyExtractor={(item) => item.id}
                     renderItem={ ({item, index}) => (
-                        <SentenceStudyItem
-                        engSentence={item.sentence}
-                        korSentence={item.meaning} totalProblems={this.state.arrData.length} currentNo={index + 1} />
+                        this.renderSentence(item, index)
                     )}
 
                     ListFooterComponent={
@@ -65,13 +173,13 @@ export default class SentenceStudyInit extends React.Component {
                     }
                 />
                 <View style={{display: 'flex', flexDirection: 'row', paddingVertical: normalize(26), justifyContent: 'space-evenly'}}>
-                    <Button style={styles.footerButton}>
-                        <Text style={[fonts.size16, fonts.colorWhite, fonts.familyBold]}>전체선택</Text>
+                    <Button style={styles.footerButton} onPress={() => this.selectAll()}>
+                        <Text style={[fonts.size16, fonts.colorWhite, fonts.familyBold]}>{ this.state.checkAll ? '선택해제' : '전체선택'}</Text>
                     </Button>
-                    <Button style={styles.footerButton}>
-                        <Text style={[fonts.size16, fonts.colorWhite, fonts.familyBold]}>임의대로</Text>
+                    <Button style={styles.footerButton} onPress={() => this.changeOrder()}>
+                        <Text style={[fonts.size16, fonts.colorWhite, fonts.familyBold]}>{ this.state.order ? '임의대로' : '순서대로'}</Text>
                     </Button>
-                    <Button style={styles.footerButton} onPress={() => Actions.push("sentence_study")}>
+                    <Button style={styles.footerButton} onPress={() => this.startStudy()}>
                         <Text style={[fonts.size16, fonts.colorWhite, fonts.familyBold]}>학습시작</Text>
                     </Button>
                 </View>

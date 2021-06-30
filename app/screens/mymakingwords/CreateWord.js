@@ -94,7 +94,7 @@ export default class CreateWord extends React.Component {
         if (day.length < 2) 
             day = '0' + day;
 
-        return year+month+day;
+        return year+"."+month+"."+day;
     }
     changeWord(text, index) {
         /*let temp = this.state.arrData;
