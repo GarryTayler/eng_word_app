@@ -32,13 +32,12 @@ export default class SentenceStudyInit extends React.Component {
 
     componentDidMount() {
         Orientation.lockToPortrait();
-        Orientation.unlockAllOrientations();
+        
         this.fetchSentenceList();
     }
 
     UNSAFE_componentWillReceiveProps() {
         Orientation.lockToPortrait();
-        Orientation.unlockAllOrientations();
     }
 
     async fetchSentenceList() {
@@ -102,7 +101,6 @@ export default class SentenceStudyInit extends React.Component {
             else 
                 showToast("setence_selection_error", "error");
         }
-        
     }
 
     checkClick(checked, index) {
