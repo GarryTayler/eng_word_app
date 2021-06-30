@@ -6,21 +6,125 @@ import { Icon } from 'react-native-elements';
 import { CheckBox } from 'react-native-elements'
 import UserHeader from './../../components/shared/UserHeader';
 import {Actions} from 'react-native-router-flux';
+import { performNetwork } from './../../components/shared/global';
+import { getWordList } from './../../utils/api';
+import { getWordListFromMyWord } from './../../utils/MyWord';
+import Spinner_bar from 'react-native-loading-spinner-overlay';
 let pageTitle = '단어 학습';
 
 export default class WordStudyInit extends React.Component {
     constructor(props){
         super(props);
         this.state = {
+            loaded: true,
+            serverRespond: false,
             problemMethod: 'sub',
             studyMethod: 'entoko',
             progressOrder: 'sequence',
-            startNumber: '',
-            endNumber: ''
+            startNumber: '0',
+            endNumber: '0',
+            arrData: [],
         }
     }
+    componentDidMount() {
+        this.fetchWordList();
+    }
+    async fetchWordList() {
+        if(this.props.params.before != 'myword') {
+            performNetwork(this, getWordList(this.props.params.category_id)).then((response) => {
+                if(response == null) { return; }
+                this.setState({arrData: response,
+                                startNumber: '1',
+                                endNumber: response.length.toString()});
+            });    
+        }
+        else {
+            this.setState({loaded: false});
+            let _word_list = await getWordListFromMyWord();
+            this.setState({arrData: _word_list, loaded: true});          
+        }
+    }
+    //
+    generate(problemNo) {
+        let _others = [], _length = 0;
+        while(1) {
+            let _pbno = Math.floor(this.state.arrData.length * Math.random()) + 1;
+            if( _pbno != problemNo && _others.indexOf(_pbno) < 0 )
+                _others.push(_pbno);
+            if(_others.length == 4)
+                break;
+        }
+        _others.splice(Math.floor(Math.random() * 5), 0, problemNo);
+        return _others;
+    }
+    shuffle() {
+        let _start = parseInt(this.state.startNumber);
+        let _end = parseInt(this.state.endNumber);
+        let _array = [];
+        for (let i = _start; i <= _end; i ++) 
+            _array.push(i);
+        
+        if(this.state.progressOrder == 'random') {
+            let currentIndex = _array.length,  randomIndex;
+            // While there remain elements to shuffle...
+            while (0 !== currentIndex) {
+                // Pick a remaining element...
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex--;
+                // And swap it with the current element.
+                [_array[currentIndex], _array[randomIndex]] = [_array[randomIndex], _array[currentIndex]];
+            }
+        }
+        // return _array;
+        let _problems = [];
+        if(this.state.problemMethod == 'sub') {
+            for(let i = 0; i < _array.length; i ++) {
+                _problems.push({
+                    'problem': (this.state.studyMethod == 'entoko' ?
+                    this.state.arrData[_array[i] - 1].word : this.state.arrData[_array[i] - 1].meaning),
+                    'answer': (this.state.studyMethod == 'entoko' ? 
+                    this.state.arrData[_array[i] - 1].meaning : this.state.arrData[_array[i] - 1].word)
+                });
+            }
+        }
+        else {
+            for(let i = 0; i < _array.length; i ++) {
+                _problems.push({
+                    'problem': (this.state.studyMethod == 'entoko' ?
+                        this.state.arrData[_array[i] - 1].word : this.state.arrData[_array[i] - 1].meaning),
+                    'correct_index': _array[i], 
+                    'correct_answer': (this.state.studyMethod == 'entoko' ? 
+                    this.state.arrData[_array[i] - 1].meaning : this.state.arrData[_array[i] - 1].word),
+                    'choice': this.generate(_array[i]).map(x => ( {no: x, problem: (this.state.studyMethod == 'entoko' ? this.state.arrData[x-1].meaning : this.state.arrData[x-1].word)} ) )
+                });
+            }
+        }
+        return _problems;
+    }
+    //
     startStudy() {
-        Actions.push('word_study_subject');
+        //예외처리 추가 필요
+        let _problems = this.shuffle();
+        if(this.state.problemMethod == 'sub') {
+            Actions.push('word_study_subject', {
+                params: _problems
+            });
+        }
+        else {
+            Actions.push('word_study_object', {
+                params: _problems
+            });
+        }
+    }
+    startNumberChange(text) {
+        if (text == '' || /^\d+$/.test(text)) {
+            this.setState({ startNumber: text });
+        }
+    }
+    endNumberChange(text) {
+        if (text == '' || /^\d+$/.test(text)) {
+            this.setState({ endNumber: text });
+        }
     }
     render()     {
         return (
@@ -46,6 +150,7 @@ export default class WordStudyInit extends React.Component {
                                 containerStyle={{backgroundColor: '#F4F4F4', borderColor: '#F4F4F4', flex: 1, paddingVertical: 0}}
                                 textStyle={[fonts.size16, fonts.familyRegular, fonts.weightNormal, fonts.colorBlack]}
                                 checkedColor='#6FCF97'
+                                onPress={() => { this.setState({problemMethod: 'obj'}) }}
                                 />
                             <CheckBox
                                 title='주관식'
@@ -53,6 +158,7 @@ export default class WordStudyInit extends React.Component {
                                 containerStyle={{backgroundColor: '#F4F4F4', borderColor: '#F4F4F4', flex: 1, paddingVertical: 0}}
                                 textStyle={[fonts.size16, fonts.familyRegular, fonts.weightNormal, fonts.colorBlack]}
                                 checkedColor='#6FCF97'
+                                onPress={() => { this.setState({problemMethod: 'sub'}) }}
                                 />
                         </View>
                     </View>
@@ -72,6 +178,7 @@ export default class WordStudyInit extends React.Component {
                                 containerStyle={{backgroundColor: '#F4F4F4', borderColor: '#F4F4F4', paddingVertical: 0}}
                                 textStyle={[fonts.size16, fonts.weightNormal, fonts.familyRegular, fonts.colorBlack]}
                                 checkedColor='#6FCF97'
+                                onPress={() => { this.setState({studyMethod: 'entoko'}) }}
                                 />
                             <CheckBox
                                 title='한글 문제를 영어로 풀기'
@@ -79,6 +186,7 @@ export default class WordStudyInit extends React.Component {
                                 containerStyle={{backgroundColor: '#F4F4F4', borderColor: '#F4F4F4', paddingVertical: 0}}
                                 textStyle={[fonts.size16, fonts.weightNormal, fonts.familyRegular, fonts.colorBlack]}
                                 checkedColor='#6FCF97'
+                                onPress={() => { this.setState({studyMethod: 'kotoen'}) }}
                                 />
                         </View>
                     </View>
@@ -99,6 +207,7 @@ export default class WordStudyInit extends React.Component {
                                 containerStyle={{backgroundColor: '#F4F4F4', borderColor: '#F4F4F4', flex: 1, paddingVertical: 0}}
                                 textStyle={[fonts.size16, fonts.weightNormal, fonts.familyRegular, fonts.colorBlack]}
                                 checkedColor='#6FCF97'
+                                onPress={() => { this.setState({progressOrder: 'sequence'}) }}
                                 />
                             <CheckBox
                                 title='임의대로'
@@ -106,6 +215,7 @@ export default class WordStudyInit extends React.Component {
                                 containerStyle={{backgroundColor: '#F4F4F4', borderColor: '#F4F4F4', flex: 1, paddingVertical: 0}}
                                 textStyle={[fonts.size16, fonts.weightNormal, fonts.familyRegular, fonts.colorBlack]}
                                 checkedColor='#6FCF97'
+                                onPress={() => { this.setState({progressOrder: 'random'}) }}
                                 />
                         </View>
                     </View>
@@ -129,10 +239,11 @@ export default class WordStudyInit extends React.Component {
                                 <TextInput
                                     style={styles.textInput}
                                     onChangeText={(text) => {
-                                        this.setState({ startNumber: text });
+                                        this.startNumberChange(text)
                                     }}
                                     onSubmitEditing={Keyboard.dismiss}
                                     value={this.state.startNumber}
+                                    keyboardType='numeric'
                                 >
                                 </TextInput>
                             </View>
@@ -144,7 +255,7 @@ export default class WordStudyInit extends React.Component {
                                 <TextInput
                                     style={styles.textInput}
                                     onChangeText={(text) => {
-                                        this.setState({ endNumber: text });
+                                        this.endNumberChange(text)
                                     }}
                                     onSubmitEditing={Keyboard.dismiss}
                                     value={this.state.endNumber}
@@ -153,6 +264,7 @@ export default class WordStudyInit extends React.Component {
                             </View>
                         </View>
                     </View>
+                    <Spinner_bar color={'#68ADED'} visible={!this.state.loaded} textContent={""}  overlayColor={"rgba(0, 0, 0, 0.5)"}  />
                 </Content>     
                 <View style={{backgroundColor: '#F4F4F4', paddingVertical: normalize(20)}}>
                     <View style={{ alignSelf: 'center' }}>
@@ -207,6 +319,8 @@ const styles = StyleSheet.create({
         shadowRadius: 4.84,
         elevation: 4,
         textAlign: 'center',
-        marginLeft: normalize(8)
+        marginLeft: normalize(8),
+        fontFamily: 'Malgun-Gothic-Regular',
+        fontSize: normalize(14), lineHeight: normalize(14)
     }
 });

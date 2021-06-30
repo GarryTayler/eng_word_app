@@ -68,7 +68,9 @@ export default class Detail extends React.Component {
                             before: 'detail'}});
     }
     wordStudyView() { // 단어학습
-        Actions.push('word_study_init');
+        Actions.push('word_study_init', 
+        { params: {   category_id: this.props.params.category_id, 
+            before: 'detail'}});
     }
     renderVideos() {
         return (

@@ -12,6 +12,10 @@ export default class WordStudySubject extends React.Component {
     constructor(props){
         super(props);
         this.state = {
+            cur_problem_no: 1,
+            cur_problem_status: 'ready',
+            correctProblems: 0, //정답
+            wrongProblems: 0, //오답
             answer: ''
         };
     }    
@@ -20,7 +24,7 @@ export default class WordStudySubject extends React.Component {
             <Container> 
                 <UserHeader title={pageTitle} />
                 <WordStudyHeader title="중1비상 (홍민표) 3과"
-                                 totalProblems="20" currentNo="12" rightAnswer="5" wrongAnswer="5" />
+                                 totalProblems={this.props.params.length} currentNo={this.state.cur_problem_no} rightAnswer="5" wrongAnswer="5" />
                 <Content style={styles.container}>
                     <View style={[styles.problemContainer]}>
                         <View style={{position: 'absolute', top: normalize(28)}}>
@@ -64,14 +68,14 @@ const styles = StyleSheet.create({
     textInput: {
         fontSize: normalize(18),
         lineHeight: normalize(18),
-        //height: normalize(32),
         height: normalize(32),
         width: normalize(285),
         paddingTop: normalize(6),
         paddingBottom: normalize(6),
         borderBottomWidth: 1,
         borderColor: 'rgba(0,0,0,0.5)',
-        textAlign: 'center'
+        textAlign: 'center',
+        fontFamily: 'Malgun-Gothic-Regular'
     },
     container: {
         flex: 1,

@@ -2,9 +2,28 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { fonts, normalize } from './../../assets/styles';
+let interval = null;
 export default class WordStudyHeader extends React.Component {
     constructor(props){
         super(props);
+        this.state = {
+            timer: 0
+        };
+    }
+    componentDidMount() {
+        interval = setInterval(function() {
+            this.setState({ timer: (this.state.timer + 1) });
+        }.bind(this), 1000);
+    }
+    componentWillUnmount() {
+        clearInterval(interval);
+    }
+    timeFormat() {
+        let ss = this.state.timer % 60;
+        if(ss <= 9) ss = '0' + ss;
+        let mm = Math.floor(this.state.timer / 60);
+        if(mm <= 9) mm = '0' + mm;
+        return mm + ':' + ss;
     }
     render() {
         return (
@@ -19,7 +38,7 @@ export default class WordStudyHeader extends React.Component {
                         <Text style={[fonts.size14, fonts.colorRed, fonts.familyBold]}>{this.props.currentNo}</Text>
                         <Text style={[fonts.size14, fonts.familyBold]}> / {this.props.totalProblems}</Text>
                         <Icon type='evilicon' name='clock' color="#000" size={30} style={{marginHorizontal: normalize(12)}} />
-                        <Text style={[fonts.size14, fonts.familyBold]}>00:03</Text>
+                        <Text style={[fonts.size14, fonts.familyBold]}>{this.timeFormat()}</Text>
                     </View>
                     <View style={{display: 'flex', flexDirection: 'row', flex: 1, justifyContent: 'flex-end'}}>
                         <Text style={[fonts.size14, fonts.familyBold, {color: 'rgba(0, 0, 0, 0.6)'}]}>

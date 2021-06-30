@@ -1,13 +1,18 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { fonts, normalize } from './../../assets/styles';
 export default class ChoiceItem extends React.Component {
     constructor(props) {
         super(props);
     }
+    clickChoice() {
+        this.props.triggerChoice(this.props.problemNo);
+    }
     render() {
         return (
-            <View style={[styles.choiceItem, this.props.correct ? styles.correctItem : (this.props.wrong ? styles.wrongItem : styles.generalItem)]}>
+            <TouchableOpacity activeOpacity={0.6}
+             style={[styles.choiceItem, this.props.correct ? styles.correctItem : (this.props.wrong ? styles.wrongItem : styles.generalItem)]}
+             onPress={() => {this.clickChoice()}}>
                 <View style={{flex: 2}}>
                     <View style={{width: 24, height: 24, borderWidth: 1, borderRadius: 12, 
                                  borderColor: ((this.props.correct || this.props.wrong) ? 'white' : 'black'),
@@ -20,7 +25,7 @@ export default class ChoiceItem extends React.Component {
                         {this.props.choice}
                     </Text>
                 </View>
-            </View>
+            </TouchableOpacity>
         )
     }   
 }
