@@ -38,6 +38,7 @@ export default class SentenceStudy extends React.Component {
 
     async componentDidMount() {
         Orientation.lockToLandscape();
+        console.log(this.props.sentenceList)
         this.setState({correctAnswer: this.state.sentenceList[this.state.curIndex].sentence})
         let curSetence = this.state.sentenceList[this.state.curIndex];
         let idList = await getSentenceIdListFromMySentence();
@@ -58,6 +59,7 @@ export default class SentenceStudy extends React.Component {
             temp.map((item, index) => {
                 wordList.push({id: index, word: item, clicked: false})
             })
+            wordList = this.shuffle(wordList)
             if(wordList.length % 4 == 1) {
                 wordList.push({id: wordList.length, word: '', clicked: false})
                 wordList.push({id: wordList.length + 1, word: '', clicked: false})
@@ -79,8 +81,8 @@ export default class SentenceStudy extends React.Component {
     confirm() {
         this.setState({confirmAnswer: true})
         let correctAnswer = this.state.correctAnswer.replace(/[^a-zA-Z ]/g, "")
-        
-        if(this.state.inputAnswer == correctAnswer) {
+        let inputAnswer = this.state.inputAnswer.replace(/[^a-zA-Z ]/g, "")
+        if(inputAnswer == correctAnswer) {
             this.setState({correct: true})
         } else {
             this.setState({correct: false})
@@ -149,6 +151,8 @@ export default class SentenceStudy extends React.Component {
     }
 
     async chooseSetence(prev_next) {
+        this.setState({wordList: []})
+        this.setState({loaded: false})
         let curIndex = this.state.curIndex
         if(prev_next == -1)
             curIndex = curIndex - 1;
@@ -179,6 +183,7 @@ export default class SentenceStudy extends React.Component {
             temp.map((item, index) => {
                 wordList.push({id: index, word: item, clicked: false})
             })
+            wordList = this.shuffle(wordList)
             if(wordList.length % 4 == 1) {
                 wordList.push({id: wordList.length, word: '', clicked: false})
                 wordList.push({id: wordList.length + 1, word: '', clicked: false})
@@ -189,9 +194,28 @@ export default class SentenceStudy extends React.Component {
             } else if(wordList.length % 4 == 3) {
                 wordList.push({id: wordList.length, word: '', clicked: false})
             }
-            this.setState({wordList})
+            this.setState({wordList })
         }
         this.setState({curIndex: curIndex})
+        this.setState({loaded: true})
+    }
+
+    shuffle(array) {
+        var currentIndex = array.length,  randomIndex;
+      
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+      
+          // Pick a remaining element...
+          randomIndex = Math.floor(Math.random() * currentIndex);
+          currentIndex--;
+      
+          // And swap it with the current element.
+          [array[currentIndex], array[randomIndex]] = [
+            array[randomIndex], array[currentIndex]];
+        }
+      
+        return array;
     }
 
     endStudy() {
