@@ -8,5 +8,7 @@ export const _e = {
     remove_from_mysentence: "내 문장에서 삭제되었습니다.",
 
     first_page_error: "맨처음입니다.",
-    last_page_error: "맨끝입니다."
+    last_page_error: "맨끝입니다.",
+
+    start_end_number_error: "시작번호, 끝번호 확인해주세요."
 }

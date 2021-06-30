@@ -9,6 +9,7 @@ import {Actions} from 'react-native-router-flux';
 import { performNetwork } from './../../components/shared/global';
 import { getWordList } from './../../utils/api';
 import { getWordListFromMyWord } from './../../utils/MyWord';
+import { showToast } from './../../components/shared/global';
 import Spinner_bar from 'react-native-loading-spinner-overlay';
 let pageTitle = '단어 학습';
 
@@ -60,11 +61,13 @@ export default class WordStudyInit extends React.Component {
         return _others;
     }
     shuffle() {
+        if(_start == '' || _end == '')
+            return false;
         let _start = parseInt(this.state.startNumber);
         let _end = parseInt(this.state.endNumber);
 
         if(_start > _end) {
-            return;
+            return false;
         }
 
         let _array = [];
@@ -112,6 +115,11 @@ export default class WordStudyInit extends React.Component {
     startStudy() {
         //예외처리 추가 필요
         let _problems = this.shuffle();
+        if(!_problems)
+            {
+                showToast("start_end_number_error", "error");
+                return;
+            }
         if(this.state.problemMethod == 'sub') {
             Actions.push('word_study_subject', {
                 params: _problems,
