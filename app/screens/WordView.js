@@ -63,13 +63,32 @@ export default class WordView extends React.Component {
     moveLastPage() {
         this.setState({curPage: this.state.arrData.length - 1});
     }
+    favoriteChange(e) {
+        if(e.favorite) {
+            if(this.state.mywordidList.indexOf(e.id) < 0)
+            {
+                let mywordidList = [...this.state.mywordidList];
+                mywordidList.push(e.id);
+                this.setState({mywordidList});
+            }
+        }
+        else {
+            let _index = this.state.mywordidList.indexOf(e.id);
+            if(_index >= 0) {
+                let mywordidList = [...this.state.mywordidList];
+                mywordidList.splice(_index, 1);
+                this.setState({mywordidList});
+            }
+        }
+    }
     render() {
         return(
             <Container>
                 <UserHeader title={pageTitle} />
                 <ViewHeader
                     myword={this.props.params.before=='myword' ? true : false}
-                    currentNo={this.state.curPage + 1} 
+                    currentNo={this.state.curPage + 1}
+                    currentId={this.state.arrData.length > 0 ? this.state.arrData[this.state.curPage].id : 0} 
                     totalCount={this.state.arrData.length} title="고1 모의고사 2018년 3월"
                     currentItem={this.state.arrData.length > 0 ? this.state.arrData[this.state.curPage] : null}
                     star={
@@ -77,6 +96,9 @@ export default class WordView extends React.Component {
                         :
                         (this.state.mywordidList.indexOf(this.state.arrData[this.state.curPage].id) >= 0 ? true : false)
                     }
+                    favoriteChange={(e) => {
+                        this.favoriteChange(e);
+                    }}
                 />
                 <Content style={styles.container}>
                 {

@@ -28,10 +28,10 @@ export default class ViewHeader extends React.Component {
                 showToast("remove_from_myword", "success");
             }
         }
+        this.props.favoriteChange({id: this.props.currentId, favorite: !_isFavorite});
     }
     static getDerivedStateFromProps(props, state) {
         const prevProps = state.prevProps || {};
-
         const isFavorite =
         prevProps.star !== props.star
       ? props.star
