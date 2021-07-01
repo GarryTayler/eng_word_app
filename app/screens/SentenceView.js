@@ -102,17 +102,20 @@ export default class SentenceView extends React.Component {
                 <View style={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap', 
                             justifyContent: 'center',
                             paddingTop: normalize(12), paddingBottom: normalize(4)}}>
-                    <Button style={styles.footerButton}>
+                    <Button style={styles.footerButton}
+                    onPress={() => {this.hideWord()}}>
                         <Text style={[fonts.size14, fonts.colorWhite, fonts.familyBold]}>
                             단어가리기
                         </Text>
                     </Button>
-                    <Button style={styles.footerButton}>
+                    <Button style={styles.footerButton}
+                    onPress={() => {this.hideSentence()}}>
                         <Text style={[fonts.size14, fonts.colorWhite, fonts.familyBold]}>
                             문장가리기
                         </Text>
                     </Button>
-                    <Button style={styles.footerButton}>
+                    <Button style={styles.footerButton}
+                    onPress={() => {this.hideMeaning()}}>
                         <Text style={[fonts.size14, fonts.colorWhite, fonts.familyBold]}>
                             해석가리기
                         </Text>

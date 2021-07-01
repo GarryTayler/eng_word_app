@@ -91,11 +91,8 @@ export default class Detail extends React.Component {
                                     <View style={{flex: 2}}>
                                         <Icon color='#EB5757' name='sc-youtube' type='evilicon' size={36} iconStyle={{margin: 0}} />
                                     </View>
-                                    <View style={{flex: 9, paddingRight: 9}}>
+                                    <View style={{flex: 10, paddingRight: 9}}>
                                         <Text numberOfLines={1} style={[fonts.size16, fonts.familyBold]}>{item.name}</Text>
-                                    </View>
-                                    <View style={[styles.editItem]}>        
-                                        <Icon color='black' name='pencil' type='evilicon' size={26} />
                                     </View>
                             </View>
                         </TouchableHighlight>
