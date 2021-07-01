@@ -10,7 +10,7 @@ import { performNetwork } from './../components/shared/global';
 import { getSentenceList } from './../utils/api';
 import { getSentenceListFromMySentence, getSentenceIdListFromMySentence } from './../utils/MySentence';
 import Spinner_bar from 'react-native-loading-spinner-overlay';
-
+import {Actions} from 'react-native-router-flux';
 let pageTitle = '문장 보기';
 
 export default class SentenceView extends React.Component {
@@ -20,7 +20,8 @@ export default class SentenceView extends React.Component {
             loaded: true,
             serverRespond: false,
             arrData: [],
-            mysentenceidList: []
+            mysentenceidList: [],
+            curIndex: 0
         };
     }
 
@@ -44,12 +45,20 @@ export default class SentenceView extends React.Component {
         this.setState({mysentenceidList: _id_list});
     }
 
+    studySetence() {
+        let temp = [this.state.arrData[this.state.curIndex]]
+        Actions.push("sentence_study", {sentenceList: temp})
+    }
+
+    studyAllSetence() {
+        Actions.push("sentence_study", {sentenceList: this.state.arrData})
+    }
+
     render() {
         return (
             <Container>
                 <UserHeader title={pageTitle} />
-                <ViewHeader currentNo={1} totalCount={this.state.arrData.length} title="초등1교과서 비상 (홍민표1) 21과" sentence />
-
+                <ViewHeader currentNo={this.state.curIndex + 1} totalCount={this.state.arrData.length} title="초등1교과서 비상 (홍민표1) 21과" sentence />
                 <View style={{paddingHorizontal: normalize(16), paddingTop: normalize(28), paddingBottom: normalize(12)}}>
                 {
                     this.props.params.before=='detail' ?
@@ -106,12 +115,12 @@ export default class SentenceView extends React.Component {
                             해석가리기
                         </Text>
                     </Button>
-                    <Button style={styles.footerButton}>
+                    <Button style={styles.footerButton} onPress={() => this.studySetence()}>
                         <Text style={[fonts.size14, fonts.colorWhite, fonts.familyBold]}>
                             현재문장학습
                         </Text>
                     </Button>
-                    <Button style={styles.footerButton}>
+                    <Button style={styles.footerButton} onPress={() => this.studyAllSetence()}>
                         <Text style={[fonts.size14, fonts.colorWhite, fonts.familyBold]}>
                             전체문장학습
                         </Text>
