@@ -150,7 +150,8 @@ export default class WordStudyObject extends React.Component {
                             correct={this.props.params[this.state.cur_problem_no - 1]['correct_index'] == item['no'] && this.state.cur_problem_status == 'correct'
                             ? true : false}
                             wrong={this.props.params[this.state.cur_problem_no - 1]['correct_index'] == item['no'] && this.state.cur_problem_status == 'wrong'
-                            ? true : false} />
+                            ? true : false}
+                            status={this.state.cur_problem_status} />
                         ))
                     }
                     </View>

@@ -10,7 +10,7 @@ export default class ChoiceItem extends React.Component {
     }
     render() {
         return (
-            <TouchableOpacity activeOpacity={0.6}
+            <TouchableOpacity activeOpacity={0.6} disabled={this.props.status == 'ready' ? false : true}
              style={[styles.choiceItem, this.props.correct ? styles.correctItem : (this.props.wrong ? styles.wrongItem : styles.generalItem)]}
              onPress={() => {this.clickChoice()}}>
                 <View style={{flex: 2}}>
