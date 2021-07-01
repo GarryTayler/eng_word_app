@@ -7,6 +7,7 @@ import StudyResultsDetailTab from './StudyResultsDetailTab';
 import { fonts, normalize, tabs } from './../../assets/styles';
 import {Actions} from 'react-native-router-flux';
 import {addToStudyResults, removeFromStudyResults} from './../../utils/StudyResults';
+import { showToast } from './../../components/shared/global';
 
 let pageTitle = '학습 결과';
 let arrTypes = [
@@ -37,6 +38,38 @@ export default class StudyResultsDetail extends React.Component {
         let mm = Math.floor(this.props.params.time / 60);
         if(mm <= 9) mm = '0' + mm;
         return mm + ':' + ss;
+    }
+    saveStar() {
+        showToast("add_to_myword", "success");
+    }
+    resolveAll() {
+        let _problems = [];
+        for(let i = 0; i < this.props.params.problemList.length; i ++) {
+            _problems.push({
+                'id': this.props.params.problemList[i].id,
+                'problem': this.props.params.problemList[i].problem,
+                'answer': this.props.params.problemList[i].answer
+            })
+        }
+        Actions.push('word_study_subject', {
+            params: _problems,
+            studyMethod: 'entoko'
+        });
+    }
+    resolveWrongProblems() {
+        let _problems = [];
+        for(let i = 0; i < this.props.params.problemList.length; i ++) {
+            if(this.props.params.problemList[i].result != 'correct')
+                _problems.push({
+                    'id': this.props.params.problemList[i].id,
+                    'problem': this.props.params.problemList[i].problem,
+                    'answer': this.props.params.problemList[i].answer
+                })
+        }
+        Actions.push('word_study_subject', {
+            params: _problems,
+            studyMethod: 'entoko'
+        });
     }
     renderTabs() {
         let arrTab = arrTypes.map((item, index) => (
@@ -94,15 +127,18 @@ export default class StudyResultsDetail extends React.Component {
                     <View style={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-evenly',
                                 paddingTop: normalize(16),
                                 paddingBottom: normalize(8)}}>
-                        <Button style={[styles.footerButton]}>
+                        <Button style={[styles.footerButton]}
+                        onPress={()=> {this.resolveAll()}}>
                             <Text style={[fonts.size15, fonts.colorWhite, fonts.familyBold, {textAlign: 'center'}]}>전체</Text>
                             <Text style={[fonts.size15, fonts.colorWhite, fonts.familyBold, {textAlign: 'center'}]}>다시 풀기</Text>
                         </Button>
-                        <Button style={[styles.footerButton]}>
+                        <Button style={[styles.footerButton]}
+                        onPress={()=> {this.resolveWrongProblems()}}>
                             <Text style={[fonts.size15, fonts.colorWhite, fonts.familyBold, {textAlign: 'center'}]}>틀린 문제</Text>
                             <Text style={[fonts.size15, fonts.colorWhite, fonts.familyBold, {textAlign: 'center'}]}>다시 풀기</Text>
                         </Button>
-                        <Button style={styles.footerButton}>
+                        <Button style={styles.footerButton}
+                            onPress={() => {this.saveStar()}}>
                             <Text style={[fonts.size15, fonts.colorWhite, fonts.familyBold, {textAlign: 'center'}]}>별표 저장</Text>
                         </Button>
                         <Button style={[styles.footerButton]}

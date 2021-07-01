@@ -26,7 +26,7 @@ export default class ResultDetailItem extends React.Component {
         return (
             <View style={styles.resultDetailItem}>           
                 <View style={{paddingRight: normalize(6)}}>
-                    <Icon name='star' type='antdesign' size={22} color='rgba(0,0,0,0.2)' />
+                    <Icon name='star' type='antdesign' size={22} color={!this.props.correct ? '#F2C94C' : 'rgba(0,0,0,0.2)'} />
                 </View>
                 <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center',
                                     flexShrink: 1}}>

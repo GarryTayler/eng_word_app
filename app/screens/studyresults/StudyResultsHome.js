@@ -5,6 +5,7 @@ import { fonts, normalize } from './../../assets/styles';
 import StudyResultHistoryDetail from './../../components/studyresults/StudyResultHistoryDetail';
 import StudyHeader from './../../components/studyresults/StudyHeader';
 import {getStudyResults, removeFromStudyResults} from './../../utils/StudyResults';
+import Spinner_bar from 'react-native-loading-spinner-overlay';
   
 export default class StudyResultsHome extends React.Component {
     constructor(props){
@@ -18,6 +19,16 @@ export default class StudyResultsHome extends React.Component {
         this.setState({loaded: false});
         let _list = await getStudyResults();
         this.setState({arrData: _list, loaded: true});
+    }
+    async removeHistory(index) {
+        this.setState({loaded: false});
+        let arrData = this.state.arrData;
+        // console.log("arrData===>", arrData);
+        arrData.splice(index - 1, 1);
+        // console.log("arrData===>", arrData);
+        this.setState({ arrData });
+        await removeFromStudyResults(index);
+        this.setState({loaded: true});
     }
     render() {
         return (
@@ -34,7 +45,8 @@ export default class StudyResultsHome extends React.Component {
                     keyExtractor={(item) => item.id}
                     renderItem={({ item, index }) => (
                         <StudyResultHistoryDetail id={index + 1} time={item.end_time} detail={item.category} 
-                        solvedCount={item.correctProblems} totalCount={item.totalProblems} mark={item.mark} />
+                        solvedCount={item.correctProblems} totalCount={item.totalProblems} mark={item.mark}
+                        removeHistory={(index)=>{this.removeHistory(index)}} />
                     )}
                     ListHeaderComponent={
                         <View style={{height: 10}}></View>    
@@ -42,7 +54,8 @@ export default class StudyResultsHome extends React.Component {
                     ListFooterComponent={
                         <View style={{height: 40}}></View>
                     }
-                />           
+                /> 
+                <Spinner_bar color={'#68ADED'} visible={!this.state.loaded} textContent={""}  overlayColor={"rgba(0, 0, 0, 0.5)"}  />          
             </Container>
         );
     }

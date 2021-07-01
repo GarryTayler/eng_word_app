@@ -30,15 +30,23 @@ export default class SentenceViewItem extends React.Component {
         return (
             <View style={{marginBottom: normalize(6)}}>
                 <View style={{display: 'flex', flexDirection: 'row', position: 'relative'}}>
-                    <TouchableOpacity activeOpacity={0.6} style={{position: 'absolute', paddingTop: normalize(3),
+                    {
+                        this.props.starShow ?
+                        <>
+                        <TouchableOpacity activeOpacity={0.6} style={{position: 'absolute', paddingTop: normalize(3),
                     zIndex: 10000}}
                     onPress={ () => { this.addToFavorite() } }>
-                        <Icon name='star' type='antdesign' color={this.state.isFavorite ? '#F2C94C' : 'rgba(0,0,0,0.2)'} />
-                    </TouchableOpacity>
-
-                    <Text style={[styles.sentenceSection, fonts.familyRegular]}>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{this.props.currentNo}. {this.props.english}
-                    </Text> 
+                            <Icon name='star' type='antdesign' color={this.state.isFavorite ? '#F2C94C' : 'rgba(0,0,0,0.2)'} />
+                        </TouchableOpacity>
+                        <Text style={[styles.sentenceSection, fonts.familyRegular]}>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{this.props.currentNo}. {this.props.english}
+                        </Text> 
+                        </>
+                        :
+                        <Text style={[styles.sentenceSection, fonts.familyRegular]}>
+                            {this.props.currentNo}. {this.props.english}
+                        </Text> 
+                    }
                 </View>
                 <View>
                     <Text style={[styles.sentenceSection, fonts.familyRegular]}>

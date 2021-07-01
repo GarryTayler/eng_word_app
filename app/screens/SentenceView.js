@@ -48,9 +48,11 @@ export default class SentenceView extends React.Component {
         return (
             <Container>
                 <UserHeader title={pageTitle} />
-                <ViewHeader currentNo={5} totalCount={this.state.arrData.length} title="초등1교과서 비상 (홍민표1) 21과" sentence />
+                <ViewHeader currentNo={1} totalCount={this.state.arrData.length} title="초등1교과서 비상 (홍민표1) 21과" sentence />
 
                 <View style={{paddingHorizontal: normalize(16), paddingTop: normalize(28), paddingBottom: normalize(12)}}>
+                {
+                    this.props.params.before=='detail' ?
                     <View style={{display: 'flex', flexDirection: 'row', position: 'relative'}}>
                         <View style={{position: 'absolute', paddingTop: normalize(3)}}>
                             <Icon name='star' type='antdesign' color='rgba(0,0,0,0.2)' />
@@ -59,6 +61,9 @@ export default class SentenceView extends React.Component {
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;전체 별표
                         </Text> 
                     </View>
+                    : 
+                    null
+                }
                 </View>
                 {
                     <FlatList
@@ -70,7 +75,9 @@ export default class SentenceView extends React.Component {
                             english={item.sentence}
                             korean={item.meaning}
                             param={item}
-                            star={this.state.mysentenceidList.indexOf(item.id) >= 0 ? true : false} />
+                            star={this.state.mysentenceidList.indexOf(item.id) >= 0 ? true : false}
+                            starShow={this.props.params.before=='detail'?true:false}
+                             />
                         )}
                         ListFooterComponent={
                             <>

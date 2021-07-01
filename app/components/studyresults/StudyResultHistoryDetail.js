@@ -12,6 +12,10 @@ export default class StudyResultHistoryDetail extends React.Component {
         Actions.push('study_results_detail');
     }
 
+    removeHistory() {
+        this.props.removeHistory(this.props.id);
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -30,7 +34,8 @@ export default class StudyResultHistoryDetail extends React.Component {
                         <Text style={[fonts.size16, fonts.familyBold, fonts.colorRed]}>{this.props.mark}점</Text>
                     </View>
                     <View style={{marginLeft: normalize(18)}}>
-                        <Button style={styles.removeButton}>
+                        <Button style={styles.removeButton}
+                        onPress={() => {this.removeHistory()}}>
                             <Text style={[fonts.size14, fonts.familyBold, fonts.colorWhite]}>삭제</Text>
                         </Button>
                     </View>

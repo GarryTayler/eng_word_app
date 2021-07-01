@@ -170,7 +170,6 @@ export default class SentenceStudyInit extends React.Component {
                     renderItem={ ({item, index}) => (
                         this.renderSentence(item, index)
                     )}
-
                     ListFooterComponent={
                         <>
                         <View style={styles.contentPaddingBottom}></View>   

@@ -70,6 +70,10 @@ export default class WordStudyInit extends React.Component {
             return false;
         }
 
+        if(_start > this.state.arrData.length || _end > this.state.arrData.length) {
+            return false;
+        }
+
         let _array = [];
         for (let i = _start; i <= _end; i ++) 
             _array.push(i);
