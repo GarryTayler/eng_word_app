@@ -8,24 +8,41 @@ import { performNetwork } from './../../components/shared/global';
 import { getCategoryList } from './../../utils/api';
 import Spinner_bar from 'react-native-loading-spinner-overlay';
 import {Actions} from 'react-native-router-flux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { addToRecentStudy, getRecentStudy } from './../../utils/RecentStudy';
 export default class Home extends React.Component {
     constructor(props){
         super(props);
         this.state = {
             loaded: true,
             serverRespond: false,
-            arrData: []
+            arrData: [],
+            selectedName: this.props.selectedName,
+            selectedSubject: null
         };
     }
 
-    buttonClick(id = null, has_child = 'Y', name = '') {
-        if(has_child == 'Y')
-            Actions.push('home', {parent_id: id});
-        else
+    async buttonClick(id = null, has_child = 'Y', name = '') {
+        if(has_child == 'Y') {
+            Actions.push('home', {parent_id: id, selectedName: name});
+        }
+        else {
+            let temp = { category_id: id, title: name, selectedName : this.state.selectedName + " " + name }
+            await addToRecentStudy(temp);
             Actions.push('detail', {params: {category_id: id, title: name}});
+        }
     }
 
-    componentDidMount() {
+    recentStudy() {
+        if(this.state.selectedSubject)
+            Actions.push('detail', {params: {category_id: this.state.selectedSubject.category_id, title: this.state.selectedSubject.title}});
+    }
+
+    async componentDidMount() {
+        let selectedStudy = await getRecentStudy();
+        if(selectedStudy) {
+            this.setState({selectedSubject: selectedStudy})
+        }
         this.fetchCategoryList();
     }
 
@@ -83,11 +100,17 @@ export default class Home extends React.Component {
                     </TouchableHighlight>
                 </View>
                 <View style={{display : 'flex', alignItems: 'center'}}>
-                    <TouchableHighlight style={styles.button} activeOpacity={0.8} onPress={ () => { this.buttonClick() } } underlayColor='#4E4E4E'>
+                    <TouchableHighlight style={styles.button} activeOpacity={0.8} onPress={ () => { this.recentStudy() } } underlayColor='#4E4E4E'>
                         <ImageBackground source={ Images.buttons[0][(this.state.arrData.length + 1) % 5] } style={styles.buttonImage} resizeMode='cover'>
                             <View>
                                 <Text style={[fonts.size19, fonts.familyBold, fonts.colorWhite, styles.buttonLabel]}>최근 학습한 내용</Text>
-                                <Text style={[fonts.size10, fonts.familyBold, fonts.colorWhite, {marginTop: 2, textAlign: 'right'}]}>중1 비상 (홍민표) 3과</Text>
+                                {
+                                    this.state.selectedSubject ?
+                                    <Text style={[fonts.size10, fonts.familyBold, fonts.colorWhite, {marginTop: 2, textAlign: 'right'}]}>{this.state.selectedSubject.selectedName}</Text>
+                                    :
+                                    null
+                                }
+                                
                             </View>
                         </ImageBackground>
                     </TouchableHighlight>
