@@ -7,8 +7,10 @@ import { fonts, normalize } from './../../assets/styles';
 import Images from './../../assets/Images';
 import TextTicker from 'react-native-text-ticker'
 import {Actions} from 'react-native-router-flux';
+import { getCurrentDate } from './../../components/shared/global';
 
 let pageTitle = '단어 학습';
+let problemList = [];
 
 export default class WordStudySubject extends React.Component {
     constructor(props){
@@ -18,9 +20,13 @@ export default class WordStudySubject extends React.Component {
             cur_problem_status: 'ready',
             correctProblems: 0, //정답
             wrongProblems: 0, //오답
-            answer: ''
+            answer: '',
+            timer: 0
         };
     }    
+    componentDidMount() {
+        problemList = [];
+    }
     makeResult() {
         // 유저가 입력한 정답 처리
         let _answer = this.state.answer;
@@ -69,6 +75,13 @@ export default class WordStudySubject extends React.Component {
         if(this.state.answer == '')
             return;
         if(this.makeResult()) { // correct
+            problemList.push({
+                id: this.props.params[this.state.cur_problem_no - 1]['id'],
+                problem: this.props.params[this.state.cur_problem_no - 1]['problem'],
+                answer: this.props.params[this.state.cur_problem_no - 1]['answer'],
+                user_answer: this.state.answer,
+                result: 'correct'    
+            });
             this.setState({cur_problem_status: 'correct',
                            correctProblems: this.state.correctProblems + 1 });
             setTimeout(function() {
@@ -76,13 +89,30 @@ export default class WordStudySubject extends React.Component {
             }.bind(this), 1000);
         }
         else {
+            problemList.push({
+                id: this.props.params[this.state.cur_problem_no - 1]['id'],
+                problem: this.props.params[this.state.cur_problem_no - 1]['problem'],
+                answer: this.props.params[this.state.cur_problem_no - 1]['answer'],
+                user_answer: this.state.answer,
+                result: 'wrong'    
+            });
             this.setState({cur_problem_status: 'wrong',
                             wrongProblems: this.state.wrongProblems + 1});
         }
     }
     nextProblem()     {
         if(this.state.cur_problem_no == this.props.params.length) { // 학습 완료
-            Actions.push("study_results_detail");    
+            Actions.push("study_results_detail", {
+                params: {
+                    "totalProblems": this.props.params.length, //총문제
+                    "time": this.state.timer, //시간
+                    "correctProblems": this.state.correctProblems,  // 정답    
+                    "wrongProblems": this.state.wrongProblems,  // 오답
+                    "mark": Math.floor(( this.state.correctProblems / this.props.params.length ) * 100),
+                    "problemList": problemList,                           
+                    'end_time': getCurrentDate()
+                }
+            });    
         }
         else {
             this.setState({
@@ -99,7 +129,8 @@ export default class WordStudySubject extends React.Component {
                 <UserHeader title={pageTitle} />
                 <WordStudyHeader title="중1비상 (홍민표) 3과"
                                  totalProblems={this.props.params.length} currentNo={this.state.cur_problem_no} 
-                                 rightAnswer={this.state.correctProblems} wrongAnswer={this.state.wrongProblems} />
+                                 rightAnswer={this.state.correctProblems} wrongAnswer={this.state.wrongProblems}
+                                 changeTime={(e) => {this.setState({timer: e})}} />
                 <Content style={styles.container}>
                     <View style={[styles.problemContainer]}>
                         <View style={{position: 'absolute', top: normalize(28)}}>

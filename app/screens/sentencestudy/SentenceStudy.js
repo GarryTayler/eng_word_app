@@ -38,7 +38,6 @@ export default class SentenceStudy extends React.Component {
 
     async componentDidMount() {
         Orientation.lockToLandscape();
-        console.log(this.props.sentenceList)
         this.setState({correctAnswer: this.state.sentenceList[this.state.curIndex].sentence})
         let curSetence = this.state.sentenceList[this.state.curIndex];
         let idList = await getSentenceIdListFromMySentence();
@@ -134,7 +133,6 @@ export default class SentenceStudy extends React.Component {
     }
 
     reset() {
-        console.log('here');
     }
 
     async isFav() {

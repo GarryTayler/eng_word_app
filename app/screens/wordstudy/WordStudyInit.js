@@ -90,6 +90,7 @@ export default class WordStudyInit extends React.Component {
         if(this.state.problemMethod == 'sub') {
             for(let i = 0; i < _array.length; i ++) {
                 _problems.push({
+                    'id': _array[i],
                     'problem': (this.state.studyMethod == 'entoko' ?
                     this.state.arrData[_array[i] - 1].word : this.state.arrData[_array[i] - 1].meaning),
                     'answer': (this.state.studyMethod == 'entoko' ? 

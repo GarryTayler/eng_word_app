@@ -4,60 +4,37 @@ import { Container, Content } from 'native-base';
 import { fonts, normalize } from './../../assets/styles';
 import StudyResultHistoryDetail from './../../components/studyresults/StudyResultHistoryDetail';
 import StudyHeader from './../../components/studyresults/StudyHeader';
-const DATA = [
-    {
-        id: 1, time: '8월 4일 (일) 오후 5:13', detail: '중1 비상 (홍익표) 3과',
-        solvedCount: 9, totalCount: 10, mark: 90
-    },
-    {
-        id: 2, time: '8월 4일 (일) 오후 5:13', detail: '중1 비상 (홍익표) 3과',
-        solvedCount: 9, totalCount: 10, mark: 90
-    },
-    {
-        id: 3, time: '8월 4일 (일) 오후 5:13', detail: '중1 비상 (홍익표) 3과',
-        solvedCount: 9, totalCount: 10, mark: 90
-    },
-    {
-        id: 4, time: '8월 4일 (일) 오후 5:13', detail: '중1 비상 (홍익표) 3과',
-        solvedCount: 9, totalCount: 10, mark: 90
-    },
-    {
-        id: 5, time: '8월 4일 (일) 오후 5:13', detail: '중1 비상 (홍익표) 3과',
-        solvedCount: 9, totalCount: 10, mark: 90
-    },
-    {
-        id: 6, time: '8월 4일 (일) 오후 5:13', detail: '중1 비상 (홍익표) 3과',
-        solvedCount: 9, totalCount: 10, mark: 90
-    },
-    {
-        id: 7, time: '8월 4일 (일) 오후 5:13', detail: '중1 비상 (홍익표) 3과',
-        solvedCount: 9, totalCount: 10, mark: 90
-    },
-    {
-        id: 8, time: '8월 4일 (일) 오후 5:13', detail: '중1 비상 (홍익표) 3과',
-        solvedCount: 9, totalCount: 10, mark: 90
-    },
-    {
-        id: 9, time: '8월 4일 (일) 오후 5:13', detail: '중1 비상 (홍익표) 3과',
-        solvedCount: 9, totalCount: 10, mark: 90
-    },
-];
+import {getStudyResults, removeFromStudyResults} from './../../utils/StudyResults';
   
 export default class StudyResultsHome extends React.Component {
     constructor(props){
         super(props);
+        this.state = {
+            arrData: [],
+            loaded: true
+        }
+    }
+    async componentDidMount() {
+        this.setState({loaded: false});
+        let _list = await getStudyResults();
+        this.setState({arrData: _list, loaded: true});
     }
     render() {
         return (
             <Container>
-                <StudyHeader />
+                <StudyHeader
+                totalProblems={this.state.arrData.length > 0 ? this.state.arrData[0]['totalProblems'] : ''}
+                correctProblems={this.state.arrData.length > 0 ? this.state.arrData[0]['correctProblems'] : ''}
+                wrongProblems={this.state.arrData.length > 0 ? (this.state.arrData[0]['totalProblems'] - this.state.arrData[0]['correctProblems']) : ''}
+                mark={this.state.arrData.length > 0 ? this.state.arrData[0]['mark'] : ''}
+                 />
                 <FlatList
                     style={[styles.container]}
-                    data={DATA}
+                    data={this.state.arrData}
                     keyExtractor={(item) => item.id}
                     renderItem={({ item, index }) => (
-                        <StudyResultHistoryDetail id={item.id} time={item.time} detail={item.detail} 
-                        solvedCount={item.solvedCount} totalCount={item.totalCount} mark={item.mark} />
+                        <StudyResultHistoryDetail id={index + 1} time={item.end_time} detail={item.category} 
+                        solvedCount={item.correctProblems} totalCount={item.totalProblems} mark={item.mark} />
                     )}
                     ListHeaderComponent={
                         <View style={{height: 10}}></View>    

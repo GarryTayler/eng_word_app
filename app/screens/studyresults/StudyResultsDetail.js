@@ -3,11 +3,10 @@ import { StyleSheet, View, Text, ScrollView, Image} from 'react-native';
 import { Container, Content, Button, Tab, Tabs, ScrollableTab } from 'native-base';
 import UserHeader from './../../components/shared/UserHeader';
 import StudyHeader from './../../components/studyresults/StudyHeader';
-import ResultDetailItem  from './../../components/studyresults/ResultDetailItem';
 import StudyResultsDetailTab from './StudyResultsDetailTab';
 import { fonts, normalize, tabs } from './../../assets/styles';
-import { Icon } from 'react-native-elements';
 import {Actions} from 'react-native-router-flux';
+import {addToStudyResults, removeFromStudyResults} from './../../utils/StudyResults';
 
 let pageTitle = '학습 결과';
 let arrTypes = [
@@ -22,7 +21,14 @@ export default class StudyResultsDetail extends React.Component {
     }
     componentDidMount() {
     }
-    saveAndFinish() {
+    async saveAndFinish() {
+        await addToStudyResults({
+            "end_time": this.props.params.end_time,
+            "category": "중1 비상 (홍익표) 3과",
+            "totalProblems": this.props.params.totalProblems,
+            "correctProblems": this.props.params.correctProblems,
+            "mark": this.props.params.mark
+        });
         Actions.popTo('word_study_init');
     }
     timeFormat() {
