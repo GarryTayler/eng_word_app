@@ -5,7 +5,7 @@ import { Icon } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
 import { normalize } from './../../assets/styles';
 import Images from './../../assets/Images';
-
+import Orientation from 'react-native-orientation';
 export default class StudyHeader extends React.Component {
     constructor(props) {
         super(props);
@@ -16,6 +16,7 @@ export default class StudyHeader extends React.Component {
     }
 
     backButtonPressed() {
+        Orientation.lockToPortrait();
         Actions.pop();
         setTimeout(() => {
             Actions.refresh();
