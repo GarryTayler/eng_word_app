@@ -38,6 +38,7 @@ export default class StudyResultsHome extends React.Component {
                 correctProblems={this.state.arrData.length > 0 ? this.state.arrData[0]['correctProblems'] : ''}
                 wrongProblems={this.state.arrData.length > 0 ? (this.state.arrData[0]['totalProblems'] - this.state.arrData[0]['correctProblems']) : ''}
                 mark={this.state.arrData.length > 0 ? this.state.arrData[0]['mark'] : ''}
+                time={this.state.arrData.length > 0? this.state.arrData[0]['time']: ''}
                  />
                 <FlatList
                     style={[styles.container]}

@@ -28,7 +28,8 @@ export default class StudyResultsDetail extends React.Component {
             "category": "중1 비상 (홍익표) 3과",
             "totalProblems": this.props.params.totalProblems,
             "correctProblems": this.props.params.correctProblems,
-            "mark": this.props.params.mark
+            "mark": this.props.params.mark,
+            "time": this.timeFormat()
         });
         Actions.popTo('word_study_init');
     }
@@ -44,32 +45,40 @@ export default class StudyResultsDetail extends React.Component {
     }
     resolveAll() {
         let _problems = [];
-        for(let i = 0; i < this.props.params.problemList.length; i ++) {
-            _problems.push({
-                'id': this.props.params.problemList[i].id,
-                'problem': this.props.params.problemList[i].problem,
-                'answer': this.props.params.problemList[i].answer
-            })
-        }
-        Actions.push('word_study_subject', {
-            params: _problems,
-            studyMethod: 'entoko'
-        });
-    }
-    resolveWrongProblems() {
-        let _problems = [];
-        for(let i = 0; i < this.props.params.problemList.length; i ++) {
-            if(this.props.params.problemList[i].result != 'correct')
+        if(this.props.params.type == 'sub') {
+            for(let i = 0; i < this.props.params.problemList.length; i ++) {
                 _problems.push({
                     'id': this.props.params.problemList[i].id,
                     'problem': this.props.params.problemList[i].problem,
                     'answer': this.props.params.problemList[i].answer
                 })
+            }
+            Actions.push('word_study_subject', {
+                params: _problems,
+                studyMethod: 'entoko'
+            });
         }
-        Actions.push('word_study_subject', {
-            params: _problems,
-            studyMethod: 'entoko'
-        });
+        else {
+        }
+    }
+    resolveWrongProblems() {
+        let _problems = [];
+        if(this.props.params.type == 'sub') {
+            for(let i = 0; i < this.props.params.problemList.length; i ++) {
+                if(this.props.params.problemList[i].result != 'correct')
+                    _problems.push({
+                        'id': this.props.params.problemList[i].id,
+                        'problem': this.props.params.problemList[i].problem,
+                        'answer': this.props.params.problemList[i].answer
+                    })
+            }
+            Actions.push('word_study_subject', {
+                params: _problems,
+                studyMethod: this.props.params.studyMethod
+            });
+        }
+        else {
+        }
     }
     renderTabs() {
         let arrTab = arrTypes.map((item, index) => (

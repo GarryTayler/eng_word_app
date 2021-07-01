@@ -128,12 +128,14 @@ export default class WordStudyInit extends React.Component {
         if(this.state.problemMethod == 'sub') {
             Actions.push('word_study_subject', {
                 params: _problems,
-                studyMethod: this.state.studyMethod
+                studyMethod: this.state.studyMethod,
+                type: 'sub'
             });
         }
         else {
             Actions.push('word_study_object', {
-                params: _problems
+                params: _problems,
+                type: 'obj'
             });
         }
     }
