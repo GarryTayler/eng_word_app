@@ -224,6 +224,7 @@ export default class SentenceStudy extends React.Component {
     }
 
     endStudy() {
+        Orientation.lockToPortrait();
         Actions.pop();
         setTimeout(function() {
             Actions.refresh()
