@@ -68,7 +68,7 @@ export default class ViewHeader extends React.Component {
                     <Text style={[fonts.colorRed, fonts.size14, fonts.familyBold, {marginLeft: normalize(4)}]}>{this.props.currentNo}</Text>
                     <Text style={[fonts.size14, fonts.familyBold]}> / {this.props.totalCount}</Text>
                 </View>           
-                <View style={{flex: 1}}>
+                <View style={this.props.ellipsis ? {paddingLeft: 20} : {flex: 1}}>
                     <Text numberOfLines={1} style={[fonts.size14, fonts.familyBold, {textAlign: 'right'}]}>
                         {this.props.title}
                     </Text>

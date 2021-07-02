@@ -8,6 +8,7 @@ import Images from './../../assets/Images';
 import TextTicker from 'react-native-text-ticker'
 import {Actions} from 'react-native-router-flux';
 import { getCurrentDate } from './../../components/shared/global';
+import { getRecentStudy } from './../../utils/RecentStudy';
 
 let pageTitle = '단어 학습';
 let problemList = [];
@@ -21,7 +22,8 @@ export default class WordStudySubject extends React.Component {
             correctProblems: 0, //정답
             wrongProblems: 0, //오답
             answer: '',
-            timer: 0
+            timer: 0,
+            selectedSubject: null
         };
     }    
     componentDidMount() {
@@ -123,16 +125,23 @@ export default class WordStudySubject extends React.Component {
                 answer: ''
             });    
             this.answerInput.focus();
+        };
+    }    
+    async componentDidMount() {
+        let selectedStudy = await getRecentStudy();
+        if(selectedStudy) {
+            this.setState({selectedSubject: selectedStudy})
         }
     }
     render() {
         return (
             <Container> 
                 <UserHeader title={pageTitle} />
-                <WordStudyHeader title="중1비상 (홍민표) 3과"
+                <WordStudyHeader title={this.state.selectedSubject ? this.state.selectedSubject.selectedName : ''}
                                  totalProblems={this.props.params.length} currentNo={this.state.cur_problem_no} 
                                  rightAnswer={this.state.correctProblems} wrongAnswer={this.state.wrongProblems}
                                  changeTime={(e) => {this.setState({timer: e})}} />
+
                 <Content style={styles.container}>
                     <View style={[styles.problemContainer]}>
                         <View style={{position: 'absolute', top: normalize(28)}}>

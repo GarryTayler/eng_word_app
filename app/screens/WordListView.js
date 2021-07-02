@@ -7,7 +7,8 @@ import WordListItem from './../components/shared/WordListItem';
 import { normalize } from './../assets/styles';
 import { getWordList } from './../utils/api';
 import { performNetwork } from './../components/shared/global';
-import {getWordIdListFromMyWord} from './../utils/MyWord';
+import { getWordIdListFromMyWord } from './../utils/MyWord';
+import { getRecentStudy } from './../utils/RecentStudy';
 import Spinner_bar from 'react-native-loading-spinner-overlay';
 let pageTitle = '단어목록보기';
 
@@ -20,10 +21,15 @@ export default class WordListView extends React.Component {
             arrData: [],
             wordShow: true,
             meaningShow: true,
-            mywordidList: []
+            mywordidList: [],
+            selectedSubject: null
         };        
     }
-    componentDidMount() {
+    async componentDidMount() {
+        let selectedStudy = await getRecentStudy();
+        if(selectedStudy) {
+            this.setState({selectedSubject: selectedStudy})
+        }
         this.fetchWordList();
     }
 
@@ -50,7 +56,7 @@ export default class WordListView extends React.Component {
                 <UserHeader title={pageTitle} wordList
                 triggerMeaning={(e) => { this.onChangeMeaning(e) }}
                 triggerWord={(e) => { this.onChangeWord(e) }} />
-                <SubHeader title="중1 비상 (홍민표) 12과" />
+                <SubHeader ellipsis={true} title={this.state.selectedSubject ? this.state.selectedSubject.selectedName : ''} />
                 <FlatList
                     style={styles.container}
                     data={this.state.arrData}

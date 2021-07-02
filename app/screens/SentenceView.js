@@ -12,6 +12,7 @@ import { getSentenceListFromMySentence, getSentenceIdListFromMySentence } from '
 import Spinner_bar from 'react-native-loading-spinner-overlay';
 import {Actions} from 'react-native-router-flux';
 import Orientation from 'react-native-orientation';
+import { getRecentStudy } from './../utils/RecentStudy';
 let pageTitle = '문장 보기';
 
 export default class SentenceView extends React.Component {
@@ -22,12 +23,17 @@ export default class SentenceView extends React.Component {
             serverRespond: false,
             arrData: [],
             mysentenceidList: [],
-            curIndex: 0
+            curIndex: 0,
+            selectedSubject: null
         };
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         Orientation.lockToPortrait();
+        let selectedStudy = await getRecentStudy();
+        if(selectedStudy) {
+            this.setState({selectedSubject: selectedStudy})
+        }
         this.fetchSentenceList();
     }
 
@@ -60,7 +66,7 @@ export default class SentenceView extends React.Component {
         return (
             <Container>
                 <UserHeader title={pageTitle} />
-                <ViewHeader currentNo={this.state.curIndex + 1} totalCount={this.state.arrData.length} title="초등1교과서 비상 (홍민표1) 21과" sentence />
+                <ViewHeader currentNo={this.state.curIndex + 1} totalCount={this.state.arrData.length} title={this.state.selectedSubject ? this.state.selectedSubject.selectedName : ''} ellipsis={true} sentence />
                 <View style={{paddingHorizontal: normalize(16), paddingTop: normalize(28), paddingBottom: normalize(12)}}>
                 {
                     this.props.params.before=='detail' ?

@@ -11,7 +11,7 @@ import { getWordListFromMyWord, getWordIdListFromMyWord } from './../utils/MyWor
 import { Icon } from 'react-native-elements';
 import { showToast } from './../components/shared/global';
 import Spinner_bar from 'react-native-loading-spinner-overlay';
-
+import { getRecentStudy } from './../utils/RecentStudy';
 let pageTitle = '단어 보기';
 
 export default class WordView extends React.Component {
@@ -24,11 +24,16 @@ export default class WordView extends React.Component {
             mywordidList: [],
             curPage: 0,
             hideMeaning: false,
-            hideExample: false
+            hideExample: false,
+            selectedSubject: null
         }; 
     }
-    componentDidMount() {
-        this.fetchWordList();    
+    async componentDidMount() {
+        let selectedStudy = await getRecentStudy();
+        if(selectedStudy) {
+            this.setState({selectedSubject: selectedStudy})
+        }
+        this.fetchWordList();
     }
     async fetchWordList() {
         if(this.props.params.before != 'myword') {
@@ -85,12 +90,14 @@ export default class WordView extends React.Component {
         return(
             <Container>
                 <UserHeader title={pageTitle} />
-                <ViewHeader
+                <ViewHeader 
                     myword={this.props.params.before=='myword' ? true : false}
-                    currentNo={this.state.curPage + 1}
-                    currentId={this.state.arrData.length > 0 ? this.state.arrData[this.state.curPage].id : 0} 
-                    totalCount={this.state.arrData.length} title="고1 모의고사 2018년 3월"
-                    currentItem={this.state.arrData.length > 0 ? this.state.arrData[this.state.curPage] : null}
+                    currentNo={this.state.curPage + 1} 
+                    currentId={this.state.arrData.length > 0 ? this.state.arrData[this.state.curPage].id : 0}
+                    totalCount={this.props.arrData.length} title={this.state.selectedSubject ? this.state.selectedSubject.selectedName : ''}
+                    currentItem={this.props.arrData.length > 0 ? this.props.arrData[this.state.curPage] : null}
+                    ellipsis={true}
+
                     star={
                         this.state.arrData.length == 0 ? false
                         :

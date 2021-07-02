@@ -14,6 +14,7 @@ import {Actions} from 'react-native-router-flux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Orientation from 'react-native-orientation';
 import { showToast } from './../../components/shared/global';
+import { getRecentStudy } from './../../utils/RecentStudy';
 
 let pageTitle = '문장 학습';
 let originalData = [];
@@ -27,12 +28,16 @@ export default class SentenceStudyInit extends React.Component {
             order: true,
             checkAll: false,
             org_data: null,
+            selectedSubject: null
         };
     }    
 
-    componentDidMount() {
+    async componentDidMount() {
         Orientation.lockToPortrait();
-        
+        let selectedStudy = await getRecentStudy();
+        if(selectedStudy) {
+            this.setState({selectedSubject: selectedStudy})
+        }
         this.fetchSentenceList();
     }
 
@@ -179,7 +184,7 @@ export default class SentenceStudyInit extends React.Component {
         return (
             <Container>
                 <UserHeader title={pageTitle} /> 
-                <SubHeader title="중1비상 (홍민표) 1과" />
+                <SubHeader title={this.state.selectedSubject ? this.state.selectedSubject.selectedName: ""} ellipsis={true} />
                 <FlatList
                     style={[styles.container, styles.scrollView]}
                     data={this.state.arrData}
