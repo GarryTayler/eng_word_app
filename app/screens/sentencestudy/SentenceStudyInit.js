@@ -69,7 +69,24 @@ export default class SentenceStudyInit extends React.Component {
         else  {
             this.setState({loaded: false});
             let _sen_list = await getSentenceListFromMySentence();
-            this.setState({arrData: _sen_list, loaded: true});
+            let temp = [];
+            let idList = await getSentenceIdListFromMySentence();
+            _sen_list.map((item, index) => {
+                item['checked'] = false
+                item['isFavorite'] = false
+                if(idList && idList.length > 0) {
+                    idList.map((_item) => {
+                        if(item.id == _item) {
+                            item['isFavorite'] = true
+                        }
+                    })
+                }
+                temp.push(item);
+            })
+            this.setState({arrData: temp, loaded: true});
+            await AsyncStorage.setItem("sentence_study", JSON.stringify(temp));
+
+            //this.setState({arrData: _sen_list});
         }
     }
 
