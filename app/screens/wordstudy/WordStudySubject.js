@@ -5,21 +5,28 @@ import UserHeader from './../../components/shared/UserHeader';
 import WordStudyHeader from './../../components/wordstudy/WordStudyHeader';
 import { fonts, normalize } from './../../assets/styles';
 import Images from './../../assets/Images';
-
+import { getRecentStudy } from './../../utils/RecentStudy';
 let pageTitle = '단어 학습';
 
 export default class WordStudySubject extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            answer: ''
+            answer: '',
+            selectedSubject: null
         };
     }    
+    async componentDidMount() {
+        let selectedStudy = await getRecentStudy();
+        if(selectedStudy) {
+            this.setState({selectedSubject: selectedStudy})
+        }
+    }
     render() {
         return (
             <Container> 
                 <UserHeader title={pageTitle} />
-                <WordStudyHeader title="중1비상 (홍민표) 3과"
+                <WordStudyHeader title={this.state.selectedSubject ? this.state.selectedSubject.selectedName : ''}
                                  totalProblems="20" currentNo="12" rightAnswer="5" wrongAnswer="5" />
                 <Content style={styles.container}>
                     <View style={[styles.problemContainer]}>

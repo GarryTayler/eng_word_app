@@ -11,7 +11,7 @@ import { performNetwork } from './../components/shared/global';
 import { getWordList } from './../utils/api';
 import { getWordListFromMyWord, getWordIdListFromMyWord } from './../utils/MyWord';
 import SwipeRender from "react-native-swipe-render";
-
+import { getRecentStudy } from './../utils/RecentStudy';
 let pageTitle = '단어 보기';
 
 let arrSpec= [
@@ -27,10 +27,15 @@ export default class WordView extends React.Component {
             mywordidList: [],
             curPage: 0,
             hideMeaning: false,
-            hideExample: false
+            hideExample: false,
+            selectedSubject: null
         }; 
     }
-    componentDidMount() {
+    async componentDidMount() {
+        let selectedStudy = await getRecentStudy();
+        if(selectedStudy) {
+            this.setState({selectedSubject: selectedStudy})
+        }
         this.fetchWordList();
     }
     async fetchWordList() {
@@ -63,8 +68,9 @@ export default class WordView extends React.Component {
                 <ViewHeader 
                     sentence={this.props.params.before != 'myword' ? false : true} 
                     currentNo={this.state.curPage + 1} 
-                    totalCount={this.props.arrData.length} title="고1 모의고사 2018년 3월"
+                    totalCount={this.props.arrData.length} title={this.state.selectedSubject ? this.state.selectedSubject.selectedName : ''}
                     currentItem={this.props.arrData.length > 0 ? this.props.arrData[this.state.curPage] : null}
+                    ellipsis={true}
                     star={
                         this.props.arrData.length == 0 ? false
                         :

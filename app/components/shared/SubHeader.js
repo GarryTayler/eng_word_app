@@ -35,7 +35,7 @@ export default class SubHeader extends React.Component {
                         : null
                     }
                 </View>
-                <View style={{flex: 1}}>
+                <View style={this.props.ellipsis ? {} : {flex: 1}}>
                     <Text style={[fonts.size14, fonts.familyBold, {textAlign: 'right'}]}>{ this.props.title }</Text>    
                 </View>
             </View>

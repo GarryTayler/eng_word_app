@@ -10,7 +10,7 @@ export default class WordStudyHeader extends React.Component {
         return (
             <View>
                 <View style={{backgroundColor: '#68ADED', paddingVertical: normalize(8)}}>                
-                    <Text style={[fonts.size18, fonts.familyBold, fonts.colorWhite,
+                    <Text style={[fonts.size18, fonts.familyBold, fonts.colorWhite,fonts.familyRegular,
                                 {textAlign: 'center'}]}>{this.props.title}</Text>
                 </View>               
                 <View style={{display: 'flex', alignItems: 'center', flexDirection: 'row', padding: normalize(8),
