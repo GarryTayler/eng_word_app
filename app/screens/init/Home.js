@@ -103,7 +103,7 @@ export default class Home extends React.Component {
                     <TouchableHighlight style={styles.button} activeOpacity={0.8} onPress={ () => { this.recentStudy() } } underlayColor='#4E4E4E'>
                         <ImageBackground source={ Images.buttons[0][(this.state.arrData.length + 1) % 5] } style={styles.buttonImage} resizeMode='cover'>
                             <View>
-                                <Text style={[fonts.size19, fonts.familyBold, fonts.colorWhite, styles.buttonLabel]}>최근 학습한 내용</Text>
+                                <Text style={[fonts.size18, fonts.familyBold, fonts.colorWhite, styles.buttonLabel, {textAlign: 'center'}]}>최근 학습한 내용</Text>
                                 {
                                     this.state.selectedSubject ?
                                     <Text style={[fonts.size10, fonts.familyBold, fonts.colorWhite, {marginTop: 2, textAlign: 'right'}]}>{this.state.selectedSubject.selectedName}</Text>
@@ -156,7 +156,6 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.34,
         shadowRadius: 6.27,
-        
         elevation: 10,
     },
     buttonImage: {
@@ -165,7 +164,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     buttonLabel: {
-        letterSpacing: 6
+        letterSpacing: 0
     },
 
     button48: {
