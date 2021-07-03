@@ -94,8 +94,8 @@ export default class WordView extends React.Component {
                     myword={this.props.params.before=='myword' ? true : false}
                     currentNo={this.state.curPage + 1} 
                     currentId={this.state.arrData.length > 0 ? this.state.arrData[this.state.curPage].id : 0}
-                    totalCount={this.props.arrData.length} title={this.state.selectedSubject ? this.state.selectedSubject.selectedName : ''}
-                    currentItem={this.props.arrData.length > 0 ? this.props.arrData[this.state.curPage] : null}
+                    totalCount={this.props.arrData ? this.props.arrData.length : 0} title={this.state.selectedSubject ? this.state.selectedSubject.selectedName : ''}
+                    currentItem={this.props.arrData && this.props.arrData.length > 0 ? this.props.arrData[this.state.curPage] : null}
                     ellipsis={true}
 
                     star={
