@@ -82,7 +82,15 @@ export default class UserHeader extends React.Component {
                             : null
                         }
                     </View>
-                    : null
+                    :
+                    this.props.remove ? 
+                    <View style={{display: 'flex', flexDirection: 'row', position: 'absolute', right: 10}}>
+                        <TouchableHighlight onPress={ () => {this.props.remove()} } underlayColor="white" activeOpacity={0.8}>
+                            <Icon name='delete' type='antdesign' color='white' size={23} />
+                        </TouchableHighlight>
+                    </View>
+                    :
+                    null
                }
             </Header>
         )

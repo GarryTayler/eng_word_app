@@ -9,8 +9,13 @@ export default class CreateWordItem extends React.Component {
         this.state = {
             word: this.props.word,
             meaning: this.props.meaning,
-            isChecked: this.props.checked
+            isChecked: this.props.isChecked
         }
+    }
+    UNSAFE_componentWillReceiveProps(props) {
+        this.setState({isChecked: props.isChecked})
+        this.setState({word: props.word})
+        this.setState({meaning: props.meaning})
     }
     render() {
         return (
@@ -23,6 +28,7 @@ export default class CreateWordItem extends React.Component {
                                 this.setState({
                                     isChecked:!this.state.isChecked
                                 })
+                                this.props.checkedWord()
                             }}
                             isChecked={this.state.isChecked}
                         />
@@ -84,13 +90,6 @@ export default class CreateWordItem extends React.Component {
                                             </TextInput>
                                         </View>
                                     </View>
-                                    <View style={{width: normalize(30), alignItems: 'flex-end'}}>
-                                        <TouchableHighlight style={[styles.swapIconContainer]}
-                                        onPress={ () => {this.props.changeSort()} } underlayColor="white" activeOpacity={0.8}>
-                                            <Icon name='arrow-swap' type='fontisto' color='rgba(0,0,0,0.5)' size={14}
-                                                    style={styles.swapIcon} />
-                                        </TouchableHighlight>
-                                    </View>
                                 </View>
                             </>
                             :
@@ -134,7 +133,7 @@ export default class CreateWordItem extends React.Component {
                                         <View style={{flexDirection: 'row', alignItems: 'center'}}>
                                             <TextInput
                                                 style={[styles.wordInput, fonts.weightBold, fonts.colorBlack, 
-                                                { width: '90%' }]}
+                                                { width: '100%' }]}
                                                 onChangeText={(text) => {
                                                     this.setState({ word: text });
                                                     this.props.changeWord(text)
@@ -146,13 +145,6 @@ export default class CreateWordItem extends React.Component {
                                             >
                                             </TextInput>
                                         </View>
-                                    </View>
-                                    <View style={{width: normalize(30), alignItems: 'flex-end'}}>
-                                        <TouchableHighlight style={[styles.swapIconContainer]}
-                                        onPress={ () => {this.props.changeSort()} } underlayColor="white" activeOpacity={0.8}>
-                                            <Icon name='arrow-swap' type='fontisto' color='rgba(0,0,0,0.5)' size={14}
-                                                    style={styles.swapIcon} />
-                                        </TouchableHighlight>
                                     </View>
                                 </View>
                             </>
