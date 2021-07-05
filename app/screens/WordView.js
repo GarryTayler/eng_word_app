@@ -12,6 +12,7 @@ import { Icon } from 'react-native-elements';
 import { showToast } from './../components/shared/global';
 import Spinner_bar from 'react-native-loading-spinner-overlay';
 import { getRecentStudy } from './../utils/RecentStudy';
+import { _e } from '../utils/lang';
 let pageTitle = '단어 보기';
 
 export default class WordView extends React.Component {
@@ -25,7 +26,10 @@ export default class WordView extends React.Component {
             curPage: 0,
             hideMeaning: false,
             hideExample: false,
-            selectedSubject: null
+            selectedSubject: null,
+            visible: false,
+            visibleText: '',
+            visibleRegister: true
         }; 
     }
     async componentDidMount() {
@@ -53,14 +57,24 @@ export default class WordView extends React.Component {
     prevWord() {
         if(this.state.curPage > 0)
             this.setState({curPage: this.state.curPage - 1});
-        else
-            showToast("first_page_error", "error");
+        else {
+            this.setState({visible: true})
+            this.setState({visibleText: _e.first_page_error})
+            setTimeout(() => {
+                this.setState({visible: false})
+            }, 4000);
+        }
     }
     nextWord() {
         if(this.state.curPage < this.state.arrData.length - 1)
             this.setState({curPage: this.state.curPage + 1});
-        else
-            showToast("last_page_error", "error");
+        else {
+            this.setState({visible: true})
+            this.setState({visibleText: _e.last_page_error})
+            setTimeout(() => {
+                this.setState({visible: false})
+            }, 4000);
+        }
     }
     moveFirstPage() {
         this.setState({curPage: 0});
@@ -94,8 +108,8 @@ export default class WordView extends React.Component {
                     myword={this.props.params.before=='myword' ? true : false}
                     currentNo={this.state.curPage + 1} 
                     currentId={this.state.arrData.length > 0 ? this.state.arrData[this.state.curPage].id : 0}
-                    totalCount={this.props.arrData ? this.props.arrData.length : 0} title={this.state.selectedSubject ? this.state.selectedSubject.selectedName : ''}
-                    currentItem={this.props.arrData && this.props.arrData.length > 0 ? this.props.arrData[this.state.curPage] : null}
+                    totalCount={this.state.arrData ? this.state.arrData.length : 0} title={this.state.selectedSubject ? this.state.selectedSubject.selectedName : ''}
+                    currentItem={this.state.arrData && this.state.arrData.length > 0 ? this.state.arrData[this.state.curPage] : null}
                     ellipsis={true}
 
                     star={
@@ -107,6 +121,7 @@ export default class WordView extends React.Component {
                         this.favoriteChange(e);
                     }}
                 />
+                
                 <Content style={styles.container}>
                 {
                     this.state.arrData != null && this.state.arrData.length > 0
@@ -129,7 +144,7 @@ export default class WordView extends React.Component {
                             <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly' }}>
                                 <Button style={styles.footerButton}
                                 onPress={() => this.setState({hideMeaning: !this.state.hideMeaning})}>
-                                    <Text style={[fonts.size15, fonts.familyBold]}>
+                                    <Text style={[fonts.size15, fonts.familyRegular]}>
                                         {
                                             this.state.hideMeaning ? '단어 뜻 보기' : '단어 뜻 가리기'
                                         }
@@ -138,7 +153,7 @@ export default class WordView extends React.Component {
                                 </Button>
                                 <Button style={styles.footerButton}
                                 onPress={() => this.setState({hideExample: !this.state.hideExample})}>
-                                    <Text style={[fonts.size15, fonts.familyBold]}>
+                                    <Text style={[fonts.size15, fonts.familyRegular]}>
                                         {
                                             this.state.hideExample ? '예문 해석 보기 ' : '예문 해석 가리기 '
                                         }
@@ -150,14 +165,35 @@ export default class WordView extends React.Component {
                                 <TouchableOpacity activeOpacity={0.6}
                                 style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}
                                 onPress={ () => this.prevWord()}>
-                                        <Icon name='arrow-back' type='ion-icon' color='#000' size={18} />
-                                        <Text style={[fonts.size16, fonts.familyRegular]}>이전단어</Text>
+                                    <Icon name='arrow-back' type='ion-icon' color='#000' size={18} />
+                                    {
+                                        this.state.arrData && this.state.curPage > 0 ? 
+                                        <Text style={[fonts.size16, fonts.familyRegular, {paddingLeft: 5}]}>{this.state.arrData[this.state.curPage-1]['word']}</Text>    
+                                        :
+                                        <Text style={[fonts.size16, {paddingLeft: 5, opacity: 0}]}>{this.state.arrData[1]['word']}</Text>
+                                    }
                                 </TouchableOpacity>
+                                {
+                                    this.state.visible ?
+                                    <View style={{backgroundColor: 'rgba(0,0,0,0.6)', paddingHorizontal: 5, paddingVertical: 3, borderRadius: 8}}>
+                                        <Text style={[fonts.size14, fonts.colorWhite, fonts.familyRegular]}>
+                                            {this.state.visibleText}
+                                        </Text>
+                                    </View>
+                                    :
+                                    null
+                                }
                                 <TouchableOpacity activeOpacity={0.6}
                                 style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}
                                 onPress={ () => this.nextWord()}>
-                                        <Text style={[fonts.size16, fonts.familyRegular]}>다음단어</Text>
-                                        <Icon name='arrow-forward' type='ion-icon' color='#000' size={18} />
+                                    {
+                                        this.state.arrData && this.state.curPage < this.state.arrData.length - 1 ?
+                                        <Text style={[fonts.size16, fonts.familyRegular, {paddingRight: 5}]}>{this.state.arrData[this.state.curPage+1]['word']}</Text>
+                                        :
+                                        <Text style={[fonts.size16, {paddingRight: 5, opacity: 0}]}>{this.state.arrData[this.state.curPage-1]['word']}</Text>
+                                    }
+                                    
+                                    <Icon name='arrow-forward' type='ion-icon' color='#000' size={18} />    
                                 </TouchableOpacity>
                             </View>
                             <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between',
@@ -202,7 +238,7 @@ const styles = StyleSheet.create({
     },
     navigatorButton: {
         width: normalize(80),
-        height: normalize(26),
+        height: normalize(28),
         backgroundColor: '#E4E4E4',
         borderColor: '#000',
         borderWidth: 1,
