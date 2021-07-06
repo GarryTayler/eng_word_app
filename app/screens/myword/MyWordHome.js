@@ -38,7 +38,7 @@ export default class MyWordHome extends React.Component {
                                     imageStyle={styles.itemImg}>
                                     <View style={{flex: 1, position: 'relative'}}>
                                         <View style={styles.labelContainer}>
-                                            <Text style={[fonts.size16, fonts.familyBold, fonts.colorWhite]}>단어보기</Text>
+                                            <Text style={[fonts.size13, fonts.familyBold, fonts.colorWhite]}>단어보기</Text>
                                         </View>
                                     </View>
                                 </ImageBackground>
@@ -50,7 +50,7 @@ export default class MyWordHome extends React.Component {
                                     imageStyle={styles.itemImg}>
                                     <View style={{flex: 1, position: 'relative'}}>
                                         <View style={styles.labelContainer}>
-                                            <Text style={[fonts.size16, fonts.familyBold, fonts.colorWhite]}>단어목록보기</Text>
+                                            <Text style={[fonts.size13, fonts.familyBold, fonts.colorWhite]}>단어목록보기</Text>
                                         </View>
                                     </View>
                                 </ImageBackground>
@@ -62,7 +62,7 @@ export default class MyWordHome extends React.Component {
                                     imageStyle={styles.itemImg}>
                                     <View style={{flex: 1, position: 'relative'}}>
                                         <View style={styles.labelContainer}>
-                                            <Text style={[fonts.size16, fonts.familyBold, fonts.colorWhite]}>단어학습</Text>
+                                            <Text style={[fonts.size13, fonts.familyBold, fonts.colorWhite]}>단어학습</Text>
                                         </View>
                                     </View>
                                 </ImageBackground>
