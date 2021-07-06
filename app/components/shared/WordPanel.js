@@ -7,7 +7,25 @@ import WordSpeech from './../shared/WordSpeech';
 export default class WordPanel extends PureComponent {
     constructor(props){
         super(props);
-    }    
+    }
+    componentDidMount() {
+        console.log(this.props.params)
+    }
+    renderText(type) {
+        if(this.props.params && this.props.params.ex && this.props.params.ex.length > 0) {
+            return this.props.params.ex.map((item, index) => {
+                const text = type == 'en' ? item.ex_word.split(' ') : item.ex_meaning.split(' ');
+                const word = this.props.params.word
+                return <Text style={[styles.exampleSection, fonts.familyRegular]}>{text.map(text => {
+                    if (text == word) {
+                      return <Text style={[styles.exampleSection, fonts.familyBold, {color: '#EB5757'}]}>{text} </Text>;
+                    }
+                    return `${text} `;
+                })}</Text>;
+            })
+            
+        }
+    }
     render()    {
         return (
             <View style={[styles.child, { backgroundColor: '#E4E4E4' }]}>
@@ -44,10 +62,9 @@ export default class WordPanel extends PureComponent {
                             }
                         </View>
                         <View style={{paddingBottom: normalize(8)}}>
-                            <Text style={[styles.exampleSection, fonts.familyRegular]}>
-                                { this.props.params.ex_word }
-                            </Text>
-
+                            {
+                                this.renderText('en')
+                            }
                             {
                                 this.props.hideExample ? 
                                 <Button style={[styles.altButton, {marginTop: normalize(8)}]}
@@ -56,7 +73,7 @@ export default class WordPanel extends PureComponent {
                                 </Button>
                                 :
                                 <Text style={[styles.exampleSection, fonts.familyRegular]}>
-                                    { this.props.params.ex_meaning }
+                                    { this.renderText('ko') }
                                 </Text>
                             }
                         </View>

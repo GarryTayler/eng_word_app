@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, ScrollView, ImageBackground, TouchableHighlight} from 'react-native';
+import { StyleSheet, View, Text, ScrollView, ImageBackground, TouchableHighlight, PixelRatio, Platform} from 'react-native';
 import { Container, Content } from 'native-base';
 import Images from './../../assets/Images';
 import { BUTTON_UNDERLAY_COLOR } from './../../utils/constants';
@@ -27,7 +27,14 @@ export default class Home extends React.Component {
             Actions.push('home', {parent_id: id, selectedName: name});
         }
         else {
-            let temp = { category_id: id, title: name, selectedName : this.state.selectedName + " " + name }
+            let unit = '';
+            if(name) {
+                let splitTemp = name.split("과");
+                if(splitTemp[0]) {
+                    unit = splitTemp[0]+"과";
+                }
+            }
+            let temp = { category_id: id, title: name, selectedName : this.state.selectedName + " " + unit }
             await addToRecentStudy(temp);
             Actions.push('detail', {params: {category_id: id, title: name}});
         }
@@ -123,7 +130,7 @@ export default class Home extends React.Component {
         return (
             <Container>
                 <Content contentContainerStyle={styles.container}>
-                    <ImageBackground source={Images.backImg} style={styles.image} resizeMode='cover'>
+                    <ImageBackground source={Images.backImg} style={styles.image} resizeMode="stretch">
                     {   
                         this.props.parent_id ? this.renderOtherStep() : this.renderFirstStep()
                     }

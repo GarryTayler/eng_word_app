@@ -20,9 +20,9 @@ export default function TabBarIcon(props) {
             >
               <View style={styles.tabItemContainer}>
                   <View style={styles.labelContainer}>
-                    <Text style={[props.focused ? fonts.colorRed : fonts.colorWhite,
+                    <Text style={[props.focused ? fonts.colorWhite : fonts.colorWhite,
                                   fonts.size12,
-                                  fonts.familyBold]}>{props.title}</Text>
+                                  fonts.familyBold, {textAlign: 'center'}]}>{props.title}</Text>
                   </View>
               </View>
             </ImageBackground>
