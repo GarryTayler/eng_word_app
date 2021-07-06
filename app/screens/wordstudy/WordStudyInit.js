@@ -25,6 +25,7 @@ export default class WordStudyInit extends React.Component {
             startNumber: '0',
             endNumber: '0',
             arrData: [],
+            ready: false
         }
     }
     componentDidMount() {
@@ -148,6 +149,9 @@ export default class WordStudyInit extends React.Component {
         if (text == '' || /^\d+$/.test(text)) {
             this.setState({ endNumber: text });
         }
+    }
+    ready() {
+        this.setState({ready: true})
     }
     render()     {
         return (
@@ -291,10 +295,19 @@ export default class WordStudyInit extends React.Component {
                 </Content>     
                 <View style={{backgroundColor: '#F4F4F4', paddingVertical: normalize(20)}}>
                     <View style={{ alignSelf: 'center' }}>
-                        <Button style={styles.startButton}
+                        {
+                            this.state.ready ?
+                            <Button style={styles.startButton}
                         onPress={ () => { this.startStudy() } }>
-                            <Text style={[fonts.size22, fonts.familyBold]}>학습 시작 </Text>
-                        </Button>                     
+                                <Text style={[fonts.size22, fonts.familyBold]}>학습 시작 </Text>
+                            </Button>
+                            :
+                            <Button style={styles.startButton}
+                        onPress={ () => { this.ready() } }>
+                                <Text style={[fonts.size22, fonts.familyBold]}>완료</Text>
+                            </Button>
+                        }
+                        
                     </View>          
                 </View>
             </Container>           

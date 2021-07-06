@@ -21,7 +21,7 @@ export default class ChoiceItem extends React.Component {
                     </View>
                 </View>
                 <View style={{flex: 10}}>
-                    <Text style={[fonts.size16, fonts.familyBold, (this.props.correct || this.props.wrong) ? fonts.colorWhite : fonts.colorBlack]} numberOfLines={1}>
+                    <Text style={[fonts.size14, fonts.familyBold, (this.props.correct || this.props.wrong) ? fonts.colorWhite : fonts.colorBlack, {lineHeight: 18}]}>
                         {this.props.choice}
                     </Text>
                 </View>

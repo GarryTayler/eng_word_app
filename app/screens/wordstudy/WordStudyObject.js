@@ -108,11 +108,12 @@ export default class WordStudyObject extends React.Component {
                             </Text> */
                         }
                         
-                        <TextTicker disabled={this.state.marqueeWordDisable}
+                        {/*<TextTicker disabled={this.state.marqueeWordDisable}
                                 isInteraction={false} duration={5000} loop
                                 repeatSpacer={50} marqueeDelay={1000} style={[fonts.size38, fonts.familyBold]}>
                             { this.props.params[this.state.cur_problem_no - 1]['problem'] }
-                        </TextTicker>
+                            </TextTicker>*/}
+                            <Text style={[fonts.size38, fonts.familyBold, {lineHeight: 43}]}>{ this.props.params[this.state.cur_problem_no - 1]['problem'] }</Text>
 
                         {
                             this.state.cur_problem_status == 'ready' ? null
@@ -122,7 +123,7 @@ export default class WordStudyObject extends React.Component {
                                     <Text style={[fonts.size14, fonts.colorWhite, fonts.familyBold]}>정답</Text>
                                 </View>
                                 <View style={{marginLeft: normalize(8)}}>
-                                    <Text numberOfLines={1} style={[fonts.familyBold, fonts.size18, {color: (this.state.cur_problem_status == 'correct' ? '#92BEF8' : '#F0B5B5')}]}>{ this.props.params[this.state.cur_problem_no - 1]['correct_answer'] }</Text>
+                                    <Text style={[fonts.familyBold, fonts.size18, {color: (this.state.cur_problem_status == 'correct' ? '#92BEF8' : '#F0B5B5')}]}>{ this.props.params[this.state.cur_problem_no - 1]['correct_answer'] }</Text>
                                 </View>
                             </View>
                         }

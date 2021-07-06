@@ -63,7 +63,7 @@ export default class ViewHeader extends React.Component {
         return (
             <>
             <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center', paddingHorizontal: normalize(8), 
-            paddingVertical: normalize(4), height: normalize(32),
+            paddingVertical: normalize(4), 
             backgroundColor: this.props.sentence ? 'white' : '#F4F4F4'}}>
                 <View style={{display: 'flex', flexDirection: 'row', flex: 1, alignItems: 'center'}}>
                     {

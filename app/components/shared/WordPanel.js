@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { StyleSheet, View, Text , Dimensions} from 'react-native';
+import { StyleSheet, View, Text , Dimensions, ScrollView} from 'react-native';
 import { normalize, fonts,getSafeAreaViewHeight } from './../../assets/styles/index';
 import { Button } from 'native-base';
 import TextTicker from 'react-native-text-ticker';
@@ -7,28 +7,50 @@ import WordSpeech from './../shared/WordSpeech';
 export default class WordPanel extends PureComponent {
     constructor(props){
         super(props);
+        this.state = {
+            hideExample: this.props.hideExample
+        }
     }
     componentDidMount() {
-        console.log(this.props.params)
+        this.setState({hideExample: this.props.hideExample})
+    }
+    UNSAFE_componentWillReceiveProps(props) {
+        this.setState({hideExample: props.hideExample})
     }
     renderText(type) {
         if(this.props.params && this.props.params.ex && this.props.params.ex.length > 0) {
             return this.props.params.ex.map((item, index) => {
-                const text = type == 'en' ? item.ex_word.split(' ') : item.ex_meaning.split(' ');
+                const textWord = item.ex_word.split(' ');
+                const textMean = item.ex_meaning.split(' ');
                 const word = this.props.params.word
-                return <Text style={[styles.exampleSection, fonts.familyRegular]}>{text.map(text => {
-                    if (text == word) {
-                      return <Text style={[styles.exampleSection, fonts.familyBold, {color: '#EB5757'}]}>{text} </Text>;
+                return <View style={{paddingTop: 10}}>
+                        <Text style={[styles.exampleSection, fonts.familyRegular]}>{textWord.map(text => {
+                        if (text == word) {
+                        return <Text style={[styles.exampleSection, fonts.familyBold, {color: '#EB5757'}]}>{text} </Text>;
+                        }
+                        return `${text} `;
+                    })}</Text>
+                    {
+                        this.state.hideExample ?
+                        null
+                        :
+                        <Text style={[styles.exampleSection, fonts.familyRegular]}>{textMean.map(text => {
+                            if (text == word) {
+                            return <Text style={[styles.exampleSection, fonts.familyBold, {color: '#EB5757'}]}>{text} </Text>;
+                            }
+                            return `${text} `;
+                        })}</Text>
+                        
                     }
-                    return `${text} `;
-                })}</Text>;
+                    
+                </View>;
             })
             
         }
     }
     render()    {
         return (
-            <View style={[styles.child, { backgroundColor: '#E4E4E4' }]}>
+            <View style={[styles.child, { backgroundColor: '#E4E4E4', flex: 1}]}>
                 <View style={styles.upWordContainer}>
                     <View style={{display: 'flex', alignItems: 'center', justifyContent: 'center', flexGrow: 1}}>
                         <View style={{marginHorizontal: normalize(10)}}>
@@ -45,40 +67,39 @@ export default class WordPanel extends PureComponent {
                         </View>
                     </View>
                 </View>
-
-                <View style={styles.downMeaningContainer}>
-                    <View style={{paddingHorizontal: normalize(16)}}>
-                        <View style={{paddingTop: normalize(0), paddingBottom: normalize(0), 
-                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        height: normalize(56)}}>
-                            {
-                                this.props.hideMeaning ? 
-                                <Button style={styles.altButton}
-                                onPress={() => this.props.changeHideMeaning(!this.props.hideMeaning)}>
-                                    <Text style={[fonts.size15, fonts.familyRegular]}>터치하여 단어 뜻 보기</Text>
-                                </Button>
-                                :
-                                <Text style={[fonts.size18, fonts.familyBold]}>{this.props.params.meaning}</Text>
-                            }
+                <ScrollView style={{flex: 1}}>
+                    <View style={styles.downMeaningContainer}>
+                        <View style={{paddingHorizontal: normalize(16)}}>
+                            <View style={{paddingTop: normalize(0), paddingBottom: normalize(0), 
+                            display: 'flex', alignItems: 'center', justifyContent: 'center',
+                            paddingTop: 10}}>
+                                {
+                                    this.props.hideMeaning ? 
+                                    <Button style={styles.altButton}
+                                    onPress={() => this.props.changeHideMeaning(!this.props.hideMeaning)}>
+                                        <Text style={[fonts.size15, fonts.familyRegular]}>터치하여 단어 뜻 보기</Text>
+                                    </Button>
+                                    :
+                                    <Text style={[fonts.size18, fonts.familyBold, {lineHeight: 24}]}>{this.props.params.meaning}</Text>
+                                }
+                            </View>
+                            <View style={{paddingBottom: normalize(8)}}>
+                                {
+                                    this.renderText('en')
+                                }
+                                {
+                                    this.state.hideExample ? 
+                                    <Button style={[styles.altButton, {marginTop: normalize(8)}]}
+                                    onPress={() => this.props.changeHideExample(!this.props.hideExample)}>
+                                        <Text style={[fonts.size15, fonts.familyRegular]}>터치하여 예문 해석 보기</Text>
+                                    </Button>
+                                    :
+                                    null
+                                }
+                            </View>
                         </View>
-                        <View style={{paddingBottom: normalize(8)}}>
-                            {
-                                this.renderText('en')
-                            }
-                            {
-                                this.props.hideExample ? 
-                                <Button style={[styles.altButton, {marginTop: normalize(8)}]}
-                                onPress={() => this.props.changeHideExample(!this.props.hideExample)}>
-                                    <Text style={[fonts.size15, fonts.familyRegular]}>터치하여 예문 해석 보기</Text>
-                                </Button>
-                                :
-                                <Text style={[styles.exampleSection, fonts.familyRegular]}>
-                                    { this.renderText('ko') }
-                                </Text>
-                            }
-                        </View>
-                    </View>
-                </View>         
+                    </View>    
+                </ScrollView>     
             </View>
         )
     }
@@ -92,6 +113,7 @@ const styles = StyleSheet.create({
         height: Math.floor((getSafeAreaViewHeight() - 32)/21 * 8)
     },
     downMeaningContainer: {
+        flex: 1,
         backgroundColor: '#E4E4E4'
     },    
     exampleSection: {

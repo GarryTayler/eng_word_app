@@ -27,14 +27,7 @@ export default class Home extends React.Component {
             Actions.push('home', {parent_id: id, selectedName: name});
         }
         else {
-            let unit = '';
-            if(name) {
-                let splitTemp = name.split("과");
-                if(splitTemp[0]) {
-                    unit = splitTemp[0]+"과";
-                }
-            }
-            let temp = { category_id: id, title: name, selectedName : this.state.selectedName + " " + unit }
+            let temp = { category_id: id, title: name, selectedName : this.state.selectedName + " " + name }
             await addToRecentStudy(temp);
             Actions.push('detail', {params: {category_id: id, title: name}});
         }
