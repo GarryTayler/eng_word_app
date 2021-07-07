@@ -102,7 +102,7 @@ export default class WordView extends React.Component {
     }
     render() {
         return(
-            <Container>
+            <Container style={{flex: 1}}>
                 <UserHeader title={pageTitle} />
                 <ViewHeader 
                     myword={this.props.params.before=='myword' ? true : false}
@@ -122,7 +122,7 @@ export default class WordView extends React.Component {
                     }}
                 />
                 
-                <Content style={styles.container}>
+                <View style={[styles.container]}>
                 {
                     this.state.arrData != null && this.state.arrData.length > 0
                     ?
@@ -136,15 +136,15 @@ export default class WordView extends React.Component {
                     : null
                 }
                 <Spinner_bar color={'#68ADED'} visible={!this.state.loaded} textContent={""}  overlayColor={"rgba(0, 0, 0, 0.5)"}  />
-                </Content>
+                </View>
 
                 {
                     this.state.arrData != null && this.state.arrData.length > 0 ?
                         <View style={{backgroundColor: '#E4E4E4', paddingVertical: normalize(12)}}>
-                            <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly' }}>
+                            <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: normalize(16) }}>
                                 <Button style={styles.footerButton}
                                 onPress={() => this.setState({hideMeaning: !this.state.hideMeaning})}>
-                                    <Text style={[fonts.size15, fonts.familyRegular]}>
+                                    <Text style={[fonts.size16, fonts.familyRegular]}>
                                         {
                                             this.state.hideMeaning ? '단어 뜻 보기' : '단어 뜻 가리기'
                                         }
@@ -153,7 +153,7 @@ export default class WordView extends React.Component {
                                 </Button>
                                 <Button style={styles.footerButton}
                                 onPress={() => this.setState({hideExample: !this.state.hideExample})}>
-                                    <Text style={[fonts.size15, fonts.familyRegular]}>
+                                    <Text style={[fonts.size16, fonts.familyRegular]}>
                                         {
                                             this.state.hideExample ? '예문 해석 보기 ' : '예문 해석 가리기 '
                                         }
@@ -170,7 +170,7 @@ export default class WordView extends React.Component {
                                         this.state.arrData && this.state.curPage > 0 ? 
                                         <Text style={[fonts.size16, fonts.familyRegular, {paddingLeft: 5}]}>{this.state.arrData[this.state.curPage-1]['word']}</Text>    
                                         :
-                                        <Text style={[fonts.size16, {paddingLeft: 5, opacity: 0}]}>{this.state.arrData[1]['word']}</Text>
+                                        <Text style={[fonts.size16, {paddingLeft: 5, opacity: 0}]}>{this.state.arrData.length > 1 ? this.state.arrData[1]['word'] : null}</Text>
                                     }
                                 </TouchableOpacity>
                                 {
@@ -190,12 +190,13 @@ export default class WordView extends React.Component {
                                         this.state.arrData && this.state.curPage < this.state.arrData.length - 1 ?
                                         <Text style={[fonts.size16, fonts.familyRegular, {paddingRight: 5}]}>{this.state.arrData[this.state.curPage+1]['word']}</Text>
                                         :
-                                        <Text style={[fonts.size16, {paddingRight: 5, opacity: 0}]}>{this.state.arrData[this.state.curPage-1]['word']}</Text>
+                                        <Text style={[fonts.size16, {paddingRight: 5, opacity: 0}]}>{this.state.curPage > 0 ? this.state.arrData[this.state.curPage-1]['word'] : null}</Text>
                                     }
                                     
                                     <Icon name='arrow-forward' type='ion-icon' color='#000' size={18} />    
                                 </TouchableOpacity>
                             </View>
+                            {/*
                             <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between',
                             paddingHorizontal: normalize(8)}}>
                                 <Button style={styles.navigatorButton}
@@ -210,7 +211,7 @@ export default class WordView extends React.Component {
                                         맨끝으로
                                     </Text>
                                 </Button>
-                            </View>
+                            </View>*/}
                         </View>
                         : null
                 }
@@ -237,8 +238,8 @@ const styles = StyleSheet.create({
         borderWidth: 1,
     },
     navigatorButton: {
-        width: normalize(80),
-        height: normalize(28),
+        width: normalize(84),
+        height: normalize(30),
         backgroundColor: '#E4E4E4',
         borderColor: '#000',
         borderWidth: 1,

@@ -61,6 +61,17 @@ export default class SentenceView extends React.Component {
     studyAllSetence() {
         Actions.push("sentence_study", {sentenceList: this.state.arrData})
     }
+    hideWord() {
+        this.setState({wordShow: !this.state.wordShow});
+    }
+
+    sentenceHide() {
+        this.setState({sentenceShow: !this.state.sentenceShow, wordShow: false});
+    }
+
+    hideMeaning() {
+        this.setState({meaningShow: !this.state.meaningShow, wordShow: false});
+    }
 
     render() {
         return (
@@ -115,7 +126,7 @@ export default class SentenceView extends React.Component {
                         </Text>
                     </Button>
                     <Button style={styles.footerButton}
-                    onPress={() => {this.hideSentence()}}>
+                    onPress={() => {this.sentenceHide()}}>
                         <Text style={[fonts.size14, fonts.colorWhite, fonts.familyBold]}>
                             문장가리기
                         </Text>
