@@ -1,4 +1,5 @@
-export const BACKEND_URL = 'http://45.76.180.140:3001/';
+// export const BACKEND_URL = 'http://45.76.180.140:3001/';
+export const BACKEND_URL = 'http://192.168.8.113:3001/';
 
 export const BUTTON_UNDERLAY_COLOR = [
     [
