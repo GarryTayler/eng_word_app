@@ -2,6 +2,7 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import {Dimensions, Platform, PixelRatio, StatusBar} from 'react-native';
 import { getStatusBarHeight } from "react-native-status-bar-height";
 import { isIphoneX, getBottomSpace } from "react-native-iphone-x-helper";
+/*
 const {
     width: SCREEN_WIDTH,
     height: SCREEN_HEIGHT
@@ -13,6 +14,43 @@ if (scale >= 2) {
 }
 
 export function normalize(size) {
+    if (Platform.OS === 'ios') {
+        return Math.round(PixelRatio.roundToNearestPixel(size_scale * size)) + 2;
+    } else {
+        return Math.round(PixelRatio.roundToNearestPixel(size))
+    }
+} */
+
+const {
+    width: SCREEN_WIDTH,
+    height: SCREEN_HEIGHT
+} = Dimensions.get('window');
+
+
+const scale =  SCREEN_WIDTH / 320;
+let size_scale = scale;
+if (scale >= 2) {
+    size_scale = scale * 0.566;
+}
+
+export function getScreenWidth() {
+    return SCREEN_WIDTH;
+}
+
+export function getScreenHeight() {
+    return SCREEN_HEIGHT;
+}
+
+export function normalize(size) {
+    const newSize = size * size_scale;
+    if (Platform.OS === 'ios') {
+        return Math.round(PixelRatio.roundToNearestPixel(newSize));
+    } else {
+        return Math.round(PixelRatio.roundToNearestPixel(newSize)) - 2;
+    }
+}
+
+export function normalize1(size) {
     if (Platform.OS === 'ios') {
         return Math.round(PixelRatio.roundToNearestPixel(size_scale * size)) + 2;
     } else {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Content, Button } from 'native-base';
-import { StyleSheet, View, Text, TextInput, Keyboard } from 'react-native';
-import { fonts, normalize } from './../../assets/styles';
+import { StyleSheet, View, Text, TextInput, Keyboard, ScrollView } from 'react-native';
+import { fonts, normalize, getScreenHeight, getSafeAreaViewHeight } from './../../assets/styles';
 import { Icon } from 'react-native-elements';
 import { CheckBox } from 'react-native-elements'
 import UserHeader from './../../components/shared/UserHeader';
@@ -24,8 +24,7 @@ export default class WordStudyInit extends React.Component {
             progressOrder: 'sequence',
             startNumber: '0',
             endNumber: '0',
-            arrData: [],
-            ready: false
+            arrData: []
         }
     }
     componentDidMount() {
@@ -150,166 +149,161 @@ export default class WordStudyInit extends React.Component {
             this.setState({ endNumber: text });
         }
     }
-    ready() {
-        this.setState({ready: true})
-    }
     render()     {
         return (
-            <Container>
+            <Container styl={{backgroundColor: 'red'}}>
                 <UserHeader title={pageTitle} />
-                <Content style={styles.container}>
-                    <View style={{marginTop: normalize(25)}}>
-                        <Text style={[fonts.size16, fonts.familyRegular, {textAlign: 'center'}]}>단어 학습 모드를 설정해주세요.</Text>
-                    </View>
-                    <View style={{marginTop: normalize(30)}}>
-                        <View style={styles.methodItem}>
-                            <View style={{flex: 2}}>
-                                <Icon name="pencil" type='evilicon' />
+                <View style={styles.container}>
+                    <ScrollView style={styles.scrollView}>
+                        <View style={{paddingHorizontal: normalize(24)}}>
+                            <View style={{marginTop: normalize(25)}}>
+                                <Text style={[fonts.size16, fonts.familyRegular, {textAlign: 'center'}]}>단어 학습 모드를 설정해주세요.</Text>
                             </View>
-                            <View style={{flex: 10}}>
-                                <Text style={[fonts.size16, fonts.familyBold]}>단어 문제 방식</Text>
+                            <View style={{marginTop: normalize(30)}}>
+                                <View style={styles.methodItem}>
+                                    <View style={{flex: 2}}>
+                                        <Icon name="pencil" type='evilicon' />
+                                    </View>
+                                    <View style={{flex: 10}}>
+                                        <Text style={[fonts.size16, fonts.familyBold]}>단어 문제 방식</Text>
+                                    </View>
+                                </View>
+                                <View  style={[{ display:'flex', flexDirection:'row', paddingTop: normalize(6)}]}>
+                                    <CheckBox
+                                        title='객관식'
+                                        checked={this.state.problemMethod == 'obj'}
+                                        containerStyle={{backgroundColor: '#F4F4F4', borderColor: '#F4F4F4', flex: 1, paddingVertical: 0}}
+                                        textStyle={[fonts.size16, fonts.familyRegular, fonts.weightNormal, fonts.colorBlack]}
+                                        checkedColor='#6FCF97'
+                                        onPress={() => { this.setState({problemMethod: 'obj'}) }}
+                                        />
+                                    <CheckBox
+                                        title='주관식'
+                                        checked={this.state.problemMethod == 'sub'}
+                                        containerStyle={{backgroundColor: '#F4F4F4', borderColor: '#F4F4F4', flex: 1, paddingVertical: 0}}
+                                        textStyle={[fonts.size16, fonts.familyRegular, fonts.weightNormal, fonts.colorBlack]}
+                                        checkedColor='#6FCF97'
+                                        onPress={() => { this.setState({problemMethod: 'sub'}) }}
+                                        />
+                                </View>
                             </View>
-                        </View>
-                        <View  style={[{ display:'flex', flexDirection:'row', paddingTop: normalize(6)}]}>
-                            <CheckBox
-                                title='객관식'
-                                checked={this.state.problemMethod == 'obj'}
-                                containerStyle={{backgroundColor: '#F4F4F4', borderColor: '#F4F4F4', flex: 1, paddingVertical: 0}}
-                                textStyle={[fonts.size16, fonts.familyRegular, fonts.weightNormal, fonts.colorBlack]}
-                                checkedColor='#6FCF97'
-                                onPress={() => { this.setState({problemMethod: 'obj'}) }}
-                                />
-                            <CheckBox
-                                title='주관식'
-                                checked={this.state.problemMethod == 'sub'}
-                                containerStyle={{backgroundColor: '#F4F4F4', borderColor: '#F4F4F4', flex: 1, paddingVertical: 0}}
-                                textStyle={[fonts.size16, fonts.familyRegular, fonts.weightNormal, fonts.colorBlack]}
-                                checkedColor='#6FCF97'
-                                onPress={() => { this.setState({problemMethod: 'sub'}) }}
-                                />
-                        </View>
-                    </View>
-                    <View style={{marginTop: normalize(20)}}>
-                        <View style={styles.methodItem}>
-                            <View style={{flex: 2}}>
-                                <Icon name="eye" type='evilicon' />
+                            <View style={{marginTop: normalize(20)}}>
+                                <View style={styles.methodItem}>
+                                    <View style={{flex: 2}}>
+                                        <Icon name="eye" type='evilicon' />
+                                    </View>
+                                    <View style={{flex: 10}}>
+                                        <Text style={[fonts.size16, fonts.familyBold]}>단어 학습 방식</Text>
+                                    </View>
+                                </View>
+                                <View  style={[{ display:'flex', paddingTop: normalize(6)}]}>
+                                    <CheckBox
+                                        title='영어 문제를 한글로 풀기'
+                                        checked={this.state.studyMethod == 'entoko'}
+                                        containerStyle={{backgroundColor: '#F4F4F4', borderColor: '#F4F4F4', paddingVertical: 0}}
+                                        textStyle={[fonts.size16, fonts.weightNormal, fonts.familyRegular, fonts.colorBlack]}
+                                        checkedColor='#6FCF97'
+                                        onPress={() => { this.setState({studyMethod: 'entoko'}) }}
+                                        />
+                                    <CheckBox
+                                        title='한글 문제를 영어로 풀기'
+                                        checked={this.state.studyMethod == 'kotoen'}
+                                        containerStyle={{backgroundColor: '#F4F4F4', borderColor: '#F4F4F4', paddingVertical: 0}}
+                                        textStyle={[fonts.size16, fonts.weightNormal, fonts.familyRegular, fonts.colorBlack]}
+                                        checkedColor='#6FCF97'
+                                        onPress={() => { this.setState({studyMethod: 'kotoen'}) }}
+                                        />
+                                </View>
                             </View>
-                            <View style={{flex: 10}}>
-                                <Text style={[fonts.size16, fonts.familyBold]}>단어 학습 방식</Text>
-                            </View>
-                        </View>
-                        <View  style={[{ display:'flex', paddingTop: normalize(6)}]}>
-                            <CheckBox
-                                title='영어 문제를 한글로 풀기'
-                                checked={this.state.studyMethod == 'entoko'}
-                                containerStyle={{backgroundColor: '#F4F4F4', borderColor: '#F4F4F4', paddingVertical: 0}}
-                                textStyle={[fonts.size16, fonts.weightNormal, fonts.familyRegular, fonts.colorBlack]}
-                                checkedColor='#6FCF97'
-                                onPress={() => { this.setState({studyMethod: 'entoko'}) }}
-                                />
-                            <CheckBox
-                                title='한글 문제를 영어로 풀기'
-                                checked={this.state.studyMethod == 'kotoen'}
-                                containerStyle={{backgroundColor: '#F4F4F4', borderColor: '#F4F4F4', paddingVertical: 0}}
-                                textStyle={[fonts.size16, fonts.weightNormal, fonts.familyRegular, fonts.colorBlack]}
-                                checkedColor='#6FCF97'
-                                onPress={() => { this.setState({studyMethod: 'kotoen'}) }}
-                                />
-                        </View>
-                    </View>
 
-                    <View style={{marginTop: normalize(20)}}>
-                        <View style={styles.methodItem}>
-                            <View style={{flex: 2}}>
-                                <Icon name="refresh" type='evilicon' />
+                            <View style={{marginTop: normalize(20)}}>
+                                <View style={styles.methodItem}>
+                                    <View style={{flex: 2}}>
+                                        <Icon name="refresh" type='evilicon' />
+                                    </View>
+                                    <View style={{flex: 10}}>
+                                        <Text style={[fonts.size16, fonts.familyBold]}>단어 진행 순서</Text>
+                                    </View>
+                                </View>
+                                <View  style={[{ display:'flex' , flexDirection:'row' , alignItems: 'center', paddingTop: normalize(6)}]}>
+                                    <CheckBox
+                                        title='순서대로'
+                                        checked={this.state.progressOrder == 'sequence'}
+                                        containerStyle={{backgroundColor: '#F4F4F4', borderColor: '#F4F4F4', flex: 1, paddingVertical: 0}}
+                                        textStyle={[fonts.size16, fonts.weightNormal, fonts.familyRegular, fonts.colorBlack]}
+                                        checkedColor='#6FCF97'
+                                        onPress={() => { this.setState({progressOrder: 'sequence'}) }}
+                                        />
+                                    <CheckBox
+                                        title='임의대로'
+                                        checked={this.state.progressOrder == 'random'}
+                                        containerStyle={{backgroundColor: '#F4F4F4', borderColor: '#F4F4F4', flex: 1, paddingVertical: 0}}
+                                        textStyle={[fonts.size16, fonts.weightNormal, fonts.familyRegular, fonts.colorBlack]}
+                                        checkedColor='#6FCF97'
+                                        onPress={() => { this.setState({progressOrder: 'random'}) }}
+                                        />
+                                </View>
                             </View>
-                            <View style={{flex: 10}}>
-                                <Text style={[fonts.size16, fonts.familyBold]}>단어 진행 순서</Text>
-                            </View>
-                        </View>
-                        <View  style={[{ display:'flex' , flexDirection:'row' , alignItems: 'center', paddingTop: normalize(6)}]}>
-                            <CheckBox
-                                title='순서대로'
-                                checked={this.state.progressOrder == 'sequence'}
-                                containerStyle={{backgroundColor: '#F4F4F4', borderColor: '#F4F4F4', flex: 1, paddingVertical: 0}}
-                                textStyle={[fonts.size16, fonts.weightNormal, fonts.familyRegular, fonts.colorBlack]}
-                                checkedColor='#6FCF97'
-                                onPress={() => { this.setState({progressOrder: 'sequence'}) }}
-                                />
-                            <CheckBox
-                                title='임의대로'
-                                checked={this.state.progressOrder == 'random'}
-                                containerStyle={{backgroundColor: '#F4F4F4', borderColor: '#F4F4F4', flex: 1, paddingVertical: 0}}
-                                textStyle={[fonts.size16, fonts.weightNormal, fonts.familyRegular, fonts.colorBlack]}
-                                checkedColor='#6FCF97'
-                                onPress={() => { this.setState({progressOrder: 'random'}) }}
-                                />
-                        </View>
-                    </View>
 
 
-                    <View style={{marginTop: normalize(20), paddingBottom: normalize(10)}}>
-                        <View style={styles.methodItem}>
-                            <View style={{flex: 2}}>
-                                <Icon name="retweet" type='evilicon' /> 
-                            </View>
-                            <View style={{flex: 10}}>
-                                <Text style={[fonts.size16, fonts.familyBold]}>단어 문제 번호</Text>
+                            <View style={{marginTop: normalize(20), paddingBottom: normalize(10)}}>
+                                <View style={styles.methodItem}>
+                                    <View style={{flex: 2}}>
+                                        <Icon name="retweet" type='evilicon' /> 
+                                    </View>
+                                    <View style={{flex: 10}}>
+                                        <Text style={[fonts.size16, fonts.familyBold]}>단어 문제 번호</Text>
+                                    </View>
+                                </View>
+                                <View style={{display: 'flex', flexDirection: 'row', paddingTop: normalize(12)}}>
+                                    <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center', flex: 1,
+                                    justifyContent: 'center'}}>
+                                        <Text style={[fonts.size16, fonts.familyRegular]}>
+                                            시작번호
+                                        </Text>
+                                        <TextInput
+                                            style={styles.textInput}
+                                            onChangeText={(text) => {
+                                                this.startNumberChange(text)
+                                            }}
+                                            onSubmitEditing={Keyboard.dismiss}
+                                            value={this.state.startNumber}
+                                            keyboardType='numeric'
+                                        >
+                                        </TextInput>
+                                    </View>
+                                    <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center', flex: 1,
+                                    justifyContent: 'center'}}>
+                                        <Text style={[fonts.size16, fonts.familyRegular]}>
+                                            끝번호
+                                        </Text>
+                                        <TextInput
+                                            style={styles.textInput}
+                                            onChangeText={(text) => {
+                                                this.endNumberChange(text)
+                                            }}
+                                            onSubmitEditing={Keyboard.dismiss}
+                                            value={this.state.endNumber}
+                                        >
+                                        </TextInput>
+                                    </View>
+                                </View>
                             </View>
                         </View>
-                        <View style={{display: 'flex', flexDirection: 'row', paddingTop: normalize(12)}}>
-                            <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center', flex: 1,
-                            justifyContent: 'center'}}>
-                                <Text style={[fonts.size16, fonts.familyRegular]}>
-                                    시작번호
-                                </Text>
-                                <TextInput
-                                    style={styles.textInput}
-                                    onChangeText={(text) => {
-                                        this.startNumberChange(text)
-                                    }}
-                                    onSubmitEditing={Keyboard.dismiss}
-                                    value={this.state.startNumber}
-                                    keyboardType='numeric'
-                                >
-                                </TextInput>
-                            </View>
-                            <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center', flex: 1,
-                            justifyContent: 'center'}}>
-                                <Text style={[fonts.size16, fonts.familyRegular]}>
-                                    끝번호
-                                </Text>
-                                <TextInput
-                                    style={styles.textInput}
-                                    onChangeText={(text) => {
-                                        this.endNumberChange(text)
-                                    }}
-                                    onSubmitEditing={Keyboard.dismiss}
-                                    value={this.state.endNumber}
-                                >
-                                </TextInput>
-                            </View>
-                        </View>
+                        <Spinner_bar color={'#68ADED'} visible={!this.state.loaded} textContent={""}  overlayColor={"rgba(0, 0, 0, 0.5)"}  />
+                    </ScrollView>
+
+                    <View style={styles.footerBar}>
+                        <View style={{ alignSelf: 'center' }}>
+                            {
+                                <Button style={styles.startButton}
+                            onPress={ () => { this.startStudy() } }>
+                                    <Text style={[fonts.size22, fonts.familyBold]}>학습 시작 </Text>
+                                </Button>   
+                            }
+                        </View>          
                     </View>
-                    <Spinner_bar color={'#68ADED'} visible={!this.state.loaded} textContent={""}  overlayColor={"rgba(0, 0, 0, 0.5)"}  />
-                </Content>     
-                <View style={{backgroundColor: '#F4F4F4', paddingVertical: normalize(20)}}>
-                    <View style={{ alignSelf: 'center' }}>
-                        {
-                            this.state.ready ?
-                            <Button style={styles.startButton}
-                        onPress={ () => { this.startStudy() } }>
-                                <Text style={[fonts.size22, fonts.familyBold]}>학습 시작 </Text>
-                            </Button>
-                            :
-                            <Button style={styles.startButton}
-                        onPress={ () => { this.ready() } }>
-                                <Text style={[fonts.size22, fonts.familyBold]}>완료</Text>
-                            </Button>
-                        }
-                        
-                    </View>          
-                </View>
+                </View>     
             </Container>           
         );
     }
@@ -319,7 +313,15 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#F4F4F4',
-        paddingHorizontal: normalize(24)
+        flexDirection: 'column'
+    },
+    scrollView: {
+        // height: normalize(500)
+    },
+    footerBar: {
+        backgroundColor: '#F4F4F4',
+        paddingVertical: normalize(20),
+        height: normalize(104)
     },
     methodItem: {
         borderBottomWidth: 1,

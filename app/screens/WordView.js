@@ -4,12 +4,11 @@ import { Container, Content, Button } from 'native-base';
 import UserHeader from './../components/shared/UserHeader';
 import ViewHeader from './../components/shared/ViewHeader';
 import WordPanel from './../components/shared/WordPanel';
-import { fonts, normalize } from './../assets/styles';
+import { fonts, normalize, getScreenWidth } from './../assets/styles';
 import { performNetwork } from './../components/shared/global';
 import { getWordList } from './../utils/api';
 import { getWordListFromMyWord, getWordIdListFromMyWord } from './../utils/MyWord';
 import { Icon } from 'react-native-elements';
-import { showToast } from './../components/shared/global';
 import Spinner_bar from 'react-native-loading-spinner-overlay';
 import { getRecentStudy } from './../utils/RecentStudy';
 import { _e } from '../utils/lang';
@@ -196,22 +195,6 @@ export default class WordView extends React.Component {
                                     <Icon name='arrow-forward' type='ion-icon' color='#000' size={18} />    
                                 </TouchableOpacity>
                             </View>
-                            {/*
-                            <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between',
-                            paddingHorizontal: normalize(8)}}>
-                                <Button style={styles.navigatorButton}
-                                onPress={()=>{ this.moveFirstPage() }}>
-                                    <Text style={fonts.size12}>
-                                        맨처음으로
-                                    </Text>
-                                </Button>
-                                <Button style={styles.navigatorButton}
-                                onPress={()=>{ this.moveLastPage() }}>
-                                    <Text style={fonts.size12}>
-                                        맨끝으로
-                                    </Text>
-                                </Button>
-                            </View>*/}
                         </View>
                         : null
                 }
@@ -227,7 +210,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#E4E4E4',
     },
     footerButton: {
-        width: normalize(144),
+        width: (getScreenWidth() - normalize(48)) / 2,
         height: normalize(44),
         display: 'flex',
         alignItems: 'center',

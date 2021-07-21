@@ -62,11 +62,12 @@ export default class WordPanel extends PureComponent {
                         kor_indexArray.push([ex_meaning.indexOf(item.ko_words[i]), ex_meaning.indexOf(item.ko_words[i]) + item.ko_words[i].length])
                     }
                 }
-                return <View style={{paddingTop: 10}}>
+                return <View style={{paddingTop: 0}} key={index}>
                 {
                     indexArray.length > 0 ?
                         indexArray.map((_item, _index) => {
-                            return <Text style={[styles.exampleSection, fonts.familyRegular]}>{ ex_word.substring(_index == 0 ? 0 : indexArray[_index - 1][1], _item[0]) }
+                            return <Text key={_index}
+                                     style={[styles.exampleSection, fonts.familyRegular]}>{ ex_word.substring(_index == 0 ? 0 : indexArray[_index - 1][1], _item[0]) }
                                         <Text style={[{color: '#EB5757'}, fonts.familyBold]}>
                                             {ex_word.substring(_item[0], _item[1])}
                                         </Text>
@@ -82,7 +83,8 @@ export default class WordPanel extends PureComponent {
                     :
                         kor_indexArray.length > 0 ?
                             kor_indexArray.map((_item, _index) => {
-                                return <Text style={[styles.exampleSection, fonts.familyRegular]}>{ ex_meaning.substring(_index == 0 ? 0 : kor_indexArray[_index - 1][1], _item[0]) }
+                                return <Text key={_index}
+                                        style={[styles.exampleSection, fonts.familyRegular]}>{ ex_meaning.substring(_index == 0 ? 0 : kor_indexArray[_index - 1][1], _item[0]) }
                                         <Text style={[{color: '#EB5757'}, fonts.familyBold]}>
                                             {ex_meaning.substring(_item[0], _item[1])}
                                         </Text>
@@ -115,39 +117,37 @@ export default class WordPanel extends PureComponent {
                         </View>
                     </View>
                 </View>
-                <ScrollView style={{flex: 1}}>
-                    <View style={styles.downMeaningContainer}>
-                        <View style={{paddingHorizontal: normalize(16)}}>
-                            <View style={{paddingTop: normalize(0), paddingBottom: normalize(0), 
-                            display: 'flex', alignItems: 'center', justifyContent: 'center',
-                            paddingTop: 10}}>
-                                {
-                                    this.props.hideMeaning ? 
-                                    <Button style={styles.altButton}
-                                    onPress={() => this.props.changeHideMeaning(!this.props.hideMeaning)}>
-                                        <Text style={[fonts.size15, fonts.familyRegular]}>터치하여 단어 뜻 보기</Text>
-                                    </Button>
-                                    :
-                                    <Text style={[fonts.size18, fonts.familyBold, {lineHeight: 24}]}>{this.props.params.meaning}</Text>
-                                }
-                            </View>
-                            <View style={{paddingBottom: normalize(8)}}>
-                                {
-                                    this.renderText('en')
-                                }
-                                {
-                                    this.state.hideExample ? 
-                                    <Button style={[styles.altButton, {marginTop: normalize(8)}]}
-                                    onPress={() => this.props.changeHideExample(!this.props.hideExample)}>
-                                        <Text style={[fonts.size15, fonts.familyRegular]}>터치하여 예문 해석 보기</Text>
-                                    </Button>
-                                    :
-                                    null
-                                }
-                            </View>
+                <View style={styles.downMeaningContainer}>
+                    <View style={{paddingHorizontal: normalize(16), paddingTop: normalize(16), paddingBottom: normalize(10), 
+                                display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative'}}>
+                                    <Text style={[fonts.size18, fonts.familyBold, {lineHeight: 24, opacity: this.props.hideMeaning? 0 : 1}]}>{this.props.params.meaning}</Text>
+                                    {
+                                        this.props.hideMeaning ? 
+                                        <Button style={[styles.altButton, {position: 'absolute'}]}
+                                        onPress={() => this.props.changeHideMeaning(!this.props.hideMeaning)}>
+                                            <Text style={[fonts.size15, fonts.familyRegular]}>터치하여 단어 뜻 보기</Text>
+                                        </Button>
+                                        : 
+                                        null
+                                    }
+                    </View>
+                    <ScrollView style={{flex: 1, paddingHorizontal: normalize(16)}}>
+                        <View style={{paddingBottom: normalize(8)}}>
+                            {
+                                this.renderText('en')
+                            }
+                            {
+                                this.state.hideExample ? 
+                                <Button style={[styles.altButton, {marginTop: normalize(8)}]}
+                                onPress={() => this.props.changeHideExample(!this.props.hideExample)}>
+                                    <Text style={[fonts.size15, fonts.familyRegular]}>터치하여 예문 해석 보기</Text>
+                                </Button>
+                                :
+                                null
+                            }
                         </View>
-                    </View>    
-                </ScrollView>     
+                    </ScrollView>
+                </View>
             </View>
         )
     }
