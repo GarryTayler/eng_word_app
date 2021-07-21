@@ -10,6 +10,7 @@ import { Actions } from 'react-native-router-flux';
 import { saveVocabularyData, getVocabularyData } from '../../utils/MyMakingWords';
 import {OptimizedFlatList} from 'react-native-optimized-flatlist'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import Spinner_bar from 'react-native-loading-spinner-overlay';
 let pageTitle = '새 단어장 만들기';
 
 export default class CreateWord extends React.Component {
@@ -24,10 +25,12 @@ export default class CreateWord extends React.Component {
             isChecked: false,
             id: this.props.id,
             editable: this.props.editable,
-            keyboardShow: true
+            loaded: true
         }
     }
     async componentDidMount() {
+        
+        this.setState({loaded: false});
         let temp = [];
         for(var i = 1; i<=100;i++) {
             temp.push({id: i, word: '', meaning: '', order: 1, checked: false});
@@ -40,23 +43,10 @@ export default class CreateWord extends React.Component {
                 })
             }
         }
-        this.setState({arrData: temp});
-        this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow.bind(this));
-        this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide.bind(this));  
+        this.setState({arrData: temp, loaded: true});
     }
     componentWillUnmount () {
-        this.keyboardDidShowListener.remove();
-        this.keyboardDidHideListener.remove();
     }
-
-    _keyboardDidShow() {
-        this.setState({keyboardShow: false})
-    }
-        
-    _keyboardDidHide() {
-        this.setState({keyboardShow: true})
-    }
-
     doSwap(index) {
         let temp = this.state.arrData;
         if(temp[index]['order'] == 1)
@@ -79,6 +69,7 @@ export default class CreateWord extends React.Component {
         this.setState({arrData: temp})
     }
     async saveMyWord() {
+        this.setState({loaded: false});
         let temp = [];
         this.state.arrData.map((item ,index) => {
             if(item.word || item.meaning) {
@@ -92,8 +83,8 @@ export default class CreateWord extends React.Component {
         if(this.state.editable && this.state.newWordTitle == this.state.originName) {
             wordName = '';
         }
-        
         await saveVocabularyData(this.state.id, wordName, temp)
+        this.setState({loaded: true});
         Actions.pop();
         setTimeout(function() {
             Actions.refresh();
@@ -222,35 +213,31 @@ export default class CreateWord extends React.Component {
                     >
                     {
                         this.state.arrData.length > 0 ?
-                        <FlatList
+                        <OptimizedFlatList
                             style={[styles.container, {paddingHorizontal: normalize(10)}]}
                             data={this.state.arrData}
                             keyExtractor={(item) => item.id}
                             renderItem={ ({item, index}) => (
                                 this.renderCreateWord(item, index)
                             )}
+                            removeClippedSubviews={true}
                             initialNumToRender={20}
+                            maxToRenderPerBatch={10}
                         />
                         :
                         null
                     }
                 </KeyboardAwareScrollView>
-                {
-                    this.state.keyboardShow ?
-                    <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly', paddingVertical: normalize(24)}}>
-                        <Button style={styles.footerButton} onPress={() => this.saveMyWord()}>
-                            <Text style={[fonts.size16, fonts.colorWhite, fonts.familyMedium]}>저장하기</Text>
-                        </Button>
-                        <Button style={styles.footerButton} onPress={() => Actions.pop()}>
-                            <Text style={[fonts.size16, fonts.colorWhite, fonts.familyMedium]}>닫기</Text>
-                        </Button>
-                    </View>
-                    :
-                    null
-                }
-                    
                 
-                
+                <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly', paddingVertical: normalize(24)}}>
+                    <Button style={styles.footerButton} onPress={() => this.saveMyWord()}>
+                        <Text style={[fonts.size16, fonts.colorWhite, fonts.familyMedium]}>저장하기</Text>
+                    </Button>
+                    <Button style={styles.footerButton} onPress={() => Actions.pop()}>
+                        <Text style={[fonts.size16, fonts.colorWhite, fonts.familyMedium]}>닫기</Text>
+                    </Button>
+                </View>
+                <Spinner_bar color={'#68ADED'} visible={!this.state.loaded} textContent={""}  overlayColor={"rgba(0, 0, 0, 0.5)"}  />
             </Container>
         );
     }

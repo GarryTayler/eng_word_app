@@ -8,7 +8,8 @@ import { performNetwork } from './../../components/shared/global';
 import { getCategoryList } from './../../utils/api';
 import Spinner_bar from 'react-native-loading-spinner-overlay';
 import {Actions} from 'react-native-router-flux';
-import { Icon, CheckBox  } from 'react-native-elements';
+import { Icon } from 'react-native-elements';
+import CheckBox from 'react-native-check-box';
 import { getVocabularyList, saveVocabulary } from '../../utils/MyMakingWords';
 
 export default class MyMakingWordsHome extends React.Component {
@@ -22,15 +23,9 @@ export default class MyMakingWordsHome extends React.Component {
             checkAll: false
         };
     }
-
-    buttonClick(id = null, has_child = 'Y', name = '') {
-        
-    }
-
     componentDidMount() {
         this.refresh();
     }
-
     async refresh() {
         let list = await getVocabularyList();
         if(list && list.length > 0) {
@@ -43,11 +38,9 @@ export default class MyMakingWordsHome extends React.Component {
             this.setState({edit: false})
         }
     }
-
     UNSAFE_componentWillReceiveProps() {
         this.refresh();
     }
-
     new_trash() {
         if(this.state.edit) {
             let temp = this.state.arrData;
@@ -123,21 +116,6 @@ export default class MyMakingWordsHome extends React.Component {
         this.refresh();
     }
 
-    async changeSortMyWord(id, index) {
-        let temp = this.state.arrData;
-        if(index < this.state.arrData.length - 1) {
-            var swap = temp[index];
-            temp[index] = temp[index + 1];
-            temp[index + 1] = swap;
-        } else {
-            var swap = temp[index];
-            temp[index] = temp[index - 1];
-            temp[index - 1] = swap;
-        }
-        await saveVocabulary(this.state.arrData, temp);
-        this.refresh();
-    }
-
     render() {
         return (
             <Container>
@@ -181,7 +159,7 @@ export default class MyMakingWordsHome extends React.Component {
                         </View> 
 
                         {
-                            this.state.edit ?
+                            /* this.state.edit ?
                             <CheckBox
                                 title='전체 선택'
                                 checked={this.state.checkAll}
@@ -192,6 +170,42 @@ export default class MyMakingWordsHome extends React.Component {
                                 onPress={() => this.setCheckAll()}
                             />
                             :
+                            null */
+                        }
+                        {
+                            this.state.edit ? 
+                            <View style={{paddingHorizontal: normalize(10)}}>
+                                <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center',
+                                marginBottom: 0,
+                                justifyContent: 'center'}}>
+                                    <View style={{display: 'flex', alignItems: 'center', flexDirection: 'row'}}>
+                                        <CheckBox
+                                            isChecked={this.state.checkAll}
+                                            onClick={()=>{
+                                                this.setCheckAll()
+                                            }}   
+                                            checkedImage={<Image source={require('../../assets/img/Unchekced.png')} style={{width: 25, height: 25}}/>}
+                                            unCheckedImage={<Image source={require('../../assets/img/CheckBox.png')} style={{width: 25, height: 25}}/>}
+                                            style={{marginRight: 8}}
+                                        />
+                                        <View style={{width: 173, marginBottom: normalize(4)}}>
+                                            <TouchableHighlight activeOpacity={0.6} underlayColor='white'
+                                            onPress={ () => { this.setCheckAll() } }>
+                                                <Text style={[fonts.size14, fonts.familyBold, fonts.colorWhite]}>전체선택</Text>
+                                            </TouchableHighlight>
+                                        </View>
+                                    </View>
+                                    <View style={{flexDirection: 'row', opacity: 0}}>
+                                        <TouchableHighlight style={styles.editProp}>
+                                            <Icon name='pencil' type='octicon' color={'black'} size={20} />
+                                        </TouchableHighlight>
+                                        <TouchableHighlight style={styles.editProp}>
+                                            <Icon name='trash-outline' type='ionicon' color={'black'} size={20} />
+                                        </TouchableHighlight>
+                                    </View>
+                                </View>
+                            </View>
+                            :
                             null
                         }
                         <FlatList
@@ -200,16 +214,17 @@ export default class MyMakingWordsHome extends React.Component {
                             data={this.state.arrData}
                             keyExtractor={(item) => item.id}
                             renderItem={ ({item, index}) => (
-                                <View style={this.state.edit ? {alignItems: 'center', flexDirection: 'row'} : {alignItems: 'center'}}>
+                                <View style={this.state.edit ? {
+                                    display: 'flex', alignItems: 'center', flexDirection: 'row', justifyContent: 'center'} : {alignItems: 'center'}}>
                                     {
                                         this.state.edit ?
-                                        <CheckBox
-                                            checked={item.checked}
-                                            containerStyle={{backgroundColor: 'transparent', borderWidth: 0, marginBottom: 19, paddingHorizontal: 0}}
-                                            uncheckedIcon={<Image source={require('../../assets/img/Unchekced.png')} style={{width: 25, height: 25}} />}
-                                            checkedIcon={<Image source={require('../../assets/img/CheckBox.png')} style={{width: 25, height: 25}} />}
-                                            onPress={() => this.setChecked(index)}
-                                        />
+                                            <CheckBox
+                                                style={{padding: 0, marginBottom: 19, marginRight: 8}}
+                                                isChecked={item.checked}
+                                                onClick={() => this.setChecked(index)}   
+                                                checkedImage={<Image source={require('../../assets/img/Unchekced.png')} style={{width: 25, height: 25}}/>}
+                                                unCheckedImage={<Image source={require('../../assets/img/CheckBox.png')} style={{width: 25, height: 25}}/>}
+                                            />
                                         :
                                         null
                                     }
@@ -228,9 +243,6 @@ export default class MyMakingWordsHome extends React.Component {
                                             </TouchableHighlight>
                                             <TouchableHighlight style={styles.editProp} onPress={() => this.removeMyWord(item.id, index)}>
                                                 <Icon name='trash-outline' type='ionicon' color={'black'} size={20} />
-                                            </TouchableHighlight>
-                                            <TouchableHighlight style={styles.editProp} onPress={() => this.changeSortMyWord(item.id, index)}>
-                                                <Icon name='arrow-swap' type='fontisto' color='black' size={20} style={styles.swapIcon} />
                                             </TouchableHighlight>
                                         </View>
                                         :
