@@ -100,44 +100,26 @@ export default class WordStudyObject extends React.Component {
                                 null
                             )
                         }
-
-                        {
-                            /*
-                            <Text style={[fonts.size38, fonts.familyBold]}>
-                                { this.props.params[this.state.cur_problem_no - 1]['problem'] }
-                            </Text> */
-                        }
-                        
-                        {/*<TextTicker disabled={this.state.marqueeWordDisable}
-                                isInteraction={false} duration={5000} loop
-                                repeatSpacer={50} marqueeDelay={1000} style={[fonts.size38, fonts.familyBold]}>
-                            { this.props.params[this.state.cur_problem_no - 1]['problem'] }
-                            </TextTicker>*/}
-                            <Text style={[fonts.size38, fonts.familyBold, {lineHeight: 43}]}>{ this.props.params[this.state.cur_problem_no - 1]['problem'] }</Text>
-
+                        <Text style={[ this.props.studyMethod=='entoko' ? fonts.size38 : fonts.size22, 
+                                       fonts.familyBold, 
+                                       {lineHeight: (this.props.studyMethod=='entoko'? 43 : 30)}]}>{ this.props.params[this.state.cur_problem_no - 1]['problem'] }</Text>
                         {
                             this.state.cur_problem_status == 'ready' ? null
                             :
-                            <View style={{position: 'absolute', bottom: normalize(40), display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+                            <View style={{position: 'absolute', bottom: normalize(30), 
+                                        display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                                 <View style={{backgroundColor: (this.state.cur_problem_status == 'correct' ? '#92BEF8' : '#F0B5B5'), borderRadius: normalize(4), padding: normalize(4)}}>
                                     <Text style={[fonts.size14, fonts.colorWhite, fonts.familyBold]}>정답</Text>
                                 </View>
-                                <View style={{marginLeft: normalize(8)}}>
-                                    <Text style={[fonts.familyBold, fonts.size18, {color: (this.state.cur_problem_status == 'correct' ? '#92BEF8' : '#F0B5B5')}]}>{ this.props.params[this.state.cur_problem_no - 1]['correct_answer'] }</Text>
+                                <View style={{marginLeft: normalize(8), flexShrink: 1}}>
+                                    <Text 
+                                    numberOfLines={3}
+                                    style={[fonts.familyBold, this.props.studyMethod=='entoko' ? fonts.size14 : fonts.size18, {color: (this.state.cur_problem_status == 'correct' ? '#92BEF8' : '#F0B5B5')}]}>{ this.props.params[this.state.cur_problem_no - 1]['correct_answer'] }</Text>
                                 </View>
                             </View>
                         }
                     </View>
-                    <View style={{paddingHorizontal: normalize(20)}}> 
-                    {
-                        /*
-                        <ChoiceItem index="1" choice="닭, 닭고기" correct />
-                        <ChoiceItem index="2" choice="돌, 돌맹이, 바위" />
-                        <ChoiceItem index="3" choice="부엌, 주방" />
-                        <ChoiceItem index="4" choice="행복한, 기쁜, 즐거움에 겨운" />
-                        <ChoiceItem index="5" choice="별, 항성, 유명인" wrong />
-                        */
-                    }
+                    <View style={{paddingHorizontal: normalize(20)}}>
                     {
                         this.props.params[this.state.cur_problem_no - 1]['choice'] == null ||
                         this.props.params[this.state.cur_problem_no - 1]['choice'].length == 0 
@@ -153,7 +135,8 @@ export default class WordStudyObject extends React.Component {
                             ? true : false}
                             wrong={this.props.params[this.state.cur_problem_no - 1]['correct_index'] == item['no'] && this.state.cur_problem_status == 'wrong'
                             ? true : false}
-                            status={this.state.cur_problem_status} />
+                            status={this.state.cur_problem_status}
+                            studyMethod={this.props.studyMethod} />
                         ))
                     }
                     </View>
@@ -183,7 +166,8 @@ const styles = StyleSheet.create({
         alignItems: 'center', 
         justifyContent: 'center', 
         height: normalize(262), 
-        position: 'relative'       
+        position: 'relative',
+        paddingHorizontal: normalize(20)
     },
     correctIcon: {
         opacity: 0.5, 

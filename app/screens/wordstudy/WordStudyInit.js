@@ -135,6 +135,7 @@ export default class WordStudyInit extends React.Component {
         else {
             Actions.push('word_study_object', {
                 params: _problems,
+                studyMethod: this.state.studyMethod,
                 type: 'obj'
             });
         }

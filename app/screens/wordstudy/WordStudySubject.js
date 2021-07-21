@@ -156,21 +156,21 @@ export default class WordStudySubject extends React.Component {
                             <Image source={Images.wrong2x} style={styles.correctIcon} resizeMode='cover' /> :
                                 null
                             )
-                        }
-
+                        }                        
                         {
                             /*
-                            <Text style={[fonts.size38, fonts.familyBold]}>
-                            { this.props.params[this.state.cur_problem_no - 1]['problem'] }
-                            </Text> */
-                        }
-                        
-                        <TextTicker disabled={this.state.marqueeWordDisable}
+                            <TextTicker disabled={this.state.marqueeWordDisable}
                                 isInteraction={false} duration={5000} loop
                                 repeatSpacer={50} marqueeDelay={1000} style={[fonts.size38, fonts.familyBold]}>
                             { this.props.params[this.state.cur_problem_no - 1]['problem'] }
-                        </TextTicker>
-
+                            </TextTicker> 
+                            */
+                        }
+                        <Text style={[this.props.studyMethod=='entoko' ? fonts.size38 : fonts.size22, 
+                        fonts.familyBold,
+                        {lineHeight: (this.props.studyMethod=='entoko'? 43 : 30)} ]}>
+                        { this.props.params[this.state.cur_problem_no - 1]['problem'] }
+                        </Text>
                         {
                             this.state.cur_problem_status == 'ready' ? null
                             :
@@ -178,8 +178,11 @@ export default class WordStudySubject extends React.Component {
                                 <View style={{backgroundColor: (this.state.cur_problem_status == 'correct' ? '#92BEF8' : '#F0B5B5'), borderRadius: normalize(4), padding: normalize(4)}}>
                                     <Text style={[fonts.size14, fonts.colorWhite, fonts.familyBold]}>정답</Text>
                                 </View>
-                                <View style={{marginLeft: normalize(8)}}>
-                                    <Text numberOfLines={1} style={[fonts.familyBold, fonts.size18, {color: (this.state.cur_problem_status == 'correct' ? '#92BEF8' : '#F0B5B5')}]}>{ this.props.params[this.state.cur_problem_no - 1]['answer'] }</Text>
+                                <View style={{marginLeft: normalize(8), flexShrink: 1}}>
+                                    <Text 
+                                    numberOfLines={3} 
+                                    style={[fonts.familyBold, this.props.studyMethod=='entoko' ? fonts.size14 : fonts.size18, 
+                                    {color: (this.state.cur_problem_status == 'correct' ? '#92BEF8' : '#F0B5B5')}]}>{ this.props.params[this.state.cur_problem_no - 1]['answer'] }</Text>
                                 </View>
                             </View>
                         }

@@ -13,15 +13,16 @@ export default class ChoiceItem extends React.Component {
             <TouchableOpacity activeOpacity={0.6} disabled={this.props.status == 'ready' ? false : true}
              style={[styles.choiceItem, this.props.correct ? styles.correctItem : (this.props.wrong ? styles.wrongItem : styles.generalItem)]}
              onPress={() => {this.clickChoice()}}>
-                <View style={{flex: 2}}>
+                <View style={{ width: (this.props.studyMethod == 'entoko' ? normalize(40) : normalize(50)), alignItems: 'center' }}>
                     <View style={{width: 24, height: 24, borderWidth: 1, borderRadius: 12, 
                                  borderColor: ((this.props.correct || this.props.wrong) ? 'white' : 'black'),
                                  alignItems: 'center', justifyContent: 'center'}}>
-                        <Text style={[fonts.size14, fonts.familyRegular, (this.props.correct || this.props.wrong) ? fonts.colorWhite : fonts.colorBlack ]}>{this.props.index}</Text>
+                        <Text style={[this.props.studyMethod == 'entoko' ? fonts.size14 : fonts.size16, fonts.familyRegular, (this.props.correct || this.props.wrong) ? fonts.colorWhite : fonts.colorBlack ]}>{this.props.index}</Text>
                     </View>
                 </View>
-                <View style={{flex: 10}}>
-                    <Text style={[fonts.size14, fonts.familyBold, (this.props.correct || this.props.wrong) ? fonts.colorWhite : fonts.colorBlack, {lineHeight: 18}]}>
+                <View style={{flexShrink: 1}}>
+                    <Text numberOfLines={2}
+                    style={[this.props.studyMethod == 'entoko' ? fonts.size14 : fonts.size16, fonts.familyBold, (this.props.correct || this.props.wrong) ? fonts.colorWhite : fonts.colorBlack]}>
                         {this.props.choice}
                     </Text>
                 </View>
@@ -34,8 +35,9 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
-        height: normalize(44),
-        paddingHorizontal: normalize(20),
+        height: normalize(48),
+        paddingLeft: normalize(0),
+        paddingRight: normalize(20),
         marginBottom: normalize(12),
         borderRadius: normalize(4),
         shadowColor: "#000",
