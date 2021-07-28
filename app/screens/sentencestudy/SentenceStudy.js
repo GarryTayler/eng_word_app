@@ -28,6 +28,8 @@ export default class SentenceStudy extends React.Component {
             correct: false,
             confirmAnswer: false,
             inputAnswer: '',
+            inputIds: [],
+            inputWords: [],
             correctAnswer: null,
             curIndex: 0,
             curQuestion: null,
@@ -95,7 +97,7 @@ export default class SentenceStudy extends React.Component {
         }
     }
     again() {
-        this.setState({inputAnswer: ''});
+        this.setState({inputAnswer: '', inputIds: [], inputWords: []});
         let wordList = this.state.wordList;
         if(wordList && wordList.length > 0) {
             wordList.map((item ,index) => {
@@ -108,29 +110,41 @@ export default class SentenceStudy extends React.Component {
 
     renderWord(item, index) {
         if(item.word && !item.clicked)
-            return <TouchableOpacity style={[styles.word, {backgroundColor: index % 4 == 0 ? '#5DABDD' : index % 4 == 1 ? '#F0B6B7' : index % 4 == 2 ? '#F4D9A7' : '#F1BE9C'}]} onPress={() => this.clickWorkd(item)}>
+            return <TouchableOpacity style={[styles.word, {backgroundColor: index % 4 == 0 ? '#5DABDD' : index % 4 == 1 ? '#F0B6B7' : index % 4 == 2 ? '#F4D9A7' : '#F1BE9C'}]} onPress={() => this.clickWord(item)}>
                 <Text style={fonts.size14}>{item.word}</Text>
             </TouchableOpacity>
         else
             return <View style={styles.word}></View>
     }
 
-    clickWorkd(word) {
-        let temp = this.state.inputAnswer;
-        if(temp) {
-            temp += " " + word.word
-        } else {
-            temp = word.word
-        }
-        this.setState({inputAnswer: temp});
+    clickWord(word) {
+        let inputWords = this.state.inputWords;
+        inputWords.push(word.word);
+        this.setState({inputAnswer: inputWords.join(" ")});
+
         let wordList = this.state.wordList;
+        let inputIds = this.state.inputIds;
+
         if(wordList && wordList.length > 0) {
             wordList.map((item ,index) => {
                 if(item.id == word.id) {
                     wordList[index]['clicked'] = true;
+                    inputIds.push(index);
                 }
             })
-            this.setState({wordList: wordList})
+            this.setState({wordList: wordList, inputIds: inputIds})
+        }
+    }
+
+    cancelOneStep() {
+        let inputIds = this.state.inputIds;
+        let inputWords = this.state.inputWords;
+        if(inputIds.length > 0 && inputWords.length > 0) {
+            let wordList = this.state.wordList;
+            wordList[inputIds[inputIds.length - 1]]['clicked'] = false;
+            inputIds.splice(inputIds.length - 1, 1);
+            inputWords.splice(inputWords.length - 1, 1);
+            this.setState({ inputAnswer: inputWords.join(" "), inputIds: inputIds, inputWords: inputWords, wordList: wordList });
         }
     }
 
@@ -165,7 +179,7 @@ export default class SentenceStudy extends React.Component {
             curIndex = curIndex + 1;
         this.setState({correct: false})
         this.setState({confirmAnswer: false})
-        this.setState({inputAnswer: ''})
+        this.setState({inputAnswer: '', inputIds: [], inputWords: []})
         this.setState({correctAnswer: this.state.sentenceList[curIndex].sentence})
         
         let curSetence = this.state.sentenceList[curIndex];
@@ -249,7 +263,7 @@ export default class SentenceStudy extends React.Component {
                     }
                 </View>
                 <View>
-                    <TouchableOpacity style={{position: 'absolute', right: 12, top: 10}} onPress={() => this.again()}>
+                    <TouchableOpacity style={{position: 'absolute', right: 12, top: 10}} onPress={() => this.cancelOneStep()}>
                         <Icon name='closecircle' type='antdesign' size={20} color='#828282' /> 
                     </TouchableOpacity>
                     <TextInput
