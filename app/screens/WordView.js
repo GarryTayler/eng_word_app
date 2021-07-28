@@ -123,7 +123,7 @@ export default class WordView extends React.Component {
                         <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: normalize(16) }}>
                             <Button style={styles.footerButton}
                             onPress={() => this.setState({hideMeaning: !this.state.hideMeaning})}>
-                                <Text style={[fonts.size16, fonts.familyRegular]}>
+                                <Text style={[fonts.size14, fonts.familyRegular]}>
                                     {
                                         this.state.hideMeaning ? '단어 뜻 보기' : '단어 뜻 가리기'
                                     }
@@ -132,7 +132,7 @@ export default class WordView extends React.Component {
                             </Button>
                             <Button style={styles.footerButton}
                             onPress={() => this.setState({hideExample: !this.state.hideExample})}>
-                                <Text style={[fonts.size16, fonts.familyRegular]}>
+                                <Text style={[fonts.size14, fonts.familyRegular]}>
                                     {
                                         this.state.hideExample ? '예문 해석 보기 ' : '예문 해석 가리기 '
                                     }
