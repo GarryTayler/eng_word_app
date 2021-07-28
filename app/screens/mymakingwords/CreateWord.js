@@ -29,7 +29,6 @@ export default class CreateWord extends React.Component {
         }
     }
     async componentDidMount() {
-        
         this.setState({loaded: false});
         let temp = [];
         for(var i = 1; i<=100;i++) {
@@ -213,7 +212,7 @@ export default class CreateWord extends React.Component {
                     >
                     {
                         this.state.arrData.length > 0 ?
-                        <OptimizedFlatList
+                        <FlatList
                             style={[styles.container, {paddingHorizontal: normalize(10)}]}
                             data={this.state.arrData}
                             keyExtractor={(item) => item.id}

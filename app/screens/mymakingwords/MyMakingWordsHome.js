@@ -2,10 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Text, Image, ImageBackground, TouchableHighlight, FlatList, Alert} from 'react-native';
 import { Container, Content } from 'native-base';
 import Images from './../../assets/Images';
-import { BUTTON_UNDERLAY_COLOR } from './../../utils/constants';
-import { fonts, calcButtonListMarginTop, normalize } from './../../assets/styles';
-import { performNetwork } from './../../components/shared/global';
-import { getCategoryList } from './../../utils/api';
+import { fonts, normalize } from './../../assets/styles';
 import Spinner_bar from 'react-native-loading-spinner-overlay';
 import {Actions} from 'react-native-router-flux';
 import { Icon } from 'react-native-elements';
@@ -52,7 +49,7 @@ export default class MyMakingWordsHome extends React.Component {
                     }
                 })
                 if(selected) {
-                    Alert.alert("전체를 삭제 하시겠습니까?", "", 
+                    Alert.alert("선택한 단어장을 삭제하시겠습니까?", "", 
                         [
                             {
                                 text: "취소",
@@ -104,15 +101,47 @@ export default class MyMakingWordsHome extends React.Component {
         this.setState({edit: false})
     }
 
-    async removeMyWord(id, index) {
+    detailMyWord(item, index) {
+        Actions.push("my_making_word_detail", {id: item.id})
+        this.setState({edit: false})
+    }
+
+    async removeMyWord(id, index, name) {
+        Alert.alert("\"" + name + "\" 단어장을 삭제 하시겠습니까?", "", 
+                        [
+                            {
+                                text: "취소",
+                                style: "cancel"
+                            },
+                            { text: "삭제", onPress: () => this.removeOne(index) }
+                        ],
+                        { cancelable: false }
+        )
+        
+    }
+
+    async removeOne(index) {
+        this.setState({loaded: false});
         let temp = this.state.arrData;
         temp.splice(index, 1);
         await saveVocabulary(this.state.arrData, temp);
+        this.setState({loaded: true});
         this.refresh();
     }
 
     async removeAll() {
-        await saveVocabulary(this.state.arrData, []);
+        this.setState({loaded: false});
+        let temp = this.state.arrData;
+        for(let i = 0; i < temp.length;) {
+            if(temp[i]['checked']) {
+                temp.splice(i, 1);
+            }
+            else {
+                i ++;
+            }
+        }
+        await saveVocabulary(this.state.arrData, temp);
+        this.setState({loaded: true});
         this.refresh();
     }
 
@@ -157,21 +186,6 @@ export default class MyMakingWordsHome extends React.Component {
                                 </ImageBackground>
                             </TouchableHighlight>
                         </View> 
-
-                        {
-                            /* this.state.edit ?
-                            <CheckBox
-                                title='전체 선택'
-                                checked={this.state.checkAll}
-                                containerStyle={{backgroundColor: 'transparent', borderWidth: 0, paddingLeft: 15}}
-                                textStyle={[{color: 'white'}, fonts.familyMedium]}
-                                uncheckedIcon={<Image source={require('../../assets/img/Unchekced.png')} style={{width: 25, height: 25}} />}
-                                checkedIcon={<Image source={require('../../assets/img/CheckBox.png')} style={{width: 25, height: 25}} />}
-                                onPress={() => this.setCheckAll()}
-                            />
-                            :
-                            null */
-                        }
                         {
                             this.state.edit ? 
                             <View style={{paddingHorizontal: normalize(10)}}>
@@ -184,8 +198,8 @@ export default class MyMakingWordsHome extends React.Component {
                                             onClick={()=>{
                                                 this.setCheckAll()
                                             }}   
-                                            checkedImage={<Image source={require('../../assets/img/Unchekced.png')} style={{width: 25, height: 25}}/>}
-                                            unCheckedImage={<Image source={require('../../assets/img/CheckBox.png')} style={{width: 25, height: 25}}/>}
+                                            unCheckedImage={<Image source={require('../../assets/img/Unchekced.png')} style={{width: 25, height: 25}}/>}
+                                            checkedImage={<Image source={require('../../assets/img/CheckBox.png')} style={{width: 25, height: 25}}/>}
                                             style={{marginRight: 8}}
                                         />
                                         <View style={{width: 173, marginBottom: normalize(4)}}>
@@ -222,13 +236,13 @@ export default class MyMakingWordsHome extends React.Component {
                                                 style={{padding: 0, marginBottom: 19, marginRight: 8}}
                                                 isChecked={item.checked}
                                                 onClick={() => this.setChecked(index)}   
-                                                checkedImage={<Image source={require('../../assets/img/Unchekced.png')} style={{width: 25, height: 25}}/>}
-                                                unCheckedImage={<Image source={require('../../assets/img/CheckBox.png')} style={{width: 25, height: 25}}/>}
+                                                unCheckedImage={<Image source={require('../../assets/img/Unchekced.png')} style={{width: 25, height: 25}}/>}
+                                                checkedImage={<Image source={require('../../assets/img/CheckBox.png')} style={{width: 25, height: 25}}/>}
                                             />
                                         :
                                         null
                                     }
-                                    <TouchableHighlight style={this.state.edit ? styles.button : [styles.button, {width: 206, height: 48}]} activeOpacity={0.8} onPress={ () => { this.editMyWord(item, index) } } underlayColor='#4E4E4E'>
+                                    <TouchableHighlight style={this.state.edit ? styles.button : [styles.button, {width: 206, height: 48}]} activeOpacity={0.8} onPress={ () => { this.detailMyWord(item, index) } } underlayColor='#4E4E4E'>
                                         <ImageBackground source={ this.state.edit ? Images.buttons[3][index % 4] : Images.buttons[2][index % 4] } style={styles.buttonImage} resizeMode='cover'>
                                             <View>
                                                 <Text style={[fonts.size16, fonts.familyBold, fonts.colorWhite, styles.buttonLabel]}>{item.name}</Text>
@@ -241,7 +255,7 @@ export default class MyMakingWordsHome extends React.Component {
                                             <TouchableHighlight style={styles.editProp} onPress={() => this.editMyWord(item, index)}>
                                                 <Icon name='pencil' type='octicon' color={'black'} size={20} />
                                             </TouchableHighlight>
-                                            <TouchableHighlight style={styles.editProp} onPress={() => this.removeMyWord(item.id, index)}>
+                                            <TouchableHighlight style={styles.editProp} onPress={() => this.removeMyWord(item.id, index, item.name)}>
                                                 <Icon name='trash-outline' type='ionicon' color={'black'} size={20} />
                                             </TouchableHighlight>
                                         </View>
@@ -261,7 +275,7 @@ export default class MyMakingWordsHome extends React.Component {
                             
                         
                     </ImageBackground>
-                    <Spinner_bar color={'#68ADED'} visible={!this.state.loaded} textContent={""}  overlayColor={"rgba(0, 0, 0, 0.5)"}  />
+                    {/* <Spinner_bar color={'#68ADED'} visible={!this.state.loaded} textContent={""}  overlayColor={"rgba(0, 0, 0, 0.5)"}  /> */}
                 </Content>
             </Container>
         );

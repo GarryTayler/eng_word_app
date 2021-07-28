@@ -24,6 +24,7 @@
 
  import MyMakingWordsHome from './app/screens/mymakingwords/MyMakingWordsHome';
  import CreateWord from './app/screens/mymakingwords/CreateWord';
+ import MyMakingWordDetail from './app/screens/mymakingwords/MyMakingWordDetail';
 
  import StudyResultsHome from './app/screens/studyresults/StudyResultsHome';
  import StudyResultsDetail from './app/screens/studyresults/StudyResultsDetail';
@@ -108,6 +109,8 @@ class App extends React.Component {
 
                                     <Scene key="my_making_words" title="내가만드는 단어장" reset="my_making_words_home" name="my_making_words_home" icon={TabBarIcon} hideNavBar>
                                         <Scene key="my_making_words_home" component={MyMakingWordsHome} initial/>
+                                        <Scene key="my_making_word_detail" component={MyMakingWordDetail} />
+
                                     </Scene>
 
                                     <Scene key="study_results" title="학습결과" reset="study_results_home" name="study_results_home" icon={TabBarIcon} hideNavBar>

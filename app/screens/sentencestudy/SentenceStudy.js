@@ -249,7 +249,7 @@ export default class SentenceStudy extends React.Component {
                     }
                 </View>
                 <View>
-                    <TouchableOpacity style={{position: 'absolute', right: 10}} onPress={() => this.again()}>
+                    <TouchableOpacity style={{position: 'absolute', right: 12, top: 10}} onPress={() => this.again()}>
                         <Icon name='closecircle' type='antdesign' size={20} color='#828282' /> 
                     </TouchableOpacity>
                     <TextInput
@@ -261,6 +261,7 @@ export default class SentenceStudy extends React.Component {
                         onSubmitEditing={Keyboard.dismiss}   
                         value={this.state.inputAnswer}
                         editable={false}
+                        multiline={true}
                     >
                     </TextInput>
                 </View>
@@ -270,6 +271,7 @@ export default class SentenceStudy extends React.Component {
                     onSubmitEditing={Keyboard.dismiss}   
                     value={this.state.confirmAnswer ? this.state.correctAnswer : ''}
                     editable={false}
+                    multiline={true}
                 >
                 </TextInput>
                 {
@@ -377,12 +379,12 @@ const styles = StyleSheet.create({
     },
     textInput: {
         fontSize: normalize(14),
-        height: normalize(28),
-        paddingTop: normalize(6),
+        height: normalize(36),
+        paddingTop: normalize(3),
         paddingBottom: normalize(6),
         marginHorizontal: 15,
         borderBottomWidth: 1,
-        marginTop: 8,
+        marginTop: 3,
         borderColor: 'rgba(0,0,0,0.5)',
     },
     resultIcon: {

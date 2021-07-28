@@ -4,29 +4,18 @@ import { Container, Content } from 'native-base';
 import Images from './../../assets/Images';
 import { fonts } from '../../assets/styles';
 import {Actions} from 'react-native-router-flux';
-export default class MyWordHome extends React.Component {
-    constructor(props){
+
+export default class MyMakingWordDetail extends React.Component {
+    constructor(props) {
         super(props);
     }
-    buttonClick() {
-    }
-    componentDidMount() {
-    }
     wordListView() { // 단어목록보기
-        Actions.push('my_word_list_view');
     }
-    viewWordStudy() {
-        Actions.push('word_study_init', {
-            params: {   category_id: 0, 
-                before: 'myword'} 
-        });
+    viewWordStudy() { //단어 학습
     }
-    async wordView() {
-        Actions.push('word_view',
-            { params: {   category_id: 0, 
-                            before: 'myword'}});
+    wordView() { //단어 보기
     }
-    render() {
+    render()    {
         return (
             <Container>
                 <Content contentContainerStyle={styles.container}>
@@ -35,7 +24,7 @@ export default class MyWordHome extends React.Component {
                             <TouchableHighlight style={[styles.item, {marginRight: 11}]} onPress={ () => { this.buttonClick() } } activeOpacity={0.6}
                             onPress={ () => { this.wordView() } }>
                                 <ImageBackground source={Images.wordView} resizeMode='cover' style={{flex: 1}}
-                                    imageStyle={styles.itemImg}>        
+                                    imageStyle={styles.itemImg}>
                                     <View style={{flex: 1, position: 'relative'}}>
                                         <View style={styles.labelContainer}>
                                             <Text style={[fonts.size13, fonts.familyBold, fonts.colorWhite]}>단어보기</Text>
@@ -71,7 +60,7 @@ export default class MyWordHome extends React.Component {
                     </ImageBackground>
                 </Content>
             </Container>
-        );
+        );       
     }
 }
 
