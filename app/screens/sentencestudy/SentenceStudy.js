@@ -57,12 +57,10 @@ export default class SentenceStudy extends React.Component {
         let temp = this.state.sentenceList[this.state.curIndex].parts;
         if(temp && temp.length > 0) {
             let wordList = []
-            console.log(temp, temp.sort());
             temp = temp.sort();
             temp.map((item, index) => {
                 wordList.push({id: index, word: item, clicked: false})
             })
-            
             if(wordList.length % 4 == 1) {
                 wordList.push({id: wordList.length, word: '', clicked: false})
                 wordList.push({id: wordList.length + 1, word: '', clicked: false})

@@ -1,90 +1,61 @@
 import React from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
-import { Container, Content, Button } from 'native-base';
-import UserHeader from './../components/shared/UserHeader';
-import ViewHeader from './../components/shared/ViewHeader';
-import WordPanel from './../components/shared/WordPanel';
-import { fonts, normalize, getScreenWidth } from './../assets/styles';
+import { StyleSheet, View, Text } from 'react-native';
+import { Container, Button } from 'native-base';
+import { SwiperFlatList } from 'react-native-swiper-flatlist';
+import { getRecentStudy } from './../utils/RecentStudy';
+import { getWordIdListFromMyWord, getWordListFromMyWord } from './../utils/MyWord';
 import { performNetwork } from './../components/shared/global';
 import { getWordList } from './../utils/api';
-import { getWordListFromMyWord, getWordIdListFromMyWord } from './../utils/MyWord';
-import { Icon } from 'react-native-elements';
+import { fonts, normalize, getScreenWidth } from './../assets/styles';
+import UserHeader from './../components/shared/UserHeader';
+import ViewHeader from './../components/shared/ViewHeader';
 import Spinner_bar from 'react-native-loading-spinner-overlay';
-import { getRecentStudy } from './../utils/RecentStudy';
-import { _e } from '../utils/lang';
+import WordPanel from './../components/shared/WordPanel';
+
 let pageTitle = '단어 보기';
 
 export default class WordView extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             loaded: true,
-            serverRespond: false,
             arrData: [],
             mywordidList: [],
             curPage: 0,
             hideMeaning: false,
             hideExample: false,
             selectedSubject: null,
-            visible: false,
-            visibleText: '',
-            visibleRegister: true
-        }; 
+        };               
     }
+
     async componentDidMount() {
         let selectedStudy = await getRecentStudy();
         if(selectedStudy) {
-            this.setState({selectedSubject: selectedStudy})
+            this.setState({selectedSubject: selectedStudy})           
         }
-        this.fetchWordList();
+        this.fetchWordList();    
     }
     async fetchWordList() {
-        if(this.props.params.before != 'myword') {
+        if(this.props.params.before == 'detail') { //디테일 페이지에서 접속하는 경우
             performNetwork(this, getWordList(this.props.params.category_id)).then((response) => {
                 if(response == null) { return; }
                 this.setState({arrData: response});
             });
             let _word_id_list = await getWordIdListFromMyWord();
-            this.setState({mywordidList: _word_id_list});
+            this.setState({mywordidList: _word_id_list});           
         }
-        else {
+        else if(this.props.params.before == 'myword') { //내단어장
             this.setState({loaded: false});
             let _word_list = await getWordListFromMyWord();
-            this.setState({arrData: _word_list, loaded: true});
-        }       
-    }
-    prevWord() {
-        if(this.state.curPage > 0)
-            this.setState({curPage: this.state.curPage - 1});
-        else {
-            this.setState({visible: true})
-            this.setState({visibleText: _e.first_page_error})
-            setTimeout(() => {
-                this.setState({visible: false})
-            }, 4000);
+            this.setState({arrData: _word_list, loaded: true}); 
         }
     }
-    nextWord() {
-        if(this.state.curPage < this.state.arrData.length - 1)
-            this.setState({curPage: this.state.curPage + 1});
-        else {
-            this.setState({visible: true})
-            this.setState({visibleText: _e.last_page_error})
-            setTimeout(() => {
-                this.setState({visible: false})
-            }, 4000);
-        }
-    }
-    moveFirstPage() {
-        this.setState({curPage: 0});
-    }
-    moveLastPage() {
-        this.setState({curPage: this.state.arrData.length - 1});
+    changeScreen(e) {
+        this.setState({curPage: e});
     }
     favoriteChange(e) {
         if(e.favorite) {
-            if(this.state.mywordidList.indexOf(e.id) < 0)
-            {
+            if(this.state.mywordidList.indexOf(e.id) < 0) {
                 let mywordidList = [...this.state.mywordidList];
                 mywordidList.push(e.id);
                 this.setState({mywordidList});
@@ -100,7 +71,7 @@ export default class WordView extends React.Component {
         }
     }
     render() {
-        return(
+        return (
             <Container style={{flex: 1}}>
                 <UserHeader title={pageTitle} />
                 <ViewHeader 
@@ -110,7 +81,6 @@ export default class WordView extends React.Component {
                     totalCount={this.state.arrData ? this.state.arrData.length : 0} title={this.state.selectedSubject ? this.state.selectedSubject.selectedName : ''}
                     currentItem={this.state.arrData && this.state.arrData.length > 0 ? this.state.arrData[this.state.curPage] : null}
                     ellipsis={true}
-
                     star={
                         this.state.arrData.length == 0 ? false
                         :
@@ -120,89 +90,62 @@ export default class WordView extends React.Component {
                         this.favoriteChange(e);
                     }}
                 />
-                
                 <View style={[styles.container]}>
-                {
-                    this.state.arrData != null && this.state.arrData.length > 0
-                    ?
-                    <WordPanel 
-                        params = {this.state.arrData[this.state.curPage]}
-                        hideMeaning = {this.state.hideMeaning}
-                        hideExample = {this.state.hideExample}
-                        changeHideMeaning={(e) => { this.setState({hideMeaning: e}) }}
-                        changeHideExample={(e) => { this.setState({hideExample: e}) }}
+                {   
+                    <SwiperFlatList
+                        disableVirtualization={false}
+                        onChangeIndex={(e)=>{
+                                this.changeScreen(e.index)
+                        }}
+                        data={this.state.arrData}
+                        keyExtractor={(item) => item.id}
+                        renderItem={({ item }) => (
+                            <WordPanel
+                            params = {item}
+                            hideMeaning = {this.state.hideMeaning}
+                            hideExample = {this.state.hideExample}
+                            changeHideMeaning={(e) => { this.setState({hideMeaning: e}) }}
+                            changeHideExample={(e) => { this.setState({hideExample: e}) }}
+                            disableGesture={true}
+                            />
+                        )}  
+                        removeClippedSubviews={true}
+                        initialNumToRender={10}
+                        maxToRenderPerBatch={10}
                     />
-                    : null
                 }
-                <Spinner_bar color={'#68ADED'} visible={!this.state.loaded} textContent={""}  overlayColor={"rgba(0, 0, 0, 0.5)"}  />
+                    <Spinner_bar color={'#68ADED'} visible={!this.state.loaded} textContent={""}  overlayColor={"rgba(0, 0, 0, 0.5)"}  />
                 </View>
 
                 {
                     this.state.arrData != null && this.state.arrData.length > 0 ?
-                        <View style={{backgroundColor: '#E4E4E4', paddingVertical: normalize(12)}}>
-                            <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: normalize(16) }}>
-                                <Button style={styles.footerButton}
-                                onPress={() => this.setState({hideMeaning: !this.state.hideMeaning})}>
-                                    <Text style={[fonts.size16, fonts.familyRegular]}>
-                                        {
-                                            this.state.hideMeaning ? '단어 뜻 보기' : '단어 뜻 가리기'
-                                        }
-                                        
-                                    </Text>
-                                </Button>
-                                <Button style={styles.footerButton}
-                                onPress={() => this.setState({hideExample: !this.state.hideExample})}>
-                                    <Text style={[fonts.size16, fonts.familyRegular]}>
-                                        {
-                                            this.state.hideExample ? '예문 해석 보기 ' : '예문 해석 가리기 '
-                                        }
-                                    </Text>
-                                </Button>
-                            </View>
-                            <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between',
-                            paddingHorizontal: normalize(8), paddingVertical: normalize(18)}}>
-                                <TouchableOpacity activeOpacity={0.6}
-                                style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}
-                                onPress={ () => this.prevWord()}>
-                                    <Icon name='arrow-back' type='ion-icon' color='#000' size={18} />
+                    <View style={{backgroundColor: '#E4E4E4', paddingVertical: normalize(12)}}>
+                        <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: normalize(16) }}>
+                            <Button style={styles.footerButton}
+                            onPress={() => this.setState({hideMeaning: !this.state.hideMeaning})}>
+                                <Text style={[fonts.size16, fonts.familyRegular]}>
                                     {
-                                        this.state.arrData && this.state.curPage > 0 ? 
-                                        <Text style={[fonts.size16, fonts.familyRegular, {paddingLeft: 5}]}>{this.state.arrData[this.state.curPage-1]['word']}</Text>    
-                                        :
-                                        <Text style={[fonts.size16, {paddingLeft: 5, opacity: 0}]}>{this.state.arrData.length > 1 ? this.state.arrData[1]['word'] : null}</Text>
-                                    }
-                                </TouchableOpacity>
-                                {
-                                    this.state.visible ?
-                                    <View style={{backgroundColor: 'rgba(0,0,0,0.6)', paddingHorizontal: 5, paddingVertical: 3, borderRadius: 8}}>
-                                        <Text style={[fonts.size14, fonts.colorWhite, fonts.familyRegular]}>
-                                            {this.state.visibleText}
-                                        </Text>
-                                    </View>
-                                    :
-                                    null
-                                }
-                                <TouchableOpacity activeOpacity={0.6}
-                                style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}
-                                onPress={ () => this.nextWord()}>
-                                    {
-                                        this.state.arrData && this.state.curPage < this.state.arrData.length - 1 ?
-                                        <Text style={[fonts.size16, fonts.familyRegular, {paddingRight: 5}]}>{this.state.arrData[this.state.curPage+1]['word']}</Text>
-                                        :
-                                        <Text style={[fonts.size16, {paddingRight: 5, opacity: 0}]}>{this.state.curPage > 0 ? this.state.arrData[this.state.curPage-1]['word'] : null}</Text>
+                                        this.state.hideMeaning ? '단어 뜻 보기' : '단어 뜻 가리기'
                                     }
                                     
-                                    <Icon name='arrow-forward' type='ion-icon' color='#000' size={18} />    
-                                </TouchableOpacity>
-                            </View>
+                                </Text>
+                            </Button>
+                            <Button style={styles.footerButton}
+                            onPress={() => this.setState({hideExample: !this.state.hideExample})}>
+                                <Text style={[fonts.size16, fonts.familyRegular]}>
+                                    {
+                                        this.state.hideExample ? '예문 해석 보기 ' : '예문 해석 가리기 '
+                                    }
+                                </Text>
+                            </Button>
                         </View>
-                        : null
+                    </View>   
+                    : null
                 }
             </Container>
         );
     }
 }
-
 
 const styles = StyleSheet.create({
     container: {
@@ -218,17 +161,6 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderRadius: normalize(12),
         borderColor: '#EB5757',
-        borderWidth: 1,
-    },
-    navigatorButton: {
-        width: normalize(84),
-        height: normalize(30),
-        backgroundColor: '#E4E4E4',
-        borderColor: '#000',
-        borderWidth: 1,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: normalize(12)
+        borderWidth: 1,     
     }
 });

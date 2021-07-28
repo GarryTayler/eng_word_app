@@ -13,5 +13,5 @@ export const _e = {
     start_end_number_error: "시작번호, 끝번호 확인해주세요.",
     setence_selection_error: "문장을 선택해주세요.",
 
-    object_word_study_shortage_problem: "5개 이상의 단어모임에서 객관식학습을 진행할수있습니다."
+    object_word_study_shortage_problem: "5개 이상의 단어를 선택해야 객관식 학습을 진행할 수 있습니다."
 }
