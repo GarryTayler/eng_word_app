@@ -289,6 +289,7 @@ export default class WordStudyInit extends React.Component {
                                             }}
                                             onSubmitEditing={Keyboard.dismiss}
                                             value={this.state.endNumber}
+                                            keyboardType='numeric'
                                         >
                                         </TextInput>
                                     </View>

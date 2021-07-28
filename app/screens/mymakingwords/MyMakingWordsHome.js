@@ -49,7 +49,8 @@ export default class MyMakingWordsHome extends React.Component {
                     }
                 })
                 if(selected) {
-                    Alert.alert("선택한 단어장을 삭제하시겠습니까?", "", 
+                    let confirm_msg = this.state.checkAll ? '선택한 단어장을 전체 삭제하시겠습니까?' : '선택한 단어장을 삭제하시겠습니까?';
+                    Alert.alert(confirm_msg, "", 
                         [
                             {
                                 text: "취소",
@@ -77,7 +78,15 @@ export default class MyMakingWordsHome extends React.Component {
     setChecked(index) {
         let temp = this.state.arrData;
         temp[index]['checked'] = !temp[index]['checked'];
-        this.setState({arrData: temp});
+
+        let _checkedAll = true;
+        for(let i = 0; i < temp.length; i ++) {
+            if(!temp[i]['checked']) {
+                _checkedAll = false;
+                break;
+            }
+        }
+        this.setState({arrData: temp, checkAll: _checkedAll});
     }
 
     setCheckAll() {

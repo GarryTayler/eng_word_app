@@ -61,11 +61,14 @@ export default class CreateWordItem extends React.Component {
                                         </View>
                                     </View>        
 
-                                    <View style={{width: normalize(30), alignItems: 'flex-end'}}>
+                                    <View style={{width: normalize(20), alignItems: 'flex-end'}}>
+                                    {
+                                        /*
                                         <TouchableHighlight style={[styles.swapIconContainer]}
                                     onPress={ () => {this.props.doSwap()} } underlayColor="white" activeOpacity={0.8}>
                                             <Icon name='arrow-swap' type='fontisto' color='rgba(0,0,0,0.5)' size={14} />
-                                        </TouchableHighlight>
+                                        </TouchableHighlight> */
+                                    }
                                     </View>
                                 </View>
                                 <View style={{flex: 6, flexDirection: 'row', alignItems: 'center',
@@ -117,11 +120,15 @@ export default class CreateWordItem extends React.Component {
                                             </TextInput>
                                         </View>
                                     </View>
-                                    <View style={{width: normalize(30), alignItems: 'flex-end'}}>
+                                    <View style={{width: normalize(20), alignItems: 'flex-end'}}>
+                                    {
+                                        /*
                                         <TouchableHighlight style={[styles.swapIconContainer]}
                                     onPress={ () => {this.props.doSwap()} } underlayColor="white" activeOpacity={0.8}>
                                             <Icon name='arrow-swap' type='fontisto' color='rgba(0,0,0,0.5)' size={14} />
                                         </TouchableHighlight>
+                                        */
+                                    }
                                     </View>
                                 </View>
                                 <View style={{flex: 6, flexDirection: 'row', alignItems: 'center',

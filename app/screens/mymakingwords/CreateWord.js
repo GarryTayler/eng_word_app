@@ -212,7 +212,7 @@ export default class CreateWord extends React.Component {
                     >
                     {
                         this.state.arrData.length > 0 ?
-                        <FlatList
+                        <OptimizedFlatList
                             style={[styles.container, {paddingHorizontal: normalize(10)}]}
                             data={this.state.arrData}
                             keyExtractor={(item) => item.id}
