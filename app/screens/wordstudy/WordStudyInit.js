@@ -10,7 +10,7 @@ import { performNetwork } from './../../components/shared/global';
 import { getWordList } from './../../utils/api';
 import { getWordListFromMyWord } from './../../utils/MyWord';
 import { getVocabularyData } from './../../utils/MyMakingWords';
-import { showToast } from './../../components/shared/global';
+import { showToast, shuffleArray, generate } from './../../components/shared/global';
 import Spinner_bar from 'react-native-loading-spinner-overlay';
 let pageTitle = '단어 학습';
 
@@ -56,18 +56,6 @@ export default class WordStudyInit extends React.Component {
         }
     }
     //
-    generate(problemNo) {
-        let _others = [], _length = 0;
-        while(1) {
-            let _pbno = Math.floor(this.state.arrData.length * Math.random()) + 1;
-            if( _pbno != problemNo && _others.indexOf(_pbno) < 0 )
-                _others.push(_pbno);
-            if(_others.length == 4)
-                break;
-        }
-        _others.splice(Math.floor(Math.random() * 5), 0, problemNo);
-        return _others;
-    }
     shuffle() {
         if(_start == '' || _end == '')
             return false;
@@ -86,18 +74,6 @@ export default class WordStudyInit extends React.Component {
         for (let i = _start; i <= _end; i ++) 
             _array.push(i);
         
-        if(this.state.progressOrder == 'random') {
-            let currentIndex = _array.length,  randomIndex;
-            // While there remain elements to shuffle...
-            while (0 !== currentIndex) {
-                // Pick a remaining element...
-                randomIndex = Math.floor(Math.random() * currentIndex);
-                currentIndex--;
-                // And swap it with the current element.
-                [_array[currentIndex], _array[randomIndex]] = [_array[randomIndex], _array[currentIndex]];
-            }
-        }
-        // return _array;
         let _problems = [];
         if(this.state.problemMethod == 'sub') {
             for(let i = 0; i < _array.length; i ++) {
@@ -109,6 +85,8 @@ export default class WordStudyInit extends React.Component {
                     this.state.arrData[_array[i] - 1].meaning : this.state.arrData[_array[i] - 1].word)
                 });
             }
+            if(this.state.progressOrder == 'random') 
+                _problems = shuffleArray(_problems);
         }
         else {
             for(let i = 0; i < _array.length; i ++) {
@@ -118,9 +96,11 @@ export default class WordStudyInit extends React.Component {
                     'correct_index': _array[i], 
                     'correct_answer': (this.state.studyMethod == 'entoko' ? 
                     this.state.arrData[_array[i] - 1].meaning : this.state.arrData[_array[i] - 1].word),
-                    'choice': this.generate(_array[i]).map(x => ( {no: x, problem: (this.state.studyMethod == 'entoko' ? this.state.arrData[x-1].meaning : this.state.arrData[x-1].word)} ) )
+                    'choice': generate(_array[i], this.state.arrData.length).map(x => ( {no: x, problem: (this.state.studyMethod == 'entoko' ? this.state.arrData[x-1].meaning : this.state.arrData[x-1].word)} ) )
                 });
             }
+            if(this.state.progressOrder == 'random')
+                _problems = shuffleArray(_problems);
         }
         return _problems;
     }

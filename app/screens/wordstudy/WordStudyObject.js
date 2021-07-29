@@ -7,7 +7,6 @@ import ChoiceItem from './../../components/wordstudy/ChoiceItem';
 import WordStudyHeader from './../../components/wordstudy/WordStudyHeader';
 import Images from './../../assets/Images';
 import {Actions} from 'react-native-router-flux';
-import TextTicker from 'react-native-text-ticker'
 import { getCurrentDate } from './../../components/shared/global';
 
 let pageTitle = '단어 학습';

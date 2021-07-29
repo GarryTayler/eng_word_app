@@ -70,3 +70,30 @@ export function generateMyMakingWordId () {
    }
    return result;
 }
+
+export function shuffleArray(_array)  {
+    let currentIndex = _array.length,  randomIndex;
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+        // And swap it with the current element.
+        [_array[currentIndex], _array[randomIndex]] = [_array[randomIndex], _array[currentIndex]];
+    }
+    return _array;
+}
+
+export function generate(problemNo, problemCount) {
+    let _others = [];
+    while(1)   {
+        let _pbno = Math.floor(problemCount * Math.random()) + 1;       
+        if( _pbno != problemNo && _others.indexOf(_pbno) < 0 )
+                _others.push(_pbno);   
+        if(_others.length == 4)
+            break;   
+    }
+    _others.splice(Math.floor(Math.random() * 5), 0, problemNo);
+    return _others;
+}
+

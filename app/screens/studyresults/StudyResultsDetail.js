@@ -45,7 +45,7 @@ export default class StudyResultsDetail extends React.Component {
     }
     resolveAll() {
         let _problems = [];
-        if(this.props.params.type == 'sub') {
+        if(this.props.params.type == 'sub') { //주관식
             for(let i = 0; i < this.props.params.problemList.length; i ++) {
                 _problems.push({
                     'id': this.props.params.problemList[i].id,
@@ -55,15 +55,15 @@ export default class StudyResultsDetail extends React.Component {
             }
             Actions.push('word_study_subject', {
                 params: _problems,
-                studyMethod: 'entoko'
+                studyMethod: this.props.params.studyMethod
             });
         }
-        else {
+        else { //객관식
         }
     }
     resolveWrongProblems() {
         let _problems = [];
-        if(this.props.params.type == 'sub') {
+        if(this.props.params.type == 'sub') { //주관식
             for(let i = 0; i < this.props.params.problemList.length; i ++) {
                 if(this.props.params.problemList[i].result != 'correct')
                     _problems.push({
@@ -77,7 +77,7 @@ export default class StudyResultsDetail extends React.Component {
                 studyMethod: this.props.params.studyMethod
             });
         }
-        else {
+        else { //객관식
         }
     }
     renderTabs() {
