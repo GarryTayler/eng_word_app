@@ -261,10 +261,10 @@ export default class MyMakingWordsHome extends React.Component {
                                     {
                                         this.state.edit ?
                                         <View style={{flexDirection: 'row'}}>
-                                            <TouchableHighlight style={styles.editProp} onPress={() => this.editMyWord(item, index)}>
+                                            <TouchableHighlight style={styles.editProp} onPress={() => this.editMyWord(item, index)} activeOpacity={0.8} underlayColor="rgb(200, 200, 200)">
                                                 <Icon name='pencil' type='octicon' color={'black'} size={20} />
                                             </TouchableHighlight>
-                                            <TouchableHighlight style={styles.editProp} onPress={() => this.removeMyWord(item.id, index, item.name)}>
+                                            <TouchableHighlight style={styles.editProp} onPress={() => this.removeMyWord(item.id, index, item.name)} activeOpacity={0.8} underlayColor="rgb(200, 200, 200)">
                                                 <Icon name='trash-outline' type='ionicon' color={'black'} size={20} />
                                             </TouchableHighlight>
                                         </View>

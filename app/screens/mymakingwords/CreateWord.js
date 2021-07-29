@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, TextInput, Keyboard, TouchableHighlight, FlatList } from 'react-native';
+import { StyleSheet, View, Text, TextInput, Keyboard, TouchableHighlight, FlatList, Alert } from 'react-native';
 import { Container, Content } from 'native-base';
 import CheckBox from 'react-native-check-box';
 import { Button } from 'native-base';
@@ -100,9 +100,22 @@ export default class CreateWord extends React.Component {
     renderCreateWord(item, index) {
         return <CreateWordItem key={index} currentNo={index} word={item.word} changeWord={(text) => this.changeWord(text, index)} meaning={item.meaning} changeMeaning={(text) => this.changeMeaning(text, index)} isChecked={item.checked} checkedWord={() => this.checkedWord(index)} />
     }
+    removeWord() {
+        Alert.alert("선택한 단어들을 삭제하시겠습니까?", "", 
+            [
+                {
+                    text: "취소",
+                    style: "cancel"
+                },
+                { text: "삭제", onPress: () => this.remove() }
+            ],
+            { cancelable: false }
+        )
+    }
     async remove() {
         let temp = this.state.arrData;
         if(temp && temp.length > 0) {
+            this.setState({loaded: false})
             temp.map((item, index) => {
                 if(item.checked) {
                     temp[index]['word'] = '';
@@ -130,7 +143,7 @@ export default class CreateWord extends React.Component {
             }
             
             this.setState({arrData: temp})
-            this.setState({allChecked: false})
+            this.setState({allChecked: false, loaded: true})
         }
     }
     checkedAll() {
@@ -153,7 +166,7 @@ export default class CreateWord extends React.Component {
     render() {
         return (
             <Container>
-                <UserHeader title={pageTitle} remove={true} remove={() => this.remove()} />
+                <UserHeader title={pageTitle} remove={true} remove={() => this.removeWord()} />
                 
                 <View style={{ paddingBottom: normalize(10), borderBottomWidth: 1, borderColor: 'rgba(0,0,0,0.5)',
                                             paddingHorizontal: normalize(16), paddingTop: normalize(16) }}>
