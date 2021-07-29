@@ -9,34 +9,17 @@ export default class MyWordListItem extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            isChecked: this.props.isChecked,
+            isChecked: this.props.checked,
             marqueeWordDisable: true,
-            marqueeMeaningDisable: true,
-            prevProps: {}
-        }
+            marqueeMeaningDisable: true
+        }       
     }
-    doSwap() {
-        this.props.doSwap();
+    doSwap()    {
+        this.props.doSwap();       
     }
-    static getDerivedStateFromProps(props, state) {
-        const prevProps = state.prevProps || {};
-        const isChecked = prevProps.allChecked !== props.allChecked
-        ? props.allChecked
-        : state.isChecked;
-        return {
-            prevProps: props,
-            isChecked
-        }
+    UNSAFE_componentWillReceiveProps(props)    {
+        this.setState({isChecked: props.checked})       
     }
-
-    triggerClicked() {
-        let isChecked = this.state.isChecked; 
-        this.setState({
-            isChecked:!this.state.isChecked
-        });
-        this.props.onClick(!isChecked);
-    }
-
     render() {
         return (
             <View style={styles.container}>
@@ -47,7 +30,11 @@ export default class MyWordListItem extends React.Component {
                     <View style={[styles.flexRowAlign, {flex: 5}]}>
                         <CheckBox
                             onClick={()=>{
-                                this.triggerClicked();
+                                let isChecked = this.state.isChecked;
+                                this.setState({
+                                    isChecked:!this.state.isChecked
+                                })
+                                this.props.onClick(!isChecked)
                             }}
                             isChecked={this.state.isChecked}
                             style={styles.checkBoxItem}
@@ -86,10 +73,10 @@ export default class MyWordListItem extends React.Component {
                             style={styles.swapIcon} size={14} />
                         </TouchableHighlight>
                     </View>
-                </View>
-            </View>    
+                </View>   
+            </View>
         );
-    }   
+    }
 }
 
 const styles = StyleSheet.create({

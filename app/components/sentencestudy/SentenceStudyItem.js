@@ -31,10 +31,11 @@ export default class SentenceStudyItem extends React.Component {
                     <View style={{width: normalize(32)}}>
                         <CheckBox
                             onClick={()=>{
+                                let isChecked = this.state.isChecked;
                                 this.setState({
                                     isChecked:!this.state.isChecked
                                 })
-                                this.props.checkClick(!this.state.isChecked)
+                                this.props.checkClick(!isChecked)
                             }}
                             isChecked={this.state.isChecked}
                             style={styles.checkBoxItem}

@@ -6,8 +6,11 @@ export default class SubHeader extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            allChecked: false
+            allChecked: this.props.allChecked
         }
+    }
+    UNSAFE_componentWillReceiveProps(props) {
+        this.setState({allChecked: props.allChecked})
     }
     clickAllChecked() {
         let allChecked = this.state.allChecked;

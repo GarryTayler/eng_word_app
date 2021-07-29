@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, FlatList } from 'react-native';
-import { Container, Content } from 'native-base';
+import { StyleSheet, FlatList, Alert } from 'react-native';
+import { Container } from 'native-base';
 import { normalize } from './../../assets/styles';
 import UserHeader from './../../components/shared/UserHeader';
 import SubHeader from './../../components/shared/SubHeader';
@@ -11,21 +11,20 @@ import Spinner_bar from 'react-native-loading-spinner-overlay';
 let pageTitle = '단어목록보기';
 
 export default class MyWordListView extends React.Component {
-    constructor(props){
+    constructor(props){       
         super(props);
         this.state = {
-            allChecked: false,
+            loaded: true,
             arrData: [],
+            allChecked: false,
             wordShow: true,
             meaningShow: true,
-            loaded: true,
-            checkedIdList: []
         }
     }
-    async componentDidMount() {
+    async componentDidMount()    {
         this.setState({loaded: false});
         let _word_list = await getWordListFromMyWord();
-        this.setState({arrData: _word_list, loaded: true});
+        this.setState({arrData: _word_list, loaded: true});      
     }
     onChangeMeaning(e)  {
         this.setState({meaningShow: e});
@@ -33,42 +32,40 @@ export default class MyWordListView extends React.Component {
     onChangeWord(e) {
         this.setState({wordShow: e});
     }
-    async removeMethod() {
-        if(this.state.checkedIdList.length == 0)
+    removeMethod() {
+        let checkedIdList = [];
+        for(let i = 0; i < this.state.arrData.length; i ++)
+            if(this.state.arrData[i]['checked'])
+                checkedIdList.push(this.state.arrData[i]['id']);
+        if(checkedIdList.length == 0)
             return;
+        Alert.alert("선택한 단어들을 삭제하시겠습니까?", "", 
+            [
+                {
+                    text: "취소",
+                    style: "cancel"
+                },
+                { text: "삭제", onPress: () => this.removeProcess(checkedIdList) }
+            ],
+            { cancelable: false }
+        )
+    }
+    async removeProcess(checkedIdList) {
         this.setState({loaded: false});
-        await removeIdListFromMyWord(this.state.checkedIdList);
+        await removeIdListFromMyWord(checkedIdList);
         let _word_list = await getWordListFromMyWord();
         this.setState({arrData: _word_list, loaded: true});
-    }
+    } 
     clickAllChecked(e) {
-        if(e == true)
-        {
-            let _word_id_list = [];
-            for(let i = 0; i < this.state.arrData.length; i ++)
-                _word_id_list.push(this.state.arrData[i]['id']);
-            this.setState({checkedIdList: _word_id_list, allChecked: true});
-        }
-        else {
-            this.setState({checkedIdList: [], allChecked: false});
-        }
-    }
-    changeCheckList(status, id) {
-        if(status) {
-            if(this.state.checkedIdList.indexOf(id) < 0)
-            {
-                let checkedIdList = [...this.state.checkedIdList];
-                checkedIdList.push(id);
-                this.setState({checkedIdList});
-            }    
-        }
-        else {
-            let _index = this.state.checkedIdList.indexOf(id);
-            if(_index >= 0) {
-                let checkedIdList = [...this.state.checkedIdList];
-                checkedIdList.splice(_index, 1);
-                this.setState({checkedIdList, allChecked: false});
-            }
+        let temp = this.state.arrData;
+        if(temp && temp.length > 0) {
+            temp.map((item, index) => {
+                if(e)
+                    temp[index]['checked'] = true;
+                else
+                    temp[index]['checked'] = false;
+            });
+            this.setState({arrData: temp, allChecked: e});
         }
     }
     async doSwap(index) {
@@ -78,7 +75,7 @@ export default class MyWordListView extends React.Component {
             let _temp = _arrData[index + 1];
             _arrData[index + 1] = _arrData[index];
             _arrData[index] = _temp;
-            this.setState({arrData: _arrData});
+            this.setState({arrData: _arrData});      
         }
         else {
             let _arrData = this.state.arrData;
@@ -90,34 +87,50 @@ export default class MyWordListView extends React.Component {
         await exchange(index);
         this.setState({loaded: true});
     }
-    render()  {
+    changeCheckList(status, index) {
+        let temp = this.state.arrData;
+        temp[index]['checked'] = status;
+        this.setState({arrData: temp});
+        let allChecked = true;
+        temp.map((item, index) => {
+            if(!item.checked)
+                allChecked = false
+        });
+        this.setState({allChecked: allChecked})
+    }
+    render()    {
         return (
             <Container>
-                <UserHeader title={pageTitle} wordList favorite
-                triggerMeaning={(e) => { this.onChangeMeaning(e) }}
-                triggerWord={(e) => { this.onChangeWord(e) }}
-                triggerRemove={() => { this.removeMethod() }} />
-                <SubHeader title="중1비상 (홍민표) 1과" favorite
-                onPress={(e) => { this.clickAllChecked(e) }} />
+                <UserHeader
+                    title={pageTitle} wordList favorite
+                    triggerMeaning={(e) => { this.onChangeMeaning(e) }}
+                    triggerWord={(e) => { this.onChangeWord(e) }}
+                    triggerRemove={() => { this.removeMethod() }}            
+                />
+                <SubHeader title="내단어장 단어목록보기" favorite 
+                onPress={(e) => { this.clickAllChecked(e) }}
+                allChecked={this.state.allChecked} />
                 <FlatList
                     data={this.state.arrData}
                     keyExtractor={(item) => item.id}
-                    renderItem={ ({ item, index }) => (
-                        <MyWordListItem
-                            numberOfWords={this.state.arrData.length}
-                            currentNo={index + 1}
-                            word={item.word}
-                            meaning={item.meaning}
-                            wordShow={this.state.wordShow}
-                            meaningShow={this.state.meaningShow}
-                            allChecked={this.state.allChecked}
-                            onClick={(e) => { this.changeCheckList(e, item.id) }}
-                            doSwap={() => {this.doSwap(index)}}
-                        />
-                    )}
+                    renderItem={
+                        ({item, index}) => (
+                            <MyWordListItem
+                                numberOfWords={this.state.arrData.length}
+                                currentNo={index + 1}
+                                word={item.word}
+                                meaning={item.meaning}
+                                wordShow={this.state.wordShow}
+                                meaningShow={this.state.meaningShow}
+                                checked={item.checked ? true : false}
+                                onClick={(e) => { this.changeCheckList(e, index) }}     
+                                doSwap={() => {this.doSwap(index)}}
+                            />
+                        )
+                    }
                 />
                 <Spinner_bar color={'#68ADED'} visible={!this.state.loaded} textContent={""}  overlayColor={"rgba(0, 0, 0, 0.5)"}  />
-            </Container>
+            </Container>     
         );
     }
 }
