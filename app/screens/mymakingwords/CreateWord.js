@@ -37,9 +37,6 @@ export default class CreateWord extends React.Component {
         }
         if(this.state.editable) {
             let wordTemp = await getVocabularyData(this.props.id);
-
-            console.log("word list=======>", wordTemp);
-
             if(wordTemp && wordTemp.length > 0) {
                 wordTemp.map((item, index) => {
                     temp[index] = {id: item.id, word: item.word, meaning: item.meaning, checked: false, layoutId: index + 1};

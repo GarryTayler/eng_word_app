@@ -10,10 +10,16 @@ export default class MyMakingWordDetail extends React.Component {
         super(props);
     }
     wordListView() { // 단어목록보기
+        Actions.push('word_list_view', 
+            { params: {   dictionary_id: this.props.id, 
+                            before: 'mymakingword'}});
     }
     viewWordStudy() { //단어 학습
     }
     wordView() { //단어 보기
+        Actions.push('word_view',
+            { params: {   dictionary_id: this.props.id, 
+                            before: 'mymakingword'}});
     }
     render()    {
         return (
@@ -21,7 +27,7 @@ export default class MyMakingWordDetail extends React.Component {
                 <Content contentContainerStyle={styles.container}>
                     <ImageBackground source={Images.backImg} style={styles.backImg} resizeMode='cover'>
                         <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', flexWrap: "wrap"}}>
-                            <TouchableHighlight style={[styles.item, {marginRight: 11}]} onPress={ () => { this.buttonClick() } } activeOpacity={0.6}
+                            <TouchableHighlight style={[styles.item, {marginRight: 11}]} activeOpacity={0.6}
                             onPress={ () => { this.wordView() } }>
                                 <ImageBackground source={Images.wordView} resizeMode='cover' style={{flex: 1}}
                                     imageStyle={styles.itemImg}>

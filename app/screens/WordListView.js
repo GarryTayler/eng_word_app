@@ -9,6 +9,7 @@ import { getWordList } from './../utils/api';
 import { performNetwork } from './../components/shared/global';
 import { getWordIdListFromMyWord } from './../utils/MyWord';
 import { getRecentStudy } from './../utils/RecentStudy';
+import { getVocabularyData } from './../utils/MyMakingWords';
 import Spinner_bar from 'react-native-loading-spinner-overlay';
 let pageTitle = '단어목록보기';
 
@@ -34,12 +35,20 @@ export default class WordListView extends React.Component {
     }
 
     async fetchWordList() {
-        performNetwork(this, getWordList(this.props.params.category_id)).then((response) => {
-            if(response == null) { return; }
-            this.setState({arrData: response});
-        });
-        let _word_id_list = await getWordIdListFromMyWord();
-        this.setState({mywordidList: _word_id_list});
+        if(this.props.params.before == 'detail') { //디테일 페이지에서 접속하는 경우
+            performNetwork(this, getWordList(this.props.params.category_id)).then((response) => {
+                if(response == null) { return; }
+                this.setState({arrData: response});
+            });
+            let _word_id_list = await getWordIdListFromMyWord();
+            this.setState({mywordidList: _word_id_list});
+        }
+        else if(this.props.params.before == 'mymakingword') { //내가 만드는 단어장
+            this.setState({loaded: false});
+            let _word_list = await getVocabularyData(this.props.params.dictionary_id);
+            let _word_id_list = await getWordIdListFromMyWord();
+            this.setState({arrData: _word_list, loaded: true, mywordidList: _word_id_list}); 
+        }
     }
 
     onChangeMeaning(e)  {

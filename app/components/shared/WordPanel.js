@@ -16,7 +16,7 @@ export default class WordPanel extends PureComponent {
         // this.setState({hideExample: this.props.hideExample})
     }
     renderText(type) {
-        if(this.props.params && this.props.params.ex && this.props.params.ex.length > 0) {
+        if(this.props.params && this.props.params.ex && Array.isArray(this.props.params.ex) && this.props.params.ex.length > 0) {
             return this.props.params.ex.map((item, index) => {
                 let ex_word = item.ex_word.replace(/\n/g, '');
                 let ex_meaning = item.ex_meaning.replace(/\n/g, '');
@@ -80,7 +80,11 @@ export default class WordPanel extends PureComponent {
                                 repeatSpacer={50} marqueeDelay={1000} style={[fonts.size24, fonts.familyBold]}>{this.props.params.word}</TextTicker>
                         </View>
                         <View style={{marginTop: normalize(6), marginHorizontal: normalize(10), position: 'relative', flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-                            <Text style={[fonts.familyBold, fonts.size20, {color: 'rgba(0,0,0,0.5)'}]}>{this.props.params.pronunciation}</Text>
+                            <Text style={[fonts.familyBold, fonts.size20, {color: 'rgba(0,0,0,0.5)'}]}>
+                                { 
+                                    this.props.params.pronunciation ? this.props.params.pronunciation : null
+                                }
+                            </Text>
                             <View style={{position: 'absolute', top: normalize(24), zIndex: 1001}}>
                                 <WordSpeech wordView word={this.props.params.word} />
                             </View>

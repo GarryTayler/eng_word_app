@@ -4,6 +4,7 @@ import { Container, Button } from 'native-base';
 import { SwiperFlatList } from 'react-native-swiper-flatlist';
 import { getRecentStudy } from './../utils/RecentStudy';
 import { getWordIdListFromMyWord, getWordListFromMyWord } from './../utils/MyWord';
+import { getVocabularyData } from './../utils/MyMakingWords';
 import { performNetwork } from './../components/shared/global';
 import { getWordList } from './../utils/api';
 import { fonts, normalize, getScreenWidth } from './../assets/styles';
@@ -47,7 +48,16 @@ export default class WordView extends React.Component {
         else if(this.props.params.before == 'myword') { //내단어장
             this.setState({loaded: false});
             let _word_list = await getWordListFromMyWord();
+            
+            console.log("my word list===========>", _word_list);
+
             this.setState({arrData: _word_list, loaded: true}); 
+        }
+        else if(this.props.params.before == 'mymakingword') { //내가 만드는 단어장
+            this.setState({loaded: false});
+            let _word_list = await getVocabularyData(this.props.params.dictionary_id);
+            let _word_id_list = await getWordIdListFromMyWord();
+            this.setState({arrData: _word_list, loaded: true, mywordidList: _word_id_list}); 
         }
     }
     changeScreen(e) {
