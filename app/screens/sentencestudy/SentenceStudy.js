@@ -40,6 +40,7 @@ export default class SentenceStudy extends React.Component {
 
     async componentDidMount() {
         Orientation.lockToLandscape();
+
         this.setState({correctAnswer: this.state.sentenceList[this.state.curIndex].sentence})
         let curSetence = this.state.sentenceList[this.state.curIndex];
         let idList = await getSentenceIdListFromMySentence();

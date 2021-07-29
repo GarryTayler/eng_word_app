@@ -46,36 +46,40 @@ export default class SentenceStudyInit extends React.Component {
     }
 
     async fetchSentenceList() {
-        if(this.props.params.before != 'mysentence') {
+        if(this.props.params.before == 'detail') {
             performNetwork(this, getSentenceList(this.props.params.category_id)).then(async (response) => {
                 if(response == null) { return; }
                 if(response && response.length > 0) {
                     let temp = [];
-                    let idList = await getSentenceIdListFromMySentence();
+
+                    let idList = await getSentenceIdListFromMySentence();   //내문장에 등록된 문장목록 가져오기
 
                     response.map((item, index) => {
                         item['checked'] = false
                         item['isFavorite'] = false
+                        /* 
                         if(idList && idList.length > 0) {
                             idList.map((_item) => {
                                 if(item.id == _item) {
                                     item['isFavorite'] = true
                                 }
                             })
-                        }
+                        } */
+                        item['isFavorite'] = idList.indexOf(item.id) >= 0 ? true : false;
                         temp.push(item);
                     })
                     this.setState({arrData: temp});
-                    await AsyncStorage.setItem("sentence_study", JSON.stringify(temp));
+                    // await AsyncStorage.setItem("sentence_study", JSON.stringify(temp));
                 }
-                
             });
         }
         else  {
             this.setState({loaded: false});
             let _sen_list = await getSentenceListFromMySentence();
-            let temp = [];
-            let idList = await getSentenceIdListFromMySentence();
+            this.setState({arrData: _sen_list, loaded: true});
+            // let temp = [];
+            // let idList = await getSentenceIdListFromMySentence();
+            /* 
             _sen_list.map((item, index) => {
                 item['checked'] = false
                 item['isFavorite'] = false
@@ -87,11 +91,9 @@ export default class SentenceStudyInit extends React.Component {
                     })
                 }
                 temp.push(item);
-            })
-            this.setState({arrData: temp, loaded: true});
-            await AsyncStorage.setItem("sentence_study", JSON.stringify(temp));
-
-            //this.setState({arrData: _sen_list});
+            }) */
+            // this.setState({arrData: temp, loaded: true});
+            // await AsyncStorage.setItem("sentence_study", JSON.stringify(temp));
         }
     }
 
@@ -106,22 +108,6 @@ export default class SentenceStudyInit extends React.Component {
             })
             this.setState({arrData: temp});
             this.setState({checkAll: !this.state.checkAll})
-        }
-    }
-
-    startStudy() {
-        let temp = this.state.arrData;
-        if(temp && temp.length > 0) {
-            let sentenceList = [];
-            temp.map((item, index) => {
-                if(item.checked) {
-                    sentenceList.push(item);
-                }
-            })
-            if(sentenceList.length > 0) 
-                Actions.push("sentence_study", {sentenceList: sentenceList})
-            else 
-                showToast("setence_selection_error", "error");
         }
     }
 
@@ -142,23 +128,17 @@ export default class SentenceStudyInit extends React.Component {
         key={item.id}
         engSentence={item.sentence}
         isFavorite={item.isFavorite}
-        korSentence={item.meaning} checked={item.checked} totalProblems={this.state.arrData.length} currentNo={index + 1} 
+        korSentence={item.meaning} checked={item.checked ? true : false} totalProblems={this.state.arrData.length} currentNo={index + 1} 
         checkClick={(checked) => this.checkClick(checked, index)}
         />
     }
 
+    /*
+    order:  true  -> random 처리
+            false -> 번호순 처리
+    */
     async changeOrder() {
-        if(this.state.order) {
-            let temp = this.state.arrData
-            this.setState({arrData: this.shuffle(temp)})
-        } else {
-            this.setState({loaded: false})
-            let temp = await AsyncStorage.getItem("sentence_study");
-            if(temp)
-                this.setState({arrData: JSON.parse(temp)})
-            this.setState({loaded: true})
-        }
-        this.setState({order: !this.state.order})
+        this.setState({ order: !this.state.order });
     }
 
     shuffle(array) {
@@ -177,6 +157,29 @@ export default class SentenceStudyInit extends React.Component {
         }
       
         return array;
+    }
+
+    startStudy() {
+        let temp = this.state.arrData;
+        if(temp && temp.length > 0) {
+            let sentenceList = [];
+            temp.map((item, index) => {
+                if(item.checked) {
+                    sentenceList.push(item);
+                }
+            });
+
+            if(sentenceList.length > 0) {
+                if(!this.state.order) {
+                    Actions.push("sentence_study", {sentenceList: this.shuffle(sentenceList)})
+                }
+                else {
+                    Actions.push("sentence_study", {sentenceList: sentenceList})
+                }
+            }
+            else
+                showToast("setence_selection_error", "error");
+        }
     }
 
     render() {

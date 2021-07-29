@@ -67,7 +67,7 @@ export default class MyWordListView extends React.Component {
             if(_index >= 0) {
                 let checkedIdList = [...this.state.checkedIdList];
                 checkedIdList.splice(_index, 1);
-                this.setState({checkedIdList});
+                this.setState({checkedIdList, allChecked: false});
             }
         }
     }
