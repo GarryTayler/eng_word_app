@@ -48,9 +48,6 @@ export default class WordView extends React.Component {
         else if(this.props.params.before == 'myword') { //내단어장
             this.setState({loaded: false});
             let _word_list = await getWordListFromMyWord();
-            
-            console.log("my word list===========>", _word_list);
-
             this.setState({arrData: _word_list, loaded: true}); 
         }
         else if(this.props.params.before == 'mymakingword') { //내가 만드는 단어장

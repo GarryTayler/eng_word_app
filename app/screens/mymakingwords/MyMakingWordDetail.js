@@ -15,6 +15,10 @@ export default class MyMakingWordDetail extends React.Component {
                             before: 'mymakingword'}});
     }
     viewWordStudy() { //단어 학습
+        Actions.push('word_study_init', {
+            params: {   dictionary_id: this.props.id, 
+                before: 'mymakingword'} 
+        });
     }
     wordView() { //단어 보기
         Actions.push('word_view',

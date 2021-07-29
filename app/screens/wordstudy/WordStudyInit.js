@@ -9,6 +9,7 @@ import {Actions} from 'react-native-router-flux';
 import { performNetwork } from './../../components/shared/global';
 import { getWordList } from './../../utils/api';
 import { getWordListFromMyWord } from './../../utils/MyWord';
+import { getVocabularyData } from './../../utils/MyMakingWords';
 import { showToast } from './../../components/shared/global';
 import Spinner_bar from 'react-native-loading-spinner-overlay';
 let pageTitle = '단어 학습';
@@ -31,7 +32,7 @@ export default class WordStudyInit extends React.Component {
         this.fetchWordList();
     }
     async fetchWordList() {
-        if(this.props.params.before != 'myword') {
+        if(this.props.params.before == 'detail') { //과제목 단어학습
             performNetwork(this, getWordList(this.props.params.category_id)).then((response) => {
                 if(response == null) { return; }
                 this.setState({arrData: response,
@@ -39,12 +40,19 @@ export default class WordStudyInit extends React.Component {
                                 endNumber: response.length.toString()});
             });    
         }
-        else {
+        else if(this.props.params.before == 'myword') { // 내단어장
             this.setState({loaded: false});
             let _word_list = await getWordListFromMyWord();
             this.setState({arrData: _word_list, loaded: true,
                             startNumber: '1',
                             endNumber: _word_list.length.toString()});          
+        }
+        else { // 내가 만드는 단어장
+            this.setState({loaded: false});
+            let _word_list = await getVocabularyData(this.props.params.dictionary_id);
+            this.setState({arrData: _word_list, loaded: true,
+                startNumber: '1',
+                endNumber: _word_list.length.toString()});          
         }
     }
     //
