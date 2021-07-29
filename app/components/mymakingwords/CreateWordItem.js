@@ -34,128 +34,63 @@ export default class CreateWordItem extends React.Component {
                         />
                     </View>
                     <View style={{display: 'flex', flexDirection: 'row', flexShrink: 1}}>
-                        {
-                            this.props.order == 1 ?
-                            <>
-                                <View style={{flex: 6, flexDirection: 'row', alignItems: 'center',
-                                    paddingLeft: normalize(6)}}>
-                                    <View style={{flexShrink: 1}}>
-                                        <View style={{borderBottomWidth: 1, borderColor: 'rgba(0,0,0,0.2)'}}>
-                                            <Text style={styles.itemLineText}>단어·문법</Text>
-                                        </View>
-                                        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                                            <Text style={[fonts.familyBold, fonts.size14, fonts.colorRed]}>{this.props.currentNo + 1}.</Text>
-                                            <TextInput
-                                                style={[styles.wordInput, fonts.weightBold, fonts.colorBlack, 
-                                                { width: '90%' }]}
-                                                onChangeText={(text) => {
-                                                    this.setState({ word: text });
-                                                    this.props.changeWord(text)
-                                                }}
-                                                onSubmitEditing={Keyboard.dismiss}   
-                                                value={this.state.word}
-                                                placeholder="입력하세요..."
-                                                placeholderTextColor = 'rgba(0, 0, 0, 0.1)'
-                                            >
-                                            </TextInput>
-                                        </View>
-                                    </View>        
+                        <View style={{flex: 6, flexDirection: 'row', alignItems: 'center',
+                            paddingLeft: normalize(6)}}>
+                            <View style={{flexShrink: 1}}>
+                                <View style={{borderBottomWidth: 1, borderColor: 'rgba(0,0,0,0.2)'}}>
+                                    <Text style={styles.itemLineText}>단어·문법</Text>
+                                </View>
+                                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                                    <Text style={[fonts.familyBold, fonts.size14, fonts.colorRed]}>{this.props.currentNo + 1}.</Text>
+                                    <TextInput
+                                        style={[styles.wordInput, fonts.weightBold, fonts.colorBlack, 
+                                        { width: '90%' }]}
+                                        onChangeText={(text) => {
+                                            this.setState({ word: text });
+                                            this.props.changeWord(text)
+                                        }}
+                                        onSubmitEditing={Keyboard.dismiss}   
+                                        value={this.state.word}
+                                        placeholder="입력하세요..."
+                                        placeholderTextColor = 'rgba(0, 0, 0, 0.1)'
+                                    >
+                                    </TextInput>
+                                </View>
+                            </View>        
 
-                                    <View style={{width: normalize(20), alignItems: 'flex-end'}}>
-                                    {
-                                        /*
-                                        <TouchableHighlight style={[styles.swapIconContainer]}
-                                    onPress={ () => {this.props.doSwap()} } underlayColor="white" activeOpacity={0.8}>
-                                            <Icon name='arrow-swap' type='fontisto' color='rgba(0,0,0,0.5)' size={14} />
-                                        </TouchableHighlight> */
-                                    }
-                                    </View>
+                            <View style={{width: normalize(20), alignItems: 'flex-end'}}>
+                            {
+                                /*
+                                <TouchableHighlight style={[styles.swapIconContainer]}
+                            onPress={ () => {this.props.doSwap()} } underlayColor="white" activeOpacity={0.8}>
+                                    <Icon name='arrow-swap' type='fontisto' color='rgba(0,0,0,0.5)' size={14} />
+                                </TouchableHighlight> */
+                            }
+                            </View>
+                        </View>
+                        <View style={{flex: 6, flexDirection: 'row', alignItems: 'center',
+                        paddingLeft: normalize(6)}}>
+                            <View style={{flexShrink: 1}}>
+                                <View style={{borderBottomWidth: 1, borderColor: 'rgba(0,0,0,0.2)'}}>
+                                    <Text style={styles.itemLineText}>뜻·문법 설명</Text>
                                 </View>
-                                <View style={{flex: 6, flexDirection: 'row', alignItems: 'center',
-                                paddingLeft: normalize(6)}}>
-                                    <View style={{flexShrink: 1}}>
-                                        <View style={{borderBottomWidth: 1, borderColor: 'rgba(0,0,0,0.2)'}}>
-                                            <Text style={styles.itemLineText}>뜻·문법 설명</Text>
-                                        </View>
-                                        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                                            <TextInput
-                                                style={[styles.wordInput, fonts.weightBold, fonts.colorBlack, 
-                                                { width: '100%' }]}
-                                                onChangeText={(text) => {
-                                                    this.setState({ meaning: text });
-                                                    this.props.changeMeaning(text)
-                                                }}
-                                                onSubmitEditing={Keyboard.dismiss}   
-                                                value={this.state.meaning}
-                                                placeholder="입력하세요..."
-                                                placeholderTextColor = 'rgba(0, 0, 0, 0.1)'
-                                            >
-                                            </TextInput>
-                                        </View>
-                                    </View>
+                                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                                    <TextInput
+                                        style={[styles.wordInput, fonts.weightBold, fonts.colorBlack, 
+                                        { width: '100%' }]}
+                                        onChangeText={(text) => {
+                                            this.setState({ meaning: text });
+                                            this.props.changeMeaning(text)
+                                        }}
+                                        onSubmitEditing={Keyboard.dismiss}   
+                                        value={this.state.meaning}
+                                        placeholder="입력하세요..."
+                                        placeholderTextColor = 'rgba(0, 0, 0, 0.1)'
+                                    >
+                                    </TextInput>
                                 </View>
-                            </>
-                            :
-                            <>
-                                <View style={{flex: 6, flexDirection: 'row', alignItems: 'center',
-                                    paddingLeft: normalize(6)}}>
-                                    <View style={{flexShrink: 1}}>
-                                        <View style={{borderBottomWidth: 1, borderColor: 'rgba(0,0,0,0.2)'}}>
-                                            <Text style={styles.itemLineText}>뜻·문법 설명</Text>
-                                        </View>
-                                        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                                            <Text style={[fonts.familyBold, fonts.size14, fonts.colorRed]}>{this.props.currentNo + 1}.</Text>
-                                            <TextInput
-                                                style={[styles.wordInput, fonts.weightBold, fonts.colorBlack, 
-                                                { width: '100%' }]}
-                                                onChangeText={(text) => {
-                                                    this.setState({ meaning: text });
-                                                    this.props.changeMeaning(text)
-                                                }}
-                                                onSubmitEditing={Keyboard.dismiss}   
-                                                value={this.state.meaning}
-                                                placeholder="입력하세요..."
-                                                placeholderTextColor = 'rgba(0, 0, 0, 0.1)'
-                                            >
-                                            </TextInput>
-                                        </View>
-                                    </View>
-                                    <View style={{width: normalize(20), alignItems: 'flex-end'}}>
-                                    {
-                                        /*
-                                        <TouchableHighlight style={[styles.swapIconContainer]}
-                                    onPress={ () => {this.props.doSwap()} } underlayColor="white" activeOpacity={0.8}>
-                                            <Icon name='arrow-swap' type='fontisto' color='rgba(0,0,0,0.5)' size={14} />
-                                        </TouchableHighlight>
-                                        */
-                                    }
-                                    </View>
-                                </View>
-                                <View style={{flex: 6, flexDirection: 'row', alignItems: 'center',
-                                    paddingLeft: normalize(6)}}>
-                                    <View style={{flexShrink: 1}}>
-                                        <View style={{borderBottomWidth: 1, borderColor: 'rgba(0,0,0,0.2)'}}>
-                                            <Text style={styles.itemLineText}>단어·문법</Text>
-                                        </View>
-                                        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                                            <TextInput
-                                                style={[styles.wordInput, fonts.weightBold, fonts.colorBlack, 
-                                                { width: '100%' }]}
-                                                onChangeText={(text) => {
-                                                    this.setState({ word: text });
-                                                    this.props.changeWord(text)
-                                                }}
-                                                onSubmitEditing={Keyboard.dismiss}   
-                                                value={this.state.word}
-                                                placeholder="입력하세요..."
-                                                placeholderTextColor = 'rgba(0, 0, 0, 0.1)'
-                                            >
-                                            </TextInput>
-                                        </View>
-                                    </View>
-                                </View>
-                            </>
-                        }
+                            </View>
+                        </View>
                     </View>
                 </View>
             </View>

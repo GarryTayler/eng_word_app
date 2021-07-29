@@ -86,3 +86,13 @@ export const saveVocabularyData = async(id, _name, data) => {
         return false;
     }
 }
+
+export const getVocabularyCount = async() => {
+    try {
+        let vocabulary_count = await getData('vocabulary_count');
+        return vocabulary_count;
+    }
+    catch(e) {
+        return 0;
+    }
+}

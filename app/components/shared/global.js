@@ -59,3 +59,14 @@ export function getCurrentDate() {
     let hour = d.getHours();
     return (d.getMonth() + 1) + '월 ' + d.getDate() + '일 (' + getWeekDay(d.getDay()) + ') ' + (hour >= 12 ? '오후' : '오전') + (hour <= 12 ? hour : hour - 12) + ':' + d.getMinutes();
 }
+
+export function generateMyMakingWordId () {
+    let result           = '';
+    let length           = 8;
+    let characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let charactersLength = characters.length;
+    for ( let i = 0; i < length; i++ ) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+   }
+   return result;
+}

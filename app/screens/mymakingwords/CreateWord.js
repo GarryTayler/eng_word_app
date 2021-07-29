@@ -8,6 +8,7 @@ import CreateWordItem from './../../components/mymakingwords/CreateWordItem';
 import { fonts, normalize, getSafeAreaViewHeight } from './../../assets/styles';
 import { Actions } from 'react-native-router-flux';
 import { saveVocabularyData, getVocabularyData } from '../../utils/MyMakingWords';
+import { generateMyMakingWordId } from './../../components/shared/global';
 import {OptimizedFlatList} from 'react-native-optimized-flatlist'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import Spinner_bar from 'react-native-loading-spinner-overlay';
@@ -32,13 +33,16 @@ export default class CreateWord extends React.Component {
         this.setState({loaded: false});
         let temp = [];
         for(var i = 1; i<=100;i++) {
-            temp.push({id: i, word: '', meaning: '', order: 1, checked: false});
+            temp.push({id: 0, word: '', meaning: '', checked: false, layoutId: i});
         }
         if(this.state.editable) {
             let wordTemp = await getVocabularyData(this.props.id);
+
+            console.log("word list=======>", wordTemp);
+
             if(wordTemp && wordTemp.length > 0) {
                 wordTemp.map((item, index) => {
-                    temp[index] = {id: index + 1, word: item.word, meaning: item.meaning, order: item.order, checked: false};
+                    temp[index] = {id: item.id, word: item.word, meaning: item.meaning, checked: false, layoutId: index + 1};
                 })
             }
         }
@@ -46,33 +50,17 @@ export default class CreateWord extends React.Component {
     }
     componentWillUnmount () {
     }
-    doSwap(index) {
-        let temp = this.state.arrData;
-        if(temp[index]['order'] == 1)
-            temp[index]['order'] = 2
-        else
-            temp[index]['order'] = 1
-        this.setState({arrData: temp})
-    }
-    changeSort(index) {
-        let temp = this.state.arrData;
-        if(index < this.state.arrData.length - 1) {
-            var swap = temp[index];
-            temp[index] = temp[index + 1];
-            temp[index + 1] = swap;
-        } else {
-            var swap = temp[index];
-            temp[index] = temp[index - 1];
-            temp[index - 1] = swap;
-        }
-        this.setState({arrData: temp})
-    }
     async saveMyWord() {
         this.setState({loaded: false});
         let temp = [];
         this.state.arrData.map((item ,index) => {
             if(item.word || item.meaning) {
-                temp.push({word: item.word, meaning: item.meaning, order: item.order})
+                if(item.id == 0) {
+                    temp.push({word: item.word, meaning: item.meaning, id: generateMyMakingWordId()})
+                }
+                else {
+                    temp.push({word: item.word, meaning: item.meaning, id: item.id})
+                }
             }
         })
         let wordName = this.state.newWordTitle;
@@ -82,6 +70,7 @@ export default class CreateWord extends React.Component {
         if(this.state.editable && this.state.newWordTitle == this.state.originName) {
             wordName = '';
         }
+
         await saveVocabularyData(this.state.id, wordName, temp)
         this.setState({loaded: true});
         Actions.pop();
@@ -112,7 +101,7 @@ export default class CreateWord extends React.Component {
         this.state.arrData[index]['checked'] = !this.state.arrData[index]['checked'];
     }
     renderCreateWord(item, index) {
-        return <CreateWordItem key={index} currentNo={index} word={item.word} changeWord={(text) => this.changeWord(text, index)} meaning={item.meaning} changeMeaning={(text) => this.changeMeaning(text, index)} doSwap={() => this.doSwap(index)} order={item.order} changeSort={() => this.changeSort(index)} isChecked={item.checked} checkedWord={() => this.checkedWord(index)} />
+        return <CreateWordItem key={index} currentNo={index} word={item.word} changeWord={(text) => this.changeWord(text, index)} meaning={item.meaning} changeMeaning={(text) => this.changeMeaning(text, index)} isChecked={item.checked} checkedWord={() => this.checkedWord(index)} />
     }
     async remove() {
         let temp = this.state.arrData;
@@ -121,6 +110,7 @@ export default class CreateWord extends React.Component {
                 if(item.checked) {
                     temp[index]['word'] = '';
                     temp[index]['meaning'] = '';
+                    temp[index]['id'] = 0;
                     temp[index]['checked'] = false;
                 }
             })
@@ -128,7 +118,7 @@ export default class CreateWord extends React.Component {
                 let temp_word = [];
                 temp.map((item ,index) => {
                     if(item.word || item.meaning) {
-                        temp_word.push({word: item.word, meaning: item.meaning, order: item.order})
+                        temp_word.push({word: item.word, meaning: item.meaning})
                     }
                 })
                 let wordName = this.state.newWordTitle;
@@ -215,7 +205,7 @@ export default class CreateWord extends React.Component {
                         <OptimizedFlatList
                             style={[styles.container, {paddingHorizontal: normalize(10)}]}
                             data={this.state.arrData}
-                            keyExtractor={(item) => item.id}
+                            keyExtractor={(item) => item.layoutId}
                             renderItem={ ({item, index}) => (
                                 this.renderCreateWord(item, index)
                             )}
