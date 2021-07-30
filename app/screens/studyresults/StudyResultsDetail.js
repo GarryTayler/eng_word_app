@@ -7,8 +7,12 @@ import StudyResultsDetailTab from './StudyResultsDetailTab';
 import { fonts, normalize, tabs } from './../../assets/styles';
 import { Actions } from 'react-native-router-flux';
 import { addToStudyResults } from './../../utils/StudyResults';
-import { showToast } from './../../components/shared/global';
-import { shuffleArray } from './../../components/shared/global';
+import { showToast, shuffleArray, generate } from './../../components/shared/global';
+import { performNetwork } from './../../components/shared/global';
+import { getWordList } from './../../utils/api';
+import { getWordListFromMyWord } from './../../utils/MyWord';
+import { getVocabularyData } from './../../utils/MyMakingWords';
+import Spinner_bar from 'react-native-loading-spinner-overlay';
 
 let pageTitle = '학습 결과';
 let arrTypes = [
@@ -20,6 +24,9 @@ let arrTypes = [
 export default class StudyResultsDetail extends React.Component {
     constructor(props){
         super(props);
+        this.state = {
+            loaded: true
+        };
     }
     componentDidMount() {
     }
@@ -44,7 +51,38 @@ export default class StudyResultsDetail extends React.Component {
     finish() {
         Actions.popTo('word_study_init');
     }
-    resolveAll() {
+    async fetchWordList() {
+        /*
+        category: {
+                    before: this.props.params.before,
+                    category_id: this.props.params.before == 'detail' ? this.props.params.category_id : 
+                                    (this.props.params.before == 'myword' ? 0 : this.props.params.dictionary_id)
+        }
+        */
+       try {
+            if(this.props.params.category.before == 'detail') {
+                let response = await performNetwork( this, getWordList(this.props.params.category.category_id) );
+                return response;
+            }
+            else if(this.props.params.category.before == 'myword') {
+                this.setState({loaded: false});
+                let response = await getWordListFromMyWord();
+                this.setState({loaded: true});
+                return response;
+            }
+            else if(this.props.params.category.before == 'mymakingword') {
+                this.setState({loaded: false});
+                let response = await getVocabularyData(this.props.params.category.category_id);
+                this.setState({loaded: true});
+                return response;
+            }
+            return [];
+       }
+       catch(err) {
+           return [];
+       }
+    }
+    async resolveAll() {
         let _problems = [];
         if(this.props.params.type == 'sub') { //주관식
             for(let i = 0; i < this.props.params.problemList.length; i ++) {
@@ -65,6 +103,30 @@ export default class StudyResultsDetail extends React.Component {
             });
         }
         else { //객관식
+            let _arrData = await this.fetchWordList();
+            if(_arrData.length < 5) {
+                showToast("object_word_study_shortage_problem", "error");
+                return;
+            }
+            for(let i = 0; i < this.props.params.problemList.length; i ++) {
+                _problems.push({
+                    'word_id': this.props.params.problemList[i].word_id,
+                    'problem': this.props.params.problemList[i].problem,
+                    'correct_index': this.props.params.problemList[i]['id'],
+                    'correct_answer': this.props.params.problemList[i]['answer'],
+                    'choice': generate(this.props.params.problemList[i]['id'], _arrData.length).map(x => ( {no: x, problem: (this.props.params.studyMethod == 'entoko' ? _arrData[x-1].meaning : _arrData[x-1].word)} ) )
+                });
+            }
+            if(this.props.params.progressOrder != 'sequence') { //단어 진행 순서
+                _problems = shuffleArray(_problems);
+            }
+            Actions.push('word_study_object', {
+                params: _problems,
+                studyMethod: this.props.params.studyMethod,
+                progressOrder: this.props.params.progressOrder,
+                type: 'obj',
+                category: this.props.params.category
+            });
         }
     }
     resolveWrongProblems() {
@@ -144,6 +206,7 @@ export default class StudyResultsDetail extends React.Component {
                         </View>
                     </View>
                     { this.renderTabs() }
+                    <Spinner_bar color={'#68ADED'} visible={!this.state.loaded} textContent={""}  overlayColor={"rgba(0, 0, 0, 0.5)"}  />
                     <View style={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-evenly',
                                 paddingTop: normalize(16),
                                 paddingBottom: normalize(8)}}>
