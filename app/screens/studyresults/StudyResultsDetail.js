@@ -40,15 +40,15 @@ export default class StudyResultsDetail extends React.Component {
         if(mm <= 9) mm = '0' + mm;
         return mm + ':' + ss;
     }
-    saveStar() {
-        showToast("add_to_myword", "success");
+    finish() {
+        Actions.popTo('word_study_init');
     }
     resolveAll() {
         let _problems = [];
         if(this.props.params.type == 'sub') { //주관식
             for(let i = 0; i < this.props.params.problemList.length; i ++) {
                 _problems.push({
-                    'id': this.props.params.problemList[i].id,
+                    'word_id': this.props.params.problemList[i].word_id,
                     'problem': this.props.params.problemList[i].problem,
                     'answer': this.props.params.problemList[i].answer
                 })
@@ -67,7 +67,7 @@ export default class StudyResultsDetail extends React.Component {
             for(let i = 0; i < this.props.params.problemList.length; i ++) {
                 if(this.props.params.problemList[i].result != 'correct')
                     _problems.push({
-                        'id': this.props.params.problemList[i].id,
+                        'word_id': this.props.params.problemList[i].word_id,
                         'problem': this.props.params.problemList[i].problem,
                         'answer': this.props.params.problemList[i].answer
                     })
@@ -147,8 +147,8 @@ export default class StudyResultsDetail extends React.Component {
                             <Text style={[fonts.size15, fonts.colorWhite, fonts.familyBold, {textAlign: 'center'}]}>다시 풀기</Text>
                         </Button>
                         <Button style={styles.footerButton}
-                            onPress={() => {this.saveStar()}}>
-                            <Text style={[fonts.size15, fonts.colorWhite, fonts.familyBold, {textAlign: 'center'}]}>별표 저장</Text>
+                            onPress={() => {this.finish()}}>
+                            <Text style={[fonts.size15, fonts.colorWhite, fonts.familyBold, {textAlign: 'center'}]}>끝내기</Text>
                         </Button>
                         <Button style={[styles.footerButton]}
                         onPress={() => {this.saveAndFinish()}}>

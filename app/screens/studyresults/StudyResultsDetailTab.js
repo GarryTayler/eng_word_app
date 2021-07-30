@@ -11,7 +11,7 @@ export default class StudyResultsDetailTab extends React.Component {
                 {
                     <FlatList
                         data={this.props.problemList}
-                        keyExtractor={(item) => item.id}
+                        keyExtractor={(item) => item.word_id}
                         renderItem={({item, index}) => (
                             <ResultDetailItem currentNo={index + 1} word={item.problem} meaning={item.user_answer} 
                             correctAnswer={item.answer}

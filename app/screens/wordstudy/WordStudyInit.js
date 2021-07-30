@@ -78,7 +78,8 @@ export default class WordStudyInit extends React.Component {
         if(this.state.problemMethod == 'sub') {
             for(let i = 0; i < _array.length; i ++) {
                 _problems.push({
-                    'id': _array[i],
+                    // 'id': _array[i],
+                    'word_id': this.state.arrData[_array[i] - 1].id,
                     'problem': (this.state.studyMethod == 'entoko' ?
                     this.state.arrData[_array[i] - 1].word : this.state.arrData[_array[i] - 1].meaning),
                     'answer': (this.state.studyMethod == 'entoko' ? 
@@ -91,6 +92,7 @@ export default class WordStudyInit extends React.Component {
         else {
             for(let i = 0; i < _array.length; i ++) {
                 _problems.push({
+                    'word_id': this.state.arrData[_array[i] - 1].id,
                     'problem': (this.state.studyMethod == 'entoko' ?
                         this.state.arrData[_array[i] - 1].word : this.state.arrData[_array[i] - 1].meaning),
                     'correct_index': _array[i], 
@@ -121,6 +123,7 @@ export default class WordStudyInit extends React.Component {
             Actions.push('word_study_subject', {
                 params: _problems,
                 studyMethod: this.state.studyMethod,
+                progressOrder: this.state.progressOrder,
                 type: 'sub'
             });
         }
@@ -128,6 +131,7 @@ export default class WordStudyInit extends React.Component {
             Actions.push('word_study_object', {
                 params: _problems,
                 studyMethod: this.state.studyMethod,
+                progressOrder: this.state.progressOrder,
                 type: 'obj'
             });
         }

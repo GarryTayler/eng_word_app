@@ -26,9 +26,6 @@ export default class WordStudySubject extends React.Component {
             selectedSubject: null
         };
     }    
-    componentDidMount() {
-        problemList = [];
-    }
     makeResult() {
         // 유저가 입력한 정답 처리
         let _answer = this.state.answer;
@@ -78,7 +75,8 @@ export default class WordStudySubject extends React.Component {
             return;
         if(this.makeResult()) { // correct
             problemList.push({
-                id: this.props.params[this.state.cur_problem_no - 1]['id'],
+                // id: this.props.params[this.state.cur_problem_no - 1]['id'],
+                word_id: this.props.params[this.state.cur_problem_no - 1]['word_id'],
                 problem: this.props.params[this.state.cur_problem_no - 1]['problem'],
                 answer: this.props.params[this.state.cur_problem_no - 1]['answer'],
                 user_answer: this.state.answer,
@@ -92,7 +90,8 @@ export default class WordStudySubject extends React.Component {
         }
         else {
             problemList.push({
-                id: this.props.params[this.state.cur_problem_no - 1]['id'],
+                // id: this.props.params[this.state.cur_problem_no - 1]['id'],
+                word_id: this.props.params[this.state.cur_problem_no - 1]['word_id'],
                 problem: this.props.params[this.state.cur_problem_no - 1]['problem'],
                 answer: this.props.params[this.state.cur_problem_no - 1]['answer'],
                 user_answer: this.state.answer,
@@ -128,6 +127,7 @@ export default class WordStudySubject extends React.Component {
         };
     }    
     async componentDidMount() {
+        problemList = [];
         let selectedStudy = await getRecentStudy();
         if(selectedStudy) {
             this.setState({selectedSubject: selectedStudy})

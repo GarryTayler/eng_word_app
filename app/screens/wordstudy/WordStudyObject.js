@@ -30,6 +30,7 @@ export default class WordStudyObject extends React.Component {
         if(problemNo == this.props.params[this.state.cur_problem_no - 1]['correct_index']) {
             problemList.push({
                 id: this.props.params[this.state.cur_problem_no - 1]['correct_index'],
+                word_id: this.props.params[this.state.cur_problem_no - 1]['word_id'],
                 problem: this.props.params[this.state.cur_problem_no - 1]['problem'],
                 answer: this.props.params[this.state.cur_problem_no - 1]['correct_answer'],
                 user_answer: _choice,
@@ -45,6 +46,7 @@ export default class WordStudyObject extends React.Component {
         else {
             problemList.push({
                 id: this.props.params[this.state.cur_problem_no - 1]['correct_index'],
+                word_id: this.props.params[this.state.cur_problem_no - 1]['word_id'],
                 problem: this.props.params[this.state.cur_problem_no - 1]['problem'],
                 answer: this.props.params[this.state.cur_problem_no - 1]['correct_answer'],
                 user_answer: _choice,
