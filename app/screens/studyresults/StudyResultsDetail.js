@@ -129,7 +129,7 @@ export default class StudyResultsDetail extends React.Component {
             });
         }
     }
-    resolveWrongProblems() {
+    async resolveWrongProblems() {
         let _problems = [];
         if(this.props.params.type == 'sub') { //주관식
             for(let i = 0; i < this.props.params.problemList.length; i ++) {
@@ -139,6 +139,10 @@ export default class StudyResultsDetail extends React.Component {
                         'problem': this.props.params.problemList[i].problem,
                         'answer': this.props.params.problemList[i].answer
                     })
+            }
+            if(_problems.length < 1) {
+                showToast("no_wrong_problems", "error");
+                return;
             }
             if(this.props.params.progressOrder != 'sequence') { //단어 진행 순서
                 _problems = shuffleArray(_problems);
@@ -151,6 +155,45 @@ export default class StudyResultsDetail extends React.Component {
             });
         }
         else { //객관식
+            let hasWrong = false;
+            for(let i = 0; i < this.props.params.problemList.length; i ++) {
+                if(this.props.params.problemList[i].result != 'correct') {
+                    hasWrong = true;
+                    break;
+                }
+            }
+            if(!hasWrong) {
+                showToast("no_wrong_problems", "error");
+                return;
+            }
+
+            let _arrData = await this.fetchWordList();
+            if(_arrData.length < 5) {
+                showToast("object_word_study_shortage_problem", "error");
+                return;
+            }
+            
+            for(let i = 0; i < this.props.params.problemList.length; i ++) {
+                if(this.props.params.problemList[i].result != 'correct') {
+                    _problems.push({
+                        'word_id': this.props.params.problemList[i].word_id,
+                        'problem': this.props.params.problemList[i].problem,
+                        'correct_index': this.props.params.problemList[i]['id'],
+                        'correct_answer': this.props.params.problemList[i]['answer'],
+                        'choice': generate(this.props.params.problemList[i]['id'], _arrData.length).map(x => ( {no: x, problem: (this.props.params.studyMethod == 'entoko' ? _arrData[x-1].meaning : _arrData[x-1].word)} ) )
+                    });
+                }
+            }
+            if(this.props.params.progressOrder != 'sequence') { //단어 진행 순서
+                _problems = shuffleArray(_problems);
+            }
+            Actions.push('word_study_object', {
+                params: _problems,
+                studyMethod: this.props.params.studyMethod,
+                progressOrder: this.props.params.progressOrder,
+                type: 'obj',
+                category: this.props.params.category
+            });   
         }
     }
     renderTabs() {
