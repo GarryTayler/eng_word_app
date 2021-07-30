@@ -12,6 +12,7 @@ import { performNetwork } from './../../components/shared/global';
 import { getWordList } from './../../utils/api';
 import { getWordListFromMyWord } from './../../utils/MyWord';
 import { getVocabularyData } from './../../utils/MyMakingWords';
+import { getRecentStudy } from './../../utils/RecentStudy';
 import Spinner_bar from 'react-native-loading-spinner-overlay';
 
 let pageTitle = '학습 결과';
@@ -25,10 +26,23 @@ export default class StudyResultsDetail extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            loaded: true
+            loaded: true,
+            studyResultTitle: '중1 비상 (홍민표) 3과'
         };
     }
-    componentDidMount() {
+    async componentDidMount() {
+        if(this.props.params.category.before == 'detail') {     
+            let selectedStudy = await getRecentStudy();
+            if(selectedStudy) {
+                this.setState({studyResultTitle: selectedStudy.selectedName})
+            }
+        }
+        else if(this.props.params.category.before == 'myword') {
+            this.setState({studyResultTitle: '내단어장'});
+        }
+        else if(this.props.params.category.before == 'mymakingword') {
+            this.setState({studyResultTitle: '내가 만드는 단어장'});
+        }
     }
     async saveAndFinish() {
         await addToStudyResults({
@@ -172,7 +186,7 @@ export default class StudyResultsDetail extends React.Component {
                 showToast("object_word_study_shortage_problem", "error");
                 return;
             }
-            
+
             for(let i = 0; i < this.props.params.problemList.length; i ++) {
                 if(this.props.params.problemList[i].result != 'correct') {
                     _problems.push({
@@ -235,7 +249,9 @@ export default class StudyResultsDetail extends React.Component {
                                 <Text style={[fonts.size14, fonts.familyBold, fonts.colorWhite]}>{this.props.params.end_time}</Text>
                             </View>
                             <View style={{flex: 1}}>
-                                <Text style={[fonts.size14, fonts.familyBold, {textAlign: 'right'}, fonts.colorWhite]}>중1 비상 (홍민표) 3과</Text>
+                                <Text style={[fonts.size14, fonts.familyBold, {textAlign: 'right'}, fonts.colorWhite]}>
+                                    {this.state.studyResultTitle}
+                                </Text>
                             </View>
                         </View>
                         <StudyHeader

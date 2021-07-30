@@ -108,7 +108,7 @@ export default class WordStudyInit extends React.Component {
     }
     //
     startStudy() {
-        if(this.state.arrData.length < 5) {
+        if(this.state.arrData.length < 5 && this.state.problemMethod == 'obj') {
             showToast("object_word_study_shortage_problem", "error");
             return;
         }
@@ -125,6 +125,11 @@ export default class WordStudyInit extends React.Component {
                 studyMethod: this.state.studyMethod,
                 progressOrder: this.state.progressOrder,
                 type: 'sub',
+                category: {
+                    before: this.props.params.before,
+                    category_id: this.props.params.before == 'detail' ? this.props.params.category_id : 
+                                    (this.props.params.before == 'myword' ? 0 : this.props.params.dictionary_id)
+                }
             });
         }
         else {
