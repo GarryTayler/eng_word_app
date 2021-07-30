@@ -112,8 +112,10 @@ export default class WordStudySubject extends React.Component {
                     "mark": Math.floor(( this.state.correctProblems / this.props.params.length ) * 100),
                     "problemList": problemList,                           
                     'end_time': getCurrentDate(),
-                    'type': this.props.type,
-                    'studyMethod': this.props.studyMethod
+
+                    'type': this.props.type,  //객관식/주관식
+                    'studyMethod': this.props.studyMethod, //단어학습방식  entoko or kotoen
+                    'progressOrder': this.props.progressOrder
                 }
             });    
         }

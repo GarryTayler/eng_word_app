@@ -18,14 +18,15 @@ export default class StudyResultsHome extends React.Component {
     async componentDidMount() {
         this.setState({loaded: false});
         let _list = await getStudyResults();
+
+        console.log("arrData loaded====>", _list);
+
         this.setState({arrData: _list, loaded: true});
     }
     async removeHistory(index) {
         this.setState({loaded: false});
         let arrData = this.state.arrData;
-        // console.log("arrData===>", arrData);
         arrData.splice(index - 1, 1);
-        // console.log("arrData===>", arrData);
         this.setState({ arrData });
         await removeFromStudyResults(index);
         this.setState({loaded: true});

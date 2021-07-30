@@ -124,7 +124,7 @@ export default class WordStudyInit extends React.Component {
                 params: _problems,
                 studyMethod: this.state.studyMethod,
                 progressOrder: this.state.progressOrder,
-                type: 'sub'
+                type: 'sub',
             });
         }
         else {
@@ -132,7 +132,12 @@ export default class WordStudyInit extends React.Component {
                 params: _problems,
                 studyMethod: this.state.studyMethod,
                 progressOrder: this.state.progressOrder,
-                type: 'obj'
+                type: 'obj',
+                category: {
+                    before: this.props.params.before,
+                    category_id: this.props.params.before == 'detail' ? this.props.params.category_id : 
+                                    (this.props.params.before == 'myword' ? 0 : this.props.params.dictionary_id)
+                }
             });
         }
     }

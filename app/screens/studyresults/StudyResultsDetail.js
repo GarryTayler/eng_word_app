@@ -1,13 +1,14 @@
 import React from 'react';
-import { StyleSheet, View, Text, ScrollView, Image} from 'react-native';
-import { Container, Content, Button, Tab, Tabs, ScrollableTab } from 'native-base';
+import { StyleSheet, View, Text } from 'react-native';
+import { Container, Button, Tab, Tabs, ScrollableTab } from 'native-base';
 import UserHeader from './../../components/shared/UserHeader';
 import StudyHeader from './../../components/studyresults/StudyHeader';
 import StudyResultsDetailTab from './StudyResultsDetailTab';
 import { fonts, normalize, tabs } from './../../assets/styles';
-import {Actions} from 'react-native-router-flux';
-import {addToStudyResults, removeFromStudyResults} from './../../utils/StudyResults';
+import { Actions } from 'react-native-router-flux';
+import { addToStudyResults } from './../../utils/StudyResults';
 import { showToast } from './../../components/shared/global';
+import { shuffleArray } from './../../components/shared/global';
 
 let pageTitle = '학습 결과';
 let arrTypes = [
@@ -53,9 +54,14 @@ export default class StudyResultsDetail extends React.Component {
                     'answer': this.props.params.problemList[i].answer
                 })
             }
+            if(this.props.params.progressOrder != 'sequence') { //단어 진행 순서
+                _problems = shuffleArray(_problems);
+            }
             Actions.push('word_study_subject', {
                 params: _problems,
-                studyMethod: this.props.params.studyMethod
+                studyMethod: this.props.params.studyMethod,
+                progressOrder: this.props.params.progressOrder,
+                type: 'sub'
             });
         }
         else { //객관식
@@ -72,9 +78,14 @@ export default class StudyResultsDetail extends React.Component {
                         'answer': this.props.params.problemList[i].answer
                     })
             }
+            if(this.props.params.progressOrder != 'sequence') { //단어 진행 순서
+                _problems = shuffleArray(_problems);
+            }
             Actions.push('word_study_subject', {
                 params: _problems,
-                studyMethod: this.props.params.studyMethod
+                studyMethod: this.props.params.studyMethod,
+                progressOrder: this.props.params.progressOrder,
+                type: 'sub'
             });
         }
         else { //객관식
