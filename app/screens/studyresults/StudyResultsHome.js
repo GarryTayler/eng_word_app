@@ -15,13 +15,16 @@ export default class StudyResultsHome extends React.Component {
             loaded: true
         }
     }
-    async componentDidMount() {
+    async fetchData() {
         this.setState({loaded: false});
         let _list = await getStudyResults();
-
-        console.log("arrData loaded====>", _list);
-
         this.setState({arrData: _list, loaded: true});
+    }
+    async componentDidMount() {
+        await this.fetchData();
+    }
+    async UNSAFE_componentWillReceiveProps(props) {
+        await this.fetchData();
     }
     async removeHistory(index) {
         this.setState({loaded: false});
@@ -39,16 +42,16 @@ export default class StudyResultsHome extends React.Component {
                 correctProblems={this.state.arrData.length > 0 ? this.state.arrData[0]['correctProblems'] : ''}
                 wrongProblems={this.state.arrData.length > 0 ? (this.state.arrData[0]['totalProblems'] - this.state.arrData[0]['correctProblems']) : ''}
                 mark={this.state.arrData.length > 0 ? this.state.arrData[0]['mark'] : ''}
-                time={this.state.arrData.length > 0? this.state.arrData[0]['time']: ''}
+                time={this.state.arrData.length > 0? this.state.arrData[0]['display_time']: ''}
                  />
                 <FlatList
                     style={[styles.container]}
                     data={this.state.arrData}
                     keyExtractor={(item) => item.id}
                     renderItem={({ item, index }) => (
-                        <StudyResultHistoryDetail id={index + 1} time={item.end_time} detail={item.category} 
-                        solvedCount={item.correctProblems} totalCount={item.totalProblems} mark={item.mark}
-                        removeHistory={(index)=>{this.removeHistory(index)}} />
+                        <StudyResultHistoryDetail id={index + 1} 
+                        params = {item}
+                        removeHistory={(_index)=>{this.removeHistory(_index)}} />
                     )}
                     ListHeaderComponent={
                         <View style={{height: 10}}></View>    

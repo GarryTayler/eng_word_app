@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
-import { Button } from 'native-base';
+import { StyleSheet, View, Text, TouchableHighlight } from 'react-native';
+import { Button, Item } from 'native-base';
 import { fonts, normalize } from './../../assets/styles';
 import {Actions} from 'react-native-router-flux';
 export default class StudyResultHistoryDetail extends React.Component {
@@ -9,7 +9,23 @@ export default class StudyResultHistoryDetail extends React.Component {
     }
 
     detailPage() {
-        Actions.push('study_results_detail');
+        Actions.push('study_results_detail', {
+            params: {
+                "totalProblems": this.props.params.totalProblems,
+                "time": this.props.params.time, //시간
+                "correctProblems": this.props.params.correctProblems,  // 정답 
+                "wrongProblems": this.props.params.wrongProblems,  // 오답
+                "mark": this.props.params.mark,
+                "problemList": this.props.params.problemList,
+                'end_time': this.props.params.end_time,
+
+                'type': this.props.params.type, //객관식/주관식
+                'studyMethod': this.props.params.studyMethod, //단어학습방식  entoko or kotoen
+                'progressOrder': this.props.params.progressOrder,
+                'category': this.props.params.category,
+                'fromStudyResultHome': true
+            }
+        });
     }
 
     removeHistory() {
@@ -19,19 +35,22 @@ export default class StudyResultHistoryDetail extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                 <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center', flex: 8}}>
-                    <View>
-                        <Text style={[fonts.size14, fonts.familyRegular]}>{this.props.id}.</Text>    
+                <TouchableHighlight style={{flex: 8}} activeOpacity={0.8} underlayColor="rgb(248, 248, 248)"
+                    onPress={() => this.detailPage()}>
+                    <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+                        <View>
+                            <Text style={[fonts.size14, fonts.familyRegular]}>{this.props.id}.</Text>    
+                        </View>
+                        <View style={{marginLeft: normalize(18)}}>
+                            <Text style={[fonts.size14, fonts.familyRegular]}>{this.props.params.end_time}</Text>
+                            <Text style={[fonts.size14, fonts.familyRegular, {marginTop: normalize(4)}]}>{this.props.params.categoryTitle}</Text>
+                        </View>
                     </View>
-                    <View style={{marginLeft: normalize(18)}}>
-                        <Text style={[fonts.size14, fonts.familyRegular]}>{this.props.time}</Text>
-                        <Text style={[fonts.size14, fonts.familyRegular, {marginTop: normalize(4)}]}>{this.props.detail}</Text>
-                    </View>
-                </View>
+                </TouchableHighlight>
                 <View style={styles.detailView}>
                     <View style={{alignItems: 'flex-end'}}>
-                        <Text style={[fonts.size14, fonts.familyBold]}>{this.props.solvedCount}/{this.props.totalCount}</Text>
-                        <Text style={[fonts.size16, fonts.familyBold, fonts.colorRed]}>{this.props.mark}점</Text>
+                        <Text style={[fonts.size14, fonts.familyBold]}>{this.props.params.correctProblems}/{this.props.params.totalProblems}</Text>
+                        <Text style={[fonts.size16, fonts.familyBold, fonts.colorRed]}>{this.props.params.mark}점</Text>
                     </View>
                     <View style={{marginLeft: normalize(18)}}>
                         <Button style={styles.removeButton}

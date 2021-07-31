@@ -45,15 +45,27 @@ export default class StudyResultsDetail extends React.Component {
         }
     }
     async saveAndFinish() {
+        this.setState({loaded: false});
         await addToStudyResults({
-            "end_time": this.props.params.end_time,
-            "category": "중1 비상 (홍익표) 3과",
-            "totalProblems": this.props.params.totalProblems,
-            "correctProblems": this.props.params.correctProblems,
+            "totalProblems": this.props.params.totalProblems, //총문제
+            "display_time": this.timeFormat(),
+            "time": this.props.params.time, //시간
+            "correctProblems": this.props.params.correctProblems, // 정답 
+            "wrongProblems": this.props.params.wrongProblems,  // 오답
             "mark": this.props.params.mark,
-            "time": this.timeFormat()
+
+            "problemList": this.props.params.problemList,
+
+            "end_time": this.props.params.end_time,
+
+            "type": this.props.params.type,
+            "studyMethod": this.props.params.studyMethod,
+            "progressOrder": this.props.params.progressOrder,
+            "category": this.props.params.category,
+            "categoryTitle": this.state.studyResultTitle,
         });
-        Actions.popTo('word_study_init');
+        this.setState({loaded: true});
+        Actions.replace('study_results_home');
     }
     timeFormat() {
         let ss = this.props.params.time % 60;
@@ -63,7 +75,23 @@ export default class StudyResultsDetail extends React.Component {
         return mm + ':' + ss;
     }
     finish() {
-        Actions.popTo('word_study_init');
+        if(this.props.params.fromStudyResultHome) {
+            Actions.replace('study_results_home');
+        }
+        else {
+            if(this.props.params.category.before == 'detail') {
+              //  Actions.popTo('word_study_init');
+              Actions.popTo('detail');
+            }
+            if(this.props.params.category.before == 'myword') {
+              //  Actions.popTo('word_study_init');
+              Actions.popTo('my_word_home');
+            }
+            if(this.props.params.category.before == 'mymakingword') {
+              //  Actions.popTo('word_study_init');
+              Actions.popTo('my_making_word_detail');
+            }
+        }
     }
     async fetchWordList() {
         /*

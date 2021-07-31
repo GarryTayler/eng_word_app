@@ -108,6 +108,7 @@ export default class WordStudyInit extends React.Component {
     }
     //
     startStudy() {
+
         if(this.state.arrData.length < 5 && this.state.problemMethod == 'obj') {
             showToast("object_word_study_shortage_problem", "error");
             return;
