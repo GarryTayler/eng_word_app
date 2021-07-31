@@ -23,7 +23,8 @@ export default class StudyResultHistoryDetail extends React.Component {
                 'studyMethod': this.props.params.studyMethod, //단어학습방식  entoko or kotoen
                 'progressOrder': this.props.params.progressOrder,
                 'category': this.props.params.category,
-                'fromStudyResultHome': true
+                'fromStudyResultHome': true,
+                'disabledStorage': true
             }
         });
     }

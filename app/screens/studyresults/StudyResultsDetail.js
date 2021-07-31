@@ -141,7 +141,8 @@ export default class StudyResultsDetail extends React.Component {
                 params: _problems,
                 studyMethod: this.props.params.studyMethod,
                 progressOrder: this.props.params.progressOrder,
-                type: 'sub'
+                type: 'sub',
+                fromStudyResultHome: this.props.params.fromStudyResultHome ? true : false
             });
         }
         else { //객관식
@@ -167,7 +168,8 @@ export default class StudyResultsDetail extends React.Component {
                 studyMethod: this.props.params.studyMethod,
                 progressOrder: this.props.params.progressOrder,
                 type: 'obj',
-                category: this.props.params.category
+                category: this.props.params.category,
+                fromStudyResultHome: this.props.params.fromStudyResultHome ? true : false
             });
         }
     }
@@ -193,7 +195,8 @@ export default class StudyResultsDetail extends React.Component {
                 params: _problems,
                 studyMethod: this.props.params.studyMethod,
                 progressOrder: this.props.params.progressOrder,
-                type: 'sub'
+                type: 'sub',
+                fromStudyResultHome: this.props.params.fromStudyResultHome ? true : false
             });
         }
         else { //객관식
@@ -234,7 +237,8 @@ export default class StudyResultsDetail extends React.Component {
                 studyMethod: this.props.params.studyMethod,
                 progressOrder: this.props.params.progressOrder,
                 type: 'obj',
-                category: this.props.params.category
+                category: this.props.params.category,
+                fromStudyResultHome: this.props.params.fromStudyResultHome ? true : false
             });   
         }
     }
@@ -312,7 +316,7 @@ export default class StudyResultsDetail extends React.Component {
                             <Text style={[fonts.size15, fonts.colorWhite, fonts.familyBold, {textAlign: 'center'}]}>끝내기</Text>
                         </Button>
                         <Button style={[styles.footerButton]}
-                        onPress={() => {this.saveAndFinish()}}>
+                        onPress={() => {this.saveAndFinish()}} disabled={this.props.params.disabledStorage}>
                             <Text style={[fonts.size15, fonts.colorWhite, fonts.familyBold, {textAlign: 'center'}]}>학습 내용</Text>
                             <Text style={[fonts.size15, fonts.colorWhite, fonts.familyBold, {textAlign: 'center'}]}>저장후 끝내기</Text>
                         </Button>

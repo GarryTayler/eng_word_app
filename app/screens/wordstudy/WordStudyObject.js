@@ -71,7 +71,8 @@ export default class WordStudyObject extends React.Component {
                     'type': this.props.type, //객관식/주관식
                     'studyMethod': this.props.studyMethod, //단어학습방식  entoko or kotoen
                     'progressOrder': this.props.progressOrder,
-                    'category': this.props.category
+                    'category': this.props.category,
+                    'fromStudyResultHome': this.props.fromStudyResultHome ? true : false
                 }
             });
         }
