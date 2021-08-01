@@ -1,12 +1,17 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image } from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
 import { fonts, normalize } from './../../assets/styles';
 import { Icon } from 'react-native-elements';
 import Images from './../../assets/Images';
+import { addToMyWord, removeFromMyWord } from './../../utils/MyWord';
+import { showToast } from './../shared/global';
 
 export default class ResultDetailItem extends React.Component {
     constructor(props){
-        super(props);       
+        super(props);
+        this.state = {
+            isFavorite: this.props.isFavorite
+        };
     }
     renderCorrectAnswer() {
         if(!this.props.correct) {
@@ -22,11 +27,32 @@ export default class ResultDetailItem extends React.Component {
             return null;
         }
     }
+    async addToFavorite() {
+        let _isFavorite = this.state.isFavorite;
+        this.setState({isFavorite: !this.state.isFavorite});
+        if(!_isFavorite) {   
+            if( await addToMyWord(this.props.wordItem) ) {
+                showToast("add_to_myword", "success");
+            }
+        }
+        else {
+            if( await removeFromMyWord(this.props.wordItem) ) {
+                showToast("remove_from_myword", "success");
+            }
+        }
+    }
     render() {
         return (
             <View style={styles.resultDetailItem}>           
                 <View style={{paddingRight: normalize(6)}}>
+                {
+                    /*
                     <Icon name='star' type='antdesign' size={22} color={!this.props.correct ? '#F2C94C' : 'rgba(0,0,0,0.2)'} />
+                    */    
+                }
+                    <TouchableOpacity activeOpacity={0.6} onPress={ () => { this.addToFavorite() } }>
+                        <Icon name='star' type='antdesign' size={22} color={this.state.isFavorite ? '#F2C94C' : 'rgba(0,0,0,0.2)'} />
+                    </TouchableOpacity>
                 </View>
                 <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center',
                                     flexShrink: 1}}>

@@ -14,6 +14,7 @@ import { getWordListFromMyWord } from './../../utils/MyWord';
 import { getVocabularyData } from './../../utils/MyMakingWords';
 import { getRecentStudy } from './../../utils/RecentStudy';
 import Spinner_bar from 'react-native-loading-spinner-overlay';
+import { getWordIdListFromMyWord } from './../../utils/MyWord';
 
 let pageTitle = '학습 결과';
 let arrTypes = [
@@ -27,10 +28,13 @@ export default class StudyResultsDetail extends React.Component {
         super(props);
         this.state = {
             loaded: true,
-            studyResultTitle: '중1 비상 (홍민표) 3과'
+            studyResultTitle: '중1 비상 (홍민표) 3과',
+            arrData: [],
+            problemList: []
         };
     }
     async componentDidMount() {
+        this.setState({loaded: false});
         if(this.props.params.category.before == 'detail') {     
             let selectedStudy = await getRecentStudy();
             if(selectedStudy) {
@@ -43,6 +47,21 @@ export default class StudyResultsDetail extends React.Component {
         else if(this.props.params.category.before == 'mymakingword') {
             this.setState({studyResultTitle: '내가 만드는 단어장'});
         }
+        let _arrData = await this.fetchWordList();
+        let _word_id_list = await getWordIdListFromMyWord();
+
+        let _problem_list = this.props.params.problemList;
+        for(let i = 0; i < _problem_list.length; i ++) {
+            for(let j = 0; j < _arrData.length; j ++) {
+                if(_arrData[j]['id'] == _problem_list[i]['word_id']) {
+                    _problem_list[i]['word_item'] = _arrData[j];
+                    break;
+                }
+            }
+            _problem_list[i]['is_favorite'] = _word_id_list.indexOf(_problem_list[i]['word_id']) >= 0 ? true : false;
+        }
+        // console.log("problem_list==================>", _problem_list);
+        this.setState({loaded: true, arrData: _arrData, problemList: _problem_list});
     }
     async saveAndFinish() {
         this.setState({loaded: false});
@@ -94,13 +113,6 @@ export default class StudyResultsDetail extends React.Component {
         }
     }
     async fetchWordList() {
-        /*
-        category: {
-                    before: this.props.params.before,
-                    category_id: this.props.params.before == 'detail' ? this.props.params.category_id : 
-                                    (this.props.params.before == 'myword' ? 0 : this.props.params.dictionary_id)
-        }
-        */
        try {
             if(this.props.params.category.before == 'detail') {
                 let response = await performNetwork( this, getWordList(this.props.params.category.category_id) );
@@ -146,8 +158,7 @@ export default class StudyResultsDetail extends React.Component {
             });
         }
         else { //객관식
-            let _arrData = await this.fetchWordList();
-            if(_arrData.length < 5) {
+            if(this.state.arrData.length < 5) {
                 showToast("object_word_study_shortage_problem", "error");
                 return;
             }
@@ -157,7 +168,7 @@ export default class StudyResultsDetail extends React.Component {
                     'problem': this.props.params.problemList[i].problem,
                     'correct_index': this.props.params.problemList[i]['id'],
                     'correct_answer': this.props.params.problemList[i]['answer'],
-                    'choice': generate(this.props.params.problemList[i]['id'], _arrData.length).map(x => ( {no: x, problem: (this.props.params.studyMethod == 'entoko' ? _arrData[x-1].meaning : _arrData[x-1].word)} ) )
+                    'choice': generate(this.props.params.problemList[i]['id'], this.state.arrData.length).map(x => ( {no: x, problem: (this.props.params.studyMethod == 'entoko' ? this.state.arrData[x-1].meaning : this.state.arrData[x-1].word)} ) )
                 });
             }
             if(this.props.params.progressOrder != 'sequence') { //단어 진행 순서
@@ -211,9 +222,7 @@ export default class StudyResultsDetail extends React.Component {
                 showToast("no_wrong_problems", "error");
                 return;
             }
-
-            let _arrData = await this.fetchWordList();
-            if(_arrData.length < 5) {
+            if(this.state.arrData.length < 5) {
                 showToast("object_word_study_shortage_problem", "error");
                 return;
             }
@@ -225,7 +234,7 @@ export default class StudyResultsDetail extends React.Component {
                         'problem': this.props.params.problemList[i].problem,
                         'correct_index': this.props.params.problemList[i]['id'],
                         'correct_answer': this.props.params.problemList[i]['answer'],
-                        'choice': generate(this.props.params.problemList[i]['id'], _arrData.length).map(x => ( {no: x, problem: (this.props.params.studyMethod == 'entoko' ? _arrData[x-1].meaning : _arrData[x-1].word)} ) )
+                        'choice': generate(this.props.params.problemList[i]['id'], this.state.arrData.length).map(x => ( {no: x, problem: (this.props.params.studyMethod == 'entoko' ? this.state.arrData[x-1].meaning : this.state.arrData[x-1].word)} ) )
                     });
                 }
             }
@@ -253,7 +262,7 @@ export default class StudyResultsDetail extends React.Component {
                 <StudyResultsDetailTab
                     parent={ this }
                     typeData={ item }
-                    problemList={ this.props.params.problemList.filter(item1 => item1.result==item.result || item.result == '') }
+                    problemList={ this.state.problemList.filter(item1 => item1.result==item.result || item.result == '') }
                 />
             </Tab>
         ));
