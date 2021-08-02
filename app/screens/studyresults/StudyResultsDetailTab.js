@@ -22,7 +22,8 @@ export default class StudyResultsDetailTab extends React.Component {
                             wrong={item.result != 'correct' ? true : false}
                             wordId={item.word_id}
                             wordItem={item.word_item}
-                            isFavorite={item.is_favorite} />    
+                            isFavorite={item.is_favorite}
+                            before={this.props.before} />    
                         )}
                     />
                 }

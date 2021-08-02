@@ -60,7 +60,6 @@ export default class StudyResultsDetail extends React.Component {
             }
             _problem_list[i]['is_favorite'] = _word_id_list.indexOf(_problem_list[i]['word_id']) >= 0 ? true : false;
         }
-        // console.log("problem_list==================>", _problem_list);
         this.setState({loaded: true, arrData: _arrData, problemList: _problem_list});
     }
     async saveAndFinish() {
@@ -263,6 +262,7 @@ export default class StudyResultsDetail extends React.Component {
                     parent={ this }
                     typeData={ item }
                     problemList={ this.state.problemList.filter(item1 => item1.result==item.result || item.result == '') }
+                    before={ this.props.params.category.before }
                 />
             </Tab>
         ));
