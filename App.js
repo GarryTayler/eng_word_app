@@ -28,6 +28,7 @@
 
  import StudyResultsHome from './app/screens/studyresults/StudyResultsHome';
  import StudyResultsDetail from './app/screens/studyresults/StudyResultsDetail';
+ import SentenceResultsDetail from './app/screens/studyresults/SentenceResultsDetail';
 
  import WordListView from './app/screens/WordListView';
  import WordView from './app/screens/WordView';
@@ -122,6 +123,7 @@ class App extends React.Component {
                             <Scene key="word_view" component={WordView} />
                             <Scene key="sentence_view" component={SentenceView} />
                             <Scene key="study_results_detail" component={StudyResultsDetail} />
+                            <Scene key="sentence_results_detail" component={SentenceResultsDetail} />
                             <Scene key="word_study_init" component={WordStudyInit} />
                             <Scene key="word_study_object" component={WordStudyObject} />
                             <Scene key="word_study_subject" component={WordStudySubject} />

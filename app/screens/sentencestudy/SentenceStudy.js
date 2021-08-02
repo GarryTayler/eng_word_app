@@ -4,37 +4,35 @@ import { StyleSheet, View, Text, FlatList, TouchableOpacity,Keyboard, TextInput,
 import { fonts, normalize } from './../../assets/styles';
 import { Button } from 'native-base';
 import StudyHeader from './../../components/shared/StudyHeader';
-import SentenceStudyItem from './../../components/sentencestudy/SentenceStudyItem';
-import {performNetwork} from './../../components/shared/global';
-import {getSentenceList} from './../../utils/api';
 import Spinner_bar from 'react-native-loading-spinner-overlay';
-import {getSentenceListFromMySentence} from './../../utils/MySentence';
 import {Actions} from 'react-native-router-flux';
 import Orientation from 'react-native-orientation';
 import { Icon } from 'react-native-elements';
 import Images from './../../assets/Images';
 import { showToast } from '../../components/shared/global';
-import { addToMySentence, removeFromMySentence, getSentenceIdListFromMySentence } from './../../utils/MySentence'
+import { addToMySentence, removeFromMySentence } from './../../utils/MySentence'
+import { getCurrentDate } from './../../components/shared/global';
 let pageTitle = '문장 학습';
 
 export default class SentenceStudy extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            loaded: true,
+            loaded: true, 
             serverRespond: false,
-            arrData: [],
-            wordList: [],
-            correct: false,
-            confirmAnswer: false,
-            inputAnswer: '',
-            inputIds: [],
-            inputWords: [],
-            correctAnswer: null,
-            curIndex: 0,
-            curQuestion: null,
+            wordList: [],           // 문장별 단어목록 (선택 목록) 문장 변경시 reset 됩니다.
+            correct: false,         // 정답/오답 여부 - 문장변경시 reset 됩니다. 
+            confirmAnswer: false,   // 정답확인 버튼 클릭 여부 
+            inputAnswer: '',        // 유저가 입력한 문장
+            inputIds: [],           // 유저가 클릭한 아이디 목록 (close 아이콘 작동을 위한 변수) - 문장 변경시 reset 됩니다
+            inputWords: [],         // 유저가 클릭한 단어 목록 (close 아이콘 작동을 위한 변수) - 문장 변경시 reset 됩니다
+            correctAnswer: null,    // 정답확인을 위한 문장 (curIndex로 얻는다.)
+            curIndex: 0,            // 문장학습 문제 번호 (현재번호)
+            curQuestion: null,      // 현재 
             sentenceList: this.props.sentenceList,
-            mySetenceIdList: []
+
+            correctProblems: 0, //정답문제 개수
+            wrongProblems: 0 //오답문제 개수            
         };
     }    
 
@@ -43,16 +41,6 @@ export default class SentenceStudy extends React.Component {
 
         this.setState({correctAnswer: this.state.sentenceList[this.state.curIndex].sentence})
         let curSetence = this.state.sentenceList[this.state.curIndex];
-        let idList = await getSentenceIdListFromMySentence();
-        
-        if(idList && idList.length > 0) {
-            idList.map((item, index) => {
-                if(idList.id == item)
-                    curSetence['isFavorite'] = true
-            })
-        } else {
-            curSetence['isFavorite'] = false
-        }
         this.setState({curQuestion: curSetence})
 
         let temp = this.state.sentenceList[this.state.curIndex].parts;
@@ -85,7 +73,7 @@ export default class SentenceStudy extends React.Component {
         Orientation.lockToPortrait();
     };
 
-    confirm() {
+    confirm() { // 정답확인
         this.setState({confirmAnswer: true})
         let correctAnswer = this.state.correctAnswer.replace(/[^a-zA-Z ]/g, "")
         let inputAnswer = this.state.inputAnswer.replace(/[^a-zA-Z ]/g, "")
@@ -95,7 +83,7 @@ export default class SentenceStudy extends React.Component {
             this.setState({correct: false})
         }
     }
-    again() {
+    again() { // 다시 풀기
         this.setState({inputAnswer: '', inputIds: [], inputWords: []});
         let wordList = this.state.wordList;
         if(wordList && wordList.length > 0) {
@@ -182,17 +170,6 @@ export default class SentenceStudy extends React.Component {
         this.setState({correctAnswer: this.state.sentenceList[curIndex].sentence})
         
         let curSetence = this.state.sentenceList[curIndex];
-        let idList = await getSentenceIdListFromMySentence();
-        
-        if(idList && idList.length > 0) {
-            idList.map((item, index) => {
-                if(idList.id == item)
-                    curSetence['isFavorite'] = true
-            })
-        } else {
-            curSetence['isFavorite'] = false
-        }
-        
         this.setState({curQuestion: curSetence})
 
         let temp = this.state.sentenceList[curIndex].parts;
@@ -238,7 +215,12 @@ export default class SentenceStudy extends React.Component {
 
     endStudy() {
         Orientation.lockToPortrait();
-        Actions.pop();
+        Actions.push('sentence_results_detail', {
+            params: {
+                "totalProblems": this.props.sentenceList.length,
+                "end_time": getCurrentDate()
+            }
+        });
         setTimeout(function() {
             Actions.refresh()
         }, 300)
