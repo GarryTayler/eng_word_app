@@ -8,6 +8,7 @@ import { fonts, normalize, tabs } from './../../assets/styles';
 import { Actions } from 'react-native-router-flux';
 import { getRecentStudy } from './../../utils/RecentStudy';
 import Spinner_bar from 'react-native-loading-spinner-overlay';
+import { shuffleArray, showToast } from './../../components/shared/global';
 
 let pageTitle = '학습 결과';
 let arrTypes = [
@@ -38,10 +39,56 @@ export default class SentenceResultsDetail extends React.Component {
     saveAndFinish() {
     }
     finish() {
+        if(this.props.params.fromStudyResultHome) {
+            Actions.replace('study_results_home');
+        }
+        else {
+            if(this.props.params.category.before == 'detail') {
+            }
+            if(this.props.params.category.before == 'mysentence') {
+            }
+        }
     }
     resolveAll() {
+        if(this.props.params.random) {
+            Actions.push("sentence_study", {
+                sentenceList: shuffleArray(this.props.params.problemList),
+                category: this.props.params.category,
+                random: true,
+                fromStudyResultHome: this.props.params.fromStudyResultHome ? true : false
+            })
+        }
+        else {
+            Actions.push("sentence_study", {
+                sentenceList: this.props.params.problemList,
+                category: this.props.params.category,
+                random: false,
+                fromStudyResultHome: this.props.params.fromStudyResultHome ? true : false
+            })
+        }
     }
     resolveWrongProblems() {
+        let _problem_list = this.props.params.problemList.filter(item1 => item1.correct==false);
+        if(_problem_list.length < 1) {
+            showToast("no_wrong_problems", "error");
+            return;
+        }
+        if(this.props.params.random) {
+            Actions.push("sentence_study", {
+                sentenceList: shuffleArray(_problem_list),
+                category: this.props.params.category,
+                random: true,
+                fromStudyResultHome: this.props.params.fromStudyResultHome ? true : false
+            })
+        }
+        else {
+            Actions.push("sentence_study", {
+                sentenceList: _problem_list,
+                category: this.props.params.category,
+                random: false,
+                fromStudyResultHome: this.props.params.fromStudyResultHome ? true : false           
+            })
+        }
     }
     renderTabs() {
         let arrTab = arrTypes.map((item, index) => (

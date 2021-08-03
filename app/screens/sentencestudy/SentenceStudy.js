@@ -230,13 +230,14 @@ export default class SentenceStudy extends React.Component {
         Actions.push('sentence_results_detail', {
             params: {
                 "totalProblems": this.state.sentenceList.length, //총문제
-                "correctProblems": this.state.correctProblems, //정답
-                "wrongProblems": this.state.wrongProblems, //오답 
+                "correctProblems": correctProblems, //정답
+                "wrongProblems": wrongProblems, //오답 
                 "mark": Math.floor(( correctProblems / this.state.sentenceList.length ) * 100),
                 "problemList": this.state.sentenceList,
                 "end_time": getCurrentDate(),
                 "category": this.props.category,
-                "fromStudyResultHome": this.props.fromStudyResultHome ? true : false
+                "fromStudyResultHome": this.props.fromStudyResultHome ? true : false,
+                "random": this.props.random
             }
         });
         setTimeout(function() {

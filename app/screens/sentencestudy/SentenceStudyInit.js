@@ -143,10 +143,18 @@ export default class SentenceStudyInit extends React.Component {
 
             if(sentenceList.length > 0) {
                 if(!this.state.order) {
-                    Actions.push("sentence_study", {sentenceList: this.shuffle(sentenceList), category: this.props.params})
+                    Actions.push("sentence_study", {
+                        sentenceList: this.shuffle(sentenceList), 
+                        category: this.props.params,
+                        random: true 
+                    })
                 }
                 else {
-                    Actions.push("sentence_study", {sentenceList: sentenceList, category: this.props.params})
+                    Actions.push("sentence_study", {
+                        sentenceList: sentenceList, 
+                        category: this.props.params,
+                        random: false
+                    })
                 }
             }
             else

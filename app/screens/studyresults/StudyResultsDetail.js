@@ -98,15 +98,12 @@ export default class StudyResultsDetail extends React.Component {
         }
         else {
             if(this.props.params.category.before == 'detail') {
-              //  Actions.popTo('word_study_init');
               Actions.popTo('detail');
             }
             if(this.props.params.category.before == 'myword') {
-              //  Actions.popTo('word_study_init');
               Actions.popTo('my_word_home');
             }
             if(this.props.params.category.before == 'mymakingword') {
-              //  Actions.popTo('word_study_init');
               Actions.popTo('my_making_word_detail');
             }
         }
