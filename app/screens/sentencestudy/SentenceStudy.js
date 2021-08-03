@@ -29,10 +29,7 @@ export default class SentenceStudy extends React.Component {
             correctAnswer: null,    // 정답확인을 위한 문장 (curIndex로 얻는다.)
             curIndex: 0,            // 문장학습 문제 번호 (현재번호)
             curQuestion: null,      // 현재 
-            sentenceList: this.props.sentenceList,
-
-            correctProblems: 0, //정답문제 개수
-            wrongProblems: 0 //오답문제 개수            
+            sentenceList: this.props.sentenceList
         };
     }    
 
@@ -78,11 +75,18 @@ export default class SentenceStudy extends React.Component {
         let correctAnswer = this.state.correctAnswer.replace(/[^a-zA-Z ]/g, "")
         let inputAnswer = this.state.inputAnswer.replace(/[^a-zA-Z ]/g, "")
         if(inputAnswer == correctAnswer) {
-            this.setState({correct: true})
+            let _curQuestion = this.state.curQuestion;
+            _curQuestion['correct'] = true;
+            _curQuestion['input_answer'] = this.state.inputAnswer;
+            this.setState({correct: true, curQuestion: _curQuestion});
         } else {
-            this.setState({correct: false})
+            let _curQuestion = this.state.curQuestion;
+            _curQuestion['correct'] = false;
+            _curQuestion['input_answer'] = this.state.inputAnswer;
+            this.setState({correct: false, curQuestion: _curQuestion});
         }
     }
+
     again() { // 다시 풀기
         this.setState({inputAnswer: '', inputIds: [], inputWords: []});
         let wordList = this.state.wordList;
@@ -124,6 +128,8 @@ export default class SentenceStudy extends React.Component {
     }
 
     cancelOneStep() {
+        if(this.state.confirmAnswer)
+            return;
         let inputIds = this.state.inputIds;
         let inputWords = this.state.inputWords;
         if(inputIds.length > 0 && inputWords.length > 0) {
@@ -135,14 +141,10 @@ export default class SentenceStudy extends React.Component {
         }
     }
 
-    reset() {
-    }
-
     async isFav() {
         let curSetence = this.state.curQuestion
         curSetence['isFavorite'] = !curSetence['isFavorite']
         this.setState({curQuestion: curSetence})
-
         if(curSetence['isFavorite']) {
             if( await addToMySentence(this.state.sentenceList[this.state.curIndex]) ) {
                 showToast("add_to_mysentence", "success");
@@ -153,7 +155,6 @@ export default class SentenceStudy extends React.Component {
                 showToast("remove_from_mysentence", "success");
             }
         }
-
     }
 
     async chooseSetence(prev_next) {
@@ -185,7 +186,7 @@ export default class SentenceStudy extends React.Component {
                 wordList.push({id: wordList.length + 2, word: '', clicked: false})
             } else if(wordList.length % 4 == 2) {
                 wordList.push({id: wordList.length, word: '', clicked: false})
-                wordList.push({id: wordList.length+1, word: '', clicked: false})
+                wordList.push({id: wordList.length + 1, word: '', clicked: false})
             } else if(wordList.length % 4 == 3) {
                 wordList.push({id: wordList.length, word: '', clicked: false})
             }
@@ -214,11 +215,28 @@ export default class SentenceStudy extends React.Component {
     }
 
     endStudy() {
+        this.setState({loaded: false});
+
+        let correctProblems = 0, wrongProblems = 0;
+        for(let i = 0; i < this.state.sentenceList.length; i ++) {
+            if(this.state.sentenceList[i]['correct'])
+                correctProblems ++;
+            else
+                wrongProblems ++;
+        }
+        this.setState({loaded: true});
+
         Orientation.lockToPortrait();
         Actions.push('sentence_results_detail', {
             params: {
-                "totalProblems": this.props.sentenceList.length,
-                "end_time": getCurrentDate()
+                "totalProblems": this.state.sentenceList.length, //총문제
+                "correctProblems": this.state.correctProblems, //정답
+                "wrongProblems": this.state.wrongProblems, //오답 
+                "mark": Math.floor(( correctProblems / this.state.sentenceList.length ) * 100),
+                "problemList": this.state.sentenceList,
+                "end_time": getCurrentDate(),
+                "category": this.props.category,
+                "fromStudyResultHome": this.props.fromStudyResultHome ? true : false
             }
         });
         setTimeout(function() {

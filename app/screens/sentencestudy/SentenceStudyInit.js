@@ -11,7 +11,6 @@ import {getSentenceList} from './../../utils/api';
 import Spinner_bar from 'react-native-loading-spinner-overlay';
 import {getSentenceListFromMySentence, getSentenceIdListFromMySentence} from './../../utils/MySentence';
 import {Actions} from 'react-native-router-flux';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import Orientation from 'react-native-orientation';
 import { showToast } from './../../components/shared/global';
 import { getRecentStudy } from './../../utils/RecentStudy';
@@ -144,10 +143,10 @@ export default class SentenceStudyInit extends React.Component {
 
             if(sentenceList.length > 0) {
                 if(!this.state.order) {
-                    Actions.push("sentence_study", {sentenceList: this.shuffle(sentenceList)})
+                    Actions.push("sentence_study", {sentenceList: this.shuffle(sentenceList), category: this.props.params})
                 }
                 else {
-                    Actions.push("sentence_study", {sentenceList: sentenceList})
+                    Actions.push("sentence_study", {sentenceList: sentenceList, category: this.props.params})
                 }
             }
             else

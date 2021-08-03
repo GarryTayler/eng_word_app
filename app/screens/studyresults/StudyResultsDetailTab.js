@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, FlatList } from 'react-native';
 import ResultDetailItem from './../../components/studyresults/ResultDetailItem';
+import SentenceDetailItem from './../../components/studyresults/SentenceDetailItem';
 export default class StudyResultsDetailTab extends React.Component {
     constructor(props){
         super(props);
@@ -9,6 +10,18 @@ export default class StudyResultsDetailTab extends React.Component {
         return (
                 <>
                 {
+                    this.props.isSentence ? 
+                    <FlatList
+                        data={this.props.problemList}
+                        keyExtractor={(item) => item.id}
+                        renderItem={({item, index}) => (
+                            <SentenceDetailItem
+                            currentNo={ index + 1 }
+                            item={ item }
+                            />
+                        )}  
+                    />
+                    :
                     <FlatList
                         data={this.props.problemList}
                         keyExtractor={(item) => item.word_id}
