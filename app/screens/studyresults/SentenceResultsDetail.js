@@ -8,7 +8,8 @@ import { fonts, normalize, tabs } from './../../assets/styles';
 import { Actions } from 'react-native-router-flux';
 import { getRecentStudy } from './../../utils/RecentStudy';
 import Spinner_bar from 'react-native-loading-spinner-overlay';
-import { shuffleArray, showToast } from './../../components/shared/global';
+import { shuffleArray, showToast, generateStudyResultId } from './../../components/shared/global';
+import { addToStudyResults } from './../../utils/StudyResults';
 
 let pageTitle = '학습 결과';
 let arrTypes = [
@@ -36,7 +37,24 @@ export default class SentenceResultsDetail extends React.Component {
             this.setState({studyResultTitle: '내문장'});       
         }
     }
-    saveAndFinish() {
+    async saveAndFinish() {
+        this.setState({loaded: false});
+        await addToStudyResults({
+            "id": generateStudyResultId(),
+            "totalProblems": this.props.params.totalProblems, //총문제
+            "correctProblems": this.props.params.correctProblems, //정답 
+            "wrongProblems": this.props.params.wrongProblems, //오답
+            "mark": this.props.params.mark,
+            "problemList": this.props.params.problemList,
+            "end_time": this.props.params.end_time,
+
+            "random": this.props.params.random,
+            "category": this.props.params.category,
+            "categoryTitle": this.state.studyResultTitle,
+            "classify": "sentence"
+        });
+        this.setState({loaded: true});
+        Actions.replace('study_results_home');
     }
     finish() {
         if(this.props.params.fromStudyResultHome) {
@@ -44,8 +62,10 @@ export default class SentenceResultsDetail extends React.Component {
         }
         else {
             if(this.props.params.category.before == 'detail') {
+                Actions.popTo('detail');
             }
             if(this.props.params.category.before == 'mysentence') {
+                Actions.popTo('my_sentence_home');
             }
         }
     }
@@ -122,7 +142,10 @@ export default class SentenceResultsDetail extends React.Component {
     render() {
         return (
             <Container>
-                <UserHeader title={pageTitle} />
+                <UserHeader 
+                    title={pageTitle} 
+                    fromResultHome={this.props.params.disabledStorage ? true : false}
+                    sentenceResultsDetail  />
                 <View>
                     <View style={{display: 'flex', flexDirection: 'row', backgroundColor: '#68ADED', padding: normalize(12)}}>
                         <View style={{flex: 1}}>

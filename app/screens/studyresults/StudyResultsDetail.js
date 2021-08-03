@@ -7,8 +7,7 @@ import StudyResultsDetailTab from './StudyResultsDetailTab';
 import { fonts, normalize, tabs } from './../../assets/styles';
 import { Actions } from 'react-native-router-flux';
 import { addToStudyResults } from './../../utils/StudyResults';
-import { showToast, shuffleArray, generate } from './../../components/shared/global';
-import { performNetwork } from './../../components/shared/global';
+import { showToast, shuffleArray, generate, performNetwork, generateStudyResultId } from './../../components/shared/global';
 import { getWordList } from './../../utils/api';
 import { getWordListFromMyWord } from './../../utils/MyWord';
 import { getVocabularyData } from './../../utils/MyMakingWords';
@@ -65,6 +64,7 @@ export default class StudyResultsDetail extends React.Component {
     async saveAndFinish() {
         this.setState({loaded: false});
         await addToStudyResults({
+            "id": generateStudyResultId(),
             "totalProblems": this.props.params.totalProblems, //총문제
             "display_time": this.timeFormat(),
             "time": this.props.params.time, //시간

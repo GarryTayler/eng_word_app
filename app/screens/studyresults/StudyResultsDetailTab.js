@@ -18,6 +18,7 @@ export default class StudyResultsDetailTab extends React.Component {
                             <SentenceDetailItem
                             currentNo={ index + 1 }
                             item={ item }
+                            before={this.props.before}
                             />
                         )}  
                     />

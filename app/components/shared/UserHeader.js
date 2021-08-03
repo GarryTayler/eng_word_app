@@ -5,7 +5,7 @@ import { Icon } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
 import { normalize } from './../../assets/styles';
 import Images from './../../assets/Images';
-
+import Orientation from 'react-native-orientation';
 export default class UserHeader extends React.Component {
     constructor(props) {
         super(props);
@@ -16,7 +16,16 @@ export default class UserHeader extends React.Component {
     }
 
     backButtonPressed() {
-        Actions.pop();
+        if(this.props.sentenceResultsDetail && !this.props.fromResultHome) {
+            Orientation.lockToLandscape();
+            Actions.pop();
+            setTimeout(() => {
+                Actions.refresh();
+            }, 300);
+        }
+        else {
+            Actions.pop();
+        }
     }
 
     triggerMeaning() {

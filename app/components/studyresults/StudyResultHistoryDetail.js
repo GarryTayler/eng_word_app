@@ -9,24 +9,42 @@ export default class StudyResultHistoryDetail extends React.Component {
     }
 
     detailPage() {
-        Actions.push('study_results_detail', {
-            params: {
-                "totalProblems": this.props.params.totalProblems,
-                "time": this.props.params.time, //시간
-                "correctProblems": this.props.params.correctProblems,  // 정답 
-                "wrongProblems": this.props.params.wrongProblems,  // 오답
-                "mark": this.props.params.mark,
-                "problemList": this.props.params.problemList,
-                'end_time': this.props.params.end_time,
-
-                'type': this.props.params.type, //객관식/주관식
-                'studyMethod': this.props.params.studyMethod, //단어학습방식  entoko or kotoen
-                'progressOrder': this.props.params.progressOrder,
-                'category': this.props.params.category,
-                'fromStudyResultHome': true,
-                'disabledStorage': true
-            }
-        });
+        if(this.props.params.classify && this.props.params.classify == 'sentence') {
+            Actions.push('sentence_results_detail', {
+                params: {
+                    "totalProblems": this.props.params.totalProblems,
+                    "correctProblems": this.props.params.correctProblems,
+                    "wrongProblems": this.props.params.wrongProblems,
+                    "mark": this.props.params.mark,
+                    "problemList": this.props.params.problemList,
+                    "end_time": this.props.params.end_time,
+                    "category": this.props.params.category,
+                    "fromStudyResultHome": true,
+                    "random": this.props.params.random,
+                    "disabledStorage": true
+                }
+            });
+        }
+        else {
+            Actions.push('study_results_detail', {
+                params: {
+                    "totalProblems": this.props.params.totalProblems,
+                    "time": this.props.params.time, //시간
+                    "correctProblems": this.props.params.correctProblems,  // 정답 
+                    "wrongProblems": this.props.params.wrongProblems,  // 오답
+                    "mark": this.props.params.mark,
+                    "problemList": this.props.params.problemList,
+                    'end_time': this.props.params.end_time,
+    
+                    'type': this.props.params.type, //객관식/주관식
+                    'studyMethod': this.props.params.studyMethod, //단어학습방식  entoko or kotoen
+                    'progressOrder': this.props.params.progressOrder,
+                    'category': this.props.params.category,
+                    'fromStudyResultHome': true,
+                    'disabledStorage': true
+                }
+            });
+        }
     }
 
     removeHistory() {

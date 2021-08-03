@@ -44,13 +44,18 @@ export default class SentenceDetailItem extends React.Component {
     }
     render() {
         return (
-            <View style={styles.resultDetailItem}>
-                <View style={{paddingRight: normalize(6)}}>
-                    <TouchableOpacity activeOpacity={0.6} onPress={ () => { this.addToFavorite() } }>
-                        <Icon name='star' type='antdesign' size={22} color={this.state.isFavorite ? '#F2C94C' : 'rgba(0,0,0,0.2)'} />
-                    </TouchableOpacity>
-                </View>                           
-
+            <View style={styles.resultDetailItem}> 
+                {
+                    this.props.before == 'mysentence' ? 
+                    <View style={{paddingRight: normalize(6)}}>
+                    </View>
+                    :
+                    <View style={{paddingRight: normalize(6)}}>
+                        <TouchableOpacity activeOpacity={0.6} onPress={ () => { this.addToFavorite() } }>
+                            <Icon name='star' type='antdesign' size={22} color={this.state.isFavorite ? '#F2C94C' : 'rgba(0,0,0,0.2)'} />
+                        </TouchableOpacity>
+                    </View>                           
+                }
                 <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center',
                                     flexShrink: 1}}>
                     <View style={{flex: 22}}>
