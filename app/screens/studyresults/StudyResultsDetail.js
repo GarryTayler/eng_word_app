@@ -150,6 +150,7 @@ export default class StudyResultsDetail extends React.Component {
                 studyMethod: this.props.params.studyMethod,
                 progressOrder: this.props.params.progressOrder,
                 type: 'sub',
+                category: this.props.params.category,
                 fromStudyResultHome: this.props.params.fromStudyResultHome ? true : false
             });
         }
@@ -203,6 +204,7 @@ export default class StudyResultsDetail extends React.Component {
                 studyMethod: this.props.params.studyMethod,
                 progressOrder: this.props.params.progressOrder,
                 type: 'sub',
+                category: this.props.params.category,
                 fromStudyResultHome: this.props.params.fromStudyResultHome ? true : false
             });
         }

@@ -32,12 +32,12 @@ export default class SentenceDetailItem extends React.Component {
         let _isFavorite = this.state.isFavorite;
         this.setState({isFavorite: !this.state.isFavorite});
         if(!_isFavorite) {
-            if( await addToMySentence(this.props.item) ) {
+            if( await addToMySentence({...this.props.item, checked: false}) ) {
                 showToast("add_to_mysentence", "success");
             }
         }
         else {
-            if( await removeFromStudyResults(this.props.item) ) {
+            if( await removeFromStudyResults({...this.props.item, checked: false}) ) {
                 showToast("remove_from_mysentence", "success");
             }
         }

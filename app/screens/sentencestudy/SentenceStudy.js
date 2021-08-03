@@ -145,13 +145,13 @@ export default class SentenceStudy extends React.Component {
         let curSetence = this.state.curQuestion
         curSetence['isFavorite'] = !curSetence['isFavorite']
         this.setState({curQuestion: curSetence})
-        if(curSetence['isFavorite']) {
-            if( await addToMySentence(this.state.sentenceList[this.state.curIndex]) ) {
+        if(curSetence['isFavorite']) { //checked
+            if( await addToMySentence(  {...this.state.sentenceList[this.state.curIndex], checked: false} ) ) {
                 showToast("add_to_mysentence", "success");
             }
         }
         else {
-            if( await removeFromMySentence(this.state.sentenceList[this.state.curIndex]) ) {
+            if( await removeFromMySentence( {...this.state.sentenceList[this.state.curIndex], checked: false} ) ) {
                 showToast("remove_from_mysentence", "success");
             }
         }
@@ -240,9 +240,6 @@ export default class SentenceStudy extends React.Component {
                 "random": this.props.random
             }
         });
-        setTimeout(function() {
-            Actions.refresh()
-        }, 300)
     }
 
     render()  {

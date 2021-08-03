@@ -19,9 +19,10 @@ export default class UserHeader extends React.Component {
         if(this.props.sentenceResultsDetail && !this.props.fromResultHome) {
             Orientation.lockToLandscape();
             Actions.pop();
+            /*
             setTimeout(() => {
                 Actions.refresh();
-            }, 300);
+            }, 300); */
         }
         else {
             Actions.pop();

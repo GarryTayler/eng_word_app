@@ -18,9 +18,10 @@ export default class StudyHeader extends React.Component {
     backButtonPressed() {
         Orientation.lockToPortrait();
         Actions.pop();
+        /*
         setTimeout(() => {
             Actions.refresh();
-        }, 300);
+        }, 300); */
     }
 
     triggerMeaning() {
