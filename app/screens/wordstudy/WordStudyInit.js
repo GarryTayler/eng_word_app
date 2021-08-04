@@ -57,11 +57,20 @@ export default class WordStudyInit extends React.Component {
     }
     //
     shuffle() {
+
+        let _start = this.state.startNumber;
+        let _end = this.state.endNumber;
         if(_start == '' || _end == '')
             return false;
-        let _start = parseInt(this.state.startNumber);
-        let _end = parseInt(this.state.endNumber);
+        
+        _start = parseInt(this.state.startNumber);
+        if(_start <= 0)
+            return false;
 
+        _end = parseInt(this.state.endNumber);
+        if(_end <= 0)
+            return false;
+        
         if(_start > _end) {
             return false;
         }

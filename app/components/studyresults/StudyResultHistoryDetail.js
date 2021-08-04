@@ -54,24 +54,37 @@ export default class StudyResultHistoryDetail extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <TouchableHighlight style={{flex: 8}} activeOpacity={0.8} underlayColor="rgb(248, 248, 248)"
+                <TouchableHighlight style={{flex: 6}} activeOpacity={0.8} underlayColor="rgb(248, 248, 248)"
                     onPress={() => this.detailPage()}>
                     <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                         <View>
                             <Text style={[fonts.size14, fonts.familyRegular]}>{this.props.id}.</Text>    
                         </View>
-                        <View style={{marginLeft: normalize(18)}}>
+                        <View style={{marginLeft: normalize(12)}}>
                             <Text style={[fonts.size14, fonts.familyRegular]}>{this.props.params.end_time}</Text>
-                            <Text style={[fonts.size14, fonts.familyRegular, {marginTop: normalize(4)}]}>{this.props.params.categoryTitle}</Text>
+                            <Text style={[fonts.size13, fonts.familyRegular, {marginTop: normalize(4)}]}>
+                                { this.props.params.categoryTitle }
+                            </Text>
                         </View>
                     </View>
                 </TouchableHighlight>
                 <View style={styles.detailView}>
-                    <View style={{alignItems: 'flex-end'}}>
+                    <View style={{marginLeft: normalize(0)}}>
+                        <Button style={[styles.labelButton, {backgroundColor: (this.props.params.classify && this.props.params.classify == 'sentence' ? '#81c147' : '#FF9636') }]}>
+                            <Text style={[fonts.size14, fonts.familyBold, fonts.colorWhite]}>
+                                {
+                                    this.props.params.classify && this.props.params.classify == 'sentence'
+                                    ? '문장'
+                                    : '단어'
+                                }
+                            </Text>
+                        </Button>
+                    </View>
+                    <View style={{alignItems: 'flex-end', flexGrow: 1}}>
                         <Text style={[fonts.size14, fonts.familyBold]}>{this.props.params.correctProblems}/{this.props.params.totalProblems}</Text>
                         <Text style={[fonts.size16, fonts.familyBold, fonts.colorRed]}>{this.props.params.mark}점</Text>
                     </View>
-                    <View style={{marginLeft: normalize(18)}}>
+                    <View style={{marginLeft: normalize(12)}}>
                         <Button style={styles.removeButton}
                         onPress={() => {this.removeHistory()}}>
                             <Text style={[fonts.size14, fonts.familyBold, fonts.colorWhite]}>삭제</Text>
@@ -96,13 +109,14 @@ const styles = StyleSheet.create({
     },
     detailView: {
         display: 'flex', flexDirection: 'row',
-        alignItems: 'center', flex: 4,
-        justifyContent: 'flex-end'
+        alignItems: 'center', flex: 6,
+        justifyContent: 'space-between',
+        paddingLeft: normalize(20)
     },
     removeButton: {
         backgroundColor: '#1BA3E5',
-        width: normalize(48),
-        height: normalize(39),
+        width: normalize(45),
+        height: normalize(36),
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: normalize(4)
@@ -110,5 +124,12 @@ const styles = StyleSheet.create({
     removeButtonText: {
         color: 'white',
         fontWeight: 'bold'
+    },
+    labelButton: {
+        width: normalize(45),
+        height: normalize(36),
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: normalize(4)
     }
 });
