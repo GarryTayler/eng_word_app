@@ -8,7 +8,6 @@ import { performNetwork } from './../../components/shared/global';
 import { getCategoryList } from './../../utils/api';
 import Spinner_bar from 'react-native-loading-spinner-overlay';
 import {Actions} from 'react-native-router-flux';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { addToRecentStudy, getRecentStudy } from './../../utils/RecentStudy';
 export default class Home extends React.Component {
     constructor(props){

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { StyleSheet , View , ImageBackground, Text, Platform, TouchableHighlight } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Images from './../assets/Images';
-import { fonts } from './../assets/styles/index';
+import { fonts, getScreenWidth } from './../assets/styles/index';
 
 export default function TabBarIcon(props) {
     return (
@@ -14,8 +14,11 @@ export default function TabBarIcon(props) {
                 props.name == 'my_word_home' ? Images.myWordTab : (
                 props.name == 'my_sentence_home' ? Images.mySentenceTab : (
                 props.name == 'my_making_words_home' ? Images.myMakingWordTab : Images.studyResults
-              )))}
-              style={styles.tabImage}
+              )))} 
+              style={{
+                height: 95,
+                width: (parseInt(getScreenWidth() / 5) + getScreenWidth() % 5)
+              }}
               resizeMode='cover'
             >
               <View style={styles.tabItemContainer}>
@@ -29,14 +32,15 @@ export default function TabBarIcon(props) {
         </TouchableHighlight>
       );
 }
-
+//study_results
 const styles = StyleSheet.create({
   tabItem: {
     height: Platform.OS == 'ios' ? 95 : 95,
     width: '100%'
   },
   tabImage: {
-      flex: 1
+      height: 95,
+      width: '100%',
   },
   tabItemContainer: {
     flex: 1,

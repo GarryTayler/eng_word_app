@@ -26,8 +26,8 @@ const {
     height: SCREEN_HEIGHT
 } = Dimensions.get('window');
 
-
 const scale =  SCREEN_WIDTH / 320;
+
 let size_scale = scale;
 if (scale >= 2) {
     size_scale = scale * 0.566;
