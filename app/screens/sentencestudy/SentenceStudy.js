@@ -62,12 +62,19 @@ export default class SentenceStudy extends React.Component {
         BackHandler.addEventListener("hardwareBackPress", this.backAction);
     }
 
+    UNSAFE_componentWillReceiveProps() {
+        BackHandler.addEventListener("hardwareBackPress", this.backAction);
+    }
+
     componentWillUnmount() {
         BackHandler.removeEventListener("hardwareBackPress", this.backAction);
     }
 
     backAction = () => {
         Orientation.lockToPortrait();
+        setTimeout(() => {
+            Actions.refresh();
+        }, 300);
     };
 
     confirm() { // 정답확인
@@ -225,6 +232,8 @@ export default class SentenceStudy extends React.Component {
                 wrongProblems ++;
         }
         this.setState({loaded: true});
+
+        BackHandler.removeEventListener("hardwareBackPress", this.backAction);
 
         Orientation.lockToPortrait();
         Actions.push('sentence_results_detail', {

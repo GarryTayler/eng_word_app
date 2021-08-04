@@ -187,7 +187,7 @@ export default class SentenceStudyInit extends React.Component {
                         <Text style={[fonts.size16, fonts.colorWhite, fonts.familyBold]}>{ this.state.checkAll ? '선택해제' : '전체선택'}</Text>
                     </Button>
                     <Button style={styles.footerButton} onPress={() => this.changeOrder()}>
-                        <Text style={[fonts.size16, fonts.colorWhite, fonts.familyBold]}>{ this.state.order ? '임의대로' : '순서대로'}</Text>
+                        <Text style={[fonts.size16, fonts.colorWhite, fonts.familyBold]}>{ !this.state.order ? '임의대로' : '순서대로'}</Text>
                     </Button>
                     <Button style={styles.footerButton} onPress={() => this.startStudy()}>
                         <Text style={[fonts.size16, fonts.colorWhite, fonts.familyBold]}>학습시작</Text>

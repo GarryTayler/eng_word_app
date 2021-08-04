@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, BackHandler } from 'react-native';
 import { Container, Button, Tab, Tabs, ScrollableTab } from 'native-base';
 import UserHeader from './../../components/shared/UserHeader';
 import StudyHeader from './../../components/studyresults/StudyHeader';
@@ -10,6 +10,7 @@ import { getRecentStudy } from './../../utils/RecentStudy';
 import Spinner_bar from 'react-native-loading-spinner-overlay';
 import { shuffleArray, showToast, generateStudyResultId } from './../../components/shared/global';
 import { addToStudyResults } from './../../utils/StudyResults';
+import Orientation from 'react-native-orientation';
 
 let pageTitle = '학습 결과';
 let arrTypes = [
@@ -23,7 +24,8 @@ export default class SentenceResultsDetail extends React.Component {
         super(props);
         this.state = {
             loaded: true,
-            studyResultTitle: '중1 비상 (홍민표) 3과'
+            studyResultTitle: '중1 비상 (홍민표) 3과',
+            page: 'SentenceResultsDetail'
         }
     }
     async componentDidMount() {
@@ -36,7 +38,24 @@ export default class SentenceResultsDetail extends React.Component {
         else if(this.props.params.category.before == 'mysentence') {
             this.setState({studyResultTitle: '내문장'});       
         }
+        BackHandler.addEventListener("hardwareBackPress", this.backHardwareAction);        
     }
+    UNSAFE_componentWillReceiveProps() {
+        BackHandler.addEventListener("hardwareBackPress", this.backHardwareAction);
+    }
+    componentWillUnmount() {
+        BackHandler.removeEventListener("hardwareBackPress", this.backHardwareAction);
+    }
+    backHardwareAction = () => {
+        if(!this.props.params.disabledStorage 
+            && this.state.page
+            && this.state.page == 'SentenceResultsDetail' ) {
+            Orientation.lockToLandscape();
+            setTimeout(() => {
+                Actions.refresh();
+            }, 300);
+        }
+    };
     async saveAndFinish() {
         this.setState({loaded: false});
         await addToStudyResults({
@@ -71,6 +90,9 @@ export default class SentenceResultsDetail extends React.Component {
     }
     resolveAll() {
         if(this.props.params.random) {
+
+            BackHandler.removeEventListener("hardwareBackPress", this.backHardwareAction);
+
             Actions.push("sentence_study", {
                 sentenceList: shuffleArray(this.props.params.problemList),
                 category: this.props.params.category,
@@ -79,6 +101,9 @@ export default class SentenceResultsDetail extends React.Component {
             })
         }
         else {
+
+            BackHandler.removeEventListener("hardwareBackPress", this.backHardwareAction);
+
             Actions.push("sentence_study", {
                 sentenceList: this.props.params.problemList,
                 category: this.props.params.category,
@@ -94,6 +119,9 @@ export default class SentenceResultsDetail extends React.Component {
             return;
         }
         if(this.props.params.random) {
+
+            BackHandler.removeEventListener("hardwareBackPress", this.backHardwareAction);
+
             Actions.push("sentence_study", {
                 sentenceList: shuffleArray(_problem_list),
                 category: this.props.params.category,
@@ -102,6 +130,9 @@ export default class SentenceResultsDetail extends React.Component {
             })
         }
         else {
+
+            BackHandler.removeEventListener("hardwareBackPress", this.backHardwareAction);
+
             Actions.push("sentence_study", {
                 sentenceList: _problem_list,
                 category: this.props.params.category,
