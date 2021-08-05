@@ -249,6 +249,16 @@ export default class StudyResultsDetail extends React.Component {
             });   
         }
     }
+    changeFavorite(_id, favorite) {
+        let _pb_list = this.state.problemList;
+        for(let i = 0; i < _pb_list.length; i ++) {
+            if(_pb_list[i]['word_id'] == _id) {
+                _pb_list[i]['is_favorite'] = favorite;
+                break;
+            }
+        }
+        this.setState({problemList: _pb_list});
+    }
     renderTabs() {
         let arrTab = arrTypes.map((item, index) => (
             <Tab key={ index }
@@ -262,6 +272,7 @@ export default class StudyResultsDetail extends React.Component {
                     typeData={ item }
                     problemList={ this.state.problemList.filter(item1 => item1.result==item.result || item.result == '') }
                     before={ this.props.params.category.before }
+                    changeFavorite={(_id, favorite) => { this.changeFavorite(_id, favorite) }}
                 />
             </Tab>
         ));

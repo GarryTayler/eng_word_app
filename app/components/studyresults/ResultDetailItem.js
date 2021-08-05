@@ -13,6 +13,9 @@ export default class ResultDetailItem extends React.Component {
             isFavorite: this.props.isFavorite
         };
     }
+    UNSAFE_componentWillReceiveProps(props) {
+        this.setState({isFavorite: props.isFavorite});
+    }
     renderCorrectAnswer() {
         if(!this.props.correct) {
             return (
@@ -40,6 +43,7 @@ export default class ResultDetailItem extends React.Component {
                 showToast("remove_from_myword", "success");
             }
         }
+        this.props.changeFavorite(this.props.wordId, !_isFavorite);
     }
     render() {
         return (

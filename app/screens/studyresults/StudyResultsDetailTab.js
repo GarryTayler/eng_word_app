@@ -5,6 +5,15 @@ import SentenceDetailItem from './../../components/studyresults/SentenceDetailIt
 export default class StudyResultsDetailTab extends React.Component {
     constructor(props){
         super(props);
+        this.state = {
+            problemList: this.props.problemList
+        };
+    }
+    changeFavorite(_id, favorite) {
+        this.props.changeFavorite(_id, favorite);
+    }
+    UNSAFE_componentWillReceiveProps(props) {
+        this.setState({problemList: props.problemList});
     }
     render() {
         return (
@@ -12,7 +21,7 @@ export default class StudyResultsDetailTab extends React.Component {
                 {
                     this.props.isSentence ? 
                     <FlatList
-                        data={this.props.problemList}
+                        data={this.state.problemList}
                         keyExtractor={(item) => item.id}
                         renderItem={({item, index}) => (
                             <SentenceDetailItem
@@ -24,7 +33,7 @@ export default class StudyResultsDetailTab extends React.Component {
                     />
                     :
                     <FlatList
-                        data={this.props.problemList}
+                        data={this.state.problemList}
                         keyExtractor={(item) => item.word_id}
                         renderItem={({item, index}) => (
                             <ResultDetailItem 
@@ -37,7 +46,8 @@ export default class StudyResultsDetailTab extends React.Component {
                             wordId={item.word_id}
                             wordItem={item.word_item}
                             isFavorite={item.is_favorite}
-                            before={this.props.before} />    
+                            before={this.props.before}
+                            changeFavorite={(_id, favorite) => { this.changeFavorite(_id, favorite) }} />    
                         )}
                     />
                 }
