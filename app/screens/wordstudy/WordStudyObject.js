@@ -8,6 +8,7 @@ import WordStudyHeader from './../../components/wordstudy/WordStudyHeader';
 import Images from './../../assets/Images';
 import {Actions} from 'react-native-router-flux';
 import { getCurrentDate } from './../../components/shared/global';
+import { ScrollView } from 'react-native';
 
 let pageTitle = '단어 학습';
 let problemList = [];
@@ -91,7 +92,14 @@ export default class WordStudyObject extends React.Component {
                                  totalProblems={this.props.params.length} currentNo={this.state.cur_problem_no} 
                                  rightAnswer={this.state.correctProblems} wrongAnswer={this.state.wrongProblems}
                                  changeTime={(e) => {this.setState({timer: e})}} />
-                <Content style={styles.container}>
+                { /*<Content style={styles.container}
+                    innerRef={c=> (this.contentRef=c)}>*/ }
+                <ScrollView style={styles.container}
+                    ref={c=>(this.scrollView=c)}
+                    onContentSizeChange={() => {
+                        // 여기다가 어떤 경우에 스크롤을 하면 될지에 대한 조건문을 추가하면 된다.
+                        this.scrollView.scrollToEnd({ animated: true })
+                    }}>
                     <View style={styles.problemContainer}>
                         <View style={{position: 'absolute', top: normalize(28)}}>
                             <Text style={[fonts.size14, fonts.familyBold]}>
@@ -108,7 +116,9 @@ export default class WordStudyObject extends React.Component {
                         }
                         <Text style={[ this.props.studyMethod=='entoko' ? fonts.size30 : fonts.size18, 
                                        fonts.familyBold, 
-                                       {lineHeight: (this.props.studyMethod=='entoko'? 40 : 26)}]}>{ this.props.params[this.state.cur_problem_no - 1]['problem'] }</Text>
+                                       {lineHeight: (this.props.studyMethod=='entoko'? 40 : 26)}]}>
+                            { this.props.params[this.state.cur_problem_no - 1]['problem'] }
+                        </Text>
                         {
                             this.state.cur_problem_status == 'ready' ? null
                             :
@@ -156,7 +166,8 @@ export default class WordStudyObject extends React.Component {
                         </View>
                         : null
                     }
-                </Content>
+                </ScrollView>
+                { /*</Content>*/ }
             </Container>           
         );
     }   
@@ -182,7 +193,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
     },
     footerConfirm: {
-        height: normalize(126),
+        height: normalize(84),
         paddingTop: normalize(18),
         alignSelf: 'center'
     },
