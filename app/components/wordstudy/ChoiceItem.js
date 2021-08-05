@@ -22,7 +22,7 @@ export default class ChoiceItem extends React.Component {
                 </View>
                 <View style={{flexShrink: 1}}>
                     <Text numberOfLines={2}
-                    style={[this.props.studyMethod == 'entoko' ? fonts.size14 : fonts.size16, fonts.familyBold, (this.props.correct || this.props.wrong) ? fonts.colorWhite : fonts.colorBlack]}>
+                    style={[this.props.studyMethod == 'entoko' ? fonts.size12 : fonts.size16, fonts.familyBold, (this.props.correct || this.props.wrong) ? fonts.colorWhite : fonts.colorBlack]}>
                         {this.props.choice}
                     </Text>
                 </View>
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
-        height: normalize(48),
+        height: normalize(40),
         paddingLeft: normalize(0),
         paddingRight: normalize(20),
         marginBottom: normalize(12),

@@ -2,6 +2,9 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import {Dimensions, Platform, PixelRatio, StatusBar} from 'react-native';
 import { getStatusBarHeight } from "react-native-status-bar-height";
 import { isIphoneX, getBottomSpace } from "react-native-iphone-x-helper";
+import { getBrand } from 'react-native-device-info';
+
+
 /*
 const {
     width: SCREEN_WIDTH,
@@ -25,6 +28,8 @@ const {
     width: SCREEN_WIDTH,
     height: SCREEN_HEIGHT
 } = Dimensions.get('window');
+
+let phoneBrand = getBrand();
 
 const scale =  SCREEN_WIDTH / 320;
 
@@ -70,18 +75,28 @@ if(Platform.OS == 'ios') {
     }
 }
 else {
-    safeAreaViewHeight = SCREEN_HEIGHT - tabHeight - StatusBar.currentHeight;
+    if(phoneBrand == 'HUAWEI') {
+        safeAreaViewHeight = SCREEN_HEIGHT - tabHeight;
+    }
+    else {
+        safeAreaViewHeight = SCREEN_HEIGHT - tabHeight - StatusBar.currentHeight;
+    }
 }
 
 export function getSafeAreaViewHeight () {
     return safeAreaViewHeight + tabHeight - userHeaderHeight;
 }
 
+export function getCreateWordPageHeight() {
+    return safeAreaViewHeight + tabHeight;
+}
+
 export function calcButtonListMarginTop(buttonCnt, buttonHeight) {
     if(safeAreaViewHeight - (buttonCnt - 1) * (buttonSpacing + buttonHeight) - buttonHeight < 0)
         return 32;
-    else
+    else {
         return (safeAreaViewHeight - (buttonCnt - 1) * (buttonSpacing + buttonHeight) - buttonHeight) / 2;
+    }
 }
 
 export const fonts = EStyleSheet.create({

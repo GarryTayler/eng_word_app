@@ -1,11 +1,11 @@
 import React from 'react';
-import { StyleSheet, View, Text, TextInput, Keyboard, TouchableHighlight, FlatList, Alert } from 'react-native';
+import { StyleSheet, View, Text, TextInput, Keyboard, TouchableHighlight, FlatList, Alert, SafeAreaView } from 'react-native';
 import { Container, Content } from 'native-base';
 import CheckBox from 'react-native-check-box';
 import { Button } from 'native-base';
 import UserHeader from './../../components/shared/UserHeader';
 import CreateWordItem from './../../components/mymakingwords/CreateWordItem';
-import { fonts, normalize, getSafeAreaViewHeight } from './../../assets/styles';
+import { fonts, normalize, getCreateWordPageHeight, getSafeAreaViewHeight } from './../../assets/styles';
 import { Actions } from 'react-native-router-flux';
 import { saveVocabularyData, getVocabularyData } from '../../utils/MyMakingWords';
 import { generateMyMakingWordId } from './../../components/shared/global';
@@ -165,7 +165,7 @@ export default class CreateWord extends React.Component {
     }
     render() {
         return (
-            <Container>
+            <SafeAreaView style={styles.safeContainer}>
                 <UserHeader title={pageTitle} remove={true} remove={() => this.removeWord()} />
                 
                 <View style={{ paddingBottom: normalize(10), borderBottomWidth: 1, borderColor: 'rgba(0,0,0,0.5)',
@@ -237,7 +237,7 @@ export default class CreateWord extends React.Component {
                     </Button>
                 </View>
                 <Spinner_bar color={'#68ADED'} visible={!this.state.loaded} textContent={""}  overlayColor={"rgba(0, 0, 0, 0.5)"}  />
-            </Container>
+            </SafeAreaView>
         );
     }
 }
@@ -247,6 +247,11 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#FFF'
     },
+    safeContainer: {
+        height: getCreateWordPageHeight(),
+        // flex: 1,
+        backgroundColor: '#FFF'
+    }, 
     textInput: {
         fontSize: normalize(20),
         height: normalize(32),

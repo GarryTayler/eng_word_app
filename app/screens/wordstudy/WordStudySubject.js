@@ -10,7 +10,6 @@ import {Actions} from 'react-native-router-flux';
 import { getCurrentDate } from './../../components/shared/global';
 import { getRecentStudy } from './../../utils/RecentStudy';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import InputScrollView from 'react-native-input-scroll-view';
 import { ScrollView } from 'react-native';
 
 let pageTitle = '단어 학습';
@@ -180,12 +179,7 @@ export default class WordStudySubject extends React.Component {
                                  totalProblems={this.props.params.length} currentNo={this.state.cur_problem_no} 
                                  rightAnswer={this.state.correctProblems} wrongAnswer={this.state.wrongProblems}
                                  changeTime={(e) => {this.setState({timer: e})}} />
-                    <KeyboardAwareScrollView innerRef={ref => {
-                            this.scroll = ref
-                    }}>
-                        <ScrollView 
-                        ref={view => (this._scrollView = view)}
-                        style={styles.container}> 
+                    <Content style={styles.container}> 
                             <View style={[styles.problemContainer]}>
                                 <View style={{position: 'absolute', top: normalize(28)}}>
                                     <Text style={[fonts.size14, fonts.familyBold]}>
@@ -200,22 +194,23 @@ export default class WordStudySubject extends React.Component {
                                         null
                                     )
                                 }
-                                <Text style={[this.props.studyMethod=='entoko' ? fonts.size38 : fonts.size22, 
+                                <Text style={[this.props.studyMethod=='entoko' ? fonts.size30 : fonts.size18, 
                                 fonts.familyBold,
-                                {lineHeight: (this.props.studyMethod=='entoko'? 43 : 30)} ]}>
+                                {lineHeight: (this.props.studyMethod=='entoko'? 40 : 26)} ]}>
                                 { this.props.params[this.state.cur_problem_no - 1]['problem'] }
                                 </Text>
                                 {
                                     this.state.cur_problem_status == 'ready' ? null
                                     :
-                                    <View style={{position: 'absolute', bottom: normalize(40), display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+                                    <View style={{position: 'absolute', bottom: normalize(15), 
+                                        display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                                         <View style={{backgroundColor: (this.state.cur_problem_status == 'correct' ? '#92BEF8' : '#F0B5B5'), borderRadius: normalize(4), padding: normalize(4)}}>
                                             <Text style={[fonts.size14, fonts.colorWhite, fonts.familyBold]}>정답</Text>
                                         </View>
                                         <View style={{marginLeft: normalize(8), flexShrink: 1}}>
                                             <Text 
                                             numberOfLines={3} 
-                                            style={[fonts.familyBold, this.props.studyMethod=='entoko' ? fonts.size14 : fonts.size18, 
+                                            style={[fonts.familyBold, this.props.studyMethod=='entoko' ? fonts.size12 : fonts.size16, 
                                             {color: (this.state.cur_problem_status == 'correct' ? '#92BEF8' : '#F0B5B5')}]}>{ this.props.params[this.state.cur_problem_no - 1]['answer'] }</Text>
                                         </View>
                                     </View>
@@ -238,12 +233,6 @@ export default class WordStudySubject extends React.Component {
                                     selectTextOnFocus={this.state.cur_problem_status == 'ready' ? true : false}
                                     autoFocus={true}
                                     ref={ (input) => { this.answerInput = input } }
-
-                                    onFocus={(event) => {
-                                        // `bind` the function if you're using ES6 classes
-                                        this._scrollToInput(findNodeHandle(event.target))
-                                        // this.measure();
-                                    }}
                                 >
                                 </TextInput>
                             </View>
@@ -257,8 +246,7 @@ export default class WordStudySubject extends React.Component {
                                 </View>
                                 : null
                             }
-                        </ScrollView>
-                    </KeyboardAwareScrollView>
+                </Content>
             </Container>
         ); 
     }   
@@ -285,15 +273,14 @@ const styles = StyleSheet.create({
         display: 'flex', 
         alignItems: 'center', 
         justifyContent: 'center', 
-        // height: normalize(262), 
-        height: normalize(380), 
+        height: normalize(180), 
         position: 'relative',
         paddingHorizontal: normalize(8)
     },
     correctIcon: {
         opacity: 0.5, 
-        width: normalize(102), 
-        height: normalize(102),
+        width: normalize(80), 
+        height: normalize(80),
         position: 'absolute',
     },
     footerConfirm: {

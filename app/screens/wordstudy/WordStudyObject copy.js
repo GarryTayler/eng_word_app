@@ -106,13 +106,13 @@ export default class WordStudyObject extends React.Component {
                                 null
                             )
                         }
-                        <Text style={[ this.props.studyMethod=='entoko' ? fonts.size30 : fonts.size18, 
+                        <Text style={[ this.props.studyMethod=='entoko' ? fonts.size38 : fonts.size22, 
                                        fonts.familyBold, 
-                                       {lineHeight: (this.props.studyMethod=='entoko'? 40 : 26)}]}>{ this.props.params[this.state.cur_problem_no - 1]['problem'] }</Text>
+                                       {lineHeight: (this.props.studyMethod=='entoko'? 43 : 30)}]}>{ this.props.params[this.state.cur_problem_no - 1]['problem'] }</Text>
                         {
                             this.state.cur_problem_status == 'ready' ? null
                             :
-                            <View style={{position: 'absolute', bottom: normalize(15), 
+                            <View style={{position: 'absolute', bottom: normalize(30), 
                                         display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                                 <View style={{backgroundColor: (this.state.cur_problem_status == 'correct' ? '#92BEF8' : '#F0B5B5'), borderRadius: normalize(4), padding: normalize(4)}}>
                                     <Text style={[fonts.size14, fonts.colorWhite, fonts.familyBold]}>정답</Text>
@@ -120,7 +120,7 @@ export default class WordStudyObject extends React.Component {
                                 <View style={{marginLeft: normalize(8), flexShrink: 1}}>
                                     <Text 
                                     numberOfLines={3}
-                                    style={[fonts.familyBold, this.props.studyMethod=='entoko' ? fonts.size12 : fonts.size16, {color: (this.state.cur_problem_status == 'correct' ? '#92BEF8' : '#F0B5B5')}]}>{ this.props.params[this.state.cur_problem_no - 1]['correct_answer'] }</Text>
+                                    style={[fonts.familyBold, this.props.studyMethod=='entoko' ? fonts.size14 : fonts.size18, {color: (this.state.cur_problem_status == 'correct' ? '#92BEF8' : '#F0B5B5')}]}>{ this.props.params[this.state.cur_problem_no - 1]['correct_answer'] }</Text>
                                 </View>
                             </View>
                         }
@@ -171,14 +171,14 @@ const styles = StyleSheet.create({
         display: 'flex', 
         alignItems: 'center', 
         justifyContent: 'center', 
-        height: normalize(180), 
+        height: normalize(262), 
         position: 'relative',
         paddingHorizontal: normalize(20)
     },
     correctIcon: {
         opacity: 0.5, 
-        width: normalize(80), 
-        height: normalize(80),
+        width: normalize(102), 
+        height: normalize(102),
         position: 'absolute',
     },
     footerConfirm: {
