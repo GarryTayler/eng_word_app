@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from 'native-base';
+import { Button, Content } from 'native-base';
 import { StyleSheet, View, Text, TextInput, Keyboard, ScrollView, SafeAreaView } from 'react-native';
 import { fonts, normalize, getCreateWordPageHeight } from './../../assets/styles';
 import { Icon } from 'react-native-elements';
@@ -12,6 +12,7 @@ import { getWordListFromMyWord } from './../../utils/MyWord';
 import { getVocabularyData } from './../../utils/MyMakingWords';
 import { showToast, shuffleArray, generate } from './../../components/shared/global';
 import Spinner_bar from 'react-native-loading-spinner-overlay';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 let pageTitle = '단어 학습';
 
 export default class WordStudyInit extends React.Component {
@@ -170,8 +171,7 @@ export default class WordStudyInit extends React.Component {
         return (
             <SafeAreaView style={styles.safeContainer}>
                 <UserHeader title={pageTitle} />
-                <View style={styles.container}>
-                    <ScrollView style={styles.scrollView}>
+                <Content style={styles.container}>
                         <View style={{paddingHorizontal: normalize(24)}}>
                             <View style={{marginTop: normalize(25)}}>
                                 <Text style={[fonts.size16, fonts.familyRegular, {textAlign: 'center'}]}>단어 학습 모드를 설정해주세요.</Text>
@@ -309,19 +309,17 @@ export default class WordStudyInit extends React.Component {
                             </View>
                         </View>
                         <Spinner_bar color={'#68ADED'} visible={!this.state.loaded} textContent={""}  overlayColor={"rgba(0, 0, 0, 0.5)"}  />
-                    </ScrollView>
-
-                    <View style={styles.footerBar}>
-                        <View style={{ alignSelf: 'center' }}>
-                            {
-                                <Button style={styles.startButton}
-                            onPress={ () => { this.startStudy() } }>
-                                    <Text style={[fonts.size22, fonts.familyBold]}>학습 시작 </Text>
-                                </Button>   
-                            }
-                        </View>          
-                    </View>
-                </View>     
+                        <View style={styles.footerBar}>
+                            <View style={{ alignSelf: 'center' }}>
+                                {
+                                    <Button style={styles.startButton}
+                                onPress={ () => { this.startStudy() } }>
+                                        <Text style={[fonts.size22, fonts.familyBold]}>학습 시작 </Text>
+                                    </Button>   
+                                }
+                            </View>          
+                        </View>
+                </Content>     
             </SafeAreaView>           
         );
     }
@@ -334,8 +332,8 @@ const styles = StyleSheet.create({
         flexDirection: 'column'
     },
     safeContainer: {
-        height: getCreateWordPageHeight(),
-        // flex: 1,
+        //height: getCreateWordPageHeight(),
+        flex: 1,
         backgroundColor: '#FFF'
     }, 
     scrollView: {
