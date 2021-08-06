@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Content } from 'native-base';
+import { Button, Content, Footer, FooterTab, Container } from 'native-base';
 import { StyleSheet, View, Text, TextInput, Keyboard, ScrollView, SafeAreaView } from 'react-native';
 import { fonts, normalize, getCreateWordPageHeight } from './../../assets/styles';
 import { Icon } from 'react-native-elements';
@@ -169,7 +169,7 @@ export default class WordStudyInit extends React.Component {
     }
     render()     {
         return (
-            <SafeAreaView style={styles.safeContainer}>
+            <Container>
                 <UserHeader title={pageTitle} />
                 <Content style={styles.container}>
                         <View style={{paddingHorizontal: normalize(24)}}>
@@ -319,8 +319,8 @@ export default class WordStudyInit extends React.Component {
                                 }
                             </View>          
                         </View>
-                </Content>     
-            </SafeAreaView>           
+                </Content>
+            </Container>           
         );
     }
 }

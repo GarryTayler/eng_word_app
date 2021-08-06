@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet, View, Text, TextInput, Keyboard, TouchableHighlight, Alert, SafeAreaView } from 'react-native';
+import { StyleSheet, View, Text, TextInput, Keyboard, TouchableHighlight, FlatList, Alert, SafeAreaView } from 'react-native';
+import { Container, Content } from 'native-base';
 import CheckBox from 'react-native-check-box';
 import { Button } from 'native-base';
 import UserHeader from './../../components/shared/UserHeader';
@@ -168,7 +169,7 @@ export default class CreateWord extends React.Component {
                 <UserHeader title={pageTitle} remove={true} remove={() => this.removeWord()} />
                 
                 <View style={{ paddingBottom: normalize(10), borderBottomWidth: 1, borderColor: 'rgba(0,0,0,0.5)',
-                                            paddingHorizontal: normalize(16), paddingTop: normalize(16) }}>
+                                            paddingHorizontal: normalize(16), paddingTop: normalize(16), height: normalize(133) }}>
                         <View style={{ alignItems: 'center'}}>  
                             <TextInput
                                 style={[styles.textInput, fonts.weightBold, fonts.colorBlack]}
@@ -182,7 +183,7 @@ export default class CreateWord extends React.Component {
                             >
                             </TextInput>    
                         </View>
-                        <View style={{ alignItems: 'center', marginTop: normalize(12) }}>
+                        <View style={{ alignItems: 'center', marginTop: normalize(12), height: normalize(34) }}>
                             <Text style={[styles.commentText, fonts.familyRegular]}>
                                 단어장 이름을 입력해주세요.
                             </Text>
@@ -190,7 +191,7 @@ export default class CreateWord extends React.Component {
                                 미입력시 오늘 날짜로 저장됩니다.
                             </Text>
                         </View>
-                        <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center', marginTop: normalize(16)}}>
+                        <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center', marginTop: normalize(16), height: normalize(23)}}>
                             <CheckBox
                                 onClick={()=>{
                                     
@@ -210,6 +211,7 @@ export default class CreateWord extends React.Component {
                         
                     >
                     {
+                        
                         this.state.arrData.length > 0 ?
                         <OptimizedFlatList
                             style={[styles.container, {paddingHorizontal: normalize(10)}]}
@@ -227,7 +229,8 @@ export default class CreateWord extends React.Component {
                     }
                 </KeyboardAwareScrollView>
                 
-                <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly', paddingVertical: normalize(24)}}>
+                <View style={{ position: 'absolute', top: (getCreateWordPageHeight() - normalize(80)), width: '100%',
+                    display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly', paddingVertical: normalize(18)}}>
                     <Button style={styles.footerButton} onPress={() => this.saveMyWord()}>
                         <Text style={[fonts.size16, fonts.colorWhite, fonts.familyMedium]}>저장하기</Text>
                     </Button>
@@ -243,11 +246,12 @@ export default class CreateWord extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        height: getCreateWordPageHeight() - 50 - normalize(133) - normalize(80),
         backgroundColor: '#FFF'
     },
     safeContainer: {
-        height: getCreateWordPageHeight(),
+        // height: getCreateWordPageHeight(),
+        flex: 1,
         backgroundColor: '#FFF'
     }, 
     textInput: {
