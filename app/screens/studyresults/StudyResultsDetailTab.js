@@ -28,6 +28,7 @@ export default class StudyResultsDetailTab extends React.Component {
                             currentNo={ index + 1 }
                             item={ item }
                             before={this.props.before}
+                            changeFavorite={(_id, favorite) => { this.changeFavorite(_id, favorite) }}
                             />
                         )}  
                     />

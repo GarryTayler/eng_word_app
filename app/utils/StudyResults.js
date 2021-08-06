@@ -39,6 +39,7 @@ export const removeFromStudyResults = async(index) => {
         await storeData("history_data", history);
     }
     catch(e) {
+        console.log("error remove => ", e);
         return false;
     }
 }

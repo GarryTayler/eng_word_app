@@ -25,7 +25,8 @@ export default class SentenceResultsDetail extends React.Component {
         this.state = {
             loaded: true,
             studyResultTitle: '중1 비상 (홍민표) 3과',
-            page: 'SentenceResultsDetail'
+            page: 'SentenceResultsDetail',
+            problemList: this.props.params.problemList
         }
     }
     async componentDidMount() {
@@ -64,7 +65,7 @@ export default class SentenceResultsDetail extends React.Component {
             "correctProblems": this.props.params.correctProblems, //정답 
             "wrongProblems": this.props.params.wrongProblems, //오답
             "mark": this.props.params.mark,
-            "problemList": this.props.params.problemList,
+            "problemList": this.state.problemList,
             "end_time": this.props.params.end_time,
 
             "random": this.props.params.random,
@@ -94,7 +95,7 @@ export default class SentenceResultsDetail extends React.Component {
             BackHandler.removeEventListener("hardwareBackPress", this.backHardwareAction);
 
             Actions.push("sentence_study", {
-                sentenceList: shuffleArray(this.props.params.problemList),
+                sentenceList: shuffleArray(this.state.problemList),
                 category: this.props.params.category,
                 random: true,
                 fromStudyResultHome: this.props.params.fromStudyResultHome ? true : false
@@ -105,7 +106,7 @@ export default class SentenceResultsDetail extends React.Component {
             BackHandler.removeEventListener("hardwareBackPress", this.backHardwareAction);
 
             Actions.push("sentence_study", {
-                sentenceList: this.props.params.problemList,
+                sentenceList: this.state.problemList,
                 category: this.props.params.category,
                 random: false,
                 fromStudyResultHome: this.props.params.fromStudyResultHome ? true : false
@@ -113,7 +114,7 @@ export default class SentenceResultsDetail extends React.Component {
         }
     }
     resolveWrongProblems() {
-        let _problem_list = this.props.params.problemList.filter(item1 => item1.correct==false);
+        let _problem_list = this.state.problemList.filter(item1 => item1.correct==false);
         if(_problem_list.length < 1) {
             showToast("no_wrong_problems", "error");
             return;
@@ -141,6 +142,19 @@ export default class SentenceResultsDetail extends React.Component {
             })
         }
     }
+    changeFavorite(_id, favorite) {
+        let _pb_list = this.state.problemList;
+        for(let i = 0; i < _pb_list.length; i ++) {
+            if(_pb_list[i]['id'] == _id) {
+                _pb_list[i]['isFavorite'] = favorite;
+
+                console.log("changeFavorite===>", _pb_list[i]);
+
+                break;
+            }
+        }
+        this.setState({problemList: _pb_list});
+    }
     renderTabs() {
         let arrTab = arrTypes.map((item, index) => (
             <Tab key = {index}
@@ -150,9 +164,10 @@ export default class SentenceResultsDetail extends React.Component {
                 textStyle={ tabs.text }
                 activeTextStyle={ tabs.activeText } >
                 <StudyResultsDetailTab
-                    problemList={ this.props.params.problemList.filter(item1 => item1.correct==item.result || item.result === '') }
+                    problemList={ this.state.problemList.filter(item1 => item1.correct==item.result || item.result === '') }
                     before={ this.props.params.category.before }
                     isSentence
+                    changeFavorite={(_id, favorite) => { this.changeFavorite(_id, favorite) }}
                 />
             </Tab>
         ));

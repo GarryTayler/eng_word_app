@@ -14,6 +14,9 @@ export default class SentenceDetailItem extends React.Component {
             isFavorite: this.props.item.isFavorite
         };
     }
+    UNSAFE_componentWillReceiveProps(props) {
+        this.setState({isFavorite: props.item.isFavorite});
+    }
     renderCorrectAnswer() {
         if(!this.props.item.correct) {
             return (
@@ -37,10 +40,11 @@ export default class SentenceDetailItem extends React.Component {
             }
         }
         else {
-            if( await removeFromStudyResults({...this.props.item, checked: false}) ) {
+            if( await removeFromMySentence({...this.props.item, checked: false}) ) {
                 showToast("remove_from_mysentence", "success");
             }
         }
+        this.props.changeFavorite(this.props.item.id, !_isFavorite);
     }
     render() {
         return (
