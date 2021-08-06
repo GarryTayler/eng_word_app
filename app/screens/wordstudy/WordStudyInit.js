@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Content, Button } from 'native-base';
-import { StyleSheet, View, Text, TextInput, Keyboard, ScrollView } from 'react-native';
-import { fonts, normalize, getScreenHeight, getSafeAreaViewHeight } from './../../assets/styles';
+import { StyleSheet, View, Text, TextInput, Keyboard, ScrollView, SafeAreaView } from 'react-native';
+import { fonts, normalize, getCreateWordPageHeight } from './../../assets/styles';
 import { Icon } from 'react-native-elements';
 import { CheckBox } from 'react-native-elements'
 import UserHeader from './../../components/shared/UserHeader';
@@ -168,7 +168,7 @@ export default class WordStudyInit extends React.Component {
     }
     render()     {
         return (
-            <Container styl={{backgroundColor: 'red'}}>
+            <SafeAreaView style={styles.safeContainer}>
                 <UserHeader title={pageTitle} />
                 <View style={styles.container}>
                     <ScrollView style={styles.scrollView}>
@@ -322,7 +322,7 @@ export default class WordStudyInit extends React.Component {
                         </View>          
                     </View>
                 </View>     
-            </Container>           
+            </SafeAreaView>           
         );
     }
 }
@@ -333,6 +333,11 @@ const styles = StyleSheet.create({
         backgroundColor: '#F4F4F4',
         flexDirection: 'column'
     },
+    safeContainer: {
+        height: getCreateWordPageHeight(),
+        // flex: 1,
+        backgroundColor: '#FFF'
+    }, 
     scrollView: {
         // height: normalize(500)
     },
