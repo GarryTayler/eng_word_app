@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableHighlight } from 'react-native';
-import { Button, Item } from 'native-base';
+import { Button } from 'native-base';
 import { fonts, normalize } from './../../assets/styles';
 import {Actions} from 'react-native-router-flux';
 export default class StudyResultHistoryDetail extends React.Component {

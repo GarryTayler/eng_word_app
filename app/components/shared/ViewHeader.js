@@ -2,7 +2,6 @@ import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { fonts, normalize } from './../../assets/styles';
-import { showToast } from './../shared/global';
 import { addToMyWord, removeFromMyWord } from './../../utils/MyWord';
 import { _e } from '../../utils/lang';
 export default class ViewHeader extends React.Component {

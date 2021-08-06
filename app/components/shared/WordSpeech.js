@@ -2,11 +2,6 @@ import React from 'react';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { normalize } from './../../assets/styles';
 import { Icon } from 'react-native-elements';
-/* import Tts from 'react-native-tts';
-Tts.setDefaultLanguage('en-IE');
-Tts.addEventListener('tts-start', event => console.log('start', event));
-Tts.addEventListener('tts-finish', event => console.log('finish', event));
-Tts.addEventListener('tts-cancel', event => console.log('cancel', event)); */
 import { speakWord } from './../../utils/tts';
 export default class WordSpeech extends React.Component {
     constructor(props){

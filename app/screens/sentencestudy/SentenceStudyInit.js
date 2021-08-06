@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container } from 'native-base';
-import { StyleSheet, View, Text, FlatList, TextComponent, Alert } from 'react-native';
+import { StyleSheet, View, Text, FlatList } from 'react-native';
 import { fonts, normalize } from './../../assets/styles';
 import { Button } from 'native-base';
 import UserHeader from './../../components/shared/UserHeader';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, FlatList } from 'react-native';
+import { FlatList } from 'react-native';
 import ResultDetailItem from './../../components/studyresults/ResultDetailItem';
 import SentenceDetailItem from './../../components/studyresults/SentenceDetailItem';
 export default class StudyResultsDetailTab extends React.Component {

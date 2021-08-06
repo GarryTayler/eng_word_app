@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity, TouchableHighlight, ImageBackground } from 'react-native';
-import {Header , View , Text, Button} from 'native-base';
+import {Header , View , Text} from 'native-base';
 import { Icon } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
 import { normalize } from './../../assets/styles';

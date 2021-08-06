@@ -1,16 +1,13 @@
 import React from 'react';
-import { Container, Content, Button, Input } from 'native-base';
-import { StyleSheet, View, Text, TextInput, Keyboard, Image, findNodeHandle, KeyboardAvoidingView } from 'react-native';
+import { Container, Content, Button } from 'native-base';
+import { StyleSheet, View, Text, TextInput, Keyboard, Image } from 'react-native';
 import UserHeader from './../../components/shared/UserHeader';
 import WordStudyHeader from './../../components/wordstudy/WordStudyHeader';
 import { fonts, normalize } from './../../assets/styles';
 import Images from './../../assets/Images';
-import TextTicker from 'react-native-text-ticker'
 import {Actions} from 'react-native-router-flux';
 import { getCurrentDate } from './../../components/shared/global';
 import { getRecentStudy } from './../../utils/RecentStudy';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { ScrollView } from 'react-native';
 
 let pageTitle = '단어 학습';
 let problemList = [];
@@ -139,37 +136,6 @@ export default class WordStudySubject extends React.Component {
         if(selectedStudy) {
             this.setState({selectedSubject: selectedStudy})
         }
-    }
-    _scrollToInput (reactNode) {
-        // Add a 'scroll' ref to your ScrollView
-
-        // console.log("this.scroll====>", this.scroll['_internalFiberInstanceHandleDEV']['memoizedProps']['scrollToFocusedInput']);
-
-        // this.scroll['_internalFiberInstanceHandleDEV']['memoizedProps'].scrollToFocusedInput(reactNode)
-/*
-        this.scroll
-        .getScrollResponder()
-        .scrollTo({ x: 0, y: 120, animated: true }); */
-        
-        // this.scroll.props.scrollToFocusedInput(reactNode)
-        this.scroll['_internalFiberInstanceHandleDEV']['memoizedProps'].scrollToFocusedInput(reactNode)
-    }  
-    measure() {
-        this.answerInput.measure((width, height, px, py, fx, fy) => {
-            console.log("++++++ fy "+fy+" "+height);
-            
-            this.setState({ scrollToHeight: fy });
-            this.scrollToView(fy);
-        });
-    } 
-    scrollToView(fy) {
-        this.setState({ scrollToHeight: fy });
-        var scrollSize = parseInt(this.state.scrollToHeight);
-        console.log("+++++ scrollSize "+scrollSize);
-
-        this._scrollView
-        .getScrollResponder()
-        .scrollTo({ x: 0, y: scrollSize, animated: true });
     }
     render() {
         return (

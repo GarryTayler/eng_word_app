@@ -1,6 +1,6 @@
 import React from 'react';
-import { FlatList, StyleSheet, View, Text } from 'react-native';
-import { Container, Content } from 'native-base';
+import { FlatList, StyleSheet, View } from 'react-native';
+import { Container } from 'native-base';
 import UserHeader from './../components/shared/UserHeader';
 import SubHeader from './../components/shared/SubHeader';
 import WordListItem from './../components/shared/WordListItem';

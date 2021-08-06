@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Content, Button } from 'native-base';
+import { Button } from 'native-base';
 import { StyleSheet, View, Text, TextInput, Keyboard, ScrollView, SafeAreaView } from 'react-native';
 import { fonts, normalize, getCreateWordPageHeight } from './../../assets/styles';
 import { Icon } from 'react-native-elements';

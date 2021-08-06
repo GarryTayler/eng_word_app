@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, ScrollView, ImageBackground, TouchableHighlight, PixelRatio, Platform} from 'react-native';
+import { StyleSheet, View, Text, ScrollView, ImageBackground, TouchableHighlight } from 'react-native';
 import { Container, Content } from 'native-base';
 import Images from './../../assets/Images';
 import { BUTTON_UNDERLAY_COLOR } from './../../utils/constants';

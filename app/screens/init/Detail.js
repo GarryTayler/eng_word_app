@@ -25,7 +25,6 @@ export default class Detail extends React.Component {
     buttonClick() {
     }
     videoPlay(video_id) {
-        // alert(video_link);
         YouTubeStandaloneAndroid.playVideo({
             apiKey: 'AIzaSyDkhRxknAjR8E5Z6ap8meduQCj1Tgzcgus', // Your YouTube Developer API Key
             videoId: video_id, // YouTube video ID

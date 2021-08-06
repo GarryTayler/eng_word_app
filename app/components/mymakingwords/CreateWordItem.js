@@ -2,7 +2,6 @@ import React from 'react';
 import { StyleSheet, View, Text, TextInput, Keyboard, TouchableHighlight } from 'react-native';
 import { fonts, normalize } from './../../assets/styles';
 import CheckBox from 'react-native-check-box';
-import { Icon } from 'react-native-elements';
 export default class CreateWordItem extends React.Component {
     constructor(props){
         super(props);
@@ -57,15 +56,7 @@ export default class CreateWordItem extends React.Component {
                                     </TextInput>
                                 </View>
                             </View>        
-
                             <View style={{width: normalize(20), alignItems: 'flex-end'}}>
-                            {
-                                /*
-                                <TouchableHighlight style={[styles.swapIconContainer]}
-                            onPress={ () => {this.props.doSwap()} } underlayColor="white" activeOpacity={0.8}>
-                                    <Icon name='arrow-swap' type='fontisto' color='rgba(0,0,0,0.5)' size={14} />
-                                </TouchableHighlight> */
-                            }
                             </View>
                         </View>
                         <View style={{flex: 6, flexDirection: 'row', alignItems: 'center',

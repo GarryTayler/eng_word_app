@@ -2,7 +2,6 @@ import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { fonts, normalize } from './../../assets/styles';
 import CheckBox from 'react-native-check-box';
-import { Icon } from 'react-native-elements';
 export default class SentenceStudyItem extends React.Component {
     constructor(props) {
         super(props);
@@ -23,7 +22,6 @@ export default class SentenceStudyItem extends React.Component {
                     <View style={{width: normalize(32)}}>
                     </View>
                     <View style={{flex: 11, display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                       {/* <Icon name='star' type='antdesign' size={18} color={this.state.favorite ? '#F2C94C' : 'rgba(0,0,0,0.2)'} /> */} 
                         <Text style={[fonts.size11, fonts.familyRegular, {marginLeft: normalize(4)}]}>{this.props.currentNo} / {this.props.totalProblems}</Text>
                     </View>
                 </View>

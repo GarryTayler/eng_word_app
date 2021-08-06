@@ -1,6 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, TextInput, Keyboard, TouchableHighlight, FlatList, Alert, SafeAreaView } from 'react-native';
-import { Container, Content } from 'native-base';
+import { StyleSheet, View, Text, TextInput, Keyboard, TouchableHighlight, Alert, SafeAreaView } from 'react-native';
 import CheckBox from 'react-native-check-box';
 import { Button } from 'native-base';
 import UserHeader from './../../components/shared/UserHeader';
@@ -249,7 +248,6 @@ const styles = StyleSheet.create({
     },
     safeContainer: {
         height: getCreateWordPageHeight(),
-        // flex: 1,
         backgroundColor: '#FFF'
     }, 
     textInput: {

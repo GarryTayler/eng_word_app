@@ -4,7 +4,6 @@ import { fonts, normalize } from './../../assets/styles';
 import { Icon } from 'react-native-elements';
 import Images from './../../assets/Images';
 import { showToast } from './../shared/global';
-import { removeFromStudyResults } from '../../utils/StudyResults';
 import { addToMySentence, removeFromMySentence } from './../../utils/MySentence';
 
 export default class SentenceDetailItem extends React.Component {

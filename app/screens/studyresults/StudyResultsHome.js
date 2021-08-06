@@ -1,7 +1,7 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image, FlatList} from 'react-native';
-import { Container, Content } from 'native-base';
-import { fonts, normalize } from './../../assets/styles';
+import { StyleSheet, View, FlatList} from 'react-native';
+import { Container } from 'native-base';
+import { normalize } from './../../assets/styles';
 import StudyResultHistoryDetail from './../../components/studyresults/StudyResultHistoryDetail';
 import StudyHeader from './../../components/studyresults/StudyHeader';
 import {getStudyResults, removeFromStudyResults} from './../../utils/StudyResults';

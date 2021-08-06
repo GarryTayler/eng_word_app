@@ -4,7 +4,6 @@ import { fonts, normalize } from './../../assets/styles';
 import { Icon } from 'react-native-elements';
 import { addToMyWord, removeFromMyWord } from './../../utils/MyWord';
 import WordSpeech from './../../components/shared/WordSpeech';
-import TextTicker from 'react-native-text-ticker'
 import { showToast } from './../shared/global';
 
 export default class WordListItem extends React.Component {
@@ -20,7 +19,6 @@ export default class WordListItem extends React.Component {
         let _isFavorite = this.state.isFavorite;
         this.setState({isFavorite: !this.state.isFavorite});
         if(!_isFavorite) {
-            
             if( await addToMyWord(this.props.param) ) {
                 showToast("add_to_myword", "success");
             }
@@ -48,9 +46,6 @@ export default class WordListItem extends React.Component {
                         this.props.wordShow ? 
                             <TouchableOpacity activeOpacity={0.6} style={{flex: 4, paddingLeft: normalize(8), paddingRight: normalize(4) }}
                         onPress={ () => { this.setState({marqueeWordDisable: !this.state.marqueeWordDisable}) }}>
-                                {/*<TextTicker disabled={this.state.marqueeWordDisable}
-                                isInteraction={false} duration={3000} loop
-                                repeatSpacer={50} marqueeDelay={1000} style={[fonts.size16, fonts.familyBold]}>{this.props.word}</TextTicker>*/}
                                 <Text style={[fonts.size16, fonts.familyBold]}>{this.props.word}</Text>
                             </TouchableOpacity>
                         :
@@ -61,9 +56,6 @@ export default class WordListItem extends React.Component {
                         this.props.meaningShow ? 
                         <TouchableOpacity activeOpacity={0.6} style={{flex: 6, paddingRight: normalize(8), paddingLeft: normalize(4)}}
                     onPress={ () => { this.setState({marqueeMeaningDisable: !this.state.marqueeMeaningDisable}) }}>
-                            {/*<TextTicker disabled={this.state.marqueeMeaningDisable}
-                            isInteraction={false} duration={3000} loop
-                            repeatSpacer={50} marqueeDelay={1000} style={[fonts.size16, fonts.familyBold]}>{this.props.meaning}</TextTicker>*/}
                             <Text style={[fonts.size12, fonts.familyBold, {lineHeight: 15}]}>{this.props.meaning}</Text>
                         </TouchableOpacity>
                         :

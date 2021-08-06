@@ -7,13 +7,8 @@ import WordSpeech from './../shared/WordSpeech';
 export default class WordPanel extends PureComponent {
     constructor(props){
         super(props);
-        /*
-        this.state = {
-            hideExample: this.props.hideExample
-        } */
     }   
     componentDidMount() {
-        // this.setState({hideExample: this.props.hideExample})
     }
     renderText(type) {
         if(this.props.params && this.props.params.ex && Array.isArray(this.props.params.ex) && this.props.params.ex.length > 0) {
